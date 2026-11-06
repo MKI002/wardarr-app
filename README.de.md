@@ -12,11 +12,12 @@ Wardarr fasst Probleme nach ihrer Ursache zusammen, räumt die Download-Wartesch
 auf, sucht fehlende Titel in ruhigem Tempo und lässt alle im Haushalt etwas zum Anschauen
 anfragen.
 
-[Installation](#installation) · [Funktionen](#funktionen) · [Einstellungen](#einstellungen) · [Anleitungen](#anleitungen) · [English](README.md)
+[**Live-Demo**](https://mki002.github.io/wardarr-app/) · [Installation](#installation) · [Funktionen](#funktionen) · [Einstellungen](#einstellungen) · [Anleitungen](#anleitungen) · [English](README.md)
 
 [![CI](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml/badge.svg)](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MKI002/wardarr-app?color=5b45e0&label=release)](https://github.com/MKI002/wardarr-app/releases)
 [![Container-Image](https://img.shields.io/badge/image-ghcr.io-5b45e0)](https://github.com/MKI002/wardarr-app/pkgs/container/wardarr-app)
+[![Live-Demo](https://img.shields.io/badge/demo-live-5b45e0)](https://mki002.github.io/wardarr-app/)
 [![Lizenz: MIT](https://img.shields.io/badge/license-MIT-5b45e0.svg)](LICENSE)
 
 <img src="docs/screenshots/overview.png" alt="Wardarr-Übersicht: Dienste nach Art gruppiert, offene Probleme, was gerade läuft und lädt" />
@@ -180,6 +181,7 @@ Die Anleitungen sind auf Englisch:
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
+- [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind
 - [Entscheidungen](docs/decisions/)
 
 ## Entwicklung

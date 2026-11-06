@@ -72,9 +72,17 @@ export interface MediaRequest {
   mediaStatus: Availability;
 }
 
+let demoPosters: Record<string, string> | null = null;
+
+/** The public demo serves its own posters instead of the image proxy (see src/demo). */
+export function setDemoPosters(posters: Record<string, string>): void {
+  demoPosters = posters;
+}
+
 /** Poster URL through Wardarr's own proxy, so TMDB never sees the viewer. */
 export function posterUrl(path: string | null, size: 'w185' | 'w342' | 'w500' = 'w342'): string | null {
   const file = path?.replace(/^\//, '');
+  if (demoPosters) return (file && demoPosters[file.replace(/\.\w+$/, '')]) || null;
   return file && /^[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$/.test(file)
     ? `/api/images/tmdb/${size}/${file}`
     : null;

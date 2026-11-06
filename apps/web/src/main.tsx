@@ -18,12 +18,18 @@ const queryClient = new QueryClient({
   },
 });
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <MotionConfig reducedMotion="user">
-        <RouterProvider router={router} context={{ queryClient }} />
-      </MotionConfig>
-    </QueryClientProvider>
-  </StrictMode>,
-);
+async function start() {
+  // The public demo answers API calls itself. Only `vite build --mode demo` keeps this branch.
+  if (import.meta.env.MODE === 'demo') (await import('./demo/install')).installDemo();
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <MotionConfig reducedMotion="user">
+          <RouterProvider router={router} context={{ queryClient }} />
+        </MotionConfig>
+      </QueryClientProvider>
+    </StrictMode>,
+  );
+}
+
+void start();

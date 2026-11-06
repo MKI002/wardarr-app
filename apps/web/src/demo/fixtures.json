@@ -1,0 +1,8370 @@
+{
+ "capturedAt": "2026-11-06T21:55:02.372Z",
+ "fixtures": {
+  "/api/setup/status": {
+   "status": 200,
+   "body": {
+    "needsSetup": false
+   }
+  },
+  "/api/auth/me": {
+   "status": 200,
+   "body": {
+    "user": {
+     "id": "00000000-0000-4000-8000-000000000001",
+     "username": "demo",
+     "displayName": "Demo Admin",
+     "role": "admin",
+     "preferences": {}
+    },
+    "csrfToken": "demo"
+   }
+  },
+  "/api/capabilities": {
+   "status": 200,
+   "body": {
+    "tabs": [
+     "overview",
+     "issues",
+     "discover",
+     "requests",
+     "cleaner",
+     "hunting",
+     "library",
+     "indexers",
+     "settings"
+    ],
+    "capabilities": [
+     "health",
+     "queue",
+     "queueActions",
+     "manualImport",
+     "wanted",
+     "search",
+     "history",
+     "settings",
+     "indexers",
+     "downloads",
+     "sessions",
+     "library",
+     "discover",
+     "requests"
+    ],
+    "categories": [
+     "arr",
+     "indexer",
+     "downloader",
+     "mediaServer",
+     "requests"
+    ]
+   }
+  },
+  "/api/overview": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "name": "Sonarr",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "category": "arr",
+      "lifecycle": "active",
+      "status": "degraded",
+      "version": "4.0.15.2941",
+      "checkedAt": "2026-11-06T21:55:00.914Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "name": "Sonarr 4K",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "category": "arr",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "4.0.15.2941",
+      "checkedAt": "2026-11-06T21:54:58.939Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "name": "Radarr",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "category": "arr",
+      "lifecycle": "active",
+      "status": "degraded",
+      "version": "5.26.2.10099",
+      "checkedAt": "2026-11-06T21:55:01.111Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "name": "Radarr 4K",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "category": "arr",
+      "lifecycle": "active",
+      "status": "degraded",
+      "version": "5.26.2.10099",
+      "checkedAt": "2026-11-06T21:54:58.948Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000006",
+      "name": "Lidarr",
+      "adapter": "lidarr",
+      "adapterName": "Lidarr",
+      "category": "arr",
+      "lifecycle": "active",
+      "status": "degraded",
+      "version": "2.13.3.4711",
+      "checkedAt": "2026-11-06T21:55:00.159Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000007",
+      "name": "Prowlarr",
+      "adapter": "prowlarr",
+      "adapterName": "Prowlarr",
+      "category": "indexer",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "2.0.5.5160",
+      "checkedAt": "2026-11-06T21:54:58.961Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000008",
+      "name": "qBittorrent",
+      "adapter": "qbittorrent",
+      "adapterName": "qBittorrent",
+      "category": "downloader",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "v5.1.2",
+      "checkedAt": "2026-11-06T21:55:00.623Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000009",
+      "name": "SABnzbd",
+      "adapter": "sabnzbd",
+      "adapterName": "SABnzbd",
+      "category": "downloader",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "4.5.3",
+      "checkedAt": "2026-11-06T21:54:59.612Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000010",
+      "name": "Jellyfin",
+      "adapter": "jellyfin",
+      "adapterName": "Jellyfin",
+      "category": "mediaServer",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "10.10.7",
+      "checkedAt": "2026-11-06T21:54:59.357Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000011",
+      "name": "Seerr",
+      "adapter": "seerr",
+      "adapterName": "Seerr",
+      "category": "requests",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "2.7.3",
+      "checkedAt": "2026-11-06T21:54:58.985Z",
+      "errorKind": null
+     }
+    ],
+    "streams": [
+     {
+      "id": "session-1",
+      "user": "Mira",
+      "title": "Nosferatu",
+      "mediaType": "movie",
+      "state": "playing",
+      "progress": 0.43617021276595747,
+      "durationMs": 5640000,
+      "positionMs": 2460000,
+      "transcoding": false,
+      "device": "Living room TV",
+      "client": "Jellyfin Web",
+      "resolution": "1080p",
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin"
+     },
+     {
+      "id": "session-2",
+      "user": "Jonas",
+      "title": "Lanternfall",
+      "subtitle": "S01E03 · The Long Watch",
+      "mediaType": "episode",
+      "state": "paused",
+      "progress": 0.23076923076923078,
+      "durationMs": 3120000,
+      "positionMs": 720000,
+      "transcoding": true,
+      "device": "Phone",
+      "client": "Jellyfin Android",
+      "resolution": "720p",
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin"
+     },
+     {
+      "id": "session-3",
+      "user": "Demo",
+      "title": "A Trip to the Moon",
+      "mediaType": "movie",
+      "state": "playing",
+      "progress": 0.46153846153846156,
+      "durationMs": 780000,
+      "positionMs": 360000,
+      "transcoding": false,
+      "device": "Desk",
+      "client": "Jellyfin Media Player",
+      "resolution": "4K",
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin"
+     }
+    ],
+    "downloads": [
+     {
+      "id": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
+      "name": "Lanternfall.S02E01.1080p.WEB.H264",
+      "state": "downloading",
+      "progress": 0.63,
+      "sizeBytes": 2300000000,
+      "downloadedBytes": 1449000000,
+      "speedBytesPerSecond": 12400000,
+      "etaSeconds": 74,
+      "category": "tv-sonarr",
+      "addedAt": "2026-11-06T21:29:55.000Z",
+      "tags": [],
+      "instanceId": "00000000-0000-4000-8000-000000000008",
+      "instanceName": "qBittorrent"
+     },
+     {
+      "id": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00001",
+      "name": "The.Great.Train.Robbery.1903.Restored.1080p.BluRay",
+      "state": "downloading",
+      "progress": 0.18,
+      "sizeBytes": 1400000000,
+      "downloadedBytes": 252000000,
+      "speedBytesPerSecond": 6100000,
+      "etaSeconds": 190,
+      "category": "radarr",
+      "addedAt": "2026-11-06T21:46:55.000Z",
+      "tags": [],
+      "instanceId": "00000000-0000-4000-8000-000000000008",
+      "instanceName": "qBittorrent"
+     },
+     {
+      "id": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00002",
+      "name": "Lanternfall.S02E03.1080p.WEB.H264",
+      "state": "queued",
+      "progress": 0,
+      "sizeBytes": 2200000000,
+      "downloadedBytes": 0,
+      "speedBytesPerSecond": 0,
+      "etaSeconds": null,
+      "category": "tv-sonarr",
+      "addedAt": "2026-11-06T21:51:55.000Z",
+      "tags": [],
+      "instanceId": "00000000-0000-4000-8000-000000000008",
+      "instanceName": "qBittorrent"
+     },
+     {
+      "id": "SABnzbd_nzo_demo0001",
+      "name": "Lanternfall.S02E02.1080p.WEB.H264",
+      "state": "downloading",
+      "progress": 0.16,
+      "sizeBytes": 2250034380.8,
+      "downloadedBytes": 359976140.8000002,
+      "speedBytesPerSecond": 42240000,
+      "etaSeconds": 44,
+      "category": "tv",
+      "addedAt": null,
+      "instanceId": "00000000-0000-4000-8000-000000000009",
+      "instanceName": "SABnzbd"
+     },
+     {
+      "id": "SABnzbd_nzo_demo0002",
+      "name": "Kestrel.Station.S01E04.1080p.WEB.H264",
+      "state": "queued",
+      "progress": 0,
+      "sizeBytes": 2076390195.2,
+      "downloadedBytes": 0,
+      "speedBytesPerSecond": 0,
+      "etaSeconds": 0,
+      "category": "tv",
+      "addedAt": null,
+      "instanceId": "00000000-0000-4000-8000-000000000009",
+      "instanceName": "SABnzbd"
+     }
+    ],
+    "issues": {
+     "counts": {
+      "critical": 0,
+      "warning": 4,
+      "info": 2
+     },
+     "needsAttention": [
+      {
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.downloadsFailed.title",
+        "params": {
+         "count": 3,
+         "instance": "Lidarr"
+        }
+       },
+       "affected": {
+        "key": "issues.mediaKind.album",
+        "params": {
+         "count": 3
+        }
+       }
+      },
+      {
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.downloadsFailed.title",
+        "params": {
+         "count": 1,
+         "instance": "Radarr 4K"
+        }
+       },
+       "affected": {
+        "key": "issues.mediaKind.movie",
+        "params": {
+         "count": 1
+        }
+       }
+      },
+      {
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.downloadsFailed.title",
+        "params": {
+         "count": 1,
+         "instance": "Sonarr"
+        }
+       },
+       "affected": {
+        "key": "issues.mediaKind.episode",
+        "params": {
+         "count": 1
+        }
+       }
+      },
+      {
+       "fingerprint": "indexer-unavailable:nightjar",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.indexerUnavailable.titleLongTerm",
+        "params": {
+         "indexer": "Nightjar"
+        }
+       },
+       "affected": {
+        "key": "issues.common.instances",
+        "params": {
+         "instances": "Radarr"
+        }
+       }
+      }
+     ],
+     "wardarr": 0
+    },
+    "stats": {
+     "instancesOnline": 10,
+     "instancesTotal": 10,
+     "activeStreams": 3,
+     "transcodes": 1,
+     "activeDownloads": 3,
+     "downloadSpeed": 60740000
+    }
+   }
+  },
+  "/api/adapters": {
+   "status": 200,
+   "body": [
+    {
+     "id": "sonarr",
+     "name": "Sonarr",
+     "category": "arr",
+     "lifecycle": "active",
+     "homepage": "https://sonarr.tv",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "queue",
+      "queueActions",
+      "manualImport",
+      "wanted",
+      "search",
+      "history",
+      "settings"
+     ]
+    },
+    {
+     "id": "radarr",
+     "name": "Radarr",
+     "category": "arr",
+     "lifecycle": "active",
+     "homepage": "https://radarr.video",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "queue",
+      "queueActions",
+      "manualImport",
+      "wanted",
+      "search",
+      "history",
+      "settings"
+     ]
+    },
+    {
+     "id": "lidarr",
+     "name": "Lidarr",
+     "category": "arr",
+     "lifecycle": "active",
+     "homepage": "https://lidarr.audio",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "queue",
+      "queueActions",
+      "manualImport",
+      "wanted",
+      "search",
+      "history",
+      "settings"
+     ]
+    },
+    {
+     "id": "whisparr",
+     "name": "Whisparr",
+     "category": "arr",
+     "lifecycle": "active",
+     "homepage": "https://github.com/Whisparr/Whisparr",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "queue",
+      "queueActions",
+      "manualImport",
+      "wanted",
+      "search",
+      "history",
+      "settings"
+     ]
+    },
+    {
+     "id": "bazarr",
+     "name": "Bazarr",
+     "category": "arr",
+     "lifecycle": "active",
+     "homepage": "https://www.bazarr.media",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health"
+     ]
+    },
+    {
+     "id": "readarr",
+     "name": "Readarr",
+     "category": "arr",
+     "lifecycle": "upstreamDiscontinued",
+     "homepage": "https://github.com/Readarr/Readarr",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "queue",
+      "queueActions",
+      "manualImport",
+      "wanted",
+      "search",
+      "history",
+      "settings"
+     ]
+    },
+    {
+     "id": "prowlarr",
+     "name": "Prowlarr",
+     "category": "indexer",
+     "lifecycle": "active",
+     "homepage": "https://prowlarr.com",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyArr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "indexers",
+      "settings"
+     ]
+    },
+    {
+     "id": "sabnzbd",
+     "name": "SABnzbd",
+     "category": "downloader",
+     "lifecycle": "active",
+     "homepage": "https://sabnzbd.org",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeySabnzbd",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "downloads"
+     ]
+    },
+    {
+     "id": "nzbget",
+     "name": "NZBGet",
+     "category": "downloader",
+     "lifecycle": "active",
+     "homepage": "https://nzbget.com",
+     "fields": [
+      {
+       "key": "username",
+       "kind": "text",
+       "label": "adapters.fields.username",
+       "required": true
+      },
+      {
+       "key": "password",
+       "kind": "secret",
+       "label": "adapters.fields.password",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "downloads"
+     ]
+    },
+    {
+     "id": "qbittorrent",
+     "name": "qBittorrent",
+     "category": "downloader",
+     "lifecycle": "active",
+     "homepage": "https://www.qbittorrent.org",
+     "fields": [
+      {
+       "key": "username",
+       "kind": "text",
+       "label": "adapters.fields.username",
+       "required": false
+      },
+      {
+       "key": "password",
+       "kind": "secret",
+       "label": "adapters.fields.password",
+       "required": false
+      }
+     ],
+     "capabilities": [
+      "downloads"
+     ]
+    },
+    {
+     "id": "transmission",
+     "name": "Transmission",
+     "category": "downloader",
+     "lifecycle": "active",
+     "homepage": "https://transmissionbt.com",
+     "fields": [
+      {
+       "key": "rpcPath",
+       "kind": "text",
+       "label": "adapters.fields.rpcPath",
+       "required": false,
+       "placeholder": "/transmission/rpc"
+      },
+      {
+       "key": "username",
+       "kind": "text",
+       "label": "adapters.fields.username",
+       "required": false
+      },
+      {
+       "key": "password",
+       "kind": "secret",
+       "label": "adapters.fields.password",
+       "required": false
+      }
+     ],
+     "capabilities": [
+      "downloads"
+     ]
+    },
+    {
+     "id": "deluge",
+     "name": "Deluge",
+     "category": "downloader",
+     "lifecycle": "active",
+     "homepage": "https://deluge-torrent.org",
+     "fields": [
+      {
+       "key": "password",
+       "kind": "secret",
+       "label": "adapters.fields.password",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "downloads"
+     ]
+    },
+    {
+     "id": "jellyfin",
+     "name": "Jellyfin",
+     "category": "mediaServer",
+     "lifecycle": "active",
+     "homepage": "https://jellyfin.org",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyJellyfin",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "sessions",
+      "library"
+     ]
+    },
+    {
+     "id": "plex",
+     "name": "Plex",
+     "category": "mediaServer",
+     "lifecycle": "active",
+     "homepage": "https://www.plex.tv",
+     "fields": [
+      {
+       "key": "token",
+       "kind": "secret",
+       "label": "adapters.fields.plexToken",
+       "help": "adapters.help.plexToken",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "sessions",
+      "library"
+     ]
+    },
+    {
+     "id": "emby",
+     "name": "Emby",
+     "category": "mediaServer",
+     "lifecycle": "active",
+     "homepage": "https://emby.media",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyEmby",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "sessions",
+      "library"
+     ]
+    },
+    {
+     "id": "seerr",
+     "name": "Seerr",
+     "category": "requests",
+     "lifecycle": "active",
+     "homepage": "https://seerr.dev",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeySeerr",
+       "required": true
+      }
+     ],
+     "capabilities": [
+      "health",
+      "discover",
+      "requests"
+     ]
+    }
+   ]
+  },
+  "/api/instances": {
+   "status": 200,
+   "body": [
+    {
+     "id": "00000000-0000-4000-8000-000000000002",
+     "adapter": "sonarr",
+     "name": "Sonarr",
+     "baseUrl": "http://sonarr:8989",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000003",
+     "adapter": "sonarr",
+     "name": "Sonarr 4K",
+     "baseUrl": "http://sonarr-4k:8989",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000004",
+     "adapter": "radarr",
+     "name": "Radarr",
+     "baseUrl": "http://radarr:7878",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000005",
+     "adapter": "radarr",
+     "name": "Radarr 4K",
+     "baseUrl": "http://radarr-4k:7878",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000006",
+     "adapter": "lidarr",
+     "name": "Lidarr",
+     "baseUrl": "http://lidarr:8686",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000007",
+     "adapter": "prowlarr",
+     "name": "Prowlarr",
+     "baseUrl": "http://prowlarr:9696",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000008",
+     "adapter": "qbittorrent",
+     "name": "qBittorrent",
+     "baseUrl": "http://qbittorrent:8080",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "username": "demo",
+      "password": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000009",
+     "adapter": "sabnzbd",
+     "name": "SABnzbd",
+     "baseUrl": "http://sabnzbd:8080",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000010",
+     "adapter": "jellyfin",
+     "name": "Jellyfin",
+     "baseUrl": "http://jellyfin:8096",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000011",
+     "adapter": "seerr",
+     "name": "Seerr",
+     "baseUrl": "http://seerr:5055",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": true
+      }
+     },
+     "options": {}
+    }
+   ]
+  },
+  "/api/queue": {
+   "status": 200,
+   "body": [
+    {
+     "instanceId": "00000000-0000-4000-8000-000000000002",
+     "instanceName": "Sonarr",
+     "adapter": "sonarr",
+     "adapterName": "Sonarr",
+     "checkedAt": "2026-11-06T21:55:00.914Z",
+     "items": [
+      {
+       "id": 51,
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00000",
+       "title": "Lanternfall.S02E01.1080p.WEB.H264",
+       "mediaKind": "episode",
+       "matched": true,
+       "mediaId": 11,
+       "state": "downloading",
+       "trackedState": "downloading",
+       "trackedStatus": "ok",
+       "statusMessages": [],
+       "sizeBytes": 2300000000,
+       "sizeLeftBytes": 850000000,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T21:29:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "episode:1102",
+       "searchTarget": {
+        "kind": "episodes",
+        "ids": [
+         1102
+        ]
+       },
+       "parentId": 11,
+       "seasonNumber": 2
+      },
+      {
+       "id": 52,
+       "downloadId": "SABnzbd_nzo_demo0001",
+       "title": "Lanternfall.S02E02.1080p.WEB.H264",
+       "mediaKind": "episode",
+       "matched": true,
+       "mediaId": 11,
+       "state": "downloading",
+       "trackedState": "downloading",
+       "trackedStatus": "ok",
+       "statusMessages": [],
+       "sizeBytes": 2250000000,
+       "sizeLeftBytes": 1900000000,
+       "downloadClient": "SABnzbd",
+       "protocol": "usenet",
+       "added": "2026-11-06T21:42:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "episode:1103",
+       "searchTarget": {
+        "kind": "episodes",
+        "ids": [
+         1103
+        ]
+       },
+       "parentId": 11,
+       "seasonNumber": 2
+      },
+      {
+       "id": 53,
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00053",
+       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
+       "mediaKind": "episode",
+       "matched": true,
+       "mediaId": 12,
+       "state": "failed",
+       "trackedState": "failed",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "Kestrel.Station.S01E03.1080p.WEB.H264",
+        "Download failed: the torrent has no seeders"
+       ],
+       "sizeBytes": 1900000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T20:19:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "episode:1200",
+       "searchTarget": {
+        "kind": "episodes",
+        "ids": [
+         1200
+        ]
+       },
+       "parentId": 12,
+       "seasonNumber": 1
+      },
+      {
+       "id": 54,
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00054",
+       "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
+       "mediaKind": "episode",
+       "matched": true,
+       "mediaId": 13,
+       "state": "warning",
+       "trackedState": "downloading",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "The.Salt.Archive.S02E06.1080p.WEB.H264",
+        "The download is stalled with no connections"
+       ],
+       "sizeBytes": 1700000000,
+       "sizeLeftBytes": 1450000000,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T12:54:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "episode:1306",
+       "searchTarget": {
+        "kind": "episodes",
+        "ids": [
+         1306
+        ]
+       },
+       "parentId": 13,
+       "seasonNumber": 2
+      }
+     ]
+    },
+    {
+     "instanceId": "00000000-0000-4000-8000-000000000003",
+     "instanceName": "Sonarr 4K",
+     "adapter": "sonarr",
+     "adapterName": "Sonarr",
+     "checkedAt": "2026-11-06T21:54:58.939Z",
+     "items": []
+    },
+    {
+     "instanceId": "00000000-0000-4000-8000-000000000004",
+     "instanceName": "Radarr",
+     "adapter": "radarr",
+     "adapterName": "Radarr",
+     "checkedAt": "2026-11-06T21:55:01.111Z",
+     "items": []
+    },
+    {
+     "instanceId": "00000000-0000-4000-8000-000000000005",
+     "instanceName": "Radarr 4K",
+     "adapter": "radarr",
+     "adapterName": "Radarr",
+     "checkedAt": "2026-11-06T21:54:58.948Z",
+     "items": [
+      {
+       "id": 41,
+       "downloadId": "DEMOFAIL0001",
+       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
+       "mediaKind": "movie",
+       "matched": true,
+       "mediaId": 204,
+       "state": "failed",
+       "trackedState": "failed",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "Intolerance.1916.Restored.2160p.WEB.H265",
+        "Download failed"
+       ],
+       "sizeBytes": 31400000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T16:54:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "movie:204",
+       "searchTarget": {
+        "kind": "movies",
+        "ids": [
+         204
+        ]
+       }
+      },
+      {
+       "id": 42,
+       "downloadId": "DEMOIMPORT01",
+       "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+       "mediaKind": "movie",
+       "matched": true,
+       "mediaId": 202,
+       "state": "importBlocked",
+       "trackedState": "importBlocked",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+        "Found matching movie via grab history, but release was matched to movie by ID"
+       ],
+       "sizeBytes": 2100000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T18:54:55.109Z",
+       "inLibrary": false,
+       "tags": [],
+       "titleKey": "movie:202",
+       "searchTarget": {
+        "kind": "movies",
+        "ids": [
+         202
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "instanceId": "00000000-0000-4000-8000-000000000006",
+     "instanceName": "Lidarr",
+     "adapter": "lidarr",
+     "adapterName": "Lidarr",
+     "checkedAt": "2026-11-06T21:55:00.159Z",
+     "items": [
+      {
+       "id": 61,
+       "downloadId": "DEMOALBUM001",
+       "title": "The Lamplighters-Night Shift",
+       "mediaKind": "album",
+       "matched": true,
+       "mediaId": 301,
+       "state": "failed",
+       "trackedState": "failed",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "The Lamplighters-Night Shift",
+        "Download failed"
+       ],
+       "sizeBytes": 420000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "SABnzbd",
+       "protocol": "usenet",
+       "added": "2026-11-06T11:54:55.109Z",
+       "tags": [],
+       "titleKey": "album:301",
+       "searchTarget": {
+        "kind": "albums",
+        "ids": [
+         301
+        ]
+       },
+       "parentId": 31
+      },
+      {
+       "id": 62,
+       "downloadId": "DEMOALBUM002",
+       "title": "The Lamplighters-Harbour Songs",
+       "mediaKind": "album",
+       "matched": true,
+       "mediaId": 302,
+       "state": "failed",
+       "trackedState": "failed",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "The Lamplighters-Harbour Songs",
+        "Download failed"
+       ],
+       "sizeBytes": 420000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T11:24:55.109Z",
+       "tags": [],
+       "titleKey": "album:302",
+       "searchTarget": {
+        "kind": "albums",
+        "ids": [
+         302
+        ]
+       },
+       "parentId": 31
+      },
+      {
+       "id": 63,
+       "downloadId": "DEMOALBUM003",
+       "title": "Marrow & Pine-Low Tide",
+       "mediaKind": "album",
+       "matched": true,
+       "mediaId": 303,
+       "state": "failed",
+       "trackedState": "failed",
+       "trackedStatus": "warning",
+       "statusMessages": [
+        "Marrow & Pine-Low Tide",
+        "Download failed"
+       ],
+       "sizeBytes": 420000000,
+       "sizeLeftBytes": 0,
+       "downloadClient": "qBittorrent",
+       "protocol": "torrent",
+       "added": "2026-11-06T10:54:55.109Z",
+       "tags": [],
+       "titleKey": "album:303",
+       "searchTarget": {
+        "kind": "albums",
+        "ids": [
+         303
+        ]
+       },
+       "parentId": 31
+      }
+     ]
+    }
+   ]
+  },
+  "/api/users": {
+   "status": 200,
+   "body": [
+    {
+     "id": "00000000-0000-4000-8000-000000000001",
+     "username": "demo",
+     "displayName": "Demo Admin",
+     "role": "admin",
+     "disabled": false,
+     "createdAt": "2026-11-06T21:54:55.558Z"
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000012",
+     "username": "mira",
+     "displayName": "Mira",
+     "role": "user",
+     "disabled": false,
+     "createdAt": "2026-11-06T21:54:55.594Z"
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000013",
+     "username": "jonas",
+     "displayName": "Jonas",
+     "role": "user",
+     "disabled": false,
+     "createdAt": "2026-11-06T21:54:55.612Z"
+    }
+   ]
+  },
+  "/api/notifications": {
+   "status": 200,
+   "body": {
+    "channels": [
+     {
+      "id": "00000000-0000-4000-8000-000000000014",
+      "name": "Home automation",
+      "kind": "webhook",
+      "enabled": true,
+      "language": "en",
+      "events": {
+       "issueOpened": "critical",
+       "issueResolved": true,
+       "requestPending": false
+      },
+      "config": {
+       "url": "https://hooks.example.com/wardarr"
+      },
+      "secrets": {
+       "signingSecret": {
+        "isSet": false
+       }
+      },
+      "lastSentAt": null,
+      "lastError": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000015",
+      "name": "Phone",
+      "kind": "ntfy",
+      "enabled": true,
+      "language": "en",
+      "events": {
+       "issueOpened": "warning",
+       "issueResolved": true,
+       "requestPending": true
+      },
+      "config": {
+       "server": "https://ntfy.example.com",
+       "topic": "wardarr-demo"
+      },
+      "secrets": {
+       "token": {
+        "isSet": false
+       }
+      },
+      "lastSentAt": null,
+      "lastError": null
+     }
+    ],
+    "kinds": [
+     {
+      "kind": "webhook",
+      "fields": [
+       "url"
+      ],
+      "secrets": [
+       "signingSecret"
+      ]
+     },
+     {
+      "kind": "discord",
+      "fields": [],
+      "secrets": [
+       "webhookUrl"
+      ]
+     },
+     {
+      "kind": "ntfy",
+      "fields": [
+       "server",
+       "topic"
+      ],
+      "secrets": [
+       "token"
+      ]
+     },
+     {
+      "kind": "gotify",
+      "fields": [
+       "server"
+      ],
+      "secrets": [
+       "appToken"
+      ]
+     },
+     {
+      "kind": "telegram",
+      "fields": [
+       "chatId"
+      ],
+      "secrets": [
+       "botToken"
+      ]
+     },
+     {
+      "kind": "email",
+      "fields": [
+       "host",
+       "port",
+       "security",
+       "username",
+       "from",
+       "to"
+      ],
+      "secrets": [
+       "password"
+      ]
+     }
+    ]
+   }
+  },
+  "/api/indexers": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000007",
+      "instanceName": "Prowlarr",
+      "adapterName": "Prowlarr",
+      "status": "ok",
+      "checkedAt": "2026-11-06T21:54:58.961Z",
+      "error": null,
+      "indexers": [
+       {
+        "id": 1,
+        "name": "Lantern",
+        "enabled": true,
+        "protocol": "torrent",
+        "failing": false,
+        "stats": {
+         "indexerId": 1,
+         "name": "Lantern",
+         "queries": 1840,
+         "grabs": 212,
+         "failedQueries": 9,
+         "failedGrabs": 1,
+         "averageResponseMs": 310
+        },
+        "apps": [
+         "Sonarr",
+         "Radarr",
+         "Radarr 4K",
+         "Lidarr"
+        ],
+        "stranded": [],
+        "webUrl": "http://prowlarr:9696/"
+       },
+       {
+        "id": 2,
+        "name": "Nightjar",
+        "enabled": true,
+        "protocol": "torrent",
+        "failing": true,
+        "disabledUntil": "2099-01-01T00:00:00Z",
+        "mostRecentFailure": "2026-11-06T15:14:55.109Z",
+        "stats": {
+         "indexerId": 2,
+         "name": "Nightjar",
+         "queries": 960,
+         "grabs": 41,
+         "failedQueries": 388,
+         "failedGrabs": 3,
+         "averageResponseMs": 2900
+        },
+        "apps": [
+         "Sonarr",
+         "Radarr",
+         "Radarr 4K",
+         "Lidarr"
+        ],
+        "stranded": [],
+        "webUrl": "http://prowlarr:9696/"
+       },
+       {
+        "id": 3,
+        "name": "Harbor Light",
+        "enabled": true,
+        "protocol": "usenet",
+        "failing": false,
+        "stats": {
+         "indexerId": 3,
+         "name": "Harbor Light",
+         "queries": 1215,
+         "grabs": 167,
+         "failedQueries": 14,
+         "failedGrabs": 0,
+         "averageResponseMs": 520
+        },
+        "apps": [
+         "Sonarr",
+         "Radarr",
+         "Radarr 4K",
+         "Lidarr"
+        ],
+        "stranded": [],
+        "webUrl": "http://prowlarr:9696/"
+       },
+       {
+        "id": 4,
+        "name": "Old Mill",
+        "enabled": false,
+        "protocol": "torrent",
+        "failing": false,
+        "stats": {
+         "indexerId": 4,
+         "name": "Old Mill",
+         "queries": 0,
+         "grabs": 0,
+         "failedQueries": 0,
+         "failedGrabs": 0,
+         "averageResponseMs": 0
+        },
+        "apps": [],
+        "stranded": [],
+        "webUrl": "http://prowlarr:9696/"
+       }
+      ],
+      "apps": [
+       {
+        "id": 1,
+        "name": "Sonarr",
+        "implementation": "Sonarr",
+        "enabled": true,
+        "indexerIds": [
+         1,
+         2,
+         3
+        ],
+        "failing": [
+         "Nightjar"
+        ]
+       },
+       {
+        "id": 2,
+        "name": "Radarr",
+        "implementation": "Radarr",
+        "enabled": true,
+        "indexerIds": [
+         1,
+         2,
+         3
+        ],
+        "failing": [
+         "Nightjar"
+        ]
+       },
+       {
+        "id": 3,
+        "name": "Radarr 4K",
+        "implementation": "Radarr",
+        "enabled": true,
+        "indexerIds": [
+         1,
+         2,
+         3
+        ],
+        "failing": [
+         "Nightjar"
+        ]
+       },
+       {
+        "id": 4,
+        "name": "Lidarr",
+        "implementation": "Lidarr",
+        "enabled": true,
+        "indexerIds": [
+         1,
+         2,
+         3
+        ],
+        "failing": [
+         "Nightjar"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/streams/history?limit=25": {
+   "status": 200,
+   "body": {
+    "plays": [
+     {
+      "id": 100003,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "A Trip to the Moon",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-06T21:54:55.748Z",
+      "endedAt": null,
+      "playedMs": 3612,
+      "progress": 46,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 100002,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "Lanternfall",
+      "subtitle": "S01E03 · The Long Watch",
+      "mediaType": "episode",
+      "startedAt": "2026-11-06T21:54:55.748Z",
+      "endedAt": null,
+      "playedMs": 0,
+      "progress": 23,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 100001,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Nosferatu",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-06T21:54:55.748Z",
+      "endedAt": null,
+      "playedMs": 3612,
+      "progress": 44,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 150,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "The Great Train Robbery",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-05T19:54:55.901Z",
+      "endedAt": "2026-11-05T20:06:55.901Z",
+      "playedMs": 720000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 149,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Kestrel Station",
+      "subtitle": "S01E01 · Pressure Drop",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T19:54:55.901Z",
+      "endedAt": "2026-11-05T20:50:55.901Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 148,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "The Salt Archive",
+      "subtitle": "S01E02 · Water Damage",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T19:54:55.901Z",
+      "endedAt": "2026-11-05T20:49:55.901Z",
+      "playedMs": 3300000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 147,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "The Great Train Robbery",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-05T13:54:55.901Z",
+      "endedAt": "2026-11-05T14:06:55.901Z",
+      "playedMs": 720000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 146,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "Nosferatu",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-05T13:54:55.901Z",
+      "endedAt": "2026-11-05T15:28:55.901Z",
+      "playedMs": 5640000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 145,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Kestrel Station",
+      "subtitle": "S01E03 · Night Reading",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T13:54:55.901Z",
+      "endedAt": "2026-11-05T14:44:55.901Z",
+      "playedMs": 3000000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 144,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "The Salt Archive",
+      "subtitle": "S01E04 · The Ledger",
+      "mediaType": "episode",
+      "startedAt": "2026-11-04T16:54:55.901Z",
+      "endedAt": "2026-11-04T17:50:55.901Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 143,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Intolerance",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-03T20:54:55.901Z",
+      "endedAt": "2026-11-03T23:37:55.901Z",
+      "playedMs": 9780000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 142,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Lanternfall",
+      "subtitle": "S01E01 · The Dark Coast",
+      "mediaType": "episode",
+      "startedAt": "2026-11-02T21:54:55.901Z",
+      "endedAt": "2026-11-02T22:42:55.901Z",
+      "playedMs": 2880000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 141,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Lanternfall",
+      "subtitle": "S01E01 · The Dark Coast",
+      "mediaType": "episode",
+      "startedAt": "2026-11-02T18:54:55.901Z",
+      "endedAt": "2026-11-02T19:33:19.901Z",
+      "playedMs": 2304000,
+      "progress": 80,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 140,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Lanternfall",
+      "subtitle": "S01E01 · The Dark Coast",
+      "mediaType": "episode",
+      "startedAt": "2026-11-01T21:54:55.901Z",
+      "endedAt": "2026-11-01T22:44:55.901Z",
+      "playedMs": 3000000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 139,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Kestrel Station",
+      "subtitle": "S01E02 · Isobars",
+      "mediaType": "episode",
+      "startedAt": "2026-11-01T19:54:55.901Z",
+      "endedAt": "2026-11-01T20:50:55.901Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 138,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "The Salt Archive",
+      "subtitle": "S01E02 · Water Damage",
+      "mediaType": "episode",
+      "startedAt": "2026-11-01T13:54:55.901Z",
+      "endedAt": "2026-11-01T14:47:55.901Z",
+      "playedMs": 3180000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
+     },
+     {
+      "id": 137,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "A Trip to the Moon",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-31T16:54:55.901Z",
+      "endedAt": "2026-10-31T17:07:55.901Z",
+      "playedMs": 780000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
+     },
+     {
+      "id": 136,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "The Salt Archive",
+      "subtitle": "S01E06 · Return Address",
+      "mediaType": "episode",
+      "startedAt": "2026-10-30T19:54:55.901Z",
+      "endedAt": "2026-10-30T20:42:55.901Z",
+      "playedMs": 2880000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 135,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "Intolerance",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-30T17:54:55.901Z",
+      "endedAt": "2026-10-30T20:37:55.901Z",
+      "playedMs": 9780000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 134,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "The Salt Archive",
+      "subtitle": "S01E05 · Low Shelves",
+      "mediaType": "episode",
+      "startedAt": "2026-10-30T17:54:55.901Z",
+      "endedAt": "2026-10-30T18:50:55.901Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 133,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "The Salt Archive",
+      "subtitle": "S01E01 · Index Cards",
+      "mediaType": "episode",
+      "startedAt": "2026-10-30T13:54:55.901Z",
+      "endedAt": "2026-10-30T14:46:55.901Z",
+      "playedMs": 3120000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 132,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "The Salt Archive",
+      "subtitle": "S01E05 · Low Shelves",
+      "mediaType": "episode",
+      "startedAt": "2026-10-29T20:54:55.901Z",
+      "endedAt": "2026-10-29T21:50:55.901Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 131,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "The Salt Archive",
+      "subtitle": "S01E04 · The Ledger",
+      "mediaType": "episode",
+      "startedAt": "2026-10-29T19:54:55.901Z",
+      "endedAt": "2026-10-29T20:42:55.901Z",
+      "playedMs": 2880000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 130,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Kestrel Station",
+      "subtitle": "S01E02 · Isobars",
+      "mediaType": "episode",
+      "startedAt": "2026-10-28T21:54:55.901Z",
+      "endedAt": "2026-10-28T22:42:55.901Z",
+      "playedMs": 2880000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
+     },
+     {
+      "id": 129,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "The Salt Archive",
+      "subtitle": "S01E05 · Low Shelves",
+      "mediaType": "episode",
+      "startedAt": "2026-10-27T21:54:55.901Z",
+      "endedAt": "2026-10-27T22:49:55.901Z",
+      "playedMs": 3300000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     }
+    ]
+   }
+  },
+  "/api/discover/instances": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "id": "00000000-0000-4000-8000-000000000011",
+      "name": "Seerr",
+      "adapter": "seerr"
+     }
+    ]
+   }
+  },
+  "/api/discover/options": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "link": {
+     "externalId": 1,
+     "externalName": "Demo Admin",
+     "source": "auto"
+    },
+    "servers": [
+     {
+      "id": 0,
+      "name": "Radarr",
+      "type": "radarr",
+      "is4k": false,
+      "isDefault": true,
+      "profiles": [
+       {
+        "id": 1,
+        "name": "HD-1080p"
+       },
+       {
+        "id": 2,
+        "name": "Any"
+       }
+      ],
+      "rootFolders": [
+       "/data/films"
+      ],
+      "defaultProfileId": 1,
+      "defaultRootFolder": "/data/films"
+     },
+     {
+      "id": 1,
+      "name": "Radarr 4K",
+      "type": "radarr",
+      "is4k": true,
+      "isDefault": true,
+      "profiles": [
+       {
+        "id": 1,
+        "name": "Ultra HD"
+       },
+       {
+        "id": 2,
+        "name": "Any"
+       }
+      ],
+      "rootFolders": [
+       "/data/films-uhd"
+      ],
+      "defaultProfileId": 1,
+      "defaultRootFolder": "/data/films-uhd"
+     },
+     {
+      "id": 0,
+      "name": "Sonarr",
+      "type": "sonarr",
+      "is4k": false,
+      "isDefault": true,
+      "profiles": [
+       {
+        "id": 1,
+        "name": "HD-1080p"
+       },
+       {
+        "id": 2,
+        "name": "Any"
+       }
+      ],
+      "rootFolders": [
+       "/data/series"
+      ],
+      "defaultProfileId": 1,
+      "defaultRootFolder": "/data/series"
+     },
+     {
+      "id": 1,
+      "name": "Sonarr 4K",
+      "type": "sonarr",
+      "is4k": true,
+      "isDefault": true,
+      "profiles": [
+       {
+        "id": 1,
+        "name": "Ultra HD"
+       },
+       {
+        "id": 2,
+        "name": "Any"
+       }
+      ],
+      "rootFolders": [
+       "/data/series-uhd"
+      ],
+      "defaultProfileId": 1,
+      "defaultRootFolder": "/data/series-uhd"
+     }
+    ]
+   }
+  },
+  "/api/requests/links": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "error": null,
+    "users": [
+     {
+      "userId": "00000000-0000-4000-8000-000000000001",
+      "username": "demo",
+      "displayName": "Demo Admin",
+      "role": "admin",
+      "link": {
+       "externalId": 1,
+       "externalName": "Demo Admin",
+       "source": "auto"
+      }
+     },
+     {
+      "userId": "00000000-0000-4000-8000-000000000012",
+      "username": "mira",
+      "displayName": "Mira",
+      "role": "user",
+      "link": {
+       "externalId": 2,
+       "externalName": "Mira",
+       "source": "auto"
+      }
+     },
+     {
+      "userId": "00000000-0000-4000-8000-000000000013",
+      "username": "jonas",
+      "displayName": "Jonas",
+      "role": "user",
+      "link": {
+       "externalId": 3,
+       "externalName": "Jonas",
+       "source": "auto"
+      }
+     }
+    ],
+    "external": [
+     {
+      "id": 1,
+      "name": "Demo Admin"
+     },
+     {
+      "id": 2,
+      "name": "Mira"
+     },
+     {
+      "id": 3,
+      "name": "Jonas"
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000002": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000002",
+    "adapter": "sonarr",
+    "name": "Sonarr",
+    "baseUrl": "http://sonarr:8989",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000002/settings": {
+   "status": 200,
+   "body": {
+    "sections": [
+     {
+      "id": "host",
+      "entries": [
+       {
+        "key": "port",
+        "secret": false,
+        "value": 8989
+       },
+       {
+        "key": "urlBase",
+        "secret": false,
+        "value": ""
+       },
+       {
+        "key": "apiKey",
+        "secret": true,
+        "value": "********"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000003": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000003",
+    "adapter": "sonarr",
+    "name": "Sonarr 4K",
+    "baseUrl": "http://sonarr-4k:8989",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000003/settings": {
+   "status": 200,
+   "body": {
+    "sections": [
+     {
+      "id": "host",
+      "entries": [
+       {
+        "key": "port",
+        "secret": false,
+        "value": 8989
+       },
+       {
+        "key": "urlBase",
+        "secret": false,
+        "value": ""
+       },
+       {
+        "key": "apiKey",
+        "secret": true,
+        "value": "********"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000004": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000004",
+    "adapter": "radarr",
+    "name": "Radarr",
+    "baseUrl": "http://radarr:7878",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000004/settings": {
+   "status": 200,
+   "body": {
+    "sections": [
+     {
+      "id": "host",
+      "entries": [
+       {
+        "key": "port",
+        "secret": false,
+        "value": 8989
+       },
+       {
+        "key": "urlBase",
+        "secret": false,
+        "value": ""
+       },
+       {
+        "key": "apiKey",
+        "secret": true,
+        "value": "********"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000005": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000005",
+    "adapter": "radarr",
+    "name": "Radarr 4K",
+    "baseUrl": "http://radarr-4k:7878",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000005/settings": {
+   "status": 200,
+   "body": {
+    "sections": [
+     {
+      "id": "host",
+      "entries": [
+       {
+        "key": "port",
+        "secret": false,
+        "value": 8989
+       },
+       {
+        "key": "urlBase",
+        "secret": false,
+        "value": ""
+       },
+       {
+        "key": "apiKey",
+        "secret": true,
+        "value": "********"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000006": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000006",
+    "adapter": "lidarr",
+    "name": "Lidarr",
+    "baseUrl": "http://lidarr:8686",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000006/settings": {
+   "status": 200,
+   "body": {
+    "sections": [
+     {
+      "id": "host",
+      "entries": [
+       {
+        "key": "port",
+        "secret": false,
+        "value": 8989
+       },
+       {
+        "key": "urlBase",
+        "secret": false,
+        "value": ""
+       },
+       {
+        "key": "apiKey",
+        "secret": true,
+        "value": "********"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000007": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000007",
+    "adapter": "prowlarr",
+    "name": "Prowlarr",
+    "baseUrl": "http://prowlarr:9696",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000007/settings": {
+   "status": 502,
+   "body": {
+    "error": "notFound"
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000008": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000008",
+    "adapter": "qbittorrent",
+    "name": "qBittorrent",
+    "baseUrl": "http://qbittorrent:8080",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "username": "demo",
+     "password": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000008/settings": {
+   "status": 200,
+   "body": {
+    "sections": []
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000009": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000009",
+    "adapter": "sabnzbd",
+    "name": "SABnzbd",
+    "baseUrl": "http://sabnzbd:8080",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000009/settings": {
+   "status": 200,
+   "body": {
+    "sections": []
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000010": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000010",
+    "adapter": "jellyfin",
+    "name": "Jellyfin",
+    "baseUrl": "http://jellyfin:8096",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000010/settings": {
+   "status": 200,
+   "body": {
+    "sections": []
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000011": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000011",
+    "adapter": "seerr",
+    "name": "Seerr",
+    "baseUrl": "http://seerr:5055",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": true
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000011/settings": {
+   "status": 200,
+   "body": {
+    "sections": []
+   }
+  },
+  "/api/issues?status=all": {
+   "status": 200,
+   "body": [
+    {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.704Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 1,
+        "instance": "Sonarr"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.episode",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "Sonarr",
+        "adapter": "sonarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000002:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000002",
+         "name": "Sonarr",
+         "adapter": "sonarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Kestrel.Station.S01E03.1080p.WEB.H264. Kestrel.Station.S01E03.1080p.WEB.H264. Download failed: the torrent has no seeders"
+       }
+      ],
+      "items": [
+       {
+        "label": "Kestrel.Station.S01E03.1080p.WEB.H264",
+        "instanceId": "00000000-0000-4000-8000-000000000002"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000002"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "indexer-unavailable:nightjar",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.739Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "indexer-unavailable:nightjar",
+      "ruleId": "indexer-unavailable",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.indexerUnavailable.titleLongTerm",
+       "params": {
+        "indexer": "Nightjar"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Radarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.indexerUnavailable.explanation",
+       "params": {
+        "indexer": "Nightjar",
+        "count": 1
+       }
+      },
+      "fix": {
+       "key": "issues.indexerUnavailable.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000004",
+        "name": "Radarr",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000004:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000004",
+         "name": "Radarr",
+         "adapter": "radarr"
+        },
+        "source": "IndexerLongTermStatusCheck",
+        "level": "warning",
+        "message": "Indexers unavailable due to failures for more than 6 hours: Nightjar (Prowlarr)",
+        "wikiUrl": "https://wiki.servarr.com/radarr/system#indexers-are-unavailable-due-to-failures"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "test-indexer",
+        "kind": "testIndexer",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.testIndexer"
+        },
+        "instanceId": "00000000-0000-4000-8000-000000000007",
+        "payload": {
+         "indexerId": 2
+        }
+       },
+       {
+        "id": "open-prowlarr",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInProwlarr"
+        },
+        "href": "http://prowlarr:9696/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "indexer-unavailable:nightjar"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "indexer-unavailable:nightjar"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.746Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 1,
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.movie",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Intolerance.1916.Restored.2160p.WEB.H265. Intolerance.1916.Restored.2160p.WEB.H265. Download failed"
+       }
+      ],
+      "items": [
+       {
+        "label": "Intolerance.1916.Restored.2160p.WEB.H265",
+        "instanceId": "00000000-0000-4000-8000-000000000005"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000005"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.762Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 3,
+        "instance": "Lidarr"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.album",
+       "params": {
+        "count": 3
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "name": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000006:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "The Lamplighters-Night Shift. The Lamplighters-Night Shift. Download failed"
+       },
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "The Lamplighters-Harbour Songs. The Lamplighters-Harbour Songs. Download failed"
+       },
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Marrow & Pine-Low Tide. Marrow & Pine-Low Tide. Download failed"
+       }
+      ],
+      "items": [
+       {
+        "label": "The Lamplighters-Night Shift",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "label": "The Lamplighters-Harbour Songs",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "label": "Marrow & Pine-Low Tide",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "update-available:lidarr:2.14.1.4800",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.762Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "update-available:lidarr:2.14.1.4800",
+      "ruleId": "update-available",
+      "origin": "service",
+      "severity": "info",
+      "title": {
+       "key": "issues.update.title",
+       "params": {
+        "instances": "Lidarr"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Lidarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.update.explanation",
+       "params": {
+        "version": "2.14.1.4800"
+       }
+      },
+      "fix": {
+       "key": "issues.update.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "name": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000006:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "UpdateCheck",
+        "level": "warning",
+        "message": "New update is available: 2.14.1.4800",
+        "wikiUrl": "https://wiki.servarr.com/lidarr/system#new-update-is-available"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "release-notes",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.releaseNotes"
+        },
+        "href": "http://lidarr:8686/system/status"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "update-available:lidarr:2.14.1.4800"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "update-available:lidarr:2.14.1.4800"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:59.038Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
+      "ruleId": "cleaner-import-ready",
+      "origin": "service",
+      "severity": "info",
+      "title": {
+       "key": "issues.importReady.title",
+       "params": {
+        "count": 1,
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.importReady.affected",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.importReady.explanation"
+      },
+      "fix": {
+       "key": "issues.importReady.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:cleaner"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "QueueCleaner.importReady",
+        "level": "warning",
+        "message": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB"
+       }
+      ],
+      "items": [
+       {
+        "label": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+        "instanceId": "00000000-0000-4000-8000-000000000005"
+       }
+      ],
+      "actions": [
+       {
+        "id": "review-import",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.reviewImport"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000005&review=demoimport01"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    }
+   ]
+  },
+  "/api/issues/downloads-failed%3A00000000-0000-4000-8000-000000000002": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.704Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 1,
+        "instance": "Sonarr"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.episode",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "Sonarr",
+        "adapter": "sonarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000002:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000002",
+         "name": "Sonarr",
+         "adapter": "sonarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Kestrel.Station.S01E03.1080p.WEB.H264. Kestrel.Station.S01E03.1080p.WEB.H264. Download failed: the torrent has no seeders"
+       }
+      ],
+      "items": [
+       {
+        "label": "Kestrel.Station.S01E03.1080p.WEB.H264",
+        "instanceId": "00000000-0000-4000-8000-000000000002"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000002"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T21:54:55.704Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/indexer-unavailable%3Anightjar": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "indexer-unavailable:nightjar",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.739Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "indexer-unavailable:nightjar",
+      "ruleId": "indexer-unavailable",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.indexerUnavailable.titleLongTerm",
+       "params": {
+        "indexer": "Nightjar"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Radarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.indexerUnavailable.explanation",
+       "params": {
+        "indexer": "Nightjar",
+        "count": 1
+       }
+      },
+      "fix": {
+       "key": "issues.indexerUnavailable.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000004",
+        "name": "Radarr",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000004:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000004",
+         "name": "Radarr",
+         "adapter": "radarr"
+        },
+        "source": "IndexerLongTermStatusCheck",
+        "level": "warning",
+        "message": "Indexers unavailable due to failures for more than 6 hours: Nightjar (Prowlarr)",
+        "wikiUrl": "https://wiki.servarr.com/radarr/system#indexers-are-unavailable-due-to-failures"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "test-indexer",
+        "kind": "testIndexer",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.testIndexer"
+        },
+        "instanceId": "00000000-0000-4000-8000-000000000007",
+        "payload": {
+         "indexerId": 2
+        }
+       },
+       {
+        "id": "open-prowlarr",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInProwlarr"
+        },
+        "href": "http://prowlarr:9696/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "indexer-unavailable:nightjar"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "indexer-unavailable:nightjar"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T21:54:55.739Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/downloads-failed%3A00000000-0000-4000-8000-000000000005": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.746Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 1,
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.movie",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Intolerance.1916.Restored.2160p.WEB.H265. Intolerance.1916.Restored.2160p.WEB.H265. Download failed"
+       }
+      ],
+      "items": [
+       {
+        "label": "Intolerance.1916.Restored.2160p.WEB.H265",
+        "instanceId": "00000000-0000-4000-8000-000000000005"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000005"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T21:54:55.746Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/downloads-failed%3A00000000-0000-4000-8000-000000000006": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.762Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+      "ruleId": "downloads-failed",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.downloadsFailed.title",
+       "params": {
+        "count": 3,
+        "instance": "Lidarr"
+       }
+      },
+      "affected": {
+       "key": "issues.mediaKind.album",
+       "params": {
+        "count": 3
+       }
+      },
+      "explanation": {
+       "key": "issues.downloadsFailed.explanation"
+      },
+      "fix": {
+       "key": "issues.downloadsFailed.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "name": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000006:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "The Lamplighters-Night Shift. The Lamplighters-Night Shift. Download failed"
+       },
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "The Lamplighters-Harbour Songs. The Lamplighters-Harbour Songs. Download failed"
+       },
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "Queue",
+        "level": "warning",
+        "message": "Marrow & Pine-Low Tide. Marrow & Pine-Low Tide. Download failed"
+       }
+      ],
+      "items": [
+       {
+        "label": "The Lamplighters-Night Shift",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "label": "The Lamplighters-Harbour Songs",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "label": "Marrow & Pine-Low Tide",
+        "instanceId": "00000000-0000-4000-8000-000000000006"
+       }
+      ],
+      "actions": [
+       {
+        "id": "open-queue",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openQueue"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000006"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T21:54:55.762Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/update-available%3Alidarr%3A2.14.1.4800": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "update-available:lidarr:2.14.1.4800",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:55.762Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "update-available:lidarr:2.14.1.4800",
+      "ruleId": "update-available",
+      "origin": "service",
+      "severity": "info",
+      "title": {
+       "key": "issues.update.title",
+       "params": {
+        "instances": "Lidarr"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Lidarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.update.explanation",
+       "params": {
+        "version": "2.14.1.4800"
+       }
+      },
+      "fix": {
+       "key": "issues.update.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "name": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000006:poll"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000006",
+         "name": "Lidarr",
+         "adapter": "lidarr"
+        },
+        "source": "UpdateCheck",
+        "level": "warning",
+        "message": "New update is available: 2.14.1.4800",
+        "wikiUrl": "https://wiki.servarr.com/lidarr/system#new-update-is-available"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "release-notes",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.releaseNotes"
+        },
+        "href": "http://lidarr:8686/system/status"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "update-available:lidarr:2.14.1.4800"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "update-available:lidarr:2.14.1.4800"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "info",
+      "at": "2026-11-06T21:54:55.762Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/cleaner-import-ready%3A00000000-0000-4000-8000-000000000005": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T21:54:59.038Z",
+     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
+      "ruleId": "cleaner-import-ready",
+      "origin": "service",
+      "severity": "info",
+      "title": {
+       "key": "issues.importReady.title",
+       "params": {
+        "count": 1,
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.importReady.affected",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.importReady.explanation"
+      },
+      "fix": {
+       "key": "issues.importReady.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:cleaner"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "QueueCleaner.importReady",
+        "level": "warning",
+        "message": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB"
+       }
+      ],
+      "items": [
+       {
+        "label": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+        "instanceId": "00000000-0000-4000-8000-000000000005"
+       }
+      ],
+      "actions": [
+       {
+        "id": "review-import",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.reviewImport"
+        },
+        "href": "/cleaner?instance=00000000-0000-4000-8000-000000000005&review=demoimport01"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "info",
+      "at": "2026-11-06T21:54:59.038Z"
+     }
+    ]
+   }
+  },
+  "/api/cleaner": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "instanceName": "Sonarr",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "config": {
+       "enabled": true,
+       "dryRun": true,
+       "maxStrikes": 4,
+       "strikeIntervalMinutes": 60,
+       "checkIntervalMinutes": 5,
+       "tbaMaxWaitHours": 168,
+       "waitForImportClick": true,
+       "importClickMaxHours": 168,
+       "attemptsPerTitle": 3,
+       "stalledAfterHours": 6,
+       "failedEnabled": true,
+       "slowEnabled": false,
+       "slowMinBytesPerSecond": 102400,
+       "maxRemovalsPerRun": 20,
+       "protectedTags": [
+        "wardarr-keep"
+       ],
+       "whitelist": []
+      },
+      "lastRunAt": "2026-11-06T21:54:59.000Z",
+      "nextRunAt": "2026-11-06T21:59:59.000Z",
+      "error": null,
+      "paused": null,
+      "downloads": [
+       {
+        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
+        "title": "Lanternfall.S02E01.1080p.WEB.H264",
+        "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00000",
+        "queueIds": [
+         51
+        ],
+        "matched": true,
+        "state": "downloading",
+        "rule": "healthy",
+        "strikes": 0,
+        "maxStrikes": 4,
+        "nextStrikeAt": null,
+        "waitUntil": null,
+        "action": {
+         "type": "none"
+        },
+        "reason": {
+         "key": "cleaner.reason.healthy",
+         "params": {}
+        }
+       },
+       {
+        "key": "sabnzbd_nzo_demo0001",
+        "title": "Lanternfall.S02E02.1080p.WEB.H264",
+        "downloadId": "SABnzbd_nzo_demo0001",
+        "queueIds": [
+         52
+        ],
+        "matched": true,
+        "state": "downloading",
+        "rule": "healthy",
+        "strikes": 0,
+        "maxStrikes": 4,
+        "nextStrikeAt": null,
+        "waitUntil": null,
+        "action": {
+         "type": "none"
+        },
+        "reason": {
+         "key": "cleaner.reason.healthy",
+         "params": {}
+        }
+       },
+       {
+        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
+        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
+        "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00053",
+        "queueIds": [
+         53
+        ],
+        "matched": true,
+        "state": "failed",
+        "rule": "failed",
+        "strikes": 1,
+        "maxStrikes": 4,
+        "nextStrikeAt": "2026-11-06T22:54:59.000Z",
+        "waitUntil": null,
+        "action": {
+         "type": "strike"
+        },
+        "reason": {
+         "key": "cleaner.reason.failed",
+         "params": {
+          "strikes": 1,
+          "max": 4
+         }
+        }
+       },
+       {
+        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
+        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
+        "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00054",
+        "queueIds": [
+         54
+        ],
+        "matched": true,
+        "state": "warning",
+        "rule": "healthy",
+        "strikes": 0,
+        "maxStrikes": 4,
+        "nextStrikeAt": null,
+        "waitUntil": null,
+        "action": {
+         "type": "none"
+        },
+        "reason": {
+         "key": "cleaner.reason.healthy",
+         "params": {}
+        }
+       }
+      ],
+      "exhausted": [],
+      "ignored": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000003",
+      "instanceName": "Sonarr 4K",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "config": {
+       "enabled": true,
+       "dryRun": true,
+       "maxStrikes": 4,
+       "strikeIntervalMinutes": 60,
+       "checkIntervalMinutes": 5,
+       "tbaMaxWaitHours": 168,
+       "waitForImportClick": true,
+       "importClickMaxHours": 168,
+       "attemptsPerTitle": 3,
+       "stalledAfterHours": 6,
+       "failedEnabled": true,
+       "slowEnabled": false,
+       "slowMinBytesPerSecond": 102400,
+       "maxRemovalsPerRun": 20,
+       "protectedTags": [
+        "wardarr-keep"
+       ],
+       "whitelist": []
+      },
+      "lastRunAt": null,
+      "nextRunAt": null,
+      "error": null,
+      "paused": null,
+      "downloads": [],
+      "exhausted": [],
+      "ignored": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "instanceName": "Radarr",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "config": {
+       "enabled": true,
+       "dryRun": true,
+       "maxStrikes": 4,
+       "strikeIntervalMinutes": 60,
+       "checkIntervalMinutes": 5,
+       "tbaMaxWaitHours": 168,
+       "waitForImportClick": true,
+       "importClickMaxHours": 168,
+       "attemptsPerTitle": 3,
+       "stalledAfterHours": 6,
+       "failedEnabled": true,
+       "slowEnabled": false,
+       "slowMinBytesPerSecond": 102400,
+       "maxRemovalsPerRun": 20,
+       "protectedTags": [
+        "wardarr-keep"
+       ],
+       "whitelist": []
+      },
+      "lastRunAt": "2026-11-06T21:54:59.023Z",
+      "nextRunAt": "2026-11-06T21:59:59.023Z",
+      "error": null,
+      "paused": null,
+      "downloads": [],
+      "exhausted": [],
+      "ignored": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "instanceName": "Radarr 4K",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "config": {
+       "enabled": true,
+       "dryRun": true,
+       "maxStrikes": 4,
+       "strikeIntervalMinutes": 60,
+       "checkIntervalMinutes": 5,
+       "tbaMaxWaitHours": 168,
+       "waitForImportClick": true,
+       "importClickMaxHours": 168,
+       "attemptsPerTitle": 3,
+       "stalledAfterHours": 6,
+       "failedEnabled": true,
+       "slowEnabled": false,
+       "slowMinBytesPerSecond": 102400,
+       "maxRemovalsPerRun": 20,
+       "protectedTags": [
+        "wardarr-keep"
+       ],
+       "whitelist": []
+      },
+      "lastRunAt": "2026-11-06T21:54:59.032Z",
+      "nextRunAt": "2026-11-06T21:59:59.032Z",
+      "error": null,
+      "paused": null,
+      "downloads": [
+       {
+        "key": "demofail0001",
+        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
+        "downloadId": "DEMOFAIL0001",
+        "queueIds": [
+         41
+        ],
+        "matched": true,
+        "state": "failed",
+        "rule": "failed",
+        "strikes": 1,
+        "maxStrikes": 4,
+        "nextStrikeAt": "2026-11-06T22:54:59.032Z",
+        "waitUntil": null,
+        "action": {
+         "type": "strike"
+        },
+        "reason": {
+         "key": "cleaner.reason.failed",
+         "params": {
+          "strikes": 1,
+          "max": 4
+         }
+        }
+       },
+       {
+        "key": "demoimport01",
+        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+        "downloadId": "DEMOIMPORT01",
+        "queueIds": [
+         42
+        ],
+        "matched": true,
+        "state": "importBlocked",
+        "rule": "importReady",
+        "strikes": 0,
+        "maxStrikes": 4,
+        "nextStrikeAt": null,
+        "waitUntil": "2026-11-13T21:54:59.032Z",
+        "action": {
+         "type": "none"
+        },
+        "reason": {
+         "key": "cleaner.reason.importReady",
+         "params": {}
+        }
+       }
+      ],
+      "exhausted": [],
+      "ignored": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "instanceName": "Lidarr",
+      "adapter": "lidarr",
+      "adapterName": "Lidarr",
+      "config": {
+       "enabled": true,
+       "dryRun": true,
+       "maxStrikes": 4,
+       "strikeIntervalMinutes": 60,
+       "checkIntervalMinutes": 5,
+       "tbaMaxWaitHours": 168,
+       "waitForImportClick": true,
+       "importClickMaxHours": 168,
+       "attemptsPerTitle": 3,
+       "stalledAfterHours": 6,
+       "failedEnabled": true,
+       "slowEnabled": false,
+       "slowMinBytesPerSecond": 102400,
+       "maxRemovalsPerRun": 20,
+       "protectedTags": [
+        "wardarr-keep"
+       ],
+       "whitelist": []
+      },
+      "lastRunAt": "2026-11-06T21:54:59.051Z",
+      "nextRunAt": "2026-11-06T21:59:59.051Z",
+      "error": null,
+      "paused": null,
+      "downloads": [
+       {
+        "key": "demoalbum001",
+        "title": "The Lamplighters-Night Shift",
+        "downloadId": "DEMOALBUM001",
+        "queueIds": [
+         61
+        ],
+        "matched": true,
+        "state": "failed",
+        "rule": "failed",
+        "strikes": 1,
+        "maxStrikes": 4,
+        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "waitUntil": null,
+        "action": {
+         "type": "strike"
+        },
+        "reason": {
+         "key": "cleaner.reason.failed",
+         "params": {
+          "strikes": 1,
+          "max": 4
+         }
+        }
+       },
+       {
+        "key": "demoalbum002",
+        "title": "The Lamplighters-Harbour Songs",
+        "downloadId": "DEMOALBUM002",
+        "queueIds": [
+         62
+        ],
+        "matched": true,
+        "state": "failed",
+        "rule": "failed",
+        "strikes": 1,
+        "maxStrikes": 4,
+        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "waitUntil": null,
+        "action": {
+         "type": "strike"
+        },
+        "reason": {
+         "key": "cleaner.reason.failed",
+         "params": {
+          "strikes": 1,
+          "max": 4
+         }
+        }
+       },
+       {
+        "key": "demoalbum003",
+        "title": "Marrow & Pine-Low Tide",
+        "downloadId": "DEMOALBUM003",
+        "queueIds": [
+         63
+        ],
+        "matched": true,
+        "state": "failed",
+        "rule": "failed",
+        "strikes": 1,
+        "maxStrikes": 4,
+        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "waitUntil": null,
+        "action": {
+         "type": "strike"
+        },
+        "reason": {
+         "key": "cleaner.reason.failed",
+         "params": {
+          "strikes": 1,
+          "max": 4
+         }
+        }
+       }
+      ],
+      "exhausted": [],
+      "ignored": []
+     }
+    ],
+    "orphans": []
+   }
+  },
+  "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
+   "status": 200,
+   "body": {
+    "at": "2026-11-06T21:59:59.000Z",
+    "plan": {
+     "paused": null,
+     "downloads": [
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
+       "title": "Lanternfall.S02E01.1080p.WEB.H264",
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00000",
+       "queueIds": [
+        51
+       ],
+       "matched": true,
+       "state": "downloading",
+       "rule": "healthy",
+       "strikes": 0,
+       "maxStrikes": 4,
+       "nextStrikeAt": null,
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.healthy",
+        "params": {}
+       }
+      },
+      {
+       "key": "sabnzbd_nzo_demo0001",
+       "title": "Lanternfall.S02E02.1080p.WEB.H264",
+       "downloadId": "SABnzbd_nzo_demo0001",
+       "queueIds": [
+        52
+       ],
+       "matched": true,
+       "state": "downloading",
+       "rule": "healthy",
+       "strikes": 0,
+       "maxStrikes": 4,
+       "nextStrikeAt": null,
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.healthy",
+        "params": {}
+       }
+      },
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
+       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00053",
+       "queueIds": [
+        53
+       ],
+       "matched": true,
+       "state": "failed",
+       "rule": "failed",
+       "strikes": 1,
+       "maxStrikes": 4,
+       "nextStrikeAt": "2026-11-06T22:54:59.000Z",
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.failed",
+        "params": {
+         "strikes": 1,
+         "max": 4
+        }
+       }
+      },
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
+       "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
+       "downloadId": "D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M0D3M00054",
+       "queueIds": [
+        54
+       ],
+       "matched": true,
+       "state": "warning",
+       "rule": "healthy",
+       "strikes": 0,
+       "maxStrikes": 4,
+       "nextStrikeAt": null,
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.healthy",
+        "params": {}
+       }
+      }
+     ],
+     "nextState": [
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
+       "title": "Lanternfall.S02E01.1080p.WEB.H264",
+       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "problem": null,
+       "problemSince": null,
+       "strikes": 0,
+       "lastStrikeAt": null,
+       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastSizeLeft": 850000000,
+       "ignored": false
+      },
+      {
+       "key": "sabnzbd_nzo_demo0001",
+       "title": "Lanternfall.S02E02.1080p.WEB.H264",
+       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "problem": null,
+       "problemSince": null,
+       "strikes": 0,
+       "lastStrikeAt": null,
+       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastSizeLeft": 1900000000,
+       "ignored": false
+      },
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
+       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
+       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "problem": "failed",
+       "problemSince": "2026-11-06T21:54:59.000Z",
+       "strikes": 1,
+       "lastStrikeAt": "2026-11-06T21:54:59.000Z",
+       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      },
+      {
+       "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
+       "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
+       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "problem": null,
+       "problemSince": null,
+       "strikes": 0,
+       "lastStrikeAt": null,
+       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastSizeLeft": 1450000000,
+       "ignored": false
+      }
+     ],
+     "nextAttempts": [],
+     "exhausted": [],
+     "removals": 0
+    }
+   }
+  },
+  "/api/cleaner/history?instance=00000000-0000-4000-8000-000000000002&limit=100": {
+   "status": 200,
+   "body": {
+    "entries": [
+     {
+      "id": 1,
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "at": "2026-11-06T21:54:59.004Z",
+      "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
+      "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
+      "kind": "strike",
+      "rule": "failed",
+      "reason": {
+       "key": "cleaner.reason.failed",
+       "params": {
+        "strikes": 1,
+        "max": 4
+       }
+      },
+      "dryRun": true,
+      "ok": true,
+      "error": null,
+      "actorUserId": null
+     }
+    ]
+   }
+  },
+  "/api/cleaner/00000000-0000-4000-8000-000000000003/preview": {
+   "status": 200,
+   "body": {
+    "at": null,
+    "plan": null
+   }
+  },
+  "/api/cleaner/history?instance=00000000-0000-4000-8000-000000000003&limit=100": {
+   "status": 200,
+   "body": {
+    "entries": []
+   }
+  },
+  "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
+   "status": 200,
+   "body": {
+    "at": "2026-11-06T21:59:59.023Z",
+    "plan": {
+     "paused": null,
+     "downloads": [],
+     "nextState": [],
+     "nextAttempts": [],
+     "exhausted": [],
+     "removals": 0
+    }
+   }
+  },
+  "/api/cleaner/history?instance=00000000-0000-4000-8000-000000000004&limit=100": {
+   "status": 200,
+   "body": {
+    "entries": []
+   }
+  },
+  "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
+   "status": 200,
+   "body": {
+    "at": "2026-11-06T21:59:59.032Z",
+    "plan": {
+     "paused": null,
+     "downloads": [
+      {
+       "key": "demofail0001",
+       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
+       "downloadId": "DEMOFAIL0001",
+       "queueIds": [
+        41
+       ],
+       "matched": true,
+       "state": "failed",
+       "rule": "failed",
+       "strikes": 1,
+       "maxStrikes": 4,
+       "nextStrikeAt": "2026-11-06T22:54:59.032Z",
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.failed",
+        "params": {
+         "strikes": 1,
+         "max": 4
+        }
+       }
+      },
+      {
+       "key": "demoimport01",
+       "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+       "downloadId": "DEMOIMPORT01",
+       "queueIds": [
+        42
+       ],
+       "matched": true,
+       "state": "importBlocked",
+       "rule": "importReady",
+       "strikes": 0,
+       "maxStrikes": 4,
+       "nextStrikeAt": null,
+       "waitUntil": "2026-11-13T21:54:59.032Z",
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.importReady",
+        "params": {}
+       }
+      }
+     ],
+     "nextState": [
+      {
+       "key": "demofail0001",
+       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
+       "firstSeenAt": "2026-11-06T21:54:59.032Z",
+       "problem": "failed",
+       "problemSince": "2026-11-06T21:54:59.032Z",
+       "strikes": 1,
+       "lastStrikeAt": "2026-11-06T21:54:59.032Z",
+       "lastProgressAt": "2026-11-06T21:54:59.032Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      },
+      {
+       "key": "demoimport01",
+       "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
+       "firstSeenAt": "2026-11-06T21:54:59.032Z",
+       "problem": "importReady",
+       "problemSince": "2026-11-06T21:54:59.032Z",
+       "strikes": 0,
+       "lastStrikeAt": null,
+       "lastProgressAt": "2026-11-06T21:54:59.032Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      }
+     ],
+     "nextAttempts": [],
+     "exhausted": [],
+     "removals": 0
+    }
+   }
+  },
+  "/api/cleaner/history?instance=00000000-0000-4000-8000-000000000005&limit=100": {
+   "status": 200,
+   "body": {
+    "entries": [
+     {
+      "id": 2,
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "at": "2026-11-06T21:54:59.037Z",
+      "downloadKey": "demofail0001",
+      "title": "Intolerance.1916.Restored.2160p.WEB.H265",
+      "kind": "strike",
+      "rule": "failed",
+      "reason": {
+       "key": "cleaner.reason.failed",
+       "params": {
+        "strikes": 1,
+        "max": 4
+       }
+      },
+      "dryRun": true,
+      "ok": true,
+      "error": null,
+      "actorUserId": null
+     }
+    ]
+   }
+  },
+  "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
+   "status": 200,
+   "body": {
+    "at": "2026-11-06T21:59:59.051Z",
+    "plan": {
+     "paused": null,
+     "downloads": [
+      {
+       "key": "demoalbum001",
+       "title": "The Lamplighters-Night Shift",
+       "downloadId": "DEMOALBUM001",
+       "queueIds": [
+        61
+       ],
+       "matched": true,
+       "state": "failed",
+       "rule": "failed",
+       "strikes": 1,
+       "maxStrikes": 4,
+       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.failed",
+        "params": {
+         "strikes": 1,
+         "max": 4
+        }
+       }
+      },
+      {
+       "key": "demoalbum002",
+       "title": "The Lamplighters-Harbour Songs",
+       "downloadId": "DEMOALBUM002",
+       "queueIds": [
+        62
+       ],
+       "matched": true,
+       "state": "failed",
+       "rule": "failed",
+       "strikes": 1,
+       "maxStrikes": 4,
+       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.failed",
+        "params": {
+         "strikes": 1,
+         "max": 4
+        }
+       }
+      },
+      {
+       "key": "demoalbum003",
+       "title": "Marrow & Pine-Low Tide",
+       "downloadId": "DEMOALBUM003",
+       "queueIds": [
+        63
+       ],
+       "matched": true,
+       "state": "failed",
+       "rule": "failed",
+       "strikes": 1,
+       "maxStrikes": 4,
+       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "waitUntil": null,
+       "action": {
+        "type": "none"
+       },
+       "reason": {
+        "key": "cleaner.reason.failed",
+        "params": {
+         "strikes": 1,
+         "max": 4
+        }
+       }
+      }
+     ],
+     "nextState": [
+      {
+       "key": "demoalbum001",
+       "title": "The Lamplighters-Night Shift",
+       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "problem": "failed",
+       "problemSince": "2026-11-06T21:54:59.051Z",
+       "strikes": 1,
+       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
+       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      },
+      {
+       "key": "demoalbum002",
+       "title": "The Lamplighters-Harbour Songs",
+       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "problem": "failed",
+       "problemSince": "2026-11-06T21:54:59.051Z",
+       "strikes": 1,
+       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
+       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      },
+      {
+       "key": "demoalbum003",
+       "title": "Marrow & Pine-Low Tide",
+       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "problem": "failed",
+       "problemSince": "2026-11-06T21:54:59.051Z",
+       "strikes": 1,
+       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
+       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastSizeLeft": 0,
+       "ignored": false
+      }
+     ],
+     "nextAttempts": [],
+     "exhausted": [],
+     "removals": 0
+    }
+   }
+  },
+  "/api/cleaner/history?instance=00000000-0000-4000-8000-000000000006&limit=100": {
+   "status": 200,
+   "body": {
+    "entries": [
+     {
+      "id": 5,
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "at": "2026-11-06T21:54:59.054Z",
+      "downloadKey": "demoalbum003",
+      "title": "Marrow & Pine-Low Tide",
+      "kind": "strike",
+      "rule": "failed",
+      "reason": {
+       "key": "cleaner.reason.failed",
+       "params": {
+        "strikes": 1,
+        "max": 4
+       }
+      },
+      "dryRun": true,
+      "ok": true,
+      "error": null,
+      "actorUserId": null
+     },
+     {
+      "id": 4,
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "at": "2026-11-06T21:54:59.054Z",
+      "downloadKey": "demoalbum002",
+      "title": "The Lamplighters-Harbour Songs",
+      "kind": "strike",
+      "rule": "failed",
+      "reason": {
+       "key": "cleaner.reason.failed",
+       "params": {
+        "strikes": 1,
+        "max": 4
+       }
+      },
+      "dryRun": true,
+      "ok": true,
+      "error": null,
+      "actorUserId": null
+     },
+     {
+      "id": 3,
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "at": "2026-11-06T21:54:59.053Z",
+      "downloadKey": "demoalbum001",
+      "title": "The Lamplighters-Night Shift",
+      "kind": "strike",
+      "rule": "failed",
+      "reason": {
+       "key": "cleaner.reason.failed",
+       "params": {
+        "strikes": 1,
+        "max": 4
+       }
+      },
+      "dryRun": true,
+      "ok": true,
+      "error": null,
+      "actorUserId": null
+     }
+    ]
+   }
+  },
+  "/api/hunting": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "instanceName": "Sonarr",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "config": {
+       "pace": "normal",
+       "missing": {
+        "count": 2,
+        "everyMinutes": 60
+       },
+       "cutoff": {
+        "count": 1,
+        "everyMinutes": 120
+       },
+       "apiCallsPerHour": 100,
+       "pauseQueueSize": 15,
+       "researchAfterDays": 30,
+       "monitoredOnly": true,
+       "preferSeasonPacks": true,
+       "includeTags": [],
+       "excludeTags": [],
+       "qualityProfileIds": [],
+       "minYear": null,
+       "maxYear": null
+      },
+      "pause": null,
+      "error": null,
+      "budget": {
+       "left": 96,
+       "limit": 100
+      },
+      "lists": {
+       "missing": {
+        "rate": {
+         "count": 2,
+         "everyMinutes": 60
+        },
+        "lastRunAt": "2026-11-06T21:54:59.019Z",
+        "nextRunAt": "2026-11-06T22:54:59.019Z",
+        "upcoming": [],
+        "waiting": 0
+       },
+       "cutoff": {
+        "rate": {
+         "count": 1,
+         "everyMinutes": 120
+        },
+        "lastRunAt": "2026-11-06T21:54:59.021Z",
+        "nextRunAt": "2026-11-06T23:54:59.021Z",
+        "upcoming": [],
+        "waiting": 0
+       }
+      },
+      "stats": {
+       "searches": 2,
+       "finished": 0,
+       "found": 0,
+       "imported": 0,
+       "rate": null
+      },
+      "searches": [
+       {
+        "id": 2,
+        "key": "season:12:1",
+        "title": "Kestrel Station – S01",
+        "list": "missing",
+        "reason": {
+         "key": "hunting.reason.seasonPack",
+         "params": {
+          "count": 3
+         }
+        },
+        "at": "2026-11-06T21:54:59.018Z",
+        "manual": false,
+        "result": "pending"
+       },
+       {
+        "id": 1,
+        "key": "episode:1101",
+        "title": "Lanternfall – Lanternfall S02E03",
+        "list": "missing",
+        "reason": {
+         "key": "hunting.reason.neverSearched"
+        },
+        "at": "2026-11-06T21:54:59.016Z",
+        "manual": false,
+        "result": "pending"
+       }
+      ],
+      "exclusions": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000003",
+      "instanceName": "Sonarr 4K",
+      "adapter": "sonarr",
+      "adapterName": "Sonarr",
+      "config": {
+       "pace": "normal",
+       "missing": {
+        "count": 2,
+        "everyMinutes": 60
+       },
+       "cutoff": {
+        "count": 1,
+        "everyMinutes": 120
+       },
+       "apiCallsPerHour": 100,
+       "pauseQueueSize": 15,
+       "researchAfterDays": 30,
+       "monitoredOnly": true,
+       "preferSeasonPacks": true,
+       "includeTags": [],
+       "excludeTags": [],
+       "qualityProfileIds": [],
+       "minYear": null,
+       "maxYear": null
+      },
+      "pause": null,
+      "error": null,
+      "budget": {
+       "left": 100,
+       "limit": 100
+      },
+      "lists": {
+       "missing": {
+        "rate": {
+         "count": 2,
+         "everyMinutes": 60
+        },
+        "lastRunAt": null,
+        "nextRunAt": "2026-11-06T21:55:02.221Z",
+        "upcoming": [],
+        "waiting": 0
+       },
+       "cutoff": {
+        "rate": {
+         "count": 1,
+         "everyMinutes": 120
+        },
+        "lastRunAt": null,
+        "nextRunAt": "2026-11-06T21:55:02.221Z",
+        "upcoming": [],
+        "waiting": 0
+       }
+      },
+      "stats": {
+       "searches": 0,
+       "finished": 0,
+       "found": 0,
+       "imported": 0,
+       "rate": null
+      },
+      "searches": [],
+      "exclusions": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "instanceName": "Radarr",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "config": {
+       "pace": "normal",
+       "missing": {
+        "count": 2,
+        "everyMinutes": 60
+       },
+       "cutoff": {
+        "count": 1,
+        "everyMinutes": 120
+       },
+       "apiCallsPerHour": 100,
+       "pauseQueueSize": 15,
+       "researchAfterDays": 30,
+       "monitoredOnly": true,
+       "preferSeasonPacks": true,
+       "includeTags": [],
+       "excludeTags": [],
+       "qualityProfileIds": [],
+       "minYear": null,
+       "maxYear": null
+      },
+      "pause": {
+       "kind": "indexer",
+       "reason": {
+        "key": "hunting.pause.indexer",
+        "params": {
+         "name": "Indexers unavailable due to failures for more than 6 hours: Nightjar (Prowlarr)"
+        }
+       }
+      },
+      "error": null,
+      "budget": {
+       "left": 100,
+       "limit": 100
+      },
+      "lists": {
+       "missing": {
+        "rate": {
+         "count": 2,
+         "everyMinutes": 60
+        },
+        "lastRunAt": null,
+        "nextRunAt": null,
+        "upcoming": [],
+        "waiting": 0
+       },
+       "cutoff": {
+        "rate": {
+         "count": 1,
+         "everyMinutes": 120
+        },
+        "lastRunAt": null,
+        "nextRunAt": null,
+        "upcoming": [],
+        "waiting": 0
+       }
+      },
+      "stats": {
+       "searches": 0,
+       "finished": 0,
+       "found": 0,
+       "imported": 0,
+       "rate": null
+      },
+      "searches": [],
+      "exclusions": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "instanceName": "Radarr 4K",
+      "adapter": "radarr",
+      "adapterName": "Radarr",
+      "config": {
+       "pace": "normal",
+       "missing": {
+        "count": 2,
+        "everyMinutes": 60
+       },
+       "cutoff": {
+        "count": 1,
+        "everyMinutes": 120
+       },
+       "apiCallsPerHour": 100,
+       "pauseQueueSize": 15,
+       "researchAfterDays": 30,
+       "monitoredOnly": true,
+       "preferSeasonPacks": true,
+       "includeTags": [],
+       "excludeTags": [],
+       "qualityProfileIds": [],
+       "minYear": null,
+       "maxYear": null
+      },
+      "pause": null,
+      "error": null,
+      "budget": {
+       "left": 96,
+       "limit": 100
+      },
+      "lists": {
+       "missing": {
+        "rate": {
+         "count": 2,
+         "everyMinutes": 60
+        },
+        "lastRunAt": "2026-11-06T21:54:59.047Z",
+        "nextRunAt": "2026-11-06T22:54:59.047Z",
+        "upcoming": [
+         {
+          "key": "movie:203",
+          "itemKeys": [
+           "movie:203"
+          ],
+          "title": "The Great Train Robbery (1903)",
+          "list": "missing",
+          "target": {
+           "kind": "movies",
+           "ids": [
+            203
+           ]
+          },
+          "reason": {
+           "key": "hunting.reason.neverSearched"
+          },
+          "at": "2026-11-06T22:54:59.047Z"
+         },
+         {
+          "key": "movie:202",
+          "itemKeys": [
+           "movie:202"
+          ],
+          "title": "A Trip to the Moon (1902)",
+          "list": "missing",
+          "target": {
+           "kind": "movies",
+           "ids": [
+            202
+           ]
+          },
+          "reason": {
+           "key": "hunting.reason.neverSearched"
+          },
+          "at": "2026-11-06T22:54:59.047Z"
+         }
+        ],
+        "waiting": 2
+       },
+       "cutoff": {
+        "rate": {
+         "count": 1,
+         "everyMinutes": 120
+        },
+        "lastRunAt": "2026-11-06T21:54:59.049Z",
+        "nextRunAt": "2026-11-06T23:54:59.049Z",
+        "upcoming": [],
+        "waiting": 0
+       }
+      },
+      "stats": {
+       "searches": 2,
+       "finished": 0,
+       "found": 0,
+       "imported": 0,
+       "rate": null
+      },
+      "searches": [
+       {
+        "id": 4,
+        "key": "movie:204",
+        "title": "Intolerance (1916)",
+        "list": "missing",
+        "reason": {
+         "key": "hunting.reason.neverSearched"
+        },
+        "at": "2026-11-06T21:54:59.047Z",
+        "manual": false,
+        "result": "pending"
+       },
+       {
+        "id": 3,
+        "key": "movie:205",
+        "title": "Nanook of the North (1922)",
+        "list": "missing",
+        "reason": {
+         "key": "hunting.reason.neverSearched"
+        },
+        "at": "2026-11-06T21:54:59.045Z",
+        "manual": false,
+        "result": "pending"
+       }
+      ],
+      "exclusions": []
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "instanceName": "Lidarr",
+      "adapter": "lidarr",
+      "adapterName": "Lidarr",
+      "config": {
+       "pace": "normal",
+       "missing": {
+        "count": 2,
+        "everyMinutes": 60
+       },
+       "cutoff": {
+        "count": 1,
+        "everyMinutes": 120
+       },
+       "apiCallsPerHour": 100,
+       "pauseQueueSize": 15,
+       "researchAfterDays": 30,
+       "monitoredOnly": true,
+       "preferSeasonPacks": true,
+       "includeTags": [],
+       "excludeTags": [],
+       "qualityProfileIds": [],
+       "minYear": null,
+       "maxYear": null
+      },
+      "pause": null,
+      "error": null,
+      "budget": {
+       "left": 98,
+       "limit": 100
+      },
+      "lists": {
+       "missing": {
+        "rate": {
+         "count": 2,
+         "everyMinutes": 60
+        },
+        "lastRunAt": "2026-11-06T21:54:59.059Z",
+        "nextRunAt": "2026-11-06T22:54:59.059Z",
+        "upcoming": [],
+        "waiting": 0
+       },
+       "cutoff": {
+        "rate": {
+         "count": 1,
+         "everyMinutes": 120
+        },
+        "lastRunAt": "2026-11-06T21:54:59.062Z",
+        "nextRunAt": "2026-11-06T23:54:59.062Z",
+        "upcoming": [],
+        "waiting": 0
+       }
+      },
+      "stats": {
+       "searches": 0,
+       "finished": 0,
+       "found": 0,
+       "imported": 0,
+       "rate": null
+      },
+      "searches": [],
+      "exclusions": []
+     }
+    ]
+   }
+  },
+  "/api/hunting/00000000-0000-4000-8000-000000000002/filters": {
+   "status": 200,
+   "body": {
+    "tags": [
+     {
+      "id": 1,
+      "label": "wardarr-keep"
+     }
+    ],
+    "qualityProfiles": [
+     {
+      "id": 1,
+      "name": "HD-1080p"
+     },
+     {
+      "id": 2,
+      "name": "Any"
+     }
+    ]
+   }
+  },
+  "/api/hunting/00000000-0000-4000-8000-000000000003/filters": {
+   "status": 200,
+   "body": {
+    "tags": [
+     {
+      "id": 1,
+      "label": "wardarr-keep"
+     }
+    ],
+    "qualityProfiles": [
+     {
+      "id": 1,
+      "name": "Ultra HD"
+     },
+     {
+      "id": 2,
+      "name": "Any"
+     }
+    ]
+   }
+  },
+  "/api/hunting/00000000-0000-4000-8000-000000000004/filters": {
+   "status": 200,
+   "body": {
+    "tags": [
+     {
+      "id": 1,
+      "label": "wardarr-keep"
+     }
+    ],
+    "qualityProfiles": [
+     {
+      "id": 1,
+      "name": "HD-1080p"
+     },
+     {
+      "id": 2,
+      "name": "Any"
+     }
+    ]
+   }
+  },
+  "/api/hunting/00000000-0000-4000-8000-000000000005/filters": {
+   "status": 200,
+   "body": {
+    "tags": [
+     {
+      "id": 1,
+      "label": "wardarr-keep"
+     }
+    ],
+    "qualityProfiles": [
+     {
+      "id": 1,
+      "name": "Ultra HD"
+     },
+     {
+      "id": 2,
+      "name": "Any"
+     }
+    ]
+   }
+  },
+  "/api/hunting/00000000-0000-4000-8000-000000000006/filters": {
+   "status": 200,
+   "body": {
+    "tags": [
+     {
+      "id": 1,
+      "label": "wardarr-keep"
+     }
+    ],
+    "qualityProfiles": [
+     {
+      "id": 1,
+      "name": "HD-1080p"
+     },
+     {
+      "id": 2,
+      "name": "Any"
+     }
+    ]
+   }
+  },
+  "/api/discover?list=trending&page=1": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "page": 1,
+    "totalPages": 1,
+    "results": [
+     {
+      "tmdbId": 91922,
+      "mediaType": "movie",
+      "title": "Nosferatu",
+      "year": 1922,
+      "overview": "An estate agent travels to the Carpathians to sell a house to the reclusive Count Orlok, who follows him home and brings a plague with him. F. W. Murnau’s silent classic of German Expressionism.",
+      "posterPath": "/demo-nosferatu.jpg",
+      "backdropPath": null,
+      "rating": 7.8,
+      "status": "available",
+      "status4k": "available"
+     },
+     {
+      "tmdbId": 91902,
+      "mediaType": "movie",
+      "title": "A Trip to the Moon",
+      "year": 1902,
+      "overview": "A congress of astronomers fires itself to the Moon in a giant shell, meets its inhabitants and escapes back to Earth. Georges Méliès’ fourteen-minute fantasy, full of stage tricks.",
+      "posterPath": "/demo-trip-to-the-moon.jpg",
+      "backdropPath": null,
+      "rating": 8,
+      "status": "available",
+      "status4k": "processing"
+     },
+     {
+      "tmdbId": 91903,
+      "mediaType": "movie",
+      "title": "The Great Train Robbery",
+      "year": 1903,
+      "overview": "Bandits hold up a steam train, rob its passengers and flee on horseback, with a posse close behind. Edwin S. Porter’s twelve-minute western, an early landmark of film editing.",
+      "posterPath": "/demo-great-train-robbery.jpg",
+      "backdropPath": null,
+      "rating": 6.9,
+      "status": "processing",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 91916,
+      "mediaType": "movie",
+      "title": "Intolerance",
+      "year": 1916,
+      "overview": "Four stories from four eras, from the fall of Babylon to a modern city, are cut together to show how intolerance repeats through history. D. W. Griffith’s monumental silent epic.",
+      "posterPath": "/demo-intolerance.jpg",
+      "backdropPath": null,
+      "rating": 7.6,
+      "status": "available",
+      "status4k": "processing"
+     },
+     {
+      "tmdbId": 91921,
+      "mediaType": "movie",
+      "title": "Nanook of the North",
+      "year": 1922,
+      "overview": "A year with an Inuk hunter and his family on the coast of Hudson Bay: building an igloo, fishing through the ice, trading at the post. Robert J. Flaherty’s early feature-length documentary.",
+      "posterPath": "/demo-nanook.jpg",
+      "backdropPath": null,
+      "rating": 7.4,
+      "status": "requested",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 92001,
+      "mediaType": "tv",
+      "title": "Lanternfall",
+      "year": 2024,
+      "overview": "When every lighthouse on a stormy coast goes dark on the same night, a young keeper sets out to learn who is switching them off.",
+      "posterPath": "/demo-lanternfall.jpg",
+      "backdropPath": null,
+      "rating": 8.2,
+      "status": "partial",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 92002,
+      "mediaType": "tv",
+      "title": "The Salt Archive",
+      "year": 2023,
+      "overview": "Two archivists catalogue the records of a drowned town and find that some of the letters are dated next week.",
+      "posterPath": "/demo-salt-archive.jpg",
+      "backdropPath": null,
+      "rating": 7.7,
+      "status": "available",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 92003,
+      "mediaType": "tv",
+      "title": "Kestrel Station",
+      "year": 2025,
+      "overview": "The crew of a remote weather station keeps the forecasts coming while the storm outside starts answering back.",
+      "posterPath": "/demo-kestrel-station.jpg",
+      "backdropPath": null,
+      "rating": 7.1,
+      "status": "processing",
+      "status4k": "unknown"
+     }
+    ]
+   }
+  },
+  "/api/discover?list=movies&page=1": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "page": 1,
+    "totalPages": 1,
+    "results": [
+     {
+      "tmdbId": 91922,
+      "mediaType": "movie",
+      "title": "Nosferatu",
+      "year": 1922,
+      "overview": "An estate agent travels to the Carpathians to sell a house to the reclusive Count Orlok, who follows him home and brings a plague with him. F. W. Murnau’s silent classic of German Expressionism.",
+      "posterPath": "/demo-nosferatu.jpg",
+      "backdropPath": null,
+      "rating": 7.8,
+      "status": "available",
+      "status4k": "available"
+     },
+     {
+      "tmdbId": 91902,
+      "mediaType": "movie",
+      "title": "A Trip to the Moon",
+      "year": 1902,
+      "overview": "A congress of astronomers fires itself to the Moon in a giant shell, meets its inhabitants and escapes back to Earth. Georges Méliès’ fourteen-minute fantasy, full of stage tricks.",
+      "posterPath": "/demo-trip-to-the-moon.jpg",
+      "backdropPath": null,
+      "rating": 8,
+      "status": "available",
+      "status4k": "processing"
+     },
+     {
+      "tmdbId": 91903,
+      "mediaType": "movie",
+      "title": "The Great Train Robbery",
+      "year": 1903,
+      "overview": "Bandits hold up a steam train, rob its passengers and flee on horseback, with a posse close behind. Edwin S. Porter’s twelve-minute western, an early landmark of film editing.",
+      "posterPath": "/demo-great-train-robbery.jpg",
+      "backdropPath": null,
+      "rating": 6.9,
+      "status": "processing",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 91916,
+      "mediaType": "movie",
+      "title": "Intolerance",
+      "year": 1916,
+      "overview": "Four stories from four eras, from the fall of Babylon to a modern city, are cut together to show how intolerance repeats through history. D. W. Griffith’s monumental silent epic.",
+      "posterPath": "/demo-intolerance.jpg",
+      "backdropPath": null,
+      "rating": 7.6,
+      "status": "available",
+      "status4k": "processing"
+     },
+     {
+      "tmdbId": 91921,
+      "mediaType": "movie",
+      "title": "Nanook of the North",
+      "year": 1922,
+      "overview": "A year with an Inuk hunter and his family on the coast of Hudson Bay: building an igloo, fishing through the ice, trading at the post. Robert J. Flaherty’s early feature-length documentary.",
+      "posterPath": "/demo-nanook.jpg",
+      "backdropPath": null,
+      "rating": 7.4,
+      "status": "requested",
+      "status4k": "unknown"
+     }
+    ]
+   }
+  },
+  "/api/discover?list=tv&page=1": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "page": 1,
+    "totalPages": 1,
+    "results": [
+     {
+      "tmdbId": 92001,
+      "mediaType": "tv",
+      "title": "Lanternfall",
+      "year": 2024,
+      "overview": "When every lighthouse on a stormy coast goes dark on the same night, a young keeper sets out to learn who is switching them off.",
+      "posterPath": "/demo-lanternfall.jpg",
+      "backdropPath": null,
+      "rating": 8.2,
+      "status": "partial",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 92002,
+      "mediaType": "tv",
+      "title": "The Salt Archive",
+      "year": 2023,
+      "overview": "Two archivists catalogue the records of a drowned town and find that some of the letters are dated next week.",
+      "posterPath": "/demo-salt-archive.jpg",
+      "backdropPath": null,
+      "rating": 7.7,
+      "status": "available",
+      "status4k": "unknown"
+     },
+     {
+      "tmdbId": 92003,
+      "mediaType": "tv",
+      "title": "Kestrel Station",
+      "year": 2025,
+      "overview": "The crew of a remote weather station keeps the forecasts coming while the storm outside starts answering back.",
+      "posterPath": "/demo-kestrel-station.jpg",
+      "backdropPath": null,
+      "rating": 7.1,
+      "status": "processing",
+      "status4k": "unknown"
+     }
+    ]
+   }
+  },
+  "/api/discover/movie/91922": {
+   "status": 200,
+   "body": {
+    "tmdbId": 91922,
+    "mediaType": "movie",
+    "title": "Nosferatu",
+    "year": 1922,
+    "overview": "An estate agent travels to the Carpathians to sell a house to the reclusive Count Orlok, who follows him home and brings a plague with him. F. W. Murnau’s silent classic of German Expressionism.",
+    "posterPath": "/demo-nosferatu.jpg",
+    "backdropPath": null,
+    "rating": 7.8,
+    "status": "available",
+    "status4k": "available",
+    "seasons": [],
+    "tvdbId": null
+   }
+  },
+  "/api/discover/movie/91902": {
+   "status": 200,
+   "body": {
+    "tmdbId": 91902,
+    "mediaType": "movie",
+    "title": "A Trip to the Moon",
+    "year": 1902,
+    "overview": "A congress of astronomers fires itself to the Moon in a giant shell, meets its inhabitants and escapes back to Earth. Georges Méliès’ fourteen-minute fantasy, full of stage tricks.",
+    "posterPath": "/demo-trip-to-the-moon.jpg",
+    "backdropPath": null,
+    "rating": 8,
+    "status": "available",
+    "status4k": "processing",
+    "seasons": [],
+    "tvdbId": null
+   }
+  },
+  "/api/discover/movie/91903": {
+   "status": 200,
+   "body": {
+    "tmdbId": 91903,
+    "mediaType": "movie",
+    "title": "The Great Train Robbery",
+    "year": 1903,
+    "overview": "Bandits hold up a steam train, rob its passengers and flee on horseback, with a posse close behind. Edwin S. Porter’s twelve-minute western, an early landmark of film editing.",
+    "posterPath": "/demo-great-train-robbery.jpg",
+    "backdropPath": null,
+    "rating": 6.9,
+    "status": "processing",
+    "status4k": "unknown",
+    "seasons": [],
+    "tvdbId": null
+   }
+  },
+  "/api/discover/movie/91916": {
+   "status": 200,
+   "body": {
+    "tmdbId": 91916,
+    "mediaType": "movie",
+    "title": "Intolerance",
+    "year": 1916,
+    "overview": "Four stories from four eras, from the fall of Babylon to a modern city, are cut together to show how intolerance repeats through history. D. W. Griffith’s monumental silent epic.",
+    "posterPath": "/demo-intolerance.jpg",
+    "backdropPath": null,
+    "rating": 7.6,
+    "status": "available",
+    "status4k": "processing",
+    "seasons": [],
+    "tvdbId": null
+   }
+  },
+  "/api/discover/movie/91921": {
+   "status": 200,
+   "body": {
+    "tmdbId": 91921,
+    "mediaType": "movie",
+    "title": "Nanook of the North",
+    "year": 1922,
+    "overview": "A year with an Inuk hunter and his family on the coast of Hudson Bay: building an igloo, fishing through the ice, trading at the post. Robert J. Flaherty’s early feature-length documentary.",
+    "posterPath": "/demo-nanook.jpg",
+    "backdropPath": null,
+    "rating": 7.4,
+    "status": "requested",
+    "status4k": "unknown",
+    "seasons": [],
+    "tvdbId": null
+   }
+  },
+  "/api/discover/tv/92001": {
+   "status": 200,
+   "body": {
+    "tmdbId": 92001,
+    "mediaType": "tv",
+    "title": "Lanternfall",
+    "year": 2024,
+    "overview": "When every lighthouse on a stormy coast goes dark on the same night, a young keeper sets out to learn who is switching them off.",
+    "posterPath": "/demo-lanternfall.jpg",
+    "backdropPath": null,
+    "rating": 8.2,
+    "status": "partial",
+    "status4k": "unknown",
+    "seasons": [
+     {
+      "seasonNumber": 1,
+      "name": "Season 1",
+      "episodeCount": 8,
+      "status": "available",
+      "status4k": "unknown"
+     },
+     {
+      "seasonNumber": 2,
+      "name": "Season 2",
+      "episodeCount": 8,
+      "status": "processing",
+      "status4k": "unknown"
+     }
+    ],
+    "tvdbId": 162001
+   }
+  },
+  "/api/discover/tv/92002": {
+   "status": 200,
+   "body": {
+    "tmdbId": 92002,
+    "mediaType": "tv",
+    "title": "The Salt Archive",
+    "year": 2023,
+    "overview": "Two archivists catalogue the records of a drowned town and find that some of the letters are dated next week.",
+    "posterPath": "/demo-salt-archive.jpg",
+    "backdropPath": null,
+    "rating": 7.7,
+    "status": "available",
+    "status4k": "unknown",
+    "seasons": [
+     {
+      "seasonNumber": 1,
+      "name": "Season 1",
+      "episodeCount": 6,
+      "status": "available",
+      "status4k": "unknown"
+     },
+     {
+      "seasonNumber": 2,
+      "name": "Season 2",
+      "episodeCount": 6,
+      "status": "available",
+      "status4k": "unknown"
+     }
+    ],
+    "tvdbId": 162002
+   }
+  },
+  "/api/discover/tv/92003": {
+   "status": 200,
+   "body": {
+    "tmdbId": 92003,
+    "mediaType": "tv",
+    "title": "Kestrel Station",
+    "year": 2025,
+    "overview": "The crew of a remote weather station keeps the forecasts coming while the storm outside starts answering back.",
+    "posterPath": "/demo-kestrel-station.jpg",
+    "backdropPath": null,
+    "rating": 7.1,
+    "status": "processing",
+    "status4k": "unknown",
+    "seasons": [
+     {
+      "seasonNumber": 1,
+      "name": "Season 1",
+      "episodeCount": 10,
+      "status": "processing",
+      "status4k": "unknown"
+     }
+    ],
+    "tvdbId": 162003
+   }
+  },
+  "/api/requests?status=all&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 9,
+    "results": [
+     {
+      "id": 9,
+      "status": "pending",
+      "mediaType": "movie",
+      "tmdbId": 91921,
+      "title": "Nanook of the North",
+      "posterPath": "/demo-nanook.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-11-06T21:19:55.109Z",
+      "updatedAt": "2026-11-06T21:19:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "requested"
+     },
+     {
+      "id": 8,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92003,
+      "title": "Kestrel Station",
+      "posterPath": "/demo-kestrel-station.jpg",
+      "is4k": false,
+      "seasons": [
+       1
+      ],
+      "createdAt": "2026-11-06T19:14:55.109Z",
+      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 6,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92001,
+      "title": "Lanternfall",
+      "posterPath": "/demo-lanternfall.jpg",
+      "is4k": false,
+      "seasons": [
+       2
+      ],
+      "createdAt": "2026-11-05T19:54:55.109Z",
+      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "partial"
+     },
+     {
+      "id": 5,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91903,
+      "title": "The Great Train Robbery",
+      "posterPath": "/demo-great-train-robbery.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-11-04T19:54:55.109Z",
+      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 4,
+      "status": "declined",
+      "mediaType": "movie",
+      "tmdbId": 91921,
+      "title": "Nanook of the North",
+      "posterPath": "/demo-nanook.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-03T21:54:55.109Z",
+      "updatedAt": "2026-11-03T21:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "unknown"
+     },
+     {
+      "id": 3,
+      "status": "completed",
+      "mediaType": "tv",
+      "tmdbId": 92002,
+      "title": "The Salt Archive",
+      "posterPath": "/demo-salt-archive.jpg",
+      "is4k": false,
+      "seasons": [
+       1,
+       2
+      ],
+      "createdAt": "2026-10-31T21:54:55.109Z",
+      "updatedAt": "2026-10-31T21:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "available"
+     },
+     {
+      "id": 2,
+      "status": "completed",
+      "mediaType": "movie",
+      "tmdbId": 91922,
+      "title": "Nosferatu",
+      "posterPath": "/demo-nosferatu.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-10-25T21:54:55.109Z",
+      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "available"
+     },
+     {
+      "id": 1,
+      "status": "failed",
+      "mediaType": "movie",
+      "tmdbId": 91902,
+      "title": "A Trip to the Moon",
+      "posterPath": "/demo-trip-to-the-moon.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-10-22T21:54:55.109Z",
+      "updatedAt": "2026-10-22T21:54:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=all&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 2,
+    "results": [
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 2,
+      "status": "completed",
+      "mediaType": "movie",
+      "tmdbId": 91922,
+      "title": "Nosferatu",
+      "posterPath": "/demo-nosferatu.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-10-25T21:54:55.109Z",
+      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "available"
+     }
+    ]
+   }
+  },
+  "/api/requests?status=pending&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 1,
+    "results": [
+     {
+      "id": 9,
+      "status": "pending",
+      "mediaType": "movie",
+      "tmdbId": 91921,
+      "title": "Nanook of the North",
+      "posterPath": "/demo-nanook.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-11-06T21:19:55.109Z",
+      "updatedAt": "2026-11-06T21:19:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "requested"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=pending&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 0,
+    "results": []
+   }
+  },
+  "/api/requests?status=approved&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 4,
+    "results": [
+     {
+      "id": 8,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92003,
+      "title": "Kestrel Station",
+      "posterPath": "/demo-kestrel-station.jpg",
+      "is4k": false,
+      "seasons": [
+       1
+      ],
+      "createdAt": "2026-11-06T19:14:55.109Z",
+      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 6,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92001,
+      "title": "Lanternfall",
+      "posterPath": "/demo-lanternfall.jpg",
+      "is4k": false,
+      "seasons": [
+       2
+      ],
+      "createdAt": "2026-11-05T19:54:55.109Z",
+      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "partial"
+     },
+     {
+      "id": 5,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91903,
+      "title": "The Great Train Robbery",
+      "posterPath": "/demo-great-train-robbery.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-11-04T19:54:55.109Z",
+      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=approved&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 1,
+    "results": [
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests?status=processing&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 4,
+    "results": [
+     {
+      "id": 8,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92003,
+      "title": "Kestrel Station",
+      "posterPath": "/demo-kestrel-station.jpg",
+      "is4k": false,
+      "seasons": [
+       1
+      ],
+      "createdAt": "2026-11-06T19:14:55.109Z",
+      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     },
+     {
+      "id": 6,
+      "status": "approved",
+      "mediaType": "tv",
+      "tmdbId": 92001,
+      "title": "Lanternfall",
+      "posterPath": "/demo-lanternfall.jpg",
+      "is4k": false,
+      "seasons": [
+       2
+      ],
+      "createdAt": "2026-11-05T19:54:55.109Z",
+      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "partial"
+     },
+     {
+      "id": 5,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91903,
+      "title": "The Great Train Robbery",
+      "posterPath": "/demo-great-train-robbery.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-11-04T19:54:55.109Z",
+      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=processing&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 1,
+    "results": [
+     {
+      "id": 7,
+      "status": "approved",
+      "mediaType": "movie",
+      "tmdbId": 91916,
+      "title": "Intolerance",
+      "posterPath": "/demo-intolerance.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-06T16:54:55.109Z",
+      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests?status=available&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 2,
+    "results": [
+     {
+      "id": 3,
+      "status": "completed",
+      "mediaType": "tv",
+      "tmdbId": 92002,
+      "title": "The Salt Archive",
+      "posterPath": "/demo-salt-archive.jpg",
+      "is4k": false,
+      "seasons": [
+       1,
+       2
+      ],
+      "createdAt": "2026-10-31T21:54:55.109Z",
+      "updatedAt": "2026-10-31T21:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/series",
+      "mediaStatus": "available"
+     },
+     {
+      "id": 2,
+      "status": "completed",
+      "mediaType": "movie",
+      "tmdbId": 91922,
+      "title": "Nosferatu",
+      "posterPath": "/demo-nosferatu.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-10-25T21:54:55.109Z",
+      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "available"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=available&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 1,
+    "results": [
+     {
+      "id": 2,
+      "status": "completed",
+      "mediaType": "movie",
+      "tmdbId": 91922,
+      "title": "Nosferatu",
+      "posterPath": "/demo-nosferatu.jpg",
+      "is4k": false,
+      "seasons": [],
+      "createdAt": "2026-10-25T21:54:55.109Z",
+      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "requestedBy": {
+       "id": 1,
+       "name": "Demo Admin"
+      },
+      "serverId": 0,
+      "profileId": 1,
+      "rootFolder": "/data/films",
+      "mediaStatus": "available"
+     }
+    ]
+   }
+  },
+  "/api/requests?status=failed&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 1,
+    "results": [
+     {
+      "id": 1,
+      "status": "failed",
+      "mediaType": "movie",
+      "tmdbId": 91902,
+      "title": "A Trip to the Moon",
+      "posterPath": "/demo-trip-to-the-moon.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-10-22T21:54:55.109Z",
+      "updatedAt": "2026-10-22T21:54:55.109Z",
+      "requestedBy": {
+       "id": 3,
+       "name": "Jonas"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "processing"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=failed&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 0,
+    "results": []
+   }
+  },
+  "/api/requests?status=declined&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "total": 1,
+    "results": [
+     {
+      "id": 4,
+      "status": "declined",
+      "mediaType": "movie",
+      "tmdbId": 91921,
+      "title": "Nanook of the North",
+      "posterPath": "/demo-nanook.jpg",
+      "is4k": true,
+      "seasons": [],
+      "createdAt": "2026-11-03T21:54:55.109Z",
+      "updatedAt": "2026-11-03T21:54:55.109Z",
+      "requestedBy": {
+       "id": 2,
+       "name": "Mira"
+      },
+      "serverId": 1,
+      "profileId": 1,
+      "rootFolder": "/data/films-uhd",
+      "mediaStatus": "unknown"
+     }
+    ]
+   }
+  },
+  "/api/requests/mine?status=declined&take=20&skip=0": {
+   "status": 200,
+   "body": {
+    "instanceId": "00000000-0000-4000-8000-000000000011",
+    "linked": true,
+    "total": 0,
+    "results": []
+   }
+  },
+  "/api/library?days=7": {
+   "status": 200,
+   "body": {
+    "servers": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin",
+      "adapter": "jellyfin",
+      "adapterName": "Jellyfin",
+      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "error": null,
+      "refreshing": false,
+      "libraries": [
+       {
+        "id": "lib-films",
+        "name": "Films",
+        "kind": "movie",
+        "items": 50,
+        "files": 50,
+        "sizeBytes": 379900000000,
+        "resolutions": {
+         "4K": 6,
+         "1080p": 31,
+         "720p": 9,
+         "SD": 4
+        },
+        "videoCodecs": {
+         "hevc": 17,
+         "h264": 29,
+         "mpeg2": 4
+        }
+       },
+       {
+        "id": "lib-series",
+        "name": "Series",
+        "kind": "show",
+        "items": 7,
+        "files": 176,
+        "sizeBytes": 306700000000,
+        "resolutions": {
+         "1080p": 118,
+         "720p": 46,
+         "4K": 12
+        },
+        "videoCodecs": {
+         "hevc": 42,
+         "h264": 134
+        }
+       }
+      ]
+     }
+    ],
+    "streams": {
+     "days": 7,
+     "plays": 17,
+     "playedMs": 45391224,
+     "transcodes": 3,
+     "users": [
+      {
+       "user": "Mira",
+       "plays": 7,
+       "playedMs": 22707612
+      },
+      {
+       "user": "Demo",
+       "plays": 7,
+       "playedMs": 16323612
+      },
+      {
+       "user": "Jonas",
+       "plays": 3,
+       "playedMs": 6360000
+      }
+     ],
+     "topTitles": [
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 4
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 3
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 3
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 1
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/stats?days=7": {
+   "status": 200,
+   "body": {
+    "library": {
+     "kinds": {
+      "movie": {
+       "items": 50,
+       "sizeBytes": 379900000000
+      },
+      "show": {
+       "items": 7,
+       "sizeBytes": 306700000000
+      }
+     },
+     "resolutions": {
+      "4K": 18,
+      "1080p": 149,
+      "720p": 55,
+      "SD": 4
+     },
+     "sizeBytes": 686600000000,
+     "refreshedAt": "2026-11-06T21:54:55.919Z"
+    },
+    "streams": {
+     "days": 7,
+     "plays": 17,
+     "playedMs": 45391224,
+     "transcodes": 3,
+     "topTitles": [
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 4
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 3
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 3
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 2
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 1
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/library?days=30": {
+   "status": 200,
+   "body": {
+    "servers": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin",
+      "adapter": "jellyfin",
+      "adapterName": "Jellyfin",
+      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "error": null,
+      "refreshing": false,
+      "libraries": [
+       {
+        "id": "lib-films",
+        "name": "Films",
+        "kind": "movie",
+        "items": 50,
+        "files": 50,
+        "sizeBytes": 379900000000,
+        "resolutions": {
+         "4K": 6,
+         "1080p": 31,
+         "720p": 9,
+         "SD": 4
+        },
+        "videoCodecs": {
+         "hevc": 17,
+         "h264": 29,
+         "mpeg2": 4
+        }
+       },
+       {
+        "id": "lib-series",
+        "name": "Series",
+        "kind": "show",
+        "items": 7,
+        "files": 176,
+        "sizeBytes": 306700000000,
+        "resolutions": {
+         "1080p": 118,
+         "720p": 46,
+         "4K": 12
+        },
+        "videoCodecs": {
+         "hevc": 42,
+         "h264": 134
+        }
+       }
+      ]
+     }
+    ],
+    "streams": {
+     "days": 30,
+     "plays": 82,
+     "playedMs": 286885824,
+     "transcodes": 25,
+     "users": [
+      {
+       "user": "Mira",
+       "plays": 38,
+       "playedMs": 131411412
+      },
+      {
+       "user": "Jonas",
+       "plays": 25,
+       "playedMs": 99951000
+      },
+      {
+       "user": "Demo",
+       "plays": 19,
+       "playedMs": 55523412
+      }
+     ],
+     "topTitles": [
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 18
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 18
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 12
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 8
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/stats?days=30": {
+   "status": 200,
+   "body": {
+    "library": {
+     "kinds": {
+      "movie": {
+       "items": 50,
+       "sizeBytes": 379900000000
+      },
+      "show": {
+       "items": 7,
+       "sizeBytes": 306700000000
+      }
+     },
+     "resolutions": {
+      "4K": 18,
+      "1080p": 149,
+      "720p": 55,
+      "SD": 4
+     },
+     "sizeBytes": 686600000000,
+     "refreshedAt": "2026-11-06T21:54:55.919Z"
+    },
+    "streams": {
+     "days": 30,
+     "plays": 82,
+     "playedMs": 286885824,
+     "transcodes": 25,
+     "topTitles": [
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 18
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 18
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 12
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 8
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/library?days=90": {
+   "status": 200,
+   "body": {
+    "servers": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin",
+      "adapter": "jellyfin",
+      "adapterName": "Jellyfin",
+      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "error": null,
+      "refreshing": false,
+      "libraries": [
+       {
+        "id": "lib-films",
+        "name": "Films",
+        "kind": "movie",
+        "items": 50,
+        "files": 50,
+        "sizeBytes": 379900000000,
+        "resolutions": {
+         "4K": 6,
+         "1080p": 31,
+         "720p": 9,
+         "SD": 4
+        },
+        "videoCodecs": {
+         "hevc": 17,
+         "h264": 29,
+         "mpeg2": 4
+        }
+       },
+       {
+        "id": "lib-series",
+        "name": "Series",
+        "kind": "show",
+        "items": 7,
+        "files": 176,
+        "sizeBytes": 306700000000,
+        "resolutions": {
+         "1080p": 118,
+         "720p": 46,
+         "4K": 12
+        },
+        "videoCodecs": {
+         "hevc": 42,
+         "h264": 134
+        }
+       }
+      ]
+     }
+    ],
+    "streams": {
+     "days": 90,
+     "plays": 112,
+     "playedMs": 415973424,
+     "transcodes": 33,
+     "users": [
+      {
+       "user": "Mira",
+       "plays": 54,
+       "playedMs": 197930412
+      },
+      {
+       "user": "Jonas",
+       "plays": 33,
+       "playedMs": 145779600
+      },
+      {
+       "user": "Demo",
+       "plays": 25,
+       "playedMs": 72263412
+      }
+     ],
+     "topTitles": [
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 28
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 23
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 17
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 16
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 12
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-08-09",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-11",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-19",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-21",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-31",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-28",
+       "plays": 3
+      },
+      {
+       "day": "2026-09-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-30",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-03",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-04",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-06",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-07",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/stats?days=90": {
+   "status": 200,
+   "body": {
+    "library": {
+     "kinds": {
+      "movie": {
+       "items": 50,
+       "sizeBytes": 379900000000
+      },
+      "show": {
+       "items": 7,
+       "sizeBytes": 306700000000
+      }
+     },
+     "resolutions": {
+      "4K": 18,
+      "1080p": 149,
+      "720p": 55,
+      "SD": 4
+     },
+     "sizeBytes": 686600000000,
+     "refreshedAt": "2026-11-06T21:54:55.919Z"
+    },
+    "streams": {
+     "days": 90,
+     "plays": 112,
+     "playedMs": 415973424,
+     "transcodes": 33,
+     "topTitles": [
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 28
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 23
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 17
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 16
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 12
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 10
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2026-08-09",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-11",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-19",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-21",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-31",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-28",
+       "plays": 3
+      },
+      {
+       "day": "2026-09-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-30",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-03",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-04",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-06",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-07",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/library?days=365": {
+   "status": 200,
+   "body": {
+    "servers": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "instanceName": "Jellyfin",
+      "adapter": "jellyfin",
+      "adapterName": "Jellyfin",
+      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "error": null,
+      "refreshing": false,
+      "libraries": [
+       {
+        "id": "lib-films",
+        "name": "Films",
+        "kind": "movie",
+        "items": 50,
+        "files": 50,
+        "sizeBytes": 379900000000,
+        "resolutions": {
+         "4K": 6,
+         "1080p": 31,
+         "720p": 9,
+         "SD": 4
+        },
+        "videoCodecs": {
+         "hevc": 17,
+         "h264": 29,
+         "mpeg2": 4
+        }
+       },
+       {
+        "id": "lib-series",
+        "name": "Series",
+        "kind": "show",
+        "items": 7,
+        "files": 176,
+        "sizeBytes": 306700000000,
+        "resolutions": {
+         "1080p": 118,
+         "720p": 46,
+         "4K": 12
+        },
+        "videoCodecs": {
+         "hevc": 42,
+         "h264": 134
+        }
+       }
+      ]
+     }
+    ],
+    "streams": {
+     "days": 365,
+     "plays": 153,
+     "playedMs": 572683224,
+     "transcodes": 43,
+     "users": [
+      {
+       "user": "Mira",
+       "plays": 78,
+       "playedMs": 279756612
+      },
+      {
+       "user": "Jonas",
+       "plays": 43,
+       "playedMs": 198780000
+      },
+      {
+       "user": "Demo",
+       "plays": 32,
+       "playedMs": 94146612
+      }
+     ],
+     "topTitles": [
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 34
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 31
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 22
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 22
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 21
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 17
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2025-11-19",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-22",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-24",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-27",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-11",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-19",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-22",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-23",
+       "plays": 2
+      },
+      {
+       "day": "2025-12-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-14",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-05",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-11",
+       "plays": 3
+      },
+      {
+       "day": "2026-02-12",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-05",
+       "plays": 2
+      },
+      {
+       "day": "2026-03-06",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-07",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-22",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-03-29",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-16",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-22",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-24",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-10",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-29",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-24",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-05",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-16",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-09",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-11",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-19",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-21",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-31",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-28",
+       "plays": 3
+      },
+      {
+       "day": "2026-09-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-30",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-03",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-04",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-06",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-07",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  },
+  "/api/stats?days=365": {
+   "status": 200,
+   "body": {
+    "library": {
+     "kinds": {
+      "movie": {
+       "items": 50,
+       "sizeBytes": 379900000000
+      },
+      "show": {
+       "items": 7,
+       "sizeBytes": 306700000000
+      }
+     },
+     "resolutions": {
+      "4K": 18,
+      "1080p": 149,
+      "720p": 55,
+      "SD": 4
+     },
+     "sizeBytes": 686600000000,
+     "refreshedAt": "2026-11-06T21:54:55.919Z"
+    },
+    "streams": {
+     "days": 365,
+     "plays": 153,
+     "playedMs": 572683224,
+     "transcodes": 43,
+     "topTitles": [
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 34
+      },
+      {
+       "title": "Kestrel Station",
+       "mediaType": "episode",
+       "plays": 31
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 22
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 22
+      },
+      {
+       "title": "Lanternfall",
+       "mediaType": "episode",
+       "plays": 21
+      },
+      {
+       "title": "Nosferatu",
+       "mediaType": "movie",
+       "plays": 17
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 3
+      },
+      {
+       "title": "The Great Train Robbery",
+       "mediaType": "movie",
+       "plays": 3
+      }
+     ],
+     "perDay": [
+      {
+       "day": "2025-11-19",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-22",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-24",
+       "plays": 1
+      },
+      {
+       "day": "2025-11-27",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-11",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-19",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-22",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-23",
+       "plays": 2
+      },
+      {
+       "day": "2025-12-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-14",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-05",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-11",
+       "plays": 3
+      },
+      {
+       "day": "2026-02-12",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-05",
+       "plays": 2
+      },
+      {
+       "day": "2026-03-06",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-07",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-22",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-03-29",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-16",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-22",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-24",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-10",
+       "plays": 1
+      },
+      {
+       "day": "2026-05-29",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-24",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-05",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-16",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-09",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-11",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-19",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-21",
+       "plays": 1
+      },
+      {
+       "day": "2026-08-31",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-25",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-09-28",
+       "plays": 3
+      },
+      {
+       "day": "2026-09-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-09-30",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-01",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-03",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-04",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-06",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-07",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-08",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-09",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-11",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-12",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-13",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-17",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-18",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-19",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-20",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-21",
+       "plays": 5
+      },
+      {
+       "day": "2026-10-22",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-23",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-24",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-25",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-26",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-28",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-29",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 4
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 2
+      },
+      {
+       "day": "2026-11-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-11-05",
+       "plays": 6
+      },
+      {
+       "day": "2026-11-06",
+       "plays": 3
+      }
+     ]
+    }
+   }
+  }
+ },
+ "mutations": {
+  "POST /api/cleaner/00000000-0000-4000-8000-000000000005/downloads/import-preview": {
+   "status": 200,
+   "body": {
+    "files": [
+     {
+      "path": "/downloads/A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB/trip.to.the.moon.1902.mkv",
+      "name": "trip.to.the.moon.1902",
+      "target": "A Trip to the Moon (1902)",
+      "rejections": []
+     }
+    ]
+   }
+  },
+  "POST /api/instances/test": {
+   "status": 200,
+   "body": {
+    "ok": true,
+    "version": "4.0.15.2941",
+    "variant": null
+   }
+  }
+ }
+}

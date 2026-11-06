@@ -11,11 +11,12 @@ A self-hosted control center for the \*arr apps, download clients, media servers
 Wardarr groups problems by their cause, cleans the download queue carefully, hunts for missing
 titles at a gentle pace and lets everyone in the house request something to watch.
 
-[Install](#install) · [Features](#features) · [Configuration](#configuration) · [Guides](#guides) · [Deutsch](README.de.md)
+[**Live demo**](https://mki002.github.io/wardarr-app/) · [Install](#install) · [Features](#features) · [Configuration](#configuration) · [Guides](#guides) · [Deutsch](README.de.md)
 
 [![CI](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml/badge.svg)](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MKI002/wardarr-app?color=5b45e0&label=release)](https://github.com/MKI002/wardarr-app/releases)
 [![Container image](https://img.shields.io/badge/image-ghcr.io-5b45e0)](https://github.com/MKI002/wardarr-app/pkgs/container/wardarr-app)
+[![Live demo](https://img.shields.io/badge/demo-live-5b45e0)](https://mki002.github.io/wardarr-app/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-5b45e0.svg)](LICENSE)
 
 <img src="docs/screenshots/overview.png" alt="Wardarr overview: services grouped by kind, open issues, what is playing and downloading" />
@@ -174,6 +175,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
+- [Live demo](docs/demo.md): how the demo is built and why its films are public domain.
 - [Design decisions](docs/decisions/): why Wardarr works the way it does.
 
 ## Development

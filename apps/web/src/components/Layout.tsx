@@ -72,7 +72,7 @@ export function Layout() {
   const logout = async () => {
     await api('/api/auth/logout', { method: 'POST' });
     client.clear();
-    window.location.assign('/');
+    window.location.assign(import.meta.env.BASE_URL);
   };
 
   return (
