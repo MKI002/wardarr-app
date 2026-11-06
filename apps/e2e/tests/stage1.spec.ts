@@ -184,7 +184,5 @@ test('logout, wrong password, login', async () => {
   await expect(page.getByText('User name or password is wrong.')).toBeVisible();
   await page.getByLabel('Password').fill(ADMIN.password);
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(
-    page.getByRole('heading', { name: 'Needs attention' }).or(page.getByText('Needs attention')),
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Worth a look' })).toBeVisible();
 });

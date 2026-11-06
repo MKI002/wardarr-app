@@ -70,7 +70,7 @@ export function OverviewPage() {
 }
 
 function AdminOverview() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const overview = useOverview();
 
   if (overview.isError)
@@ -82,7 +82,7 @@ function AdminOverview() {
       />
     );
   if (!overview.data) return <OverviewSkeleton />;
-  const { stats, instances, issues, streams, downloads } = overview.data;
+  const { instances } = overview.data;
 
   if (instances.length === 0) {
     return (
@@ -217,20 +217,22 @@ function Dashboard({ data }: { data: Data }) {
         <StreamsCard streams={streams} />
       </div>
 
-      <SectionRule
-        action={
-          <Link
-            to="/settings"
-            search={{ section: 'instances' }}
-            className="shrink-0 text-sm text-accent hover:underline"
-          >
-            {t('ui.common.edit')}
-          </Link>
-        }
-      >
-        {t('ui.overview.services')}
-      </SectionRule>
-      <ServiceTiles instances={data.instances} />
+      <section className="flex flex-col gap-4">
+        <SectionRule
+          action={
+            <Link
+              to="/settings"
+              search={{ section: 'instances' }}
+              className="shrink-0 text-sm text-accent hover:underline"
+            >
+              {t('ui.common.edit')}
+            </Link>
+          }
+        >
+          {t('ui.overview.services')}
+        </SectionRule>
+        <ServiceTiles instances={data.instances} />
+      </section>
     </div>
   );
 }
@@ -612,38 +614,43 @@ function ServiceTiles({ instances }: { instances: Data['instances'] }) {
       {byCategory.map(({ cat, groups }) => (
         <div key={cat} className="flex min-w-0 flex-col gap-2">
           <h3 className="text-xs font-medium text-muted">{t(`adapters.category.${cat}`)}</h3>
-          <ul className="flex flex-wrap gap-2">
-            {groups.flatMap((g) =>
-              g.items.map((i) => {
-                const delay = n++ * 0.025;
-                const detail =
-                  i.status === 'ok' || i.status === 'degraded'
-                    ? `${t(`ui.status.${i.status}`)}${i.version ? ` · ${i.version}` : ''}`
-                    : t(`ui.status.${i.status}`);
-                return (
-                  <motion.li
-                    key={i.id}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ ...spring, delay }}
-                    title={`${detail}${i.checkedAt ? ` · ${t('ui.overview.checked', { when: formatRelative(i.checkedAt, i18n.language) })}` : ''}`}
-                    className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3 py-2 text-sm"
-                  >
-                    <ServiceLogo adapter={g.adapter} name={i.adapterName} size={18} />
-                    <span className="max-w-40 truncate font-medium">{i.name}</span>
-                    {STATUS_TONE[i.status] === 'ok' ? (
-                      <StatusDot tone="ok" label={detail} />
-                    ) : (
-                      <span className="flex items-center gap-1.5">
+          <div className="flex flex-wrap gap-2">
+            {groups.map((g) => (
+              <motion.div
+                key={g.adapter}
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ ...spring, delay: n++ * 0.03 }}
+                className="flex min-w-0 flex-col gap-1.5 rounded-xl border border-border bg-surface px-3 py-2.5"
+              >
+                <div className="flex items-center gap-2">
+                  <ServiceLogo adapter={g.adapter} name={g.items[0]?.adapterName ?? g.adapter} size={18} />
+                  <span className="text-sm font-semibold">{g.items[0]?.adapterName}</span>
+                  {g.items.length > 1 ? (
+                    <Badge tone="neutral">{t('ui.instance.instances', { count: g.items.length })}</Badge>
+                  ) : null}
+                </div>
+                <ul className="flex flex-wrap gap-x-3 gap-y-1">
+                  {g.items.map((i) => {
+                    const detail =
+                      i.status === 'ok' || i.status === 'degraded'
+                        ? `${t(`ui.status.${i.status}`)}${i.version ? ` · ${i.version}` : ''}`
+                        : t(`ui.status.${i.status}`);
+                    return (
+                      <li
+                        key={i.id}
+                        className="flex items-center gap-1.5 text-sm"
+                        title={`${detail}${i.checkedAt ? ` · ${t('ui.overview.checked', { when: formatRelative(i.checkedAt, i18n.language) })}` : ''}`}
+                      >
                         <StatusDot tone={STATUS_TONE[i.status]} label={detail} />
-                        <span className="text-xs text-muted">{t(`ui.status.${i.status}`)}</span>
-                      </span>
-                    )}
-                  </motion.li>
-                );
-              }),
-            )}
-          </ul>
+                        <span className="max-w-40 truncate">{i.name}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
