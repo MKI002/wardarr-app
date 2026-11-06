@@ -4,9 +4,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import type { Msg } from '@wardarr/core';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ActionMenu } from '../components/ActionMenu';
+import { Columns, ProgressRing, toneColor, useCalm, type ChartTone } from '../components/charts';
+import { PageHeader, SectionRule } from '../components/dash';
 import { ConfirmDialog, Dialog } from '../components/Dialog';
+import { ServiceLogo } from '../components/ServiceLogo';
 import {
   Badge,
   Button,
@@ -28,6 +32,7 @@ import { api } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { formatRelative } from '../lib/format';
 import { tm } from '../lib/i18n';
+import { parseRelease } from '../lib/release';
 
 export interface CleanerConfig {
   enabled: boolean;
@@ -68,6 +73,7 @@ interface PlannedDownload {
 interface CleanerInstance {
   instanceId: string;
   instanceName: string;
+  adapter: string;
   adapterName: string;
   config: CleanerConfig;
   lastRunAt: string | null;
@@ -169,27 +175,19 @@ export function CleanerPage() {
   const setSearch = (s: Partial<typeof search>) => void navigate({ search: { ...search, ...s } });
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-semibold">{t('ui.cleaner.title')}</h1>
-          <p className="text-sm text-muted">{t('ui.cleaner.subtitle')}</p>
-        </div>
-        {instances.length > 1 ? (
-          <select
-            aria-label={t('ui.cleaner.instance')}
-            className="min-h-9 rounded-lg border border-border bg-surface px-3 text-sm"
-            value={current?.instanceId ?? ''}
-            onChange={(e) => setSearch({ instance: e.target.value, review: undefined })}
-          >
-            {instances.map((i) => (
-              <option key={i.instanceId} value={i.instanceId}>
-                {i.instanceName}
-              </option>
-            ))}
-          </select>
-        ) : null}
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        eyebrow={t('ui.cleaner.eyebrow')}
+        title={t('ui.cleaner.title')}
+        intro={t('ui.cleaner.subtitle')}
+      />
+      {instances.length > 1 ? (
+        <InstancePicker
+          instances={instances}
+          current={current?.instanceId}
+          onPick={(id) => setSearch({ instance: id, review: undefined })}
+        />
+      ) : null}
 
       {data.isError ? (
         <InlineError message={t('ui.errors.loadFailed')} onRetry={() => void data.refetch()} />
@@ -203,7 +201,7 @@ export function CleanerPage() {
 
       {current ? (
         <>
-          <StatusCard inst={current} />
+          <CleanerHero inst={current} />
           <Tabs
             label={t('ui.cleaner.title')}
             value={tab}
@@ -236,67 +234,264 @@ export function CleanerPage() {
   );
 }
 
-// ----------------------------------------------------------- status card
+// ------------------------------------------------------- instance picker
 
-function StatusCard({ inst }: { inst: CleanerInstance }) {
+function instanceTone(i: CleanerInstance): ChartTone {
+  if (i.paused || i.error) return 'critical';
+  if (i.downloads.some((d) => d.action.type === 'remove' || d.strikes > 0)) return 'warning';
+  return i.config.enabled ? 'ok' : 'neutral';
+}
+
+function InstancePicker({
+  instances,
+  current,
+  onPick,
+}: {
+  instances: CleanerInstance[];
+  current?: string;
+  onPick: (id: string) => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <div role="radiogroup" aria-label={t('ui.cleaner.instances')} className="flex flex-wrap gap-2">
+      {instances.map((i) => {
+        const active = i.instanceId === current;
+        const stuck = i.downloads.filter((d) => d.strikes > 0).length;
+        return (
+          <button
+            key={i.instanceId}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            onClick={() => onPick(i.instanceId)}
+            className={`relative flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              active ? 'border-transparent text-text' : 'border-border text-muted hover:text-text'
+            }`}
+          >
+            {active ? (
+              <motion.span
+                layoutId="cleaner-instance"
+                className="absolute inset-0 rounded-full bg-surface-2 ring-1 ring-accent"
+                transition={spring}
+                aria-hidden
+              />
+            ) : null}
+            <span className="relative flex items-center gap-2">
+              <ServiceLogo adapter={i.adapter} name={i.adapterName} size={16} />
+              <span className="font-medium">{i.instanceName}</span>
+              {stuck > 0 ? (
+                <span className="rounded-full bg-warning-bg px-1.5 text-xs font-semibold text-warning tabular-nums">
+                  {stuck}
+                </span>
+              ) : (
+                <span
+                  className="size-1.5 rounded-full"
+                  style={{ background: toneColor(instanceTone(i)) }}
+                  aria-hidden
+                />
+              )}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ------------------------------------------------------------------ hero
+
+const MODE_TILE: Record<'off' | 'dryRun' | 'armed', string> = {
+  off: 'bg-surface-2 text-muted',
+  dryRun: 'bg-info-bg text-info',
+  armed: 'bg-critical-bg text-critical',
+};
+const MODE_TEXT: Record<'off' | 'dryRun' | 'armed', string> = {
+  off: 'text-muted',
+  dryRun: 'text-info',
+  armed: 'text-critical',
+};
+
+/** The guardian's shield: an open eye in dry run, a check when armed, struck through when off. */
+function ModeShield({ mode }: { mode: 'off' | 'dryRun' | 'armed' }) {
+  const calm = useCalm();
+  return (
+    <span className={`relative grid size-16 shrink-0 place-items-center rounded-2xl ${MODE_TILE[mode]}`}>
+      {mode === 'armed' ? (
+        <span className="live-pulse absolute inset-0 rounded-2xl ring-2 ring-critical" aria-hidden />
+      ) : null}
+      <motion.svg
+        key={mode}
+        viewBox="0 0 24 24"
+        className="size-9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+        initial={calm ? false : { rotateY: 90, scale: 0.8 }}
+        animate={{ rotateY: 0, scale: 1 }}
+        transition={spring}
+      >
+        <path d="M12 3 5 6v5c0 4.4 3 8.3 7 9.5 4-1.2 7-5.1 7-9.5V6Z" />
+        {mode === 'dryRun' ? (
+          <>
+            <path d="M8.2 12s1.4-2.6 3.8-2.6 3.8 2.6 3.8 2.6-1.4 2.6-3.8 2.6-3.8-2.6-3.8-2.6Z" />
+            <circle cx="12" cy="12" r="1" fill="currentColor" />
+          </>
+        ) : mode === 'armed' ? (
+          <path d="m9 12 2.2 2.2L15.5 10" />
+        ) : (
+          <path d="m9 9 6 6" />
+        )}
+      </motion.svg>
+    </span>
+  );
+}
+
+function useNow(ms: number): number {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), ms);
+    return () => clearInterval(id);
+  }, [ms]);
+  return now;
+}
+
+function clock(ms: number): string {
+  const total = Math.max(0, Math.round(ms / 1000));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const sec = String(total % 60).padStart(2, '0');
+  return h > 0 ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
+}
+
+function Countdown({ inst }: { inst: CleanerInstance }) {
   const { t, i18n } = useTranslation();
+  const now = useNow(1000);
+  const next = inst.nextRunAt ? Date.parse(inst.nextRunAt) : null;
+  const last = inst.lastRunAt ? Date.parse(inst.lastRunAt) : null;
+  const span = next && last && next > last ? next - last : inst.config.checkIntervalMinutes * 60_000;
+  const left = next ? Math.max(0, next - now) : null;
+  const share = left === null ? 0 : 1 - left / span;
+  return (
+    <div className="flex flex-col items-center gap-2 text-center">
+      <ProgressRing value={share} size={132} stroke={8} label={t('ui.cleaner.countdown')}>
+        <span className="flex flex-col items-center">
+          <span className="text-2xl font-semibold tracking-tight tabular-nums">
+            {left === null ? '–' : clock(left)}
+          </span>
+          <span className="max-w-20 text-[11px] leading-tight font-normal text-muted">
+            {left === null ? t('ui.cleaner.notScheduled') : t('ui.cleaner.untilNext')}
+          </span>
+        </span>
+      </ProgressRing>
+      <span className="text-xs text-muted">
+        {t('ui.cleaner.lastRunWhen', {
+          when: inst.lastRunAt ? formatRelative(inst.lastRunAt, i18n.language) : t('ui.cleaner.never'),
+        })}
+      </span>
+    </div>
+  );
+}
+
+/** Downloads → with strikes → removed next run, as bars that narrow like a funnel. */
+function Funnel({ inst }: { inst: CleanerInstance }) {
+  const { t } = useTranslation();
+  const calm = useCalm();
+  const total = inst.downloads.length;
+  const strikes = inst.downloads.filter((d) => d.strikes > 0).length;
+  const remove = inst.downloads.filter((d) => d.action.type === 'remove').length;
+  const stages: Array<{ key: string; value: number; tone: ChartTone }> = [
+    { key: 'downloads', value: total, tone: 'accent' },
+    { key: 'strikes', value: strikes, tone: 'warning' },
+    { key: 'remove', value: remove, tone: 'critical' },
+  ];
+  return (
+    <div className="flex flex-col gap-3">
+      <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+        {t('ui.cleaner.queueNow')}
+      </span>
+      <ol className="flex flex-col gap-2.5">
+        {stages.map((s, i) => {
+          const share = total > 0 ? s.value / total : 0;
+          return (
+            <li key={s.key} className="grid grid-cols-[minmax(0,9rem)_1fr_2rem] items-center gap-3 text-sm">
+              <span className="truncate text-muted">{t(`ui.cleaner.funnel.${s.key}`)}</span>
+              <span className="flex h-7 justify-center rounded-lg bg-surface-2">
+                <motion.span
+                  className="h-full rounded-lg"
+                  style={{
+                    width: s.value > 0 ? `${Math.max(8, share * 100)}%` : 0,
+                    background: toneColor(s.tone),
+                  }}
+                  initial={calm ? false : { scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ ...spring, delay: 0.1 + i * 0.12 }}
+                />
+              </span>
+              <span className="text-right text-lg font-semibold tabular-nums">{s.value}</span>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="text-sm">
+        {strikes > 0 ? t('ui.cleaner.funnelStuck', { count: strikes }) : t('ui.cleaner.funnelClear')}
+      </p>
+    </div>
+  );
+}
+
+function CleanerHero({ inst }: { inst: CleanerInstance }) {
+  const { t } = useTranslation();
   const [arming, setArming] = useState(false);
   const arm = useCleanerAction<{ confirm: true }>(inst.instanceId, '/arm');
   const disarm = useCleanerAction<Record<string, never>>(inst.instanceId, '/disarm');
   const run = useCleanerAction<Record<string, never>>(inst.instanceId, '/run');
   const dry = inst.config.dryRun;
-  const counts = {
-    strikes: inst.downloads.filter((d) => d.strikes > 0).length,
-    waiting: inst.downloads.filter((d) => d.rule === 'tbaWaiting' || d.rule === 'importReady').length,
-  };
+  const mode = !inst.config.enabled ? 'off' : dry ? 'dryRun' : 'armed';
 
   return (
-    <Card className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-3">
-        <motion.span layout transition={spring}>
-          {!inst.config.enabled ? (
-            <Badge tone="neutral">{t('ui.cleaner.mode.off')}</Badge>
-          ) : dry ? (
-            <Badge tone="info">{t('ui.cleaner.mode.dryRun')}</Badge>
-          ) : (
-            <Badge tone="critical">{t('ui.cleaner.mode.armed')}</Badge>
-          )}
-        </motion.span>
-        <span className="font-semibold">{inst.instanceName}</span>
-        <span className="text-sm text-muted">{inst.adapterName}</span>
-        <div className="ml-auto flex flex-wrap gap-2">
-          <Button onClick={() => run.mutate({})} busy={run.isPending}>
-            {t('ui.cleaner.runNow')}
-          </Button>
-          {dry ? (
-            <Button variant="danger" onClick={() => setArming(true)} disabled={!inst.config.enabled}>
-              {t('ui.cleaner.arm')}
+    <Card className="flex flex-col gap-5">
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_1.5fr_auto] lg:items-center">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <ModeShield mode={mode} />
+            <div className="flex min-w-0 flex-col">
+              <span className="text-xs text-muted">{inst.instanceName}</span>
+              <motion.span
+                key={mode}
+                layout
+                className={`text-3xl font-bold tracking-tight ${MODE_TEXT[mode]}`}
+                transition={spring}
+              >
+                {t(`ui.cleaner.mode.${mode}`)}
+              </motion.span>
+            </div>
+          </div>
+          <p
+            className="text-sm text-muted"
+            title={dry ? t('ui.cleaner.dryRunHint') : t('ui.cleaner.armedHint')}
+          >
+            {t(`ui.cleaner.modeShort.${mode}`)}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={() => run.mutate({})} busy={run.isPending}>
+              {t('ui.cleaner.runNow')}
             </Button>
-          ) : (
-            <Button onClick={() => disarm.mutate({})} busy={disarm.isPending}>
-              {t('ui.cleaner.disarm')}
-            </Button>
-          )}
+            {dry ? (
+              <Button variant="danger" onClick={() => setArming(true)} disabled={!inst.config.enabled}>
+                {t('ui.cleaner.arm')}
+              </Button>
+            ) : (
+              <Button onClick={() => disarm.mutate({})} busy={disarm.isPending}>
+                {t('ui.cleaner.disarm')}
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
-      <p className="text-sm text-muted">{dry ? t('ui.cleaner.dryRunHint') : t('ui.cleaner.armedHint')}</p>
-      <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
-        <span>
-          <span className="text-muted">{t('ui.cleaner.lastRun')}: </span>
-          {inst.lastRunAt ? formatRelative(inst.lastRunAt, i18n.language) : t('ui.cleaner.never')}
-        </span>
-        <span>
-          <span className="text-muted">{t('ui.cleaner.nextRun')}: </span>
-          {inst.nextRunAt ? formatRelative(inst.nextRunAt, i18n.language) : '–'}
-        </span>
-        <span>
-          <span className="text-muted">{t('ui.cleaner.withStrikes')}: </span>
-          {counts.strikes}
-        </span>
-        <span>
-          <span className="text-muted">{t('ui.cleaner.waiting')}: </span>
-          {counts.waiting}
-        </span>
+        <Funnel inst={inst} />
+        <Countdown inst={inst} />
       </div>
       {inst.paused ? (
         <div role="status" className="rounded-lg bg-critical-bg px-3 py-2 text-sm text-critical">
@@ -350,58 +545,97 @@ function DownloadRow({
   const reviewable = d.downloadId && ['importReady', 'importReadyExpired', 'importBlocked'].includes(d.rule);
   const when = d.waitUntil ?? d.nextStrikeAt;
 
+  const release = parseRelease(d.title);
+  const tone = RULE_TONE[d.rule] ?? 'neutral';
+  const showStrikes = d.strikes > 0 || tone === 'warning' || tone === 'critical';
+
   return (
-    <motion.li layout transition={spring} className="flex flex-col gap-2 py-3">
-      <div className="flex flex-wrap items-center gap-2">
-        <Badge tone={RULE_TONE[d.rule] ?? 'neutral'}>{t(`cleaner.rule.${d.rule}`)}</Badge>
-        <span className="min-w-0 flex-1 truncate text-sm font-medium" title={d.title}>
-          {d.title}
-        </span>
-        {!d.matched ? <Badge tone="warning">{t('ui.queue.unmatched')}</Badge> : null}
-        {d.action.type === 'remove' ? <Badge tone="critical">{t('ui.cleaner.nextRemoves')}</Badge> : null}
-      </div>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-        <span>{tm(t, d.reason)}</span>
-        {d.strikes > 0 || d.rule in RULE_TONE ? (
-          <span className="inline-flex items-center gap-1.5">
-            <StrikeMeter
-              strikes={d.strikes}
-              max={d.maxStrikes}
-              label={t('ui.cleaner.strikes', { strikes: d.strikes, max: d.maxStrikes })}
-            />
-            <span className="tabular-nums">
-              {d.strikes}/{d.maxStrikes}
+    <motion.li layout transition={spring} className="flex flex-col gap-2 py-3.5">
+      <div className="flex items-start gap-3">
+        <span
+          className="mt-1.5 h-9 w-1 shrink-0 rounded-full"
+          style={{ background: tone === 'neutral' ? 'var(--border)' : toneColor(tone) }}
+          aria-hidden
+        />
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <span className="sr-only">{d.title}</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1" aria-hidden>
+            <span className="min-w-0 truncate font-medium" title={d.title}>
+              {release.title}
             </span>
-          </span>
-        ) : null}
-        {when ? (
-          <span>
-            {d.waitUntil
-              ? t('ui.cleaner.waitsUntil', { when: formatRelative(d.waitUntil, i18n.language) })
-              : t('ui.cleaner.nextStrike', { when: formatRelative(when, i18n.language) })}
-          </span>
-        ) : null}
+            {(release.episode ?? release.year) ? (
+              <span className="rounded-md bg-surface-2 px-1.5 text-xs font-semibold tabular-nums">
+                {release.episode ?? release.year}
+              </span>
+            ) : null}
+            {release.tags.slice(0, 3).map((tag) => (
+              <span key={tag} className="text-xs text-muted">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+            <Badge tone={tone}>{t(`cleaner.rule.${d.rule}`)}</Badge>
+            {!d.matched ? <Badge tone="warning">{t('ui.queue.unmatched')}</Badge> : null}
+            {d.action.type === 'remove' ? <Badge tone="critical">{t('ui.cleaner.nextRemoves')}</Badge> : null}
+            <span>{tm(t, d.reason)}</span>
+            {when ? (
+              <span>
+                {d.waitUntil
+                  ? t('ui.cleaner.waitsUntil', { when: formatRelative(d.waitUntil, i18n.language) })
+                  : t('ui.cleaner.nextStrike', { when: formatRelative(when, i18n.language) })}
+              </span>
+            ) : null}
+          </div>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          {showStrikes ? (
+            <span className="hidden items-center gap-2 sm:inline-flex">
+              <StrikeMeter
+                size="lg"
+                strikes={d.strikes}
+                max={d.maxStrikes}
+                label={t('ui.cleaner.strikes', { strikes: d.strikes, max: d.maxStrikes })}
+              />
+              <span className="w-7 text-xs text-muted tabular-nums">
+                {d.strikes}/{d.maxStrikes}
+              </span>
+            </span>
+          ) : null}
+          {reviewable ? (
+            <Button
+              variant={d.rule === 'importReady' ? 'primary' : 'secondary'}
+              onClick={() => onReview(d.key)}
+            >
+              {t('issues.action.reviewImport')}
+            </Button>
+          ) : null}
+          <ActionMenu
+            label={t('ui.common.moreActions')}
+            actions={[
+              {
+                label: d.rule === 'ignored' ? t('ui.cleaner.unignore') : t('ui.cleaner.ignore'),
+                disabled: ignore.isPending,
+                onSelect: () => ignore.mutate({ key: d.key, ignored: d.rule !== 'ignored' }),
+              },
+              { label: t('ui.cleaner.removeNow'), danger: true, onSelect: () => setRemoving(true) },
+            ]}
+          />
+        </div>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {reviewable ? (
-          <Button
-            variant={d.rule === 'importReady' ? 'primary' : 'secondary'}
-            onClick={() => onReview(d.key)}
-          >
-            {t('issues.action.reviewImport')}
-          </Button>
-        ) : null}
-        <Button variant="ghost" onClick={() => setRemoving(true)}>
-          {t('ui.cleaner.removeNow')}
-        </Button>
-        <Button
-          variant="ghost"
-          busy={ignore.isPending}
-          onClick={() => ignore.mutate({ key: d.key, ignored: d.rule !== 'ignored' })}
-        >
-          {d.rule === 'ignored' ? t('ui.cleaner.unignore') : t('ui.cleaner.ignore')}
-        </Button>
-      </div>
+      {showStrikes ? (
+        <span className="flex items-center gap-2 pl-4 sm:hidden">
+          <StrikeMeter
+            size="lg"
+            strikes={d.strikes}
+            max={d.maxStrikes}
+            label={t('ui.cleaner.strikes', { strikes: d.strikes, max: d.maxStrikes })}
+          />
+          <span className="text-xs text-muted tabular-nums">
+            {d.strikes}/{d.maxStrikes}
+          </span>
+        </span>
+      ) : null}
       {remove.isError ? <InlineError {...errorText(t, remove.error)} /> : null}
       <Dialog
         open={removing}
@@ -638,39 +872,84 @@ function History({ instanceId }: { instanceId: string }) {
   });
   const entries = history.data?.entries ?? [];
   return (
-    <Card>
-      {history.isPending ? <Skeleton className="h-32 rounded-lg" /> : null}
-      {history.isSuccess && entries.length === 0 ? (
-        <EmptyState title={t('ui.cleaner.historyEmpty')} body={t('ui.cleaner.historyEmptyBody')} />
-      ) : null}
-      <ul className="flex flex-col divide-y divide-border">
-        {entries.map((e) => (
-          <li key={e.id} className="flex flex-col gap-1 py-2.5">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge tone={e.ok ? (KIND_TONE[e.kind] ?? 'neutral') : 'critical'}>
-                {t(`cleaner.kind.${e.kind}`, { defaultValue: e.kind })}
-              </Badge>
-              {e.dryRun && e.kind !== 'disarmed' ? (
-                <Badge tone="info">{t('ui.cleaner.mode.dryRun')}</Badge>
-              ) : null}
-              {!e.ok ? <Badge tone="critical">{t('ui.cleaner.failed')}</Badge> : null}
-              <span className="min-w-0 flex-1 truncate text-sm font-medium" title={e.title}>
-                {e.title === '-' ? '' : e.title}
+    <div className="flex flex-col gap-4">
+      <Activity instanceId={instanceId} />
+      <Card>
+        {history.isPending ? <Skeleton className="h-32 rounded-lg" /> : null}
+        {history.isSuccess && entries.length === 0 ? (
+          <EmptyState title={t('ui.cleaner.historyEmpty')} body={t('ui.cleaner.historyEmptyBody')} />
+        ) : null}
+        <ul className="flex flex-col divide-y divide-border">
+          {entries.map((e) => (
+            <li key={e.id} className="flex flex-col gap-1 py-2.5">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge tone={e.ok ? (KIND_TONE[e.kind] ?? 'neutral') : 'critical'}>
+                  {t(`cleaner.kind.${e.kind}`, { defaultValue: e.kind })}
+                </Badge>
+                {e.dryRun && e.kind !== 'disarmed' ? (
+                  <Badge tone="info">{t('ui.cleaner.mode.dryRun')}</Badge>
+                ) : null}
+                {!e.ok ? <Badge tone="critical">{t('ui.cleaner.failed')}</Badge> : null}
+                <span className="min-w-0 flex-1 truncate text-sm font-medium" title={e.title}>
+                  {e.title === '-' ? '' : e.title}
+                </span>
+                <time
+                  className="text-xs text-muted"
+                  dateTime={e.at}
+                  title={new Date(e.at).toLocaleString(i18n.language)}
+                >
+                  {formatRelative(e.at, i18n.language)}
+                </time>
+              </div>
+              <span className="text-xs text-muted">
+                {t(`cleaner.rule.${e.rule}`, { defaultValue: e.rule })} · {tm(t, e.reason)}
               </span>
-              <time
-                className="text-xs text-muted"
-                dateTime={e.at}
-                title={new Date(e.at).toLocaleString(i18n.language)}
-              >
-                {formatRelative(e.at, i18n.language)}
-              </time>
-            </div>
-            <span className="text-xs text-muted">
-              {t(`cleaner.rule.${e.rule}`, { defaultValue: e.rule })} · {tm(t, e.reason)}
-            </span>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </div>
+  );
+}
+
+function Activity({ instanceId }: { instanceId: string }) {
+  const { t, i18n } = useTranslation();
+  const activity = useQuery({
+    queryKey: ['cleaner-activity', instanceId],
+    queryFn: () =>
+      api<{ days: Array<{ day: string; strikes: number; removed: number; imported: number }> }>(
+        `/api/cleaner/activity?instance=${enc(instanceId)}&days=14&tz=${-new Date().getTimezoneOffset()}`,
+      ),
+  });
+  const dayLabel = (day: string) =>
+    new Date(`${day}T12:00:00`).toLocaleDateString(i18n.language, { day: 'numeric', month: 'short' });
+  const series = [
+    { key: 'strikes', tone: 'warning' },
+    { key: 'removed', tone: 'critical' },
+    { key: 'imported', tone: 'ok' },
+  ] as const;
+  return (
+    <Card className="flex flex-col gap-3">
+      <SectionRule>{t('ui.cleaner.activity')}</SectionRule>
+      {activity.isPending ? <Skeleton className="h-40 rounded-lg" /> : null}
+      {activity.isSuccess ? (
+        <Columns
+          height={150}
+          legend
+          label={t('ui.cleaner.activityLabel')}
+          emptyLabel={t('ui.cleaner.activityNone')}
+          data={activity.data.days.map((d) => ({
+            key: d.day,
+            label: dayLabel(d.day),
+            parts: series.map((s) => ({
+              tone: s.tone,
+              value: d[s.key],
+              label: t(`ui.cleaner.series.${s.key}`),
+            })),
+          }))}
+        />
+      ) : null}
+      <p className="text-xs text-muted">{t('ui.cleaner.activityDryRun')}</p>
     </Card>
   );
 }

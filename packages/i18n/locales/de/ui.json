@@ -18,7 +18,8 @@
     "isSet": "Gespeichert. Leer lassen, um es zu behalten.",
     "optional": "optional",
     "advanced": "Erweitert",
-    "saved": "Gespeichert"
+    "saved": "Gespeichert",
+    "moreActions": "Weitere Aktionen"
   },
   "nav": {
     "main": "Hauptnavigation",
@@ -243,7 +244,7 @@
     "collapse": "Details ausblenden",
     "bySeverity": "Offene Probleme nach Schweregrad",
     "eyebrow": "Problemzentrale",
-    "heroClear": "Alles in Ordnung. Wardarr hält weiter Wache.",
+    "heroClear": "Nichts offen. Wardarr passt weiter auf.",
     "heroCritical_one": "{{count}} kritisches Problem braucht dich jetzt.",
     "heroCritical_other": "{{count}} kritische Probleme brauchen dich jetzt.",
     "heroCalm": "Nichts Kritisches. Schau rein, wenn du Zeit hast.",
@@ -251,7 +252,8 @@
     "resolvedRecently_one": "{{count}} gelöst",
     "resolvedRecently_other": "{{count}} gelöst",
     "noneNew": "Keine neuen Probleme",
-    "byService": "Am stärksten betroffen"
+    "byService": "Am stärksten betroffen",
+    "noneAffected": "Kein Dienst betroffen"
   },
   "queue": {
     "unmatched": "Keiner Bibliothek zugeordnet",
@@ -415,7 +417,36 @@
       "protectedTagsHelp": "Downloads mit einem dieser Tags (kommagetrennt) werden nie angefasst.",
       "whitelist": "Ausnahmeliste",
       "whitelistHelp": "Titel oder Download-IDs mit einem dieser Wörter (kommagetrennt) werden nie angefasst."
-    }
+    },
+    "eyebrow": "Downloads im Blick",
+    "modeShort": {
+      "off": "Für diese Instanz ausgeschaltet.",
+      "dryRun": "Beobachtet und notiert, was er tun würde. Ändert noch nichts.",
+      "armed": "Entfernt hängende Downloads und sucht neu."
+    },
+    "queueNow": "Warteschlange gerade",
+    "funnel": {
+      "downloads": "Downloads",
+      "strikes": "Mit Verwarnungen",
+      "remove": "Fliegen beim nächsten Lauf raus"
+    },
+    "funnelClear": "Alles läuft.",
+    "funnelStuck_one": "1 Download hängt und sammelt Verwarnungen.",
+    "funnelStuck_other": "{{count}} Downloads hängen und sammeln Verwarnungen.",
+    "untilNext": "bis zum nächsten Lauf",
+    "notScheduled": "nicht geplant",
+    "lastRunWhen": "Letzter Lauf {{when}}",
+    "countdown": "Zeit bis zum nächsten Lauf",
+    "activity": "Letzte 14 Tage",
+    "activityLabel": "Was der Queue Cleaner pro Tag getan hat",
+    "activityNone": "In den letzten 14 Tagen gab es nichts zu tun",
+    "activityDryRun": "Entscheidungen im Probelauf zählen mit.",
+    "series": {
+      "strikes": "Verwarnungen",
+      "removed": "Entfernt",
+      "imported": "Importiert"
+    },
+    "instances": "Instanzen"
   },
   "hunting": {
     "title": "Hunting",
@@ -638,7 +669,24 @@
     "testFailed": "Test fehlgeschlagen. Prüfe den Indexer in Prowlarr.",
     "open": "In Prowlarr öffnen",
     "stranded_one": "{{list}} hat keinen funktionierenden Indexer mehr, solange dieser ausfällt.",
-    "stranded_other": "{{list}} haben keinen funktionierenden Indexer mehr, solange dieser ausfällt."
+    "stranded_other": "{{list}} haben keinen funktionierenden Indexer mehr, solange dieser ausfällt.",
+    "eyebrow": "Suchabdeckung",
+    "working": "funktionieren",
+    "ofTotal": "von {{count}}",
+    "heroAllGood": "Alle Indexer antworten.",
+    "heroFailing_one": "{{count}} Indexer fällt aus.",
+    "heroFailing_other": "{{count}} Indexer fallen aus.",
+    "heroCovered": "Jede App hat noch einen funktionierenden Indexer.",
+    "heroStranded_one": "{{count}} App hat keinen funktionierenden Indexer mehr.",
+    "heroStranded_other": "{{count}} Apps haben keinen funktionierenden Indexer mehr.",
+    "ring": "Indexer nach Zustand",
+    "coverage": "Abdeckung pro App",
+    "cell": "{{name}}: {{state}}",
+    "successRate": "{{percent}} % der Anfragen erfolgreich",
+    "avgResponse": "Antwortzeit im Schnitt",
+    "list": "Alle Indexer",
+    "checked": "geprüft {{when}}",
+    "perIndexer": "{{queries}} Anfragen · {{grabs}} Grabs · {{ms}} ms"
   },
   "notifications": {
     "intro": "Wardarr meldet neue Probleme, wenn sie behoben sind und wenn eine Anfrage auf Freigabe wartet. Ein Problem, das sich innerhalb einer Minute selbst löst, bleibt still.",

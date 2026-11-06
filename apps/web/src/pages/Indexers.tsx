@@ -3,16 +3,20 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
+import { ActionMenu } from '../components/ActionMenu';
+import { ProgressRing, Ring, toneColor, useCalm } from '../components/charts';
+import { Odometer, PageHeader, SectionRule } from '../components/dash';
+import { ServiceLogo } from '../components/ServiceLogo';
 import {
   Badge,
   Button,
   Card,
   EmptyState,
   InlineError,
-  SectionTitle,
   Skeleton,
   StatusDot,
   spring,
+  type Tone,
 } from '../components/ui';
 import { api } from '../lib/api';
 import { errorText } from '../lib/errors';
@@ -71,15 +75,16 @@ export function IndexersPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t('ui.indexers.title')}</h1>
-          <p className="text-sm text-muted">{t('ui.indexers.intro')}</p>
-        </div>
-        <Button busy={reload.isPending} onClick={() => reload.mutate()}>
-          {t('ui.indexers.reload')}
-        </Button>
-      </div>
+      <PageHeader
+        eyebrow={t('ui.indexers.eyebrow')}
+        title={t('ui.indexers.title')}
+        intro={t('ui.indexers.intro')}
+        actions={
+          <Button busy={reload.isPending} onClick={() => reload.mutate()}>
+            {t('ui.indexers.reload')}
+          </Button>
+        }
+      />
       {data.isError ? (
         <InlineError {...errorText(t, data.error)} onRetry={() => void data.refetch()} />
       ) : null}
@@ -91,15 +96,27 @@ export function IndexersPage() {
           <EmptyState title={t('ui.indexers.none')} body={t('ui.indexers.noneBody')} />
         </Card>
       ) : (
-        data.data?.instances.map((inst) => <ProwlarrCard key={inst.instanceId} inst={inst} />)
+        data.data?.instances.map((inst) => (
+          <ProwlarrSection
+            key={inst.instanceId}
+            inst={inst}
+            showName={(data.data?.instances.length ?? 0) > 1}
+          />
+        ))
       )}
     </div>
   );
 }
 
-function ProwlarrCard({ inst }: { inst: ProwlarrView }) {
+function appTone(app: ProwlarrView['apps'][number]): Tone {
+  const working = app.indexerIds.length - app.failing.length;
+  if (!app.enabled) return 'neutral';
+  if (working <= 0 && app.indexerIds.length) return 'critical';
+  return app.failing.length ? 'warning' : 'ok';
+}
+
+function ProwlarrSection({ inst, showName }: { inst: ProwlarrView; showName: boolean }) {
   const { t, i18n } = useTranslation();
-  const failing = inst.indexers.filter((i) => i.failing).length;
   const sorted = [...inst.indexers].sort(
     (a, b) =>
       Number(b.failing) - Number(a.failing) ||
@@ -108,67 +125,29 @@ function ProwlarrCard({ inst }: { inst: ProwlarrView }) {
   );
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-lg font-semibold">{inst.instanceName}</h2>
-        <p className="text-xs text-muted">
-          {t('ui.indexers.summary', { count: inst.indexers.length, failing })} ·{' '}
-          {formatRelative(inst.checkedAt, i18n.language)}
-        </p>
-      </div>
+      {showName ? <SectionRule>{inst.instanceName}</SectionRule> : null}
       {inst.error ? (
         <InlineError
           message={t('ui.indexers.statsFailed', { reason: t(`ui.instance.testFailed.${inst.error}`) })}
         />
       ) : null}
-
-      {inst.apps.length > 0 ? (
-        <Card>
-          <SectionTitle>{t('ui.indexers.apps')}</SectionTitle>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {inst.apps.map((app) => {
-              const working = app.indexerIds.length - app.failing.length;
-              const tone = !app.enabled
-                ? 'neutral'
-                : working <= 0 && app.indexerIds.length
-                  ? 'critical'
-                  : app.failing.length
-                    ? 'warning'
-                    : 'ok';
-              return (
-                <li key={app.id} className="flex items-start gap-3 rounded-xl border border-border p-3">
-                  <span className="mt-1.5">
-                    <StatusDot tone={tone} label={t(`ui.indexers.appTone.${tone}`)} />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{app.name}</p>
-                    <p className="text-xs text-muted">
-                      {!app.enabled
-                        ? t('ui.indexers.appDisabled')
-                        : t('ui.indexers.appIndexers', {
-                            count: app.indexerIds.length,
-                            working: Math.max(0, working),
-                          })}
-                    </p>
-                    {app.failing.length ? (
-                      <p className="mt-1 text-xs text-warning">
-                        {t('ui.indexers.appFailing', { list: app.failing.join(', ') })}
-                      </p>
-                    ) : null}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </Card>
-      ) : null}
-
+      <IndexerHero inst={inst} />
+      <SectionRule
+        action={
+          <span className="text-xs text-muted">
+            {t('ui.indexers.checked', { when: formatRelative(inst.checkedAt, i18n.language) })}
+          </span>
+        }
+      >
+        {t('ui.indexers.list')}
+      </SectionRule>
       <Card className="!p-0">
         {sorted.length === 0 ? (
           <EmptyState title={t('ui.indexers.noIndexers')} />
         ) : (
           <ul className="divide-y divide-border">
-            {sorted.map((ix) => (
-              <IndexerItem key={ix.id} ix={ix} instanceId={inst.instanceId} />
+            {sorted.map((ix, i) => (
+              <IndexerItem key={ix.id} ix={ix} instanceId={inst.instanceId} index={i} />
             ))}
           </ul>
         )}
@@ -177,7 +156,135 @@ function ProwlarrCard({ inst }: { inst: ProwlarrView }) {
   );
 }
 
-function IndexerItem({ ix, instanceId }: { ix: IndexerRow; instanceId: string }) {
+function IndexerHero({ inst }: { inst: ProwlarrView }) {
+  const { t, i18n } = useTranslation();
+  const n = new Intl.NumberFormat(i18n.language);
+  const enabled = inst.indexers.filter((i) => i.enabled);
+  const failing = enabled.filter((i) => i.failing).length;
+  const working = enabled.length - failing;
+  const disabled = inst.indexers.length - enabled.length;
+  const stranded = inst.apps.filter((a) => appTone(a) === 'critical').length;
+  const totals = enabled.reduce(
+    (acc, i) => ({
+      queries: acc.queries + (i.stats?.queries ?? 0),
+      grabs: acc.grabs + (i.stats?.grabs ?? 0),
+      failed: acc.failed + (i.stats?.failedQueries ?? 0),
+    }),
+    { queries: 0, grabs: 0, failed: 0 },
+  );
+  const success = totals.queries
+    ? Math.round(((totals.queries - totals.failed) / totals.queries) * 100)
+    : null;
+
+  return (
+    <Card className="grid gap-8 lg:grid-cols-[auto_1fr_1.25fr] lg:items-center">
+      <div className="flex justify-center">
+        <Ring
+          size={168}
+          thickness={14}
+          label={t('ui.indexers.ring')}
+          segments={[
+            { key: 'ok', value: working, tone: 'ok', label: `${working} ${t('ui.indexers.state.ok')}` },
+            {
+              key: 'failing',
+              value: failing,
+              tone: 'critical',
+              label: `${failing} ${t('ui.indexers.state.critical')}`,
+            },
+            {
+              key: 'off',
+              value: disabled,
+              tone: 'neutral',
+              label: `${disabled} ${t('ui.indexers.state.neutral')}`,
+            },
+          ]}
+        >
+          <span className="flex flex-col items-center leading-tight">
+            <Odometer text={String(working)} className="text-5xl font-bold tracking-tight" />
+            <span className="text-xs text-muted">{t('ui.indexers.ofTotal', { count: enabled.length })}</span>
+            <span className="text-xs text-muted">{t('ui.indexers.working')}</span>
+          </span>
+        </Ring>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <p className="text-xl font-semibold text-balance">
+            {failing ? t('ui.indexers.heroFailing', { count: failing }) : t('ui.indexers.heroAllGood')}
+          </p>
+          <p className={`text-sm ${stranded ? 'text-critical' : 'text-muted'}`}>
+            {stranded ? t('ui.indexers.heroStranded', { count: stranded }) : t('ui.indexers.heroCovered')}
+          </p>
+        </div>
+        <dl className="grid grid-cols-3 gap-3">
+          {[
+            [t('ui.indexers.queries'), n.format(totals.queries)],
+            [t('ui.indexers.grabs'), n.format(totals.grabs)],
+            [t('ui.indexers.failRate'), success === null ? '–' : `${100 - success}%`],
+          ].map(([label, value]) => (
+            <div key={label} className="flex flex-col gap-0.5 rounded-xl bg-surface-2 px-3 py-2.5">
+              <dt className="truncate text-xs text-muted">{label}</dt>
+              <dd className="text-xl font-semibold tabular-nums">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <Coverage inst={inst} />
+    </Card>
+  );
+}
+
+/** One row per app: a cell for each indexer it uses, green when it answers, red when it fails. */
+function Coverage({ inst }: { inst: ProwlarrView }) {
+  const { t } = useTranslation();
+  const calm = useCalm();
+  const byId = new Map(inst.indexers.map((i) => [i.id, i]));
+  if (inst.apps.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-3">
+      <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+        {t('ui.indexers.coverage')}
+      </span>
+      <ul className="flex flex-col gap-2.5">
+        {inst.apps.map((app, row) => {
+          const tone = appTone(app);
+          const cells = app.indexerIds.map((id) => byId.get(id)).filter((i) => i !== undefined);
+          const working = cells.filter((c) => !c.failing).length;
+          return (
+            <li key={app.id} className="flex items-center gap-3 text-sm">
+              <ServiceLogo adapter={app.implementation.toLowerCase()} name={app.implementation} size={18} />
+              <span className="w-24 truncate">{app.name}</span>
+              <span className="flex flex-1 gap-1" role="img" aria-label={t(`ui.indexers.appTone.${tone}`)}>
+                {cells.map((c, i) => (
+                  <motion.span
+                    key={c.id}
+                    title={t('ui.indexers.cell', {
+                      name: c.name,
+                      state: t(`ui.indexers.state.${c.failing ? 'critical' : 'ok'}`),
+                    })}
+                    className="h-5 max-w-10 flex-1 rounded-[5px]"
+                    style={{ background: toneColor(c.failing ? 'critical' : 'ok') }}
+                    initial={calm ? false : { scale: 0.4 }}
+                    animate={{ scale: 1 }}
+                    transition={{ ...spring, delay: 0.15 + (row + i) * 0.04 }}
+                  />
+                ))}
+              </span>
+              <span
+                className={`w-10 text-right text-xs tabular-nums ${tone === 'critical' ? 'text-critical' : 'text-muted'}`}
+              >
+                {app.enabled ? `${working}/${cells.length}` : t('ui.indexers.state.neutral')}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function IndexerItem({ ix, instanceId, index }: { ix: IndexerRow; instanceId: string; index: number }) {
   const { t, i18n } = useTranslation();
   const client = useQueryClient();
   const test = useMutation({
@@ -190,69 +297,69 @@ function IndexerItem({ ix, instanceId }: { ix: IndexerRow; instanceId: string })
   });
   const n = new Intl.NumberFormat(i18n.language);
   const s = ix.stats;
-  const failRate = s && s.queries ? Math.round((s.failedQueries / s.queries) * 100) : null;
-  const tone = !ix.enabled ? 'neutral' : ix.failing ? 'critical' : 'ok';
+  const success = s && s.queries ? Math.round(((s.queries - s.failedQueries) / s.queries) * 100) : null;
+  const tone: Tone = !ix.enabled ? 'neutral' : ix.failing ? 'critical' : 'ok';
+  const ringTone = ix.failing ? 'critical' : success !== null && success < 80 ? 'warning' : 'ok';
   return (
-    <li className="flex flex-col gap-2 px-5 py-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <StatusDot tone={tone} label={t(`ui.indexers.state.${tone}`)} />
-          <div className="min-w-0">
-            <p className="truncate font-medium">{ix.name}</p>
-            <p className="text-xs text-muted">
-              {[
-                t(`ui.indexers.protocol.${ix.protocol}`),
-                ix.apps.length
-                  ? t('ui.indexers.usedBy', { list: ix.apps.join(', ') })
-                  : t('ui.indexers.unused'),
-              ].join(' · ')}
-            </p>
-          </div>
+    <motion.li
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ ...spring, delay: 0.05 + index * 0.04 }}
+      className="flex flex-col gap-2 px-5 py-4"
+    >
+      <div className="flex items-center gap-4">
+        {success !== null && ix.enabled ? (
+          <ProgressRing
+            value={success / 100}
+            size={44}
+            tone={ringTone}
+            label={t('ui.indexers.successRate', { percent: success })}
+          >
+            {success}%
+          </ProgressRing>
+        ) : (
+          <span className="grid size-11 shrink-0 place-items-center">
+            <StatusDot tone={tone} label={t(`ui.indexers.state.${tone}`)} />
+          </span>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="flex flex-wrap items-center gap-2">
+            <span className="truncate font-medium">{ix.name}</span>
+            <span className="rounded-md bg-surface-2 px-1.5 text-xs text-muted">
+              {t(`ui.indexers.protocol.${ix.protocol}`)}
+            </span>
+            {ix.failing ? <Badge tone="critical">{t('ui.indexers.state.critical')}</Badge> : null}
+            {!ix.enabled ? <Badge tone="neutral">{t('ui.indexers.state.neutral')}</Badge> : null}
+          </p>
+          <p className="mt-0.5 text-xs text-muted">
+            {[
+              s && ix.enabled
+                ? t('ui.indexers.perIndexer', {
+                    queries: n.format(s.queries),
+                    grabs: n.format(s.grabs),
+                    ms: n.format(s.averageResponseMs ?? 0),
+                  })
+                : null,
+              ix.apps.length
+                ? t('ui.indexers.usedBy', { list: ix.apps.join(', ') })
+                : t('ui.indexers.unused'),
+            ]
+              .filter(Boolean)
+              .join(' · ')}
+          </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {ix.failing ? <Badge tone="critical">{t('ui.indexers.state.critical')}</Badge> : null}
-          {!ix.enabled ? <Badge tone="neutral">{t('ui.indexers.state.neutral')}</Badge> : null}
+        <div className="flex shrink-0 items-center gap-1">
           <Button busy={test.isPending} onClick={() => test.mutate()}>
             {t('ui.indexers.test')}
           </Button>
           {ix.webUrl ? (
-            <a
-              href={ix.webUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="rounded-lg px-3 py-1.5 text-sm text-muted hover:bg-surface-2 hover:text-text"
-            >
-              {t('ui.indexers.open')}
-            </a>
+            <ActionMenu
+              label={t('ui.common.moreActions')}
+              actions={[{ label: t('ui.indexers.open'), href: ix.webUrl }]}
+            />
           ) : null}
         </div>
       </div>
-      {s ? (
-        <dl className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted">
-          <div>
-            <dt className="inline">{t('ui.indexers.queries')}: </dt>
-            <dd className="inline text-text tabular-nums">{n.format(s.queries)}</dd>
-          </div>
-          <div>
-            <dt className="inline">{t('ui.indexers.grabs')}: </dt>
-            <dd className="inline text-text tabular-nums">{n.format(s.grabs)}</dd>
-          </div>
-          {failRate !== null ? (
-            <div>
-              <dt className="inline">{t('ui.indexers.failRate')}: </dt>
-              <dd className={`inline tabular-nums ${failRate >= 20 ? 'text-warning' : 'text-text'}`}>
-                {failRate}%
-              </dd>
-            </div>
-          ) : null}
-          {s.averageResponseMs !== null ? (
-            <div>
-              <dt className="inline">{t('ui.indexers.response')}: </dt>
-              <dd className="inline text-text tabular-nums">{n.format(s.averageResponseMs)} ms</dd>
-            </div>
-          ) : null}
-        </dl>
-      ) : null}
       {ix.stranded.length ? (
         <p className="text-sm text-critical">
           {t('ui.indexers.stranded', { list: ix.stranded.join(', '), count: ix.stranded.length })}
@@ -270,6 +377,6 @@ function IndexerItem({ ix, instanceId }: { ix: IndexerRow; instanceId: string })
         </motion.p>
       ) : null}
       {test.isError ? <InlineError {...errorText(t, test.error)} /> : null}
-    </li>
+    </motion.li>
   );
 }

@@ -47,6 +47,15 @@ export function registerCleanerRoutes(app: FastifyInstance, deps: { cleaner: Cle
     },
   );
 
+  app.get<{ Querystring: { instance?: string; days?: string; tz?: string } }>(
+    '/api/cleaner/activity',
+    async (req) => {
+      const days = Math.min(90, Math.max(1, Number(req.query.days) || 14));
+      const tz = Math.max(-840, Math.min(840, Number(req.query.tz) || 0));
+      return { days: cleaner.activity({ instanceId: req.query.instance, days, tzMinutes: tz }) };
+    },
+  );
+
   app.get<{ Params: { id: string } }>('/api/cleaner/:id/preview', async (req) => {
     const plan = cleaner.preview(known(req.params.id));
     return { at: cleaner.nextRunAt(req.params.id)?.toISOString() ?? null, plan };
