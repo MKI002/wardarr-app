@@ -57,6 +57,11 @@ export const example = defineAdapter({
 Then add it to `ADAPTERS` in `packages/adapters/src/index.ts`. That is all it
 takes for it to appear in the settings.
 
+The interface shows the product's logo when
+`apps/web/src/assets/logos/<id>.svg` (or `.png`) exists, and a neutral mark with
+the initial otherwise. Add a logo only when its license allows it, and list it
+in [NOTICE.md](../../NOTICE.md#adding-a-logo).
+
 ## The context
 
 `create(ctx)` receives everything the adapter may use:

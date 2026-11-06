@@ -25,6 +25,7 @@ RUN pnpm --filter @wardarr/web build \
  && pnpm --filter @wardarr/server deploy --prod --legacy /out \
  && test -f /out/dist/main.js \
  && cp -r apps/web/dist /out/web \
+ && cp LICENSE NOTICE.md /out/ && cp -r licenses /out/licenses \
  && find /out -name '*.map' -delete
 
 FROM ${NODE_IMAGE} AS runtime

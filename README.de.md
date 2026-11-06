@@ -191,4 +191,5 @@ Siehe [README.md](README.md#development) und [CONTRIBUTING.md](CONTRIBUTING.md).
 [MIT](LICENSE). Copyright The Wardarr Authors.
 
 Wardarr gehört zu keinem der Projekte, mit denen es sich verbindet, und wird von ihnen nicht
-unterstützt.
+unterstützt. Ihre Logos gehören diesen Projekten und stehen unter deren eigenen Lizenzen, siehe
+[NOTICE.md](NOTICE.md).

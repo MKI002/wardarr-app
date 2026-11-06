@@ -29,6 +29,7 @@ import { AVAILABLE_LANGUAGES } from '../lib/i18n';
 import { STATUS_TONE, groupByProduct } from '../lib/instances';
 import { useSession } from '../lib/session';
 import { useOverview } from './Overview';
+import { ServiceLogo } from '../components/ServiceLogo';
 
 type Section = 'instances' | 'users' | 'notifications' | 'appearance';
 
@@ -99,7 +100,10 @@ function InstancesSection({ editId }: { editId?: string }) {
               return (
                 <Card key={g.adapter} className="flex flex-col gap-3 p-4">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-semibold">{adapter.name}</h3>
+                    <h3 className="flex items-center gap-2.5 font-semibold">
+                      <ServiceLogo adapter={adapter.id} name={adapter.name} size={24} />
+                      {adapter.name}
+                    </h3>
                     <Badge tone="neutral">{t('ui.instance.instances', { count: g.items.length })}</Badge>
                   </div>
                   <ul className="flex flex-col gap-1">
