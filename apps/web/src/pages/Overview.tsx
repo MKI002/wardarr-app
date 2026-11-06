@@ -61,10 +61,15 @@ export function OverviewPage() {
   const { me } = useSession();
   const tabs = useTabs();
   // The overview is for admins. Everyone else starts in Discover when a
-  // request manager is connected, otherwise in Settings.
+  // request manager is connected, then in the calendar, otherwise in Settings.
   if (me.role !== 'admin') {
     if (tabs.isPending) return null;
-    return <Navigate to={tabs.data?.tabs.includes('discover') ? '/discover' : '/settings'} />;
+    const open = tabs.data?.tabs ?? [];
+    return (
+      <Navigate
+        to={open.includes('discover') ? '/discover' : open.includes('calendar') ? '/calendar' : '/settings'}
+      />
+    );
   }
   return <AdminOverview />;
 }

@@ -253,6 +253,136 @@ const LIDARR_QUEUE = [
   statusMessages: [{ title: `${artist}-${album}`, messages: ['Download failed'] }],
 }));
 
+// ------------------------------------------------------------- calendars
+
+const DAY_MS = 86_400_000;
+/** A time `days` from now at a fixed hour (UTC), like a weekly air slot. */
+const slot = (days, hour) => {
+  const d = new Date(NOW + days * DAY_MS);
+  d.setUTCHours(hour, 0, 0, 0);
+  return d.toISOString();
+};
+const dayAt = (days) => `${slot(days, 0).slice(0, 10)}T00:00:00Z`;
+const tmdbImages = (poster) => [
+  { coverType: 'poster', remoteUrl: `https://image.tmdb.org/t/p/original/${poster}.jpg` },
+];
+
+// Episode titles are invented, like the series.
+const EPISODES = {
+  lanternfall: [
+    'The Keeper’s Log',
+    'Low Water',
+    'Signal Fires',
+    'The Northern Light',
+    'Salt and Glass',
+    'A Map of Shoals',
+    'Fog Bell',
+    'The Last Lamp',
+  ],
+  kestrel: [
+    'Station Zero',
+    'Pressure Front',
+    'Isobars',
+    'Whiteout',
+    'The Long Night Shift',
+    'Static',
+    'Eye of the Storm',
+    'Barometer',
+    'Clear Skies',
+    'Calm',
+  ],
+  salt: ['Water Damage', 'Ledger', 'The Drowned Bell', 'Index Cards', 'Tidemark', 'Dated Next Week'],
+};
+
+function calendarEpisode(s, show, season, ep, days, hour, hasFile, extra = {}) {
+  const t = series(show);
+  return {
+    id: s.id * 1000 + season * 100 + ep,
+    seriesId: s.id,
+    seasonNumber: season,
+    episodeNumber: ep,
+    title: EPISODES[show][ep - 1],
+    airDateUtc: slot(days, hour),
+    runtime: show === 'kestrel' ? 42 : 52,
+    hasFile,
+    monitored: true,
+    series: { ...s, network: 'Northlight', runtime: 50, tmdbId: t.tmdbId, images: tmdbImages(t.poster) },
+    ...extra,
+  };
+}
+
+const SONARR_CALENDAR = [
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 1, -15, 20, true, {
+    overview: 'The lights go dark again.',
+  }),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 2, -8, 20, true),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 3, -1, 20, false),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 4, 6, 20, false),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 5, 13, 20, false),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 6, 20, 20, false),
+  calendarEpisode(sonarrSeries[0], 'lanternfall', 2, 7, 27, 20, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 4, -2, 2, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 5, 0, 21, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 6, 1, 2, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 7, 5, 2, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 8, 12, 2, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 9, 19, 2, false),
+  calendarEpisode(sonarrSeries[1], 'kestrel', 1, 10, 26, 2, false, { finaleType: 'season' }),
+  calendarEpisode(sonarrSeries[2], 'salt', 3, 1, 3, 19, false),
+  calendarEpisode(sonarrSeries[2], 'salt', 3, 2, 3, 20, false),
+  calendarEpisode(sonarrSeries[2], 'salt', 3, 3, 10, 19, false),
+  calendarEpisode(sonarrSeries[2], 'salt', 3, 4, 17, 19, false),
+];
+// The 4K Sonarr only follows Lanternfall; its entries merge with the HD ones.
+const SONARR_4K_CALENDAR = SONARR_CALENDAR.filter((e) => e.seriesId === sonarrSeries[0].id).map((e) => ({
+  ...e,
+  id: e.id + 50_000,
+  hasFile: e.episodeNumber === 1,
+}));
+
+/** Restored editions of the public-domain films come out on disc and online. */
+const calendarMovie = (m, key, dates) => ({
+  ...m,
+  runtime: { nosferatu: 94, intolerance: 163, nanook: 79, moon: 14, train: 12 }[key],
+  studio: 'Archive Restorations',
+  overview: film(key).overview,
+  images: tmdbImages(film(key).poster),
+  ...dates,
+});
+const RADARR_CALENDAR = [
+  calendarMovie(RADARR_MOVIES[0], 'nosferatu', { physicalRelease: dayAt(4), digitalRelease: dayAt(-3) }),
+  calendarMovie(RADARR_MOVIES[3], 'intolerance', { digitalRelease: dayAt(11) }),
+  calendarMovie(RADARR_MOVIES[4], 'nanook', { inCinemas: dayAt(2), physicalRelease: dayAt(23) }),
+];
+const RADARR_4K_CALENDAR = [
+  calendarMovie(RADARR_4K_MOVIES[0], 'nosferatu', { physicalRelease: dayAt(4) }),
+  calendarMovie(RADARR_4K_MOVIES[1], 'moon', { physicalRelease: dayAt(9) }),
+];
+
+const LIDARR_CALENDAR = [
+  ['The Lamplighters', 'Lantern Hours', 6, 'Album', 2_700_000],
+  ['Marrow & Pine', 'Cedar Lines', 15, 'EP', 1_380_000],
+  ['The Lamplighters', 'Harbour Songs (Live)', -4, 'Album', 3_120_000],
+].map(([artistName, title, days, albumType, duration], i) => ({
+  id: 401 + i,
+  title,
+  releaseDate: dayAt(days),
+  albumType,
+  duration,
+  monitored: true,
+  artist: { artistName },
+  statistics: { percentOfTracks: days < 0 ? 100 : 0 },
+}));
+
+/** Calendar entries whose date falls between `start` and `end`. */
+function inRange(list, url, dates) {
+  const start = Date.parse(url.searchParams.get('start') ?? '') || 0;
+  const end = Date.parse(url.searchParams.get('end') ?? '') || Infinity;
+  return list.filter((e) =>
+    dates.some((f) => e[f] && Date.parse(e[f]) >= start - DAY_MS && Date.parse(e[f]) <= end),
+  );
+}
+
 const ARR = {
   sonarr: {
     api: '/api/v3',
@@ -261,6 +391,7 @@ const ARR = {
     health: () => [],
     queue: sonarrQueue,
     wanted: { missing: SONARR_MISSING, cutoff: [] },
+    calendar: (url) => inRange(SONARR_CALENDAR, url, ['airDateUtc']),
   },
   'sonarr-4k': {
     api: '/api/v3',
@@ -269,6 +400,7 @@ const ARR = {
     health: () => [],
     queue: () => [],
     wanted: { missing: [], cutoff: [] },
+    calendar: (url) => inRange(SONARR_4K_CALENDAR, url, ['airDateUtc']),
   },
   radarr: {
     api: '/api/v3',
@@ -277,6 +409,7 @@ const ARR = {
     health: () => indexerHealth('radarr'),
     queue: () => [],
     movies: RADARR_MOVIES,
+    calendar: (url) => inRange(RADARR_CALENDAR, url, ['inCinemas', 'digitalRelease', 'physicalRelease']),
   },
   'radarr-4k': {
     api: '/api/v3',
@@ -285,6 +418,7 @@ const ARR = {
     health: () => [],
     queue: radarr4kQueue,
     movies: RADARR_4K_MOVIES,
+    calendar: (url) => inRange(RADARR_4K_CALENDAR, url, ['inCinemas', 'digitalRelease', 'physicalRelease']),
   },
   lidarr: {
     api: '/api/v1',
@@ -300,6 +434,7 @@ const ARR = {
     ],
     queue: () => LIDARR_QUEUE,
     wanted: { missing: [], cutoff: [] },
+    calendar: (url) => inRange(LIDARR_CALENDAR, url, ['releaseDate']),
   },
 };
 
@@ -404,6 +539,7 @@ async function arr(prefix, path, url, req, res) {
   if (p === '/diskspace') return json(res, DISKS);
   if (p === '/rootfolder')
     return json(res, [{ id: 1, path: STACK[prefix].root, accessible: true, freeSpace: DATA_FREE }]);
+  if (p === '/calendar') return json(res, svc.calendar?.(url) ?? []);
   if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: DEMO_KEY });
   if (p === '/manualimport') {
     if (url.searchParams.get('downloadId') !== 'DEMOIMPORT01') return json(res, []);

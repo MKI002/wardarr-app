@@ -51,6 +51,8 @@ anfragen.
   neuen Server mitnimmt.
 - **Bibliothek und Streams.** Größe und Anzahl je Medienserver, was gerade läuft, Wiedergaben
   pro Tag, meistgesehene Titel und wer was geschaut hat.
+- **Was kommt.** Ein Kalender für alle Sonarr, Radarr, Lidarr und Readarr; derselbe Termin aus
+  zwei Instanzen erscheint einmal. Dazu ein privater iCal-Link für Kalender-Apps.
 - **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
   und welche Apps an einem ausfallenden Indexer hängen.
 - **Benachrichtigungen** per E-Mail, ntfy, Discord, Gotify, Telegram oder an jeden Webhook.
@@ -198,6 +200,7 @@ Die Anleitungen sind auf Englisch:
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Stack-Map](docs/guide/stack-map.md) (englisch)
 - [Backups](docs/guide/backups.md)
+- [Kalender](docs/guide/calendar.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
 - [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind
