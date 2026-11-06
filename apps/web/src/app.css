@@ -2,41 +2,42 @@
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
+/* Palette "Nachtwache". Every text colour passes WCAG AA in both themes. */
 :root {
-  --bg: #f6f7f9;
+  --bg: #f6f6fb;
   --surface: #ffffff;
-  --surface-2: #eef0f4;
-  --border: #dfe2e8;
-  --text: #14171d;
-  --muted: #545b67;
-  --accent: #5b47e0;
+  --surface-2: #ededf6;
+  --border: #dcddea;
+  --text: #151624;
+  --muted: #555a6e;
+  --accent: #5b45e0;
   --accent-contrast: #ffffff;
   --critical: #c62828;
-  --warning: #8a5a00;
-  --info: #1f6fb2;
-  --ok: #167044;
   --critical-bg: #fdecec;
+  --warning: #8a5a00;
   --warning-bg: #fff4dc;
+  --info: #1f6fb2;
   --info-bg: #e7f1fb;
+  --ok: #167044;
   --ok-bg: #e5f5ec;
 }
 
 [data-theme='dark'] {
-  --bg: #0f1115;
-  --surface: #171a21;
-  --surface-2: #1f232c;
-  --border: #2a2f3a;
-  --text: #e8eaf0;
-  --muted: #a0a7b4;
-  --accent: #9d90f8;
-  --accent-contrast: #0f1115;
+  --bg: #0e0f16;
+  --surface: #161824;
+  --surface-2: #1e2130;
+  --border: #2b2f42;
+  --text: #e9eaf2;
+  --muted: #a3a7ba;
+  --accent: #9d8cff;
+  --accent-contrast: #0e0f16;
   --critical: #ff7b7b;
+  --critical-bg: #3a1d22;
   --warning: #f5c451;
-  --info: #7cbcf0;
-  --ok: #5ad8a0;
-  --critical-bg: #3a1d20;
   --warning-bg: #3a2f14;
+  --info: #7cbcf0;
   --info-bg: #15283a;
+  --ok: #5ad8a0;
   --ok-bg: #12301f;
 }
 

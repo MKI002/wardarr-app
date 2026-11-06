@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/wardarr-lockup-on-dark.svg" />
+    <img src="docs/assets/wardarr-lockup-on-light.svg" alt="Wardarr" width="320" />
+  </picture>
+</p>
+
 # Wardarr
 
 Wardarr is a self-hosted control center for the *arr stack, download clients,

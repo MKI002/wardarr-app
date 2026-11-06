@@ -15,7 +15,7 @@ export function applyTheme(pref: ThemePref): void {
   const set = () => {
     const dark = pref === 'dark' || (pref === 'system' && media!.matches);
     document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0f1115' : '#f6f7f9');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0e0f16' : '#f6f6fb');
   };
   listener = pref === 'system' ? set : null;
   if (listener) media.addEventListener('change', listener);
