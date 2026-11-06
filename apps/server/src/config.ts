@@ -11,6 +11,8 @@ const schema = z.object({
   WARDARR_PORT: z.coerce.number().int().min(1).max(65535).default(8484),
   WARDARR_HOST: z.string().default('0.0.0.0'),
   WARDARR_DATA_DIR: z.string().default('./data'),
+  /** Folder for backups; `backups` in the data directory when not set. */
+  WARDARR_BACKUP_DIR: z.string().optional(),
   /** 32-byte key as base64 or hex. Generated on first start when absent. */
   WARDARR_SECRET_KEY: z.string().optional(),
   /** Trust X-Forwarded-* headers from a reverse proxy. */
@@ -36,6 +38,7 @@ export interface Config {
   port: number;
   host: string;
   dataDir: string;
+  backupDir: string;
   secretKey: string | undefined;
   trustProxy: boolean;
   cookieSecure: boolean | 'auto';
@@ -52,6 +55,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     port: parsed.WARDARR_PORT,
     host: parsed.WARDARR_HOST,
     dataDir: path.resolve(parsed.WARDARR_DATA_DIR),
+    backupDir: path.resolve(parsed.WARDARR_BACKUP_DIR ?? path.join(parsed.WARDARR_DATA_DIR, 'backups')),
     secretKey: parsed.WARDARR_SECRET_KEY,
     trustProxy: parsed.WARDARR_TRUST_PROXY === true,
     cookieSecure: parsed.WARDARR_COOKIE_SECURE,

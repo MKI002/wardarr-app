@@ -1,0 +1,174 @@
+{
+  "title": "Backups",
+  "intro": "Wardarr backs up its own data: services, users, settings and history. Your media and the services themselves are not part of it.",
+  "hero": {
+    "eyebrow": "Smart retention",
+    "count_one": "backup",
+    "count_other": "backups",
+    "none": "No backup yet. The first one runs in a few minutes, or make one now.",
+    "ok": "The last one is from {{last}}, the next one follows {{next}}.",
+    "okNoSchedule": "The last one is from {{last}}. Automatic backups are off; Wardarr still backs up before every database update.",
+    "lowDisk": "The last automatic backup was skipped {{when}}: the backup disk is almost full.",
+    "failed": "The last automatic backup failed {{when}}. Check Wardarr's log.",
+    "backupNow": "Back up now",
+    "upload": "Upload backup"
+  },
+  "insight": {
+    "sameDisk": "Backups are on the same disk as Wardarr's data. Download important backups, or set WARDARR_BACKUP_DIR to another disk.",
+    "storage": "{{used}} used by backups, {{free}} free on the backup disk."
+  },
+  "retention": {
+    "title": "How long backups are kept",
+    "intro": "One slider decides everything: how often Wardarr backs up and how the history thins out with age, like a careful person would do it.",
+    "slider": "Retention",
+    "level": {
+      "0": "Updates only",
+      "1": "Light",
+      "2": "Balanced",
+      "3": "Thorough",
+      "4": "Maximum"
+    },
+    "levelHint": {
+      "0": "Only before database updates and restores",
+      "1": "Daily, about a month back",
+      "2": "Twice a day, about half a year back",
+      "3": "Four times a day, about a year back",
+      "4": "Every 3 hours, about two years back"
+    },
+    "none": "No automatic backups. Wardarr still keeps the last {{count}} backups made before a database update or a restore.",
+    "every_one": "A backup every hour.",
+    "every_other": "A backup every {{count}} hours.",
+    "keeps": "Wardarr keeps {{list}}.",
+    "keepAll_one": "every backup of the last hour",
+    "keepAll_other": "every backup of the last {{count}} hours",
+    "daily_one": "one per day for {{count}} day",
+    "daily_other": "one per day for {{count}} days",
+    "weekly_one": "one per week for {{count}} week",
+    "weekly_other": "one per week for {{count}} weeks",
+    "monthly_one": "one per month for {{count}} month",
+    "monthly_other": "one per month for {{count}} months",
+    "statCount": "Backups",
+    "statReach": "Reaches back",
+    "statSize": "Space",
+    "about": "about {{value}}",
+    "reach": {
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "weeks_one": "{{count}} week",
+      "weeks_other": "{{count}} weeks",
+      "months_one": "{{count}} month",
+      "months_other": "{{count}} months",
+      "years_one": "{{count}} year",
+      "years_other": "{{count}} years"
+    },
+    "timelineLabel": "Timeline: {{planned}} backups kept by this level over {{reach}}, {{present}} backups present now.",
+    "rowPlanned": "In the long run",
+    "rowPresent": "Now",
+    "tier": {
+      "recent": "Every backup",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "kept": "Kept",
+      "removed": "Removed on save"
+    },
+    "axis": {
+      "now": "now",
+      "day": "1 day",
+      "week": "1 week",
+      "month": "1 month",
+      "halfYear": "6 months",
+      "year": "1 year",
+      "twoYears": "2 years"
+    },
+    "willRemove_one": "Saving removes {{count}} older backup that this level no longer keeps.",
+    "willRemove_other": "Saving removes {{count}} older backups that this level no longer keeps.",
+    "save": "Save",
+    "reset": "Undo"
+  },
+  "list": {
+    "title": "Stored backups",
+    "empty": "No backups yet",
+    "emptyBody": "The first automatic backup runs a few minutes after the start. Backups you make or upload show up here.",
+    "actions": "Actions for this backup",
+    "restore": "Restore…",
+    "download": "Download",
+    "downloadProtected": "Download with passphrase…",
+    "pin": "Keep forever",
+    "unpin": "Let smart retention decide",
+    "delete": "Delete…",
+    "keptAs": "kept as {{reasons}}",
+    "goesSoon": "removed at the next cleanup",
+    "version": "Wardarr {{version}}",
+    "showAll": "Show all {{count}}",
+    "showLess": "Show fewer"
+  },
+  "kind": {
+    "scheduled": "Automatic",
+    "manual": "Manual",
+    "pre-migration": "Before update",
+    "pre-restore": "Before restore",
+    "uploaded": "Uploaded"
+  },
+  "reason": {
+    "pinned": "kept forever",
+    "manual": "manual backup",
+    "uploaded": "upload",
+    "safety": "safety copy",
+    "latest": "newest backup",
+    "recent": "recent backup",
+    "daily": "daily backup",
+    "weekly": "weekly backup",
+    "monthly": "monthly backup"
+  },
+  "badge": {
+    "pinned": "Kept forever",
+    "encrypted": "Passphrase",
+    "older": "Older version",
+    "newer": "Newer version",
+    "foreign": "Other installation",
+    "otherKey": "Other key"
+  },
+  "restore": {
+    "title": "Restore this backup?",
+    "body": "Wardarr goes back to the state of {{date}}. Everything changed since then is replaced. Wardarr first backs up the current state, so you can go back, and then restarts. Everyone has to sign in again.",
+    "older": "This backup is from an older Wardarr version. Wardarr updates it after the restore.",
+    "passphrase": "Passphrase of this backup",
+    "foreignKey": "This backup comes from another installation. Wardarr cannot read the API keys and passwords of your services in it.",
+    "acceptForeign": "Restore anyway; I enter the credentials of the services again",
+    "confirm": "Restore and restart",
+    "restarting": "Wardarr restarts with the backup…",
+    "restartingBody": "This takes a few seconds. The page reloads by itself.",
+    "cleared_one": "Enter the credentials of {{count}} service again after signing in.",
+    "cleared_other": "Enter the credentials of {{count}} services again after signing in."
+  },
+  "export": {
+    "title": "Download with a passphrase",
+    "body": "The file is encrypted with this passphrase and also carries the key for your stored credentials. With it, a new installation restores everything, including the API keys of your services. Without the passphrase the file cannot be opened; nobody can recover it.",
+    "passphrase": "Passphrase",
+    "repeat": "Repeat passphrase",
+    "help": "At least {{count}} characters.",
+    "mismatch": "The passphrases do not match.",
+    "submit": "Download"
+  },
+  "delete": {
+    "title": "Delete this backup?",
+    "body": "The backup from {{date}} is deleted for good.",
+    "confirm": "Delete"
+  },
+  "uploaded": "Backup uploaded.",
+  "created": "Backup made.",
+  "errors": {
+    "notABackup": "This file is not a Wardarr backup.",
+    "backupCorrupt": "This backup is damaged and cannot be used.",
+    "backupTooNew": "This backup is from a newer Wardarr version. Update Wardarr first.",
+    "passphraseRequired": "Enter the passphrase of this backup.",
+    "wrongPassphrase": "The passphrase is wrong.",
+    "keyMismatch": "This backup comes from another installation. Confirm that you enter the credentials again.",
+    "alreadyEncrypted": "This backup is already protected with a passphrase.",
+    "restartUnavailable": "Wardarr cannot restart itself here. Restart the container to finish.",
+    "backupUnavailable": "Backups are not available right now. Try again in a moment.",
+    "tooLarge": "This file is too large for an upload.",
+    "demo": "Not available in the demo."
+  }
+}

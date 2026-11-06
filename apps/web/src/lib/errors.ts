@@ -15,6 +15,19 @@ const TRASH_ERRORS = new Set([
   'productFixed',
 ]);
 
+const BACKUP_ERRORS = new Set([
+  'notABackup',
+  'backupCorrupt',
+  'backupTooNew',
+  'passphraseRequired',
+  'wrongPassphrase',
+  'keyMismatch',
+  'alreadyEncrypted',
+  'restartUnavailable',
+  'backupUnavailable',
+  'demo',
+]);
+
 const KNOWN = new Set([
   'invalidCredentials',
   'tooManyAttempts',
@@ -51,6 +64,8 @@ export function errorText(t: T, err: unknown): { message: string; next?: string 
       return { message: t('ui.errors.validation') };
     if (KNOWN.has(err.code)) return { message: t(`ui.errors.${err.code}`) };
     if (TRASH_ERRORS.has(err.code)) return { message: t(`trash.errors.${err.code}`) };
+    if (BACKUP_ERRORS.has(err.code)) return { message: t(`backups.errors.${err.code}`) };
+    if (err.status === 413) return { message: t('backups.errors.tooLarge') };
     if (err.status === 403) return { message: t('ui.errors.forbidden') };
   }
   return { message: t('ui.errors.generic'), next: t('ui.errors.genericNext') };

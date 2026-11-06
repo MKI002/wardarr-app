@@ -115,12 +115,13 @@ const settingsRoute = createRoute({
   path: '/settings',
   validateSearch: (
     s: Record<string, unknown>,
-  ): { section?: 'instances' | 'users' | 'notifications' | 'appearance' } => ({
+  ): { section?: 'instances' | 'users' | 'notifications' | 'backups' | 'appearance' } => ({
     section:
       s.section === 'users' ||
       s.section === 'appearance' ||
       s.section === 'instances' ||
-      s.section === 'notifications'
+      s.section === 'notifications' ||
+      s.section === 'backups'
         ? s.section
         : undefined,
   }),

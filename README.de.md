@@ -45,6 +45,10 @@ anfragen.
   Benennung aus den TRaSH Guides für beliebig viele Sonarrs und Radarrs. Jeder Sync zeigt vorher
   jede Änderung Feld für Feld und legt ein Backup an, das sich zurückrollen lässt; ein Wächter
   meldet Abweichungen oder hält Instanzen selbst synchron und hält bei großen Änderungen an.
+- **Backups mit Smart Retention.** Ein Regler entscheidet, wie oft Wardarr sich selbst sichert
+  und wie der Verlauf mit dem Alter ausdünnt. Ein Backup vor jedem Datenbank-Update,
+  Wiederherstellen mit einem Klick und ein passwortgeschützter Download, der alles auf einen
+  neuen Server mitnimmt.
 - **Bibliothek und Streams.** Größe und Anzahl je Medienserver, was gerade läuft, Wiedergaben
   pro Tag, meistgesehene Titel und wer was geschaut hat.
 - **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
@@ -153,6 +157,7 @@ Alles Weitere wird in der Weboberfläche eingestellt. Diese Umgebungsvariablen s
 | `WARDARR_PORT`            | `8484`    | Port, auf dem Wardarr lauscht.                                                                                                                               |
 | `WARDARR_HOST`            | `0.0.0.0` | Adresse, auf der Wardarr lauscht.                                                                                                                            |
 | `WARDARR_DATA_DIR`        | `/data`   | Datenbank und erzeugter Schlüssel.                                                                                                                           |
+| `WARDARR_BACKUP_DIR`      | `backups` | Ordner für die eigenen Backups von Wardarr; ohne Angabe `backups` im Datenordner. Lege ihn wenn möglich auf ein anderes Laufwerk.                            |
 | `WARDARR_SECRET_KEY`      | erzeugt   | 32-Byte-Schlüssel (Base64 oder Hex), der gespeicherte Zugangsdaten verschlüsselt. Ohne Angabe wird er beim ersten Start erzeugt und im Datenordner abgelegt. |
 | `WARDARR_PUBLIC_URL`      | keine     | Adresse, unter der du Wardarr öffnest, für Links in Benachrichtigungen.                                                                                      |
 | `WARDARR_TRUST_PROXY`     | `false`   | `X-Forwarded-*`-Headern vertrauen. Hinter einem Reverse Proxy einschalten.                                                                                   |
@@ -192,6 +197,7 @@ Die Anleitungen sind auf Englisch:
 - [TRaSH Guides](docs/guide/trash-guides.md)
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Stack-Map](docs/guide/stack-map.md) (englisch)
+- [Backups](docs/guide/backups.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
 - [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind

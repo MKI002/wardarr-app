@@ -1,8 +1,12 @@
 // Test helpers: an app with an in-memory database and a fake adapter.
 import { randomBytes } from 'node:crypto';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import { AdapterError, defineAdapter, type Signal } from '@wardarr/core';
 import { z } from 'zod';
 import { buildApp, type AppOptions } from '../src/app.js';
+import { BackupService } from '../src/backups/service.js';
 import { openDatabase } from '../src/db/index.js';
 import { AdapterRegistry } from '../src/instances/registry.js';
 import { createSecretBox } from '../src/security/crypto.js';
@@ -47,10 +51,15 @@ export async function createTestApp(
     notificationOptions?: AppOptions['notificationOptions'];
     publicUrl?: string;
     trashDir?: string;
+    restart?: () => void;
   } = {},
 ) {
-  const { db, close } = openDatabase(':memory:');
-  const box = createSecretBox(randomBytes(32));
+  const { db, sqlite, close } = openDatabase(':memory:');
+  const key = randomBytes(32);
+  const box = createSecretBox(key);
+  const dataDir = mkdtempSync(path.join(tmpdir(), 'wardarr-test-'));
+  const backups = new BackupService({ dir: path.join(dataDir, 'backups'), dataDir, secretKey: key });
+  backups.attach(sqlite);
   const built = await buildApp({
     db,
     box,
@@ -61,13 +70,18 @@ export async function createTestApp(
     notificationOptions: extra.notificationOptions,
     publicUrl: extra.publicUrl,
     trashDir: extra.trashDir,
+    backups,
+    restart: extra.restart,
   });
   await built.app.ready();
   return {
     ...built,
+    backups,
+    dataDir,
     close: async () => {
       await built.app.close();
       close();
+      rmSync(dataDir, { recursive: true, force: true });
     },
   };
 }

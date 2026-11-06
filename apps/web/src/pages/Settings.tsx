@@ -1,3 +1,4 @@
+import { BackupsSection } from '../components/BackupsSection';
 import { NotificationsSection } from '../components/NotificationsSection';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams, useSearch } from '@tanstack/react-router';
@@ -32,7 +33,7 @@ import { useSession } from '../lib/session';
 import { useOverview } from './Overview';
 import { ServiceLogo } from '../components/ServiceLogo';
 
-type Section = 'instances' | 'users' | 'notifications' | 'appearance';
+type Section = 'instances' | 'users' | 'notifications' | 'backups' | 'appearance';
 
 // ---------------------------------------------------------------- instances
 
@@ -471,7 +472,7 @@ export function SettingsPage() {
   const params = useParams({ strict: false }) as { id?: string };
   const isAdmin = me.role === 'admin';
   const sections: Section[] = isAdmin
-    ? ['instances', 'users', 'notifications', 'appearance']
+    ? ['instances', 'users', 'notifications', 'backups', 'appearance']
     : ['appearance'];
   const active: Section = params.id
     ? 'instances'
@@ -482,12 +483,14 @@ export function SettingsPage() {
     instances: t('ui.settings.instances'),
     users: t('ui.settings.users'),
     notifications: t('ui.settings.notifications'),
+    backups: t('backups.title'),
     appearance: t('ui.settings.appearance'),
   };
   const content: Record<Section, ReactNode> = {
     instances: <InstancesSection editId={params.id} />,
     users: <UsersSection />,
     notifications: <NotificationsSection />,
+    backups: <BackupsSection />,
     appearance: <AppearanceSection />,
   };
 

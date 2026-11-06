@@ -7,6 +7,8 @@ import Fastify, { type FastifyInstance, type FastifyServerOptions } from 'fastif
 import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { authGuard, type RegisteredRoute } from './auth/guard.js';
+import { registerBackupRoutes } from './backups/routes.js';
+import type { BackupService } from './backups/service.js';
 import { LoginLockout } from './auth/lockout.js';
 import { CleanerService } from './cleaner/service.js';
 import { registerCleanerRoutes } from './cleaner/routes.js';
@@ -68,6 +70,10 @@ export interface AppOptions {
   trashDir?: string;
   /** Replaces the TRaSH Guides download, for tests. */
   trashSource?: GuideSource;
+  /** Backups of Wardarr's own data; the routes exist only when it is set. */
+  backups?: BackupService;
+  /** Restarts the server in place, after a restore was staged. */
+  restart?: () => void;
 }
 
 export interface App {
@@ -140,6 +146,8 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     logger: loggerOptions(opts.logLevel ?? 'info'),
     trustProxy: opts.trustProxy ?? false,
     bodyLimit: 1024 * 1024,
+    // Server-sent event streams must not hold up a shutdown or a restart.
+    forceCloseConnections: true,
   });
 
   const routes: RegisteredRoute[] = [];
@@ -242,6 +250,10 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerTopologyRoutes(app, { topology });
   registerNotificationRoutes(app, { notifications });
   registerTrashRoutes(app, { trash });
+  if (opts.backups) {
+    opts.backups.onChange(() => bus.publish({ type: 'backups.updated', audience: 'admin' }));
+    registerBackupRoutes(app, { backups: opts.backups, restart: opts.restart });
+  }
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.

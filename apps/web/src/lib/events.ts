@@ -10,6 +10,7 @@ const INVALIDATES: Record<string, string[][]> = {
   'requests.updated': [['requests'], ['discover']],
   'instances.updated': [['instances'], ['overview'], ['capabilities'], ['trash'], ['topology']],
   'trash.updated': [['trash']],
+  'backups.updated': [['backups']],
 };
 
 export function connectEvents(client: QueryClient): () => void {

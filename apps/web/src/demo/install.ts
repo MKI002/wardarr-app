@@ -145,6 +145,31 @@ function setIssue(fp: string, change: (issue: Record<string, Json>) => Record<st
   return changed;
 }
 
+/** Backups in the demo: the slider, pins and deleting work in memory. */
+function backupMutation(method: string, path: string, input: Record<string, Json>): Answer {
+  const overview = obj(body('/api/backups'));
+  const backups = list(overview.backups).map(obj);
+  const save = (next: Record<string, Json>) => {
+    answers.set('/api/backups', ok(next));
+    return ok(next);
+  };
+  if (path === '/api/backups/settings')
+    return save({ ...overview, level: input.level ?? overview.level ?? 2 });
+  const item = path.match(/^\/api\/backups\/([^/]+)(?:\/(pin))?$/);
+  if (item && method === 'DELETE') {
+    const id = decodeURIComponent(item[1]!);
+    save({ ...overview, backups: backups.filter((b) => b.id !== id) });
+    return ok();
+  }
+  if (item?.[2] === 'pin') {
+    const id = decodeURIComponent(item[1]!);
+    save({ ...overview, backups: backups.map((b) => (b.id === id ? { ...b, pinned: !!input.pinned } : b)) });
+    return ok();
+  }
+  // Making, uploading, exporting and restoring need a real server.
+  return { status: 409, body: { error: 'demo' } };
+}
+
 async function mutate(method: string, path: string, init: RequestInit | undefined): Promise<Answer> {
   const recorded = recordedMutations[`${method} ${path}`];
   if (recorded) return recorded;
@@ -158,6 +183,8 @@ async function mutate(method: string, path: string, init: RequestInit | undefine
     answers.set('/api/auth/me', ok(next));
     return ok(next.user.preferences);
   }
+
+  if (path.startsWith('/api/backups')) return backupMutation(method, path, input);
 
   const issue = path.match(/^\/api\/issues\/([^/]+)\/(mute|unmute|recheck)$/);
   if (issue) {

@@ -8,7 +8,7 @@
 // Usage (after `pnpm build`): node scripts/demo/capture.mjs
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -203,6 +203,41 @@ function seedStreamHistory(instanceId) {
   db.close();
 }
 
+/**
+ * A backup history like a few months of the default retention level: copies
+ * of one real backup with earlier dates in their header and file name.
+ */
+function seedBackupHistory(dir) {
+  const magic = 'WARDARR-BACKUP 1\n';
+  const source = readdirSync(dir).find((f) => f.endsWith('.wbak'));
+  const raw = readFileSync(path.join(dir, source));
+  const end = raw.indexOf(0x0a, magic.length);
+  const header = JSON.parse(raw.subarray(magic.length, end).toString('utf8'));
+  const payload = raw.subarray(end + 1);
+  const H = 3_600_000;
+  const D = 24 * H;
+  const ages = [
+    [2 * H, 'scheduled'],
+    [14 * H, 'scheduled'],
+    ...[1, 2, 3, 4, 5, 6].map((d) => [d * D + 5 * H, 'scheduled']),
+    ...[1, 2, 3, 4, 5, 6, 7].map((w) => [w * 7 * D + 3 * D, 'scheduled']),
+    ...[2, 3, 4, 5].map((m) => [m * 30 * D + 9 * D, 'scheduled']),
+    [11 * D + 2 * H, 'pre-migration'],
+    [40 * D + 7 * H, 'manual'],
+  ];
+  const now = Date.now();
+  ages.forEach(([age, kind], i) => {
+    const at = new Date(now - age);
+    const stamp = at
+      .toISOString()
+      .replace(/[-:]/g, '')
+      .replace(/\.\d+Z$/, 'Z');
+    const id = `wardarr-${stamp}-${kind}-${(0xd00000 + i).toString(16)}`;
+    const line = `${magic}${JSON.stringify({ ...header, createdAt: at.toISOString(), kind })}\n`;
+    writeFileSync(path.join(dir, `${id}.wbak`), Buffer.concat([Buffer.from(line), payload]));
+  });
+}
+
 const dataDir = mkdtempSync(path.join(tmpdir(), 'wardarr-demo-'));
 try {
   start([path.join(here, 'services.mjs')], { DEMO_MOCK_PORT: String(MOCK_PORT) });
@@ -289,6 +324,8 @@ try {
   for (const key of Object.keys(trashTemplates)) await must('POST', `/api/trash/instances/${ids[key]}/check`);
 
   seedStreamHistory(ids.jellyfin);
+  await must('POST', '/api/backups', {});
+  seedBackupHistory(path.join(dataDir, 'backups'));
   await must('POST', `/api/library/${ids.jellyfin}/refresh`);
 
   // Give the jobs (issue engine, library) a moment, then poll again.
@@ -319,6 +356,7 @@ try {
     '/api/queue',
     '/api/users',
     '/api/notifications',
+    '/api/backups',
     '/api/indexers',
     '/api/topology',
     '/api/streams/history?limit=25',
