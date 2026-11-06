@@ -13,9 +13,10 @@ updates:
       # A TypeScript major needs typescript-eslint support first.
       - dependency-name: typescript
         update-types: ['version-update:semver-major', 'version-update:semver-minor']
-      # Playwright is pinned to the browser build CI installs.
+      # Playwright is pinned exactly; its browsers move with each minor, so
+      # minor updates are done by hand together with the e2e tests.
       - dependency-name: '@playwright/test'
-        update-types: ['version-update:semver-major']
+        update-types: ['version-update:semver-major', 'version-update:semver-minor']
     groups:
       production:
         dependency-type: production
