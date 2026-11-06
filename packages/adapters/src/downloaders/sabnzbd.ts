@@ -1,5 +1,6 @@
 import { AdapterError, defineAdapter, type DownloadJob, type Signal } from '@wardarr/core';
 import { z } from 'zod';
+import { folder, part } from '../shared/topology.js';
 import { jsonOf } from '../shared/http.js';
 
 interface QueueSlot {
@@ -122,6 +123,35 @@ export const sabnzbd = defineAdapter({
       },
       async removeDownload(jobId, opts) {
         await call('queue', { name: 'delete', value: jobId, del_files: opts.deleteFiles ? '1' : '0' });
+      },
+      async topology() {
+        const [queue, config] = await Promise.all([
+          part(() => call<{ queue?: Record<string, unknown> }>('queue', { limit: '1' }), {}),
+          part(
+            () =>
+              call<{ config?: { misc?: { complete_dir?: string; download_dir?: string } } }>('get_config', {
+                section: 'misc',
+              }),
+            {},
+          ),
+        ]);
+        // Space figures come in GB as strings: 1 is the incomplete, 2 the complete folder.
+        const gb = (v: unknown) => {
+          const n = Number(v);
+          return v !== undefined && v !== '' && Number.isFinite(n) ? Math.round(n * 1024 ** 3) : undefined;
+        };
+        const q = queue.queue ?? {};
+        const misc = config.config?.misc ?? {};
+        const folders = [];
+        if (misc.complete_dir)
+          folders.push(
+            folder(misc.complete_dir, 'downloads', { free: gb(q.diskspace2), total: gb(q.diskspacetotal2) }),
+          );
+        if (misc.download_dir && misc.download_dir !== misc.complete_dir)
+          folders.push(
+            folder(misc.download_dir, 'downloads', { free: gb(q.diskspace1), total: gb(q.diskspacetotal1) }),
+          );
+        return { links: [], folders };
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

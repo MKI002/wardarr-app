@@ -179,6 +179,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
   how users are linked.
 - [TRaSH Guides](docs/guide/trash-guides.md): templates, previews, rollbacks and the guard.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
+- [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
 - [Live demo](docs/demo.md): how the demo is built and why its films are public domain.

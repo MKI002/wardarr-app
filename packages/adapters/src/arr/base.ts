@@ -13,8 +13,10 @@ import {
   type MediaKind,
   type QueueItem,
   type QueueItemState,
+  type ServiceLink,
   type SettingsSection,
   type Signal,
+  type StorageFolder,
   type TagInfo,
 } from '@wardarr/core';
 import {
@@ -27,6 +29,7 @@ import {
 } from '../shared/apiVersion.js';
 import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
 import type { HttpResponse } from '@wardarr/core';
+import { addressOf, fieldValue, folder, link, mountOf, part } from '../shared/topology.js';
 import { FAMILIES, type ArrFamily } from './families.js';
 
 /**
@@ -86,6 +89,39 @@ interface Paged<T> {
   pageSize: number;
   totalRecords: number;
   records: T[];
+}
+
+interface ProviderResource {
+  name?: string;
+  implementation?: string;
+  enable?: boolean;
+  fields?: Array<{ name?: string; value?: unknown }>;
+  [key: string]: unknown;
+}
+
+const FOLDER_KIND: Record<MediaKind, StorageFolder['kind']> = {
+  episode: 'show',
+  movie: 'movie',
+  album: 'music',
+  book: 'book',
+  scene: 'other',
+  item: 'other',
+};
+
+function hostLink(kind: ServiceLink['kind'], r: ProviderResource, enabled: boolean): ServiceLink {
+  const f = r.fields;
+  return link(
+    kind,
+    r.implementation ?? '',
+    r.name ?? r.implementation ?? '',
+    addressOf({
+      host: fieldValue(f, 'host'),
+      port: fieldValue(f, 'port'),
+      ssl: fieldValue(f, 'useSsl'),
+      base: fieldValue(f, 'urlBase'),
+    }),
+    enabled,
+  );
 }
 
 const PAGE_SIZE = 250;
@@ -314,6 +350,38 @@ export function createArrInstance(
       const f = await flavor();
       const records = await get<Array<Record<string, unknown>>>('/history/since', { date: since });
       return records.map((r) => FAMILIES[f.family].historyEvent(r));
+    },
+
+    async topology() {
+      const f = await flavor();
+      const [clients, notifications, roots, disks] = await Promise.all([
+        part(() => get<ProviderResource[]>('/downloadclient'), []),
+        part(() => get<ProviderResource[]>('/notification'), []),
+        part(
+          () => get<Array<{ path?: string; freeSpace?: number; accessible?: boolean }>>('/rootfolder'),
+          [],
+        ),
+        part(() => get<Array<{ path?: string; freeSpace?: number; totalSpace?: number }>>('/diskspace'), []),
+      ]);
+      const links: ServiceLink[] = [
+        ...clients.map((c) => hostLink('downloads', c, c.enable !== false)),
+        // Media server connections that refresh the library after an import.
+        ...notifications
+          .filter((n) => /^(plexserver|mediabrowser|emby|jellyfin)$/i.test(n.implementation ?? ''))
+          .map((n) => hostLink('libraryUpdate', n, n.onDownload !== false || n.onUpgrade !== false)),
+      ];
+      const folders = roots
+        .filter((r) => typeof r.path === 'string' && r.path)
+        .map((r) => {
+          const mount = mountOf(r.path!, disks);
+          return folder(
+            r.path!,
+            'media',
+            { free: r.freeSpace ?? mount?.freeSpace, total: mount?.totalSpace, mount: mount?.path },
+            { kind: FOLDER_KIND[f.mediaKind], accessible: r.accessible !== false },
+          );
+        });
+      return { links, folders };
     },
 
     async settings(): Promise<SettingsSection[]> {

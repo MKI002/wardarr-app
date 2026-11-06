@@ -38,7 +38,8 @@
     "requests": "Requests",
     "library": "Library",
     "indexers": "Indexers",
-    "trash": "TRaSH Guides"
+    "trash": "TRaSH Guides",
+    "map": "Map"
   },
   "errors": {
     "serverUnreachable": "Wardarr's server does not answer.",
@@ -712,6 +713,113 @@
       "starttls": "STARTTLS (port 587)",
       "tls": "TLS (port 465)",
       "none": "None, only inside your network"
+    }
+  },
+  "map": {
+    "title": "Stack map",
+    "intro": "How your services connect, drawn from what they report about each other.",
+    "reload": "Read again",
+    "readAt": "Connections read {{when}}",
+    "views": "Views",
+    "viewMap": "Map",
+    "viewList": "List",
+    "canvasLabel": "Map of the connected services. Select a service for details.",
+    "listCaption": "Connections between the services",
+    "list": {
+      "from": "From",
+      "to": "To",
+      "what": "Connection",
+      "status": "Status"
+    },
+    "empty": "Nothing to draw yet",
+    "emptyBody": "Connect your first service and Wardarr draws how your stack fits together.",
+    "lonely": "Add more services and Wardarr draws how they connect.",
+    "addService": "Add a service",
+    "unread": "Wardarr could not read the connections of {{list}}. The map may be missing a few lines.",
+    "ghost": "Not in Wardarr",
+    "ghostBody": "Another service is set up to use this one, but it is not connected to Wardarr yet. Add it to see its status here.",
+    "address": "Address",
+    "checked": "checked {{when}}",
+    "connections": "Connections",
+    "noLinks": "This service reports no connections to others.",
+    "open": "Open {{name}}",
+    "status": {
+      "ok": "Online",
+      "warning": "Needs attention",
+      "critical": "Unreachable",
+      "unknown": "Unknown",
+      "off": "Off"
+    },
+    "legend": {
+      "reported": "Reported",
+      "inferred": "Inferred",
+      "off": "Off or not connected",
+      "active": "Downloading"
+    },
+    "kind": {
+      "indexers": "Indexers",
+      "downloads": "Download client",
+      "requests": "Requests",
+      "subtitles": "Subtitles",
+      "mediaServer": "Media server",
+      "libraryUpdate": "Library refresh after imports",
+      "storage": {
+        "media": "Media folders",
+        "downloads": "Download folder",
+        "library": "Library folders"
+      }
+    },
+    "edge": {
+      "failing_one": "{{count}} failing",
+      "failing_other": "{{count}} failing",
+      "disabled": "switched off",
+      "inferred": "inferred",
+      "as": "set up as {{name}}"
+    },
+    "match": {
+      "address": "Recognised by its address",
+      "name": "Recognised by its name",
+      "product": "The only connected instance of this product",
+      "path": "Matched by folder path",
+      "space": "Same disk: size and free space agree",
+      "kind": "Matched by media type, no path in common"
+    },
+    "live": {
+      "streams_one": "{{count}} stream",
+      "streams_other": "{{count}} streams",
+      "downloading_one": "{{count}} downloading",
+      "downloading_other": "{{count}} downloading",
+      "indexers_one": "{{count}} indexer",
+      "indexers_other": "{{count}} indexers",
+      "indexersFailing_one": "{{count}} indexer, {{failing}} failing",
+      "indexersFailing_other": "{{count}} indexers, {{failing}} failing",
+      "queue_one": "{{count}} in queue",
+      "queue_other": "{{count}} in queue"
+    },
+    "stat": {
+      "queue": "In queue",
+      "downloading": "Downloading",
+      "speed": "Speed",
+      "streams": "Streams",
+      "transcodes": "Transcodes",
+      "indexers": "Indexers",
+      "failing": "Failing",
+      "issues": "Problems"
+    },
+    "storage": {
+      "name": "Storage",
+      "title": "Storage as your services see it",
+      "free": "{{free}} free",
+      "freeOf": "{{free}} free of {{total}}",
+      "used": "Used space",
+      "noSpace": "Space unknown",
+      "noSpaceBody": "None of these services reports the free space of this disk.",
+      "inaccessible": "The service cannot reach this folder",
+      "use": {
+        "media": "media",
+        "downloads": "downloads",
+        "library": "library"
+      }
     }
   }
 }

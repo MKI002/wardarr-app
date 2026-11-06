@@ -3,12 +3,12 @@ import type { QueryClient } from '@tanstack/react-query';
 
 const INVALIDATES: Record<string, string[][]> = {
   'issues.updated': [['issues'], ['overview']],
-  'overview.updated': [['overview'], ['queue'], ['indexers']],
+  'overview.updated': [['overview'], ['queue'], ['indexers'], ['topology']],
   'cleaner.updated': [['cleaner'], ['cleaner-history'], ['cleaner-preview']],
   'hunting.updated': [['hunting']],
   'library.updated': [['library'], ['stats']],
   'requests.updated': [['requests'], ['discover']],
-  'instances.updated': [['instances'], ['overview'], ['capabilities'], ['trash']],
+  'instances.updated': [['instances'], ['overview'], ['capabilities'], ['trash'], ['topology']],
   'trash.updated': [['trash']],
 };
 

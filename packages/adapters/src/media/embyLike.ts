@@ -6,6 +6,7 @@ import {
   type LibraryStats,
   type StreamSession,
 } from '@wardarr/core';
+import { folder } from '../shared/topology.js';
 import { jsonOf } from '../shared/http.js';
 import { MAX_LIBRARY_PAGES, accumulate, emptyLibrary, normalizeCodec } from './library.js';
 
@@ -72,6 +73,7 @@ interface VirtualFolder {
   Name?: string;
   CollectionType?: string;
   ItemId?: string;
+  Locations?: string[];
 }
 
 interface LibraryItem {
@@ -109,6 +111,17 @@ export function createEmbyLike(
       return {
         version: info.Version,
         product: typeof info.ProductName === 'string' ? info.ProductName : undefined,
+      };
+    },
+    async topology() {
+      const folders = await get<VirtualFolder[]>('/Library/VirtualFolders');
+      return {
+        links: [],
+        folders: folders.flatMap((f) =>
+          (f.Locations ?? []).map((path) =>
+            folder(path, 'library', {}, { name: f.Name, kind: libraryKind(f.CollectionType) }),
+          ),
+        ),
       };
     },
     async sessions() {

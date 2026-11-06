@@ -246,3 +246,43 @@ body {
   transition-duration: 0.01ms !important;
   animation-duration: 0.01ms !important;
 }
+
+/* Stack map. */
+.map-surface {
+  background-image: radial-gradient(circle, var(--surface-2) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+.map-ink {
+  color: var(--muted);
+}
+.map-node .map-focus {
+  opacity: 0;
+}
+.map-node:focus-visible .map-focus {
+  opacity: 1;
+}
+@keyframes map-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+.map-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-pulse 2.4s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+:root[data-motion='reduce'] .map-pulse {
+  animation: none;
+  opacity: 0;
+}

@@ -185,6 +185,7 @@ Die Anleitungen sind auf Englisch:
 - [Entdecken und Anfragen](docs/guide/discover-and-requests.md)
 - [TRaSH Guides](docs/guide/trash-guides.md)
 - [Bibliothek und Indexer](docs/guide/library.md)
+- [Stack-Map](docs/guide/stack-map.md) (englisch)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
 - [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind

@@ -11,6 +11,7 @@ import { IndexersPage } from './pages/Indexers';
 import { LibraryPage } from './pages/Library';
 import { RequestsPage } from './pages/Requests';
 import { TrashPage, type TrashTab } from './pages/Trash';
+import { StackMapPage } from './pages/StackMap';
 
 const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({ component: Root });
 
@@ -95,6 +96,11 @@ const trashRoute = createRoute({
   }),
   component: TrashPage,
 });
+const mapRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/map',
+  component: StackMapPage,
+});
 /** The read-only queue of stage 1 became the Queue Cleaner. */
 const queueRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -138,6 +144,7 @@ const routeTree = rootRoute.addChildren([
   libraryRoute,
   indexersRoute,
   trashRoute,
+  mapRoute,
   settingsRoute,
   settingsInstanceRoute,
 ]);

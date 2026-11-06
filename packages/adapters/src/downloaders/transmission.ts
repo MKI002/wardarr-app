@@ -4,6 +4,7 @@
 import { AdapterError, defineAdapter, type DownloadJob } from '@wardarr/core';
 import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
+import { folder, part } from '../shared/topology.js';
 import { ensureOk } from '../shared/http.js';
 
 type Protocol = 'legacy' | 'jsonrpc';
@@ -164,6 +165,28 @@ export const transmission = defineAdapter({
             ids: [jobId.toLowerCase()],
             'delete-local-data': opts.deleteFiles,
           });
+      },
+      async topology() {
+        if (protocol === null) await call('session-get', 'session_get', { fields: ['version'] });
+        const snake = protocol === 'jsonrpc';
+        const s = await call('session-get', 'session_get', {
+          fields: [snake ? 'download_dir' : 'download-dir'],
+        });
+        const dir = s[snake ? 'download_dir' : 'download-dir'];
+        if (typeof dir !== 'string' || !dir) return { links: [], folders: [] };
+        const space = await part(
+          () => call('free-space', 'free_space', { path: dir }),
+          {} as Record<string, unknown>,
+        );
+        return {
+          links: [],
+          folders: [
+            folder(dir, 'downloads', {
+              free: space[snake ? 'size_bytes' : 'size-bytes'],
+              total: space.total_size,
+            }),
+          ],
+        };
       },
       webUrl: () => `${ctx.baseUrl}/transmission/web/`,
     };

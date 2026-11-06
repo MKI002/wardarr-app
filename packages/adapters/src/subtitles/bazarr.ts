@@ -1,6 +1,13 @@
 import { AdapterError, defineAdapter, type Signal } from '@wardarr/core';
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
 import { jsonOf } from '../shared/http.js';
+import { addressOf, link, part } from '../shared/topology.js';
+
+interface BazarrSettings {
+  general?: { use_sonarr?: boolean; use_radarr?: boolean };
+  sonarr?: { ip?: string; port?: number; base_url?: string; ssl?: boolean };
+  radarr?: { ip?: string; port?: number; base_url?: string; ssl?: boolean };
+}
 
 export const bazarr = defineAdapter({
   id: 'bazarr',
@@ -31,6 +38,17 @@ export const bazarr = defineAdapter({
           level: 'warning',
           message: h.issue ?? '',
         }));
+      },
+      async topology() {
+        const settings = await part(() => get<BazarrSettings>('/api/system/settings'), {});
+        const links = (['sonarr', 'radarr'] as const).flatMap((type) => {
+          const s = settings[type];
+          const enabled = settings.general?.[`use_${type}`] === true;
+          if (!s || !enabled) return [];
+          const url = addressOf({ host: s.ip, port: s.port, ssl: s.ssl, base: s.base_url });
+          return [link('subtitles', type, type === 'sonarr' ? 'Sonarr' : 'Radarr', url, true)];
+        });
+        return { links, folders: [] };
       },
       webUrl(target) {
         return `${ctx.baseUrl}${target?.kind === 'settings' ? '/settings/general' : '/system/status'}`;
