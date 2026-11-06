@@ -52,7 +52,12 @@ export async function executePlan(
         await ops.search(a.search);
         out.push({ ...base, kind: 'search', ok: true });
       } catch (err) {
-        out.push({ ...base, kind: 'search', ok: false, error: err instanceof Error ? err.message : 'failed' });
+        out.push({
+          ...base,
+          kind: 'search',
+          ok: false,
+          error: err instanceof Error ? err.message : 'failed',
+        });
       }
     }
   }

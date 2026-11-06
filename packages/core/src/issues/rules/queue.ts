@@ -41,7 +41,7 @@ export const downloadsFailed: IssueRule<FailedParams> = {
           kind: 'openWardarr',
           class: 'safe',
           label: { key: 'issues.action.openQueue' },
-          href: `/queue?instance=${encodeURIComponent(instance.id)}`,
+          href: `/cleaner?instance=${encodeURIComponent(instance.id)}`,
         },
       ],
     };

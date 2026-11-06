@@ -70,6 +70,8 @@ function errorKind(err: unknown): AdapterError['kind'] {
 export class InstanceRuntime {
   private readonly entries = new Map<string, Entry>();
   private scheduler: Scheduler | null = null;
+  private readonly signalSources = new Map<string, () => { signals: Signal[]; checked: string[] }>();
+  private readonly reloadListeners: Array<() => void> = [];
 
   constructor(
     private readonly store: InstanceStore,
@@ -133,8 +135,31 @@ export class InstanceRuntime {
         this.scheduler?.cancel(`poll:${id}`);
       }
     }
+    for (const listener of this.reloadListeners) listener();
     this.publishIssues();
     this.bus.publish({ type: 'instances.updated', audience: 'admin' });
+  }
+
+  /** Called after instances were added, changed or removed. */
+  onReload(listener: () => void): void {
+    this.reloadListeners.push(listener);
+  }
+
+  /**
+   * Adds signals from a feature such as the Queue Cleaner. `checked` lists
+   * the source keys the feature checked in its last run.
+   */
+  registerSignalSource(name: string, source: () => { signals: Signal[]; checked: string[] }): void {
+    this.signalSources.set(name, source);
+  }
+
+  /** Recomputes issues, for example after a feature run. */
+  refreshIssues(): void {
+    this.publishIssues();
+  }
+
+  get schedulerRef(): Scheduler | null {
+    return this.scheduler;
   }
 
   start(scheduler: Scheduler): void {
@@ -167,6 +192,20 @@ export class InstanceRuntime {
     | undefined {
     const e = this.entries.get(id);
     return e && { adapter: e.adapter, gate: e.gate, def: e.def };
+  }
+
+  private readonly recheckHooks: Array<(ids: string[]) => Promise<void>> = [];
+
+  /** Features such as the Queue Cleaner re-run their checks on "Recheck". */
+  onRecheck(hook: (ids: string[]) => Promise<void>): void {
+    this.recheckHooks.push(hook);
+  }
+
+  /** Polls the instances, then lets features check them again. */
+  async recheck(ids: string[]): Promise<void> {
+    await this.pollMany(ids);
+    await Promise.allSettled(this.recheckHooks.map((h) => h(ids)));
+    this.publishIssues();
   }
 
   /** Polls several instances in parallel; each one is isolated from the others. */
@@ -291,6 +330,11 @@ export class InstanceRuntime {
         checked.add(sourceKey('service', e.row.id));
         checked.add(sourceKey('wardarr', e.row.id));
       }
+    }
+    for (const source of this.signalSources.values()) {
+      const out = source();
+      signals.push(...out.signals.filter((sig) => active.has(sig.instance.id)));
+      for (const key of out.checked) checked.add(key);
     }
     // Issues of removed or disabled instances can never be checked again,
     // so they count as checked and resolve.

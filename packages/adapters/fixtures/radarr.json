@@ -81,9 +81,7 @@
             "statusMessages": [
               {
                 "title": "Mystery.Film.2023.2160p",
-                "messages": [
-                  "Unknown item. Unable to match to an existing item"
-                ]
+                "messages": ["Unknown item. Unable to match to an existing item"]
               }
             ],
             "downloadId": "FIXTURE0002",
@@ -246,15 +244,11 @@
     "search": {
       "target": {
         "kind": "movies",
-        "ids": [
-          31
-        ]
+        "ids": [31]
       },
       "body": {
         "name": "MoviesSearch",
-        "movieIds": [
-          31
-        ]
+        "movieIds": [31]
       }
     }
   }

@@ -8,6 +8,11 @@ import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { authGuard, type RegisteredRoute } from './auth/guard.js';
 import { LoginLockout } from './auth/lockout.js';
+import { CleanerService } from './cleaner/service.js';
+import { registerCleanerRoutes } from './cleaner/routes.js';
+import { FeatureStore } from './features/store.js';
+import { HuntingService } from './hunting/service.js';
+import { registerHuntingRoutes } from './hunting/routes.js';
 import { registerAuthRoutes, type CookieOptions } from './auth/routes.js';
 import { SessionStore } from './auth/sessions.js';
 import { registerSetupRoutes } from './auth/setup.js';
@@ -48,6 +53,8 @@ export interface App {
   sessions: SessionStore;
   store: InstanceStore;
   bus: EventBus;
+  cleaner: CleanerService;
+  hunting: HuntingService;
 }
 
 function isFile(p: string): boolean {
@@ -124,6 +131,9 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   }));
   const runtime = new InstanceRuntime(store, issues, bus, app.log, opts.httpTimeoutMs ?? 10_000);
   runtimeRef.current = runtime;
+  const features = new FeatureStore(opts.db);
+  const cleaner = new CleanerService(opts.db, features, runtime, bus, app.log);
+  const hunting = new HuntingService(opts.db, features, runtime, cleaner, bus);
   const cookie: CookieOptions = { secure: opts.cookieSecure ?? 'auto' };
 
   await app.register(fastifyCookie);
@@ -172,6 +182,8 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerIssueRoutes(app, { issues, runtime });
   registerOverviewRoutes(app, { runtime, issues });
   registerEventRoutes(app, { bus });
+  registerCleanerRoutes(app, { cleaner });
+  registerHuntingRoutes(app, { hunting });
 
   // The web UI bundle contains no data, so it is served without login.
   // Unknown API paths answer 401 to anonymous callers, 404 otherwise.
@@ -202,5 +214,5 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     return reply.sendFile('index.html');
   });
 
-  return { app, routes, runtime, issues, users, sessions, store, bus };
+  return { app, routes, runtime, issues, users, sessions, store, bus, cleaner, hunting };
 }

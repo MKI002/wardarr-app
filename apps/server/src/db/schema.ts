@@ -104,3 +104,78 @@ export const issueEvents = sqliteTable(
   },
   (t) => [index('issue_events_fingerprint').on(t.fingerprint, t.at)],
 );
+
+/** Settings and remembered state of a feature (cleaner, hunting) per instance. */
+export const featureSettings = sqliteTable(
+  'feature_settings',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    feature: text('feature').notNull(),
+    config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+    state: text('state', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+    updatedAt: text('updated_at').notNull().default(now),
+  },
+  (t) => [uniqueIndex('feature_settings_instance_feature').on(t.instanceId, t.feature)],
+);
+
+/** Every decision and action of the Queue Cleaner, with its rule and reason. */
+export const cleanerHistory = sqliteTable(
+  'cleaner_history',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    instanceId: text('instance_id').notNull(),
+    at: text('at').notNull(),
+    downloadKey: text('download_key').notNull(),
+    title: text('title').notNull(),
+    kind: text('kind').notNull(),
+    rule: text('rule').notNull(),
+    reason: text('reason', { mode: 'json' })
+      .$type<{ key: string; params?: Record<string, string | number> }>()
+      .notNull(),
+    dryRun: integer('dry_run', { mode: 'boolean' }).notNull(),
+    ok: integer('ok', { mode: 'boolean' }).notNull(),
+    error: text('error'),
+    actorUserId: text('actor_user_id'),
+  },
+  (t) => [index('cleaner_history_instance_at').on(t.instanceId, t.at)],
+);
+
+/** Searches started by Hunting and their result from the *arr history. */
+export const huntSearches = sqliteTable(
+  'hunt_searches',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    instanceId: text('instance_id').notNull(),
+    key: text('key').notNull(),
+    itemKeys: text('item_keys', { mode: 'json' }).$type<string[]>().notNull(),
+    title: text('title').notNull(),
+    list: text('list', { enum: ['missing', 'cutoff'] }).notNull(),
+    mediaIds: text('media_ids', { mode: 'json' }).$type<number[]>().notNull(),
+    reason: text('reason', { mode: 'json' })
+      .$type<{ key: string; params?: Record<string, string | number> }>()
+      .notNull(),
+    at: text('at').notNull(),
+    manual: integer('manual', { mode: 'boolean' }).notNull().default(false),
+    result: text('result', { enum: ['pending', 'nothing', 'grabbed', 'imported', 'failed'] }).notNull(),
+  },
+  (t) => [
+    index('hunt_searches_instance_at').on(t.instanceId, t.at),
+    index('hunt_searches_instance_key').on(t.instanceId, t.key),
+  ],
+);
+
+/** Titles the user excluded from Hunting. */
+export const huntExclusions = sqliteTable(
+  'hunt_exclusions',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    key: text('key').notNull(),
+    title: text('title').notNull(),
+    createdAt: text('created_at').notNull().default(now),
+  },
+  (t) => [uniqueIndex('hunt_exclusions_instance_key').on(t.instanceId, t.key)],
+);

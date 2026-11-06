@@ -95,7 +95,12 @@ export const qbittorrent = defineAdapter({
 
     const post = async (path: string, form: Record<string, string>, retried = false): Promise<void> => {
       if (sid === null) await login();
-      const res = await ctx.http.request({ method: 'POST', path, form, headers: sid ? { cookie: `SID=${sid}` } : {} });
+      const res = await ctx.http.request({
+        method: 'POST',
+        path,
+        form,
+        headers: sid ? { cookie: `SID=${sid}` } : {},
+      });
       if (res.status === 403 && !retried) {
         sid = null;
         return post(path, form, true);
@@ -131,7 +136,10 @@ export const qbittorrent = defineAdapter({
         }));
       },
       async removeDownload(jobId, opts) {
-        await post('/api/v2/torrents/delete', { hashes: jobId.toLowerCase(), deleteFiles: String(opts.deleteFiles) });
+        await post('/api/v2/torrents/delete', {
+          hashes: jobId.toLowerCase(),
+          deleteFiles: String(opts.deleteFiles),
+        });
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

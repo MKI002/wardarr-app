@@ -43,10 +43,22 @@ function item(over: Partial<QueueItem> = {}): QueueItem {
 }
 
 const cleanPreview: ImportPreviewFile[] = [
-  { path: '/dl/Example_Show_-_01.mkv', name: 'Example_Show_-_01', target: 'Example Show S01E01', rejections: [], raw: {} },
+  {
+    path: '/dl/Example_Show_-_01.mkv',
+    name: 'Example_Show_-_01',
+    target: 'Example Show S01E01',
+    rejections: [],
+    raw: {},
+  },
 ];
 const rejectedPreview: ImportPreviewFile[] = [
-  { path: '/dl/Example_Show_-_01.mkv', name: 'Example_Show_-_01', target: null, rejections: ['Unknown Series'], raw: {} },
+  {
+    path: '/dl/Example_Show_-_01.mkv',
+    name: 'Example_Show_-_01',
+    target: null,
+    rejections: ['Unknown Series'],
+    raw: {},
+  },
 ];
 
 interface Run {
@@ -56,6 +68,7 @@ interface Run {
   previews?: Record<string, ImportPreviewFile[] | null>;
   now: Date;
   health?: CleanerInput['infra'];
+  dryRun?: boolean;
 }
 
 /** Runs the planner repeatedly, carrying state between runs like the server does. */
@@ -72,6 +85,7 @@ function runner(initialAttempts: TitleAttempts[] = []) {
       state,
       attempts,
       now: r.now,
+      dryRun: r.dryRun,
     });
     state = new Map(plan.nextState.map((s) => [s.key, s]));
     attempts = new Map(plan.nextAttempts.map((a) => [a.titleKey, a]));
@@ -113,17 +127,26 @@ describe('Queue Cleaner', () => {
     });
     expect(only(run({ queue: [tba], now: T0 }))).toMatchObject({ rule: 'tbaWaiting', strikes: 0 });
     expect(only(run({ queue: [tba], now: hours(24 * 6) }))).toMatchObject({ rule: 'tbaWaiting', strikes: 0 });
-    expect(only(run({ queue: [tba], now: hours(24 * 7 + 1) }))).toMatchObject({ rule: 'tbaExpired', strikes: 1 });
+    expect(only(run({ queue: [tba], now: hours(24 * 7 + 1) }))).toMatchObject({
+      rule: 'tbaExpired',
+      strikes: 1,
+    });
   });
 
   it('3. a clean preview creates the button and an issue, but no strikes and no import', () => {
     const run = runner();
-    const blocked = item({ state: 'importBlocked', errorMessage: undefined, statusMessages: ['Found matching series via grab history, but release was matched to series by ID'] });
+    const blocked = item({
+      state: 'importBlocked',
+      errorMessage: undefined,
+      statusMessages: ['Found matching series via grab history, but release was matched to series by ID'],
+    });
     const plan = run({ queue: [blocked], previews: { dl0001: cleanPreview }, now: T0 });
     expect(only(plan)).toMatchObject({ rule: 'importReady', strikes: 0, action: { type: 'none' } });
     expect(only(plan).waitUntil).toBe(hours(24 * 7).toISOString());
     // A week later it collects strikes like any other blocked import.
-    expect(only(run({ queue: [blocked], previews: { dl0001: cleanPreview }, now: hours(24 * 7 + 1) }))).toMatchObject({
+    expect(
+      only(run({ queue: [blocked], previews: { dl0001: cleanPreview }, now: hours(24 * 7 + 1) })),
+    ).toMatchObject({
       rule: 'importReadyExpired',
       strikes: 1,
     });
@@ -132,7 +155,12 @@ describe('Queue Cleaner', () => {
   it('4. without waiting for the click, the same download collects strikes', () => {
     const run = runner();
     const blocked = item({ state: 'importBlocked', errorMessage: undefined });
-    const plan = run({ config: { waitForImportClick: false }, queue: [blocked], previews: { dl0001: cleanPreview }, now: T0 });
+    const plan = run({
+      config: { waitForImportClick: false },
+      queue: [blocked],
+      previews: { dl0001: cleanPreview },
+      now: T0,
+    });
     expect(only(plan)).toMatchObject({ rule: 'importBlocked', strikes: 1, action: { type: 'strike' } });
   });
 
@@ -147,7 +175,11 @@ describe('Queue Cleaner', () => {
 
   it('6. a full disk pauses the instance without strikes', () => {
     const run = runner();
-    const full = item({ state: 'warning', errorMessage: undefined, statusMessages: ['Not enough free space to import'] });
+    const full = item({
+      state: 'warning',
+      errorMessage: undefined,
+      statusMessages: ['Not enough free space to import'],
+    });
     const other = item({ id: 2, downloadId: 'DL0002', title: 'Other.Show.S01E01', state: 'failed' });
     const plan = run({ queue: [full, other], now: T0 });
     expect(plan.paused?.kind).toBe('diskFull');
@@ -174,7 +206,12 @@ describe('Queue Cleaner', () => {
     expect(plan!.downloads).toHaveLength(1);
     const action = only(plan!).action;
     expect(action).toMatchObject({ type: 'remove', queueId: 1, blocklist: true });
-    expect(action.type === 'remove' && action.search).toEqual({ kind: 'season', seriesId: 10, seasonNumber: 1, episodeIds: [101, 102, 103] });
+    expect(action.type === 'remove' && action.search).toEqual({
+      kind: 'season',
+      seriesId: 10,
+      seasonNumber: 1,
+      episodeIds: [101, 102, 103],
+    });
 
     const removed = new Set<number>();
     const ops = {
@@ -206,10 +243,14 @@ describe('Queue Cleaner', () => {
     const run = runner();
     const failing = item({ state: 'importBlocked', errorMessage: undefined });
     run({ queue: [failing], previews: { dl0001: rejectedPreview }, now: T0 });
-    expect(only(run({ queue: [failing], previews: { dl0001: rejectedPreview }, now: minutes(60) })).strikes).toBe(2);
+    expect(
+      only(run({ queue: [failing], previews: { dl0001: rejectedPreview }, now: minutes(60) })).strikes,
+    ).toBe(2);
     const fine = item({ state: 'downloading', errorMessage: undefined, sizeLeftBytes: 500 });
     expect(only(run({ queue: [fine], now: minutes(65) }))).toMatchObject({ rule: 'healthy', strikes: 0 });
-    expect(only(run({ queue: [failing], previews: { dl0001: rejectedPreview }, now: minutes(70) })).strikes).toBe(1);
+    expect(
+      only(run({ queue: [failing], previews: { dl0001: rejectedPreview }, now: minutes(70) })).strikes,
+    ).toBe(1);
   });
 
   it('10. a title already in the library is only removed, without blocklist or search', () => {
@@ -217,15 +258,33 @@ describe('Queue Cleaner', () => {
     const upgrade = item({ inLibrary: true });
     let plan: CleanerPlan | null = null;
     for (let i = 0; i < 4; i++) plan = run({ queue: [upgrade], now: minutes(i * 60) });
-    expect(only(plan!).action).toEqual({ type: 'remove', queueId: 1, blocklist: false, search: null, exhausted: false });
+    expect(only(plan!).action).toEqual({
+      type: 'remove',
+      queueId: 1,
+      blocklist: false,
+      search: null,
+      exhausted: false,
+    });
     expect(plan!.nextAttempts).toEqual([]);
   });
 
   it('11. after 3 attempts there is no new search, and an issue is raised', () => {
-    const run = runner([{ titleKey: 'episode:101', title: 'Example.Show.S01E01.1080p', attempts: 3, lastAttemptAt: T0.toISOString() }]);
+    const run = runner([
+      {
+        titleKey: 'episode:101',
+        title: 'Example.Show.S01E01.1080p',
+        attempts: 3,
+        lastAttemptAt: T0.toISOString(),
+      },
+    ]);
     let plan: CleanerPlan | null = null;
     for (let i = 0; i < 4; i++) plan = run({ queue: [item()], now: minutes(i * 60) });
-    expect(only(plan!).action).toMatchObject({ type: 'remove', blocklist: true, search: null, exhausted: true });
+    expect(only(plan!).action).toMatchObject({
+      type: 'remove',
+      blocklist: true,
+      search: null,
+      exhausted: true,
+    });
     expect(plan!.exhausted.map((a) => a.titleKey)).toEqual(['episode:101']);
   });
 
@@ -234,7 +293,8 @@ describe('Queue Cleaner', () => {
     const searches: number[] = [];
     for (let attempt = 1; attempt <= 4; attempt++) {
       let plan: CleanerPlan | null = null;
-      for (let i = 0; i < 4; i++) plan = run({ queue: [item({ downloadId: `DL${attempt}` })], now: hours(attempt * 10 + i) });
+      for (let i = 0; i < 4; i++)
+        plan = run({ queue: [item({ downloadId: `DL${attempt}` })], now: hours(attempt * 10 + i) });
       const a = only(plan!).action;
       if (a.type === 'remove' && a.search) searches.push(attempt);
       run({ queue: [], now: hours(attempt * 10 + 5) });
@@ -256,16 +316,63 @@ describe('Queue Cleaner', () => {
     ]);
   });
 
+  it('a dry run keeps the state and uses up no attempts', () => {
+    const run = runner();
+    let plan: CleanerPlan | null = null;
+    for (let i = 0; i < 5; i++)
+      plan = run({ config: { dryRun: true }, queue: [item()], now: minutes(i * 60), dryRun: true });
+    expect(only(plan!).action.type).toBe('remove');
+    expect(plan!.nextAttempts).toEqual([]);
+    expect(plan!.nextState[0]?.strikes).toBe(4);
+  });
+
   it('13. reports an orphaned job but does not delete it', async () => {
     const jobs: DownloadJob[] = [
-      { id: 'dl0001', name: 'Known', state: 'downloading', progress: 0.5, sizeBytes: 1, downloadedBytes: 0, speedBytesPerSecond: 1, etaSeconds: 1, category: null, addedAt: null },
-      { id: 'ORPHAN1', name: 'Unknown.Download', state: 'downloading', progress: 0.1, sizeBytes: 1, downloadedBytes: 0, speedBytesPerSecond: 1, etaSeconds: 1, category: null, addedAt: null },
-      { id: 'SEED1', name: 'Seeding.After.Import', state: 'seeding', progress: 1, sizeBytes: 1, downloadedBytes: 1, speedBytesPerSecond: 0, etaSeconds: null, category: null, addedAt: null },
+      {
+        id: 'dl0001',
+        name: 'Known',
+        state: 'downloading',
+        progress: 0.5,
+        sizeBytes: 1,
+        downloadedBytes: 0,
+        speedBytesPerSecond: 1,
+        etaSeconds: 1,
+        category: null,
+        addedAt: null,
+      },
+      {
+        id: 'ORPHAN1',
+        name: 'Unknown.Download',
+        state: 'downloading',
+        progress: 0.1,
+        sizeBytes: 1,
+        downloadedBytes: 0,
+        speedBytesPerSecond: 1,
+        etaSeconds: 1,
+        category: null,
+        addedAt: null,
+      },
+      {
+        id: 'SEED1',
+        name: 'Seeding.After.Import',
+        state: 'seeding',
+        progress: 1,
+        sizeBytes: 1,
+        downloadedBytes: 1,
+        speedBytesPerSecond: 0,
+        etaSeconds: null,
+        category: null,
+        addedAt: null,
+      },
     ];
     const orphans = findOrphans(jobs, ['DL0001'], { now: T0, minAgeMinutes: 60 });
     expect(orphans.map((j) => j.id)).toEqual(['ORPHAN1']);
     // The planner only sees *arr queue entries, so an orphan never becomes a removal.
-    const plan = runner()({ queue: [item({ state: 'downloading', errorMessage: undefined })], jobs, now: T0 });
+    const plan = runner()({
+      queue: [item({ state: 'downloading', errorMessage: undefined })],
+      jobs,
+      now: T0,
+    });
     const ops = { removeQueueItem: vi.fn(), search: vi.fn() };
     await executePlan(plan, { dryRun: false }, ops);
     expect(ops.removeQueueItem).not.toHaveBeenCalled();
@@ -275,7 +382,11 @@ describe('Queue Cleaner', () => {
     const run = runner();
     const tagged = run({ queue: [item({ tags: ['wardarr-keep'] })], now: T0 });
     expect(only(tagged)).toMatchObject({ rule: 'protected', strikes: 0 });
-    const listed = run({ config: { whitelist: ['example.show'] }, queue: [item({ downloadId: 'DL9' })], now: T0 });
+    const listed = run({
+      config: { whitelist: ['example.show'] },
+      queue: [item({ downloadId: 'DL9' })],
+      now: T0,
+    });
     expect(only(listed)).toMatchObject({ rule: 'protected' });
   });
 
@@ -289,7 +400,18 @@ describe('Queue Cleaner', () => {
 
   it('slow downloads collect strikes only when enabled', () => {
     const jobs: DownloadJob[] = [
-      { id: 'DL0001', name: 'x', state: 'downloading', progress: 0.1, sizeBytes: 1, downloadedBytes: 0, speedBytesPerSecond: 10, etaSeconds: null, category: null, addedAt: null },
+      {
+        id: 'DL0001',
+        name: 'x',
+        state: 'downloading',
+        progress: 0.1,
+        sizeBytes: 1,
+        downloadedBytes: 0,
+        speedBytesPerSecond: 10,
+        etaSeconds: null,
+        category: null,
+        addedAt: null,
+      },
     ];
     const q = [item({ state: 'downloading', errorMessage: undefined })];
     expect(only(runner()({ queue: q, jobs, now: T0 })).rule).toBe('healthy');

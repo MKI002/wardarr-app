@@ -4,7 +4,7 @@ import { EventEmitter } from 'node:events';
 export type Audience = 'admin' | 'all';
 
 export interface WardarrEvent {
-  type: 'instances.updated' | 'issues.updated' | 'overview.updated';
+  type: 'instances.updated' | 'issues.updated' | 'overview.updated' | 'cleaner.updated' | 'hunting.updated';
   audience: Audience;
   data?: unknown;
 }

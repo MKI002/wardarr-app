@@ -60,6 +60,10 @@ export interface ConnectionInfo {
   product?: string;
   /** Adapter specific variant, for example `v3` for Whisparr Eros. */
   variant?: string;
+  /** API version Wardarr detected and uses, for example `v3`. */
+  apiVersion?: string;
+  /** Set when Wardarr talks to a version it was not tested with. */
+  compatibility?: 'untestedVersion' | 'newerApi' | 'both';
 }
 
 export type QueueItemState =

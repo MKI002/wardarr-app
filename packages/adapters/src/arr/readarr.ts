@@ -2,14 +2,19 @@
 // existing installations and is marked as discontinued in the UI.
 import { defineAdapter } from '@wardarr/core';
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
-import { createArrInstance, type ArrFlavor } from './base.js';
+import { createArrInstance, type ArrProfile } from './base.js';
 
-export const READARR_FLAVOR: ArrFlavor = {
-  apiBase: '/api/v1',
-  includeUnknownParam: 'includeUnknownAuthorItems',
-  mediaIdField: 'bookId',
-  mediaKind: 'book',
-  family: 'book',
+/** Readarr 0.x speaks API v1. */
+export const READARR_PROFILE: ArrProfile = {
+  product: 'Readarr',
+  apis: ['v1'],
+  testedMajors: { min: 0, max: 0 },
+  flavor: () => ({
+    includeUnknownParam: 'includeUnknownAuthorItems',
+    mediaIdField: 'bookId',
+    mediaKind: 'book',
+    family: 'book',
+  }),
 };
 
 export const readarr = defineAdapter({
@@ -20,7 +25,16 @@ export const readarr = defineAdapter({
   homepage: 'https://github.com/Readarr/Readarr',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
+  capabilities: [
+    'health',
+    'queue',
+    'queueActions',
+    'manualImport',
+    'wanted',
+    'search',
+    'history',
+    'settings',
+  ],
   mediaKind: 'book',
-  create: (ctx) => createArrInstance(ctx, 'readarr', () => READARR_FLAVOR),
+  create: (ctx) => createArrInstance(ctx, 'readarr', READARR_PROFILE),
 });

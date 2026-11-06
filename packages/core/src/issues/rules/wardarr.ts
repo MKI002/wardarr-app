@@ -54,3 +54,62 @@ export const mediaCacheRefresh: IssueRule<CacheParams> = {
     };
   },
 };
+
+interface CompatParams {
+  product: string;
+  productVersion: string;
+  api: string;
+  reason: string;
+  newestOffered: string;
+}
+
+/**
+ * An instance runs a product version Wardarr was not tested with, or offers a
+ * newer API than Wardarr speaks. Wardarr keeps working with the API it knows.
+ */
+export const apiCompatibility: IssueRule<CompatParams> = {
+  id: 'wardarr-api-compatibility',
+  detect(signal) {
+    if (signal.origin !== 'wardarr' || signal.source !== 'Wardarr.apiCompatibility') return null;
+    const d = signal.data ?? {};
+    const s = (k: string) => (typeof d[k] === 'string' ? (d[k] as string) : '');
+    return [
+      {
+        key: signal.instance.id,
+        params: {
+          product: s('product'),
+          productVersion: s('productVersion'),
+          api: s('api'),
+          reason: s('reason'),
+          newestOffered: s('newestOffered'),
+        },
+      },
+    ];
+  },
+  build(matches) {
+    const instance = matches[0]!.signal.instance;
+    const p = matches[0]!.params;
+    return {
+      severity: 'info',
+      title: {
+        key: 'issues.apiCompat.title',
+        params: { instance: instance.name, product: p.product, version: p.productVersion },
+      },
+      affected: { key: 'issues.apiCompat.affected', params: { api: p.api } },
+      explanation: {
+        key: p.newestOffered ? 'issues.apiCompat.explanationNewer' : 'issues.apiCompat.explanation',
+        params: { product: p.product, version: p.productVersion, api: p.api, newest: p.newestOffered },
+      },
+      fix: { key: 'issues.apiCompat.fix' },
+      actions: [
+        {
+          id: 'recheck',
+          kind: 'recheck',
+          class: 'safe',
+          label: { key: 'issues.action.recheck' },
+          instanceId: instance.id,
+        },
+      ],
+    };
+  },
+};

@@ -43,7 +43,12 @@ interface Judgement {
 }
 
 /** Applies rules 3 to 6. Rules 1 and 2 are handled by the caller. */
-function judge(d: CleanerDownload, prev: DownloadState | undefined, lastProgressAt: number, input: CleanerInput): Judgement {
+function judge(
+  d: CleanerDownload,
+  prev: DownloadState | undefined,
+  lastProgressAt: number,
+  input: CleanerInput,
+): Judgement {
   const { config } = input;
   const now = input.now.getTime();
   const since = (rule: CleanerRule[]) =>
@@ -61,7 +66,9 @@ function judge(d: CleanerDownload, prev: DownloadState | undefined, lastProgress
       if (!config.waitForImportClick) return { rule: 'importBlocked', waitUntil: null };
       const start = since(['importReady', 'importReadyExpired']);
       const until = start + config.importClickMaxHours * HOUR;
-      return now < until ? { rule: 'importReady', waitUntil: until } : { rule: 'importReadyExpired', waitUntil: null };
+      return now < until
+        ? { rule: 'importReady', waitUntil: until }
+        : { rule: 'importReadyExpired', waitUntil: null };
     }
     // Import pending without a block is normal and resolves on its own.
     if (d.state === 'importPending') return { rule: 'healthy', waitUntil: null };
@@ -71,7 +78,8 @@ function judge(d: CleanerDownload, prev: DownloadState | undefined, lastProgress
   if (d.state === 'failed') return { rule: config.failedEnabled ? 'failed' : 'healthy', waitUntil: null };
 
   const active = d.state === 'downloading' || d.state === 'warning';
-  if (active && now - lastProgressAt >= config.stalledAfterHours * HOUR) return { rule: 'stalled', waitUntil: null };
+  if (active && now - lastProgressAt >= config.stalledAfterHours * HOUR)
+    return { rule: 'stalled', waitUntil: null };
 
   if (
     config.slowEnabled &&
@@ -101,7 +109,11 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
   for (const d of input.downloads) {
     const prev = input.state.get(d.key);
     // Progress tracking for stalled detection.
-    const progressed = prev?.lastSizeLeft !== null && prev?.lastSizeLeft !== undefined && d.sizeLeftBytes !== null && d.sizeLeftBytes < prev.lastSizeLeft;
+    const progressed =
+      prev?.lastSizeLeft !== null &&
+      prev?.lastSizeLeft !== undefined &&
+      d.sizeLeftBytes !== null &&
+      d.sizeLeftBytes < prev.lastSizeLeft;
     const lastProgressAt = !prev || progressed ? now : ms(prev.lastProgressAt);
     const base: DownloadState = {
       key: d.key,
@@ -115,7 +127,13 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
       lastSizeLeft: d.sizeLeftBytes,
       ignored: prev?.ignored ?? false,
     };
-    const entry = (rule: CleanerRule, action: CleanerAction, reason: Msg, waitUntil: number | null, st: DownloadState): PlannedDownload => ({
+    const entry = (
+      rule: CleanerRule,
+      action: CleanerAction,
+      reason: Msg,
+      waitUntil: number | null,
+      st: DownloadState,
+    ): PlannedDownload => ({
       key: d.key,
       title: d.title,
       downloadId: d.downloadId,
@@ -145,7 +163,9 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
     // Rule 2: infrastructure problem pauses the instance. Strikes stay as they are.
     if (input.infra) {
       nextState.push(base);
-      planned.push(entry('paused', { type: 'none' }, reasonFor('paused', { kind: input.infra.kind }), null, base));
+      planned.push(
+        entry('paused', { type: 'none' }, reasonFor('paused', { kind: input.infra.kind }), null, base),
+      );
       continue;
     }
 
@@ -153,15 +173,24 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
 
     if (rule === 'healthy') {
       // The problem is gone: strikes reset.
-      const st: DownloadState = { ...base, problem: null, problemSince: null, strikes: 0, lastStrikeAt: null };
+      const st: DownloadState = {
+        ...base,
+        problem: null,
+        problemSince: null,
+        strikes: 0,
+        lastStrikeAt: null,
+      };
       nextState.push(st);
       planned.push(entry('healthy', { type: 'none' }, reasonFor('healthy', {}), null, st));
       continue;
     }
 
     const sameFamily = (a: CleanerRule | null, b: CleanerRule) =>
-      a === b || (a?.startsWith('tba') && b.startsWith('tba')) || (a?.startsWith('importReady') && b.startsWith('importReady'));
-    const problemSince = prev?.problem && sameFamily(prev.problem, rule) && prev.problemSince ? prev.problemSince : nowIso;
+      a === b ||
+      (a?.startsWith('tba') && b.startsWith('tba')) ||
+      (a?.startsWith('importReady') && b.startsWith('importReady'));
+    const problemSince =
+      prev?.problem && sameFamily(prev.problem, rule) && prev.problemSince ? prev.problemSince : nowIso;
 
     if (!STRIKE_RULES.has(rule)) {
       // Waiting rules (TBA, importable): no strikes.
@@ -183,7 +212,15 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
     if (st.strikes >= config.maxStrikes) {
       if (removals >= config.maxRemovalsPerRun) {
         nextState.push(st);
-        planned.push(entry(rule, { type: 'deferred' }, reasonFor('deferred', { limit: config.maxRemovalsPerRun }), null, st));
+        planned.push(
+          entry(
+            rule,
+            { type: 'deferred' },
+            reasonFor('deferred', { limit: config.maxRemovalsPerRun }),
+            null,
+            st,
+          ),
+        );
         continue;
       }
       removals++;
@@ -197,26 +234,42 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
         action = { type: 'remove', queueId, blocklist: true, search: null, exhausted: false };
         planned.push(entry(rule, action, reasonFor('removeUnmatched', { strikes: st.strikes }), null, st));
       } else {
-        const a = attempts.get(d.titleKey) ?? { titleKey: d.titleKey, title: d.title, attempts: 0, lastAttemptAt: null };
+        const a = attempts.get(d.titleKey) ?? {
+          titleKey: d.titleKey,
+          title: d.title,
+          attempts: 0,
+          lastAttemptAt: null,
+        };
         if (a.attempts >= config.attemptsPerTitle) {
           action = { type: 'remove', queueId, blocklist: true, search: null, exhausted: true };
           exhausted.set(a.titleKey, a);
           planned.push(entry(rule, action, reasonFor('removeExhausted', { attempts: a.attempts }), null, st));
         } else {
           const next = { ...a, title: d.title, attempts: a.attempts + 1, lastAttemptAt: nowIso };
-          attempts.set(d.titleKey, next);
+          // A dry run never uses up attempts.
+          if (!input.dryRun) attempts.set(d.titleKey, next);
           action = { type: 'remove', queueId, blocklist: true, search: d.searchTarget, exhausted: false };
           planned.push(
-            entry(rule, action, reasonFor('removeSearch', { attempt: next.attempts, max: config.attemptsPerTitle }), null, st),
+            entry(
+              rule,
+              action,
+              reasonFor('removeSearch', { attempt: next.attempts, max: config.attemptsPerTitle }),
+              null,
+              st,
+            ),
           );
         }
       }
-      // Removed downloads leave the queue; their state is dropped.
+      // Removed downloads leave the queue; their state is dropped. In a dry
+      // run the download stays, so its state is kept at the maximum.
+      if (input.dryRun) nextState.push(st);
       continue;
     }
 
     nextState.push(st);
-    planned.push(entry(rule, action, reasonFor(rule, { strikes: st.strikes, max: config.maxStrikes }), null, st));
+    planned.push(
+      entry(rule, action, reasonFor(rule, { strikes: st.strikes, max: config.maxStrikes }), null, st),
+    );
   }
 
   // Titles that already used up their attempts stay exhausted until reset.

@@ -154,8 +154,16 @@ export const transmission = defineAdapter({
       },
       async removeDownload(jobId, opts) {
         if (protocol === null) await call('session-get', 'session_get', { fields: ['version'] });
-        if (protocol === 'jsonrpc') await call('torrent-remove', 'torrent_remove', { ids: [jobId.toLowerCase()], delete_local_data: opts.deleteFiles });
-        else await call('torrent-remove', 'torrent_remove', { ids: [jobId.toLowerCase()], 'delete-local-data': opts.deleteFiles });
+        if (protocol === 'jsonrpc')
+          await call('torrent-remove', 'torrent_remove', {
+            ids: [jobId.toLowerCase()],
+            delete_local_data: opts.deleteFiles,
+          });
+        else
+          await call('torrent-remove', 'torrent_remove', {
+            ids: [jobId.toLowerCase()],
+            'delete-local-data': opts.deleteFiles,
+          });
       },
       webUrl: () => `${ctx.baseUrl}/transmission/web/`,
     };

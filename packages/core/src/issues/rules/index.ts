@@ -4,11 +4,12 @@ import type { IssueRule } from '../types.js';
 import { credentialsRejected, instanceUnreachable } from './connection.js';
 import { downloadClientUnavailable } from './downloadClients.js';
 import { allIndexersUnavailable, indexerSearchUnavailable, indexerUnavailable } from './indexers.js';
+import { attemptsExhausted, cleanerPaused, importReady, orphanedDownloads } from './cleaner.js';
 import { downloadsFailed } from './queue.js';
 import { remotePathMapping, rootFolderMissing } from './storage.js';
 import { unknownMessage } from './unknown.js';
 import { updateAvailable } from './updates.js';
-import { mediaCacheRefresh } from './wardarr.js';
+import { apiCompatibility, mediaCacheRefresh } from './wardarr.js';
 
 export const RULE_CATALOG: readonly IssueRule[] = [
   credentialsRejected,
@@ -20,8 +21,13 @@ export const RULE_CATALOG: readonly IssueRule[] = [
   rootFolderMissing,
   remotePathMapping,
   updateAvailable,
+  cleanerPaused,
+  importReady,
+  attemptsExhausted,
+  orphanedDownloads,
   downloadsFailed,
   mediaCacheRefresh,
+  apiCompatibility,
   unknownMessage,
 ] as IssueRule[];
 

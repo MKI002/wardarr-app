@@ -1,0 +1,35 @@
+{
+  "reason": {
+    "neverSearched": "Missing and never searched by Wardarr",
+    "upgradeNeverSearched": "Below the quality cutoff and never searched by Wardarr",
+    "searchedBefore_one": "Last searched 1 day ago",
+    "searchedBefore_other": "Last searched {{days}} days ago",
+    "seasonPack_one": "1 episode of this season is missing",
+    "seasonPack_other": "{{count}} episodes of this season are missing: one season search",
+    "manual": "Searched by hand"
+  },
+  "pause": {
+    "off": "Hunting is off",
+    "indexer": "Paused: {{name}}",
+    "queueFull": "Paused: {{size}} downloads in the queue (limit {{limit}})",
+    "budget": "Paused: the limit of {{limit}} API calls per hour is reached"
+  },
+  "result": {
+    "pending": "Waiting",
+    "nothing": "Nothing found",
+    "grabbed": "Downloading",
+    "imported": "Imported",
+    "failed": "Download failed"
+  },
+  "pace": {
+    "off": "Off",
+    "gentle": "Gentle",
+    "normal": "Normal",
+    "fast": "Fast",
+    "custom": "Custom"
+  },
+  "list": {
+    "missing": "Missing",
+    "cutoff": "Upgrades"
+  }
+}

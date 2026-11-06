@@ -13,7 +13,11 @@
     "openWiki": "Open documentation",
     "reload": "Reload",
     "releaseNotes": "Open release notes",
-    "showSteps": "Show steps"
+    "showSteps": "Show steps",
+    "openCleaner": "Open Queue Cleaner",
+    "reviewImport": "Review import",
+    "openAttempts": "Show titles",
+    "reviewOrphans": "Review downloads"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} is unreachable",
@@ -108,5 +112,47 @@
     "title": "Unrecognized message from {{instances}}",
     "explanation": "Wardarr has no rule for this message yet. The original text is shown in the details.",
     "fix": "Open the instance and follow its documentation for this message"
+  },
+  "cleanerPaused": {
+    "title": "Queue Cleaner paused for {{instance}}",
+    "explanation": "Wardarr found a problem that no download can fix by itself. The Queue Cleaner of {{instance}} waits and collects no strikes, so nothing is removed for the wrong reason. It continues by itself once the problem is gone.",
+    "fix": {
+      "diskFull": "Free up space on the disk the downloads or the library are on",
+      "pathMissing": "Check that the download path exists and is mounted in both containers",
+      "permissions": "Give the *arr user read and write access to the download and library folders",
+      "rootFolderMissing": "Add the missing root folder again or move the titles to an existing one",
+      "clientUnreachable": "Check that the download client is running and reachable"
+    }
+  },
+  "importReady": {
+    "title_one": "1 download in {{instance}} is ready to import",
+    "title_other": "{{count}} downloads in {{instance}} are ready to import",
+    "affected_one": "1 download",
+    "affected_other": "{{count}} downloads",
+    "explanation": "The automatic import stopped, but the import preview finds a target for every file. Wardarr never imports on its own: it waits for you and collects no strikes for up to a week.",
+    "fix": "Open \"Review import\", check the targets and confirm"
+  },
+  "attemptsExhausted": {
+    "title_one": "1 title in {{instance}} gets no more searches",
+    "title_other": "{{count}} titles in {{instance}} get no more searches",
+    "affected_one": "1 title",
+    "affected_other": "{{count}} titles",
+    "explanation": "The Queue Cleaner removed a bad download for each of these titles {{attempts}} times. To protect your indexers, it no longer searches them and Hunting skips them.",
+    "fix": "Check the quality profile or the release, then reset the attempts in the Queue Cleaner"
+  },
+  "orphans": {
+    "title_one": "1 download in {{instance}} belongs to no *arr instance",
+    "title_other": "{{count}} downloads in {{instance}} belong to no *arr instance",
+    "affected_one": "1 download",
+    "affected_other": "{{count}} downloads",
+    "explanation": "None of the connected *arr instances knows these downloads. They may have been added by hand or by a service that is not connected to Wardarr. Wardarr never deletes them on its own.",
+    "fix": "Review the downloads and delete only those you do not need"
+  },
+  "apiCompat": {
+    "title": "{{instance}} runs {{product}} {{version}} in compatibility mode",
+    "affected": "API {{api}}",
+    "explanation": "Wardarr was not tested with {{product}} {{version}} yet. It keeps using API {{api}}, which this version still offers.",
+    "explanationNewer": "{{product}} {{version}} offers API {{newest}}. Wardarr keeps using API {{api}}, which this version still offers, so everything keeps working.",
+    "fix": "Nothing to do now. Update Wardarr when a new version is available; it switches by itself"
   }
 }

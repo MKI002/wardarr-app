@@ -39,15 +39,15 @@ export const fakeAdapter = defineAdapter({
   },
 });
 
-export async function createTestApp(extra: { cookieSecure?: boolean | 'auto' } = {}) {
+export async function createTestApp(extra: { cookieSecure?: boolean | 'auto'; adapters?: unknown[] } = {}) {
   const { db, close } = openDatabase(':memory:');
   const box = createSecretBox(randomBytes(32));
   const built = await buildApp({
     db,
     box,
-    registry: new AdapterRegistry([fakeAdapter as never]),
+    registry: new AdapterRegistry([fakeAdapter, ...(extra.adapters ?? [])] as never),
     logLevel: 'silent',
-    ...extra,
+    cookieSecure: extra.cookieSecure,
   });
   await built.app.ready();
   return {
