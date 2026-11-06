@@ -1,0 +1,104 @@
+{
+  "description": "The invented example from the Issue Center specification. All names are fictional.",
+  "signals": [
+    {
+      "origin": "service",
+      "instance": { "id": "inst-sonarr", "name": "Sonarr", "adapter": "sonarr" },
+      "kind": "health",
+      "source": "IndexerLongTermStatusCheck",
+      "level": "warning",
+      "message": "Indexers unavailable due to failures for more than 6 hours: ExampleIndexer (Prowlarr)",
+      "wikiUrl": "https://wiki.servarr.com/sonarr/system#indexers-are-unavailable-due-to-failures"
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-radarr", "name": "Radarr", "adapter": "radarr" },
+      "kind": "health",
+      "source": "IndexerLongTermStatusCheck",
+      "level": "warning",
+      "message": "Indexers unavailable due to failures for more than 6 hours: ExampleIndexer (Prowlarr)"
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-radarr-4k", "name": "Radarr 4K", "adapter": "radarr" },
+      "kind": "health",
+      "source": "IndexerLongTermStatusCheck",
+      "level": "warning",
+      "message": "Indexers unavailable due to failures for more than 6 hours: ExampleIndexer (Prowlarr)"
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-lidarr", "name": "Lidarr", "adapter": "lidarr" },
+      "kind": "health",
+      "source": "UpdateCheck",
+      "level": "warning",
+      "message": "New update is available: v9.9.9",
+      "wikiUrl": "https://wiki.servarr.com/lidarr/system#new-update-is-available"
+    },
+    {
+      "origin": "wardarr",
+      "instance": { "id": "inst-jellyfin", "name": "Jellyfin", "adapter": "jellyfin" },
+      "kind": "cache",
+      "source": "LibraryCacheRefresh",
+      "level": "warning",
+      "message": "Cache refresh failed. Library Movies for user alice: timeout; Library Series for user bob: invalid JSON",
+      "data": {
+        "failedLibraries": [
+          { "library": "Movies", "error": "timeout" },
+          { "library": "Series", "error": "invalid JSON" }
+        ]
+      }
+    },
+    {
+      "origin": "wardarr",
+      "instance": { "id": "inst-jellyfin", "name": "Jellyfin", "adapter": "jellyfin" },
+      "kind": "cache",
+      "source": "LibraryCacheStale",
+      "level": "warning",
+      "message": "Episodes cache is stale. Last refreshed 500 hours ago",
+      "data": { "staleHours": 500 }
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-lidarr", "name": "Lidarr", "adapter": "lidarr" },
+      "kind": "queueItem",
+      "source": "Queue",
+      "level": "warning",
+      "message": "Example Artist-Album One (failed). Download failed",
+      "data": {
+        "state": "failed",
+        "title": "Example Artist-Album One",
+        "mediaKind": "album",
+        "downloadId": "DL0001"
+      }
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-lidarr", "name": "Lidarr", "adapter": "lidarr" },
+      "kind": "queueItem",
+      "source": "Queue",
+      "level": "warning",
+      "message": "Example Band-Album Two (failed). Download failed",
+      "data": {
+        "state": "failed",
+        "title": "Example Band-Album Two",
+        "mediaKind": "album",
+        "downloadId": "DL0002"
+      }
+    },
+    {
+      "origin": "service",
+      "instance": { "id": "inst-lidarr", "name": "Lidarr", "adapter": "lidarr" },
+      "kind": "queueItem",
+      "source": "Queue",
+      "level": "warning",
+      "message": "Example Duo-Album Three (failed). Download failed",
+      "data": {
+        "state": "failed",
+        "title": "Example Duo-Album Three",
+        "mediaKind": "album",
+        "downloadId": "DL0003"
+      }
+    }
+  ]
+}

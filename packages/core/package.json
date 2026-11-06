@@ -1,0 +1,20 @@
+{
+  "name": "@wardarr/core",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@wardarr/i18n": "workspace:*",
+    "i18next": "^26.7.2"
+  }
+}
