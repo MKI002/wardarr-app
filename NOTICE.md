@@ -27,6 +27,8 @@ The files live in [`apps/web/src/assets/logos/`](apps/web/src/assets/logos/).
 | `transmission.svg` | Transmission | [Transmission](https://github.com/transmission/transmission), `icons/hicolor_apps_scalable_transmission.svg` | [GPL-2.0 or GPL-3.0](licenses/GPL-2.0.txt)                             |
 | `deluge.png`       | Deluge       | [Deluge](https://github.com/deluge-torrent/deluge), `deluge/ui/data/icons/hicolor/128x128/apps/deluge.png`   | [GPL-3.0](licenses/GPL-3.0.txt) with the OpenSSL exception             |
 | `jellyfin.svg`     | Jellyfin     | [jellyfin-ux](https://github.com/jellyfin/jellyfin-ux), `branding/SVG/icon-transparent.svg`                  | [CC BY-SA 4.0](licenses/CC-BY-SA-4.0.txt), © the Jellyfin contributors |
+| `plex.svg`         | Plex         | [Plex Media Player](https://github.com/plexinc/plex-media-player), `resources/images/icon.svg`               | [GPL-2.0](licenses/GPL-2.0.txt)                                        |
+| `emby.png`         | Emby         | [Emby](https://github.com/MediaBrowser/Emby) (last open-source release), `Emby.Dlna/Images/logo120.png`      | [GPL-2.0](licenses/GPL-2.0.txt)                                        |
 | `seerr.svg`        | Seerr        | [Seerr](https://github.com/seerr-team/seerr), `public/os_icon.svg`                                           | [MIT](licenses/MIT-Seerr.txt), Copyright (c) 2020 sct                  |
 
 The license texts are in [`licenses/`](licenses/). Copyright in each logo stays with the
@@ -36,14 +38,17 @@ Use of the Jellyfin logo follows the
 [Jellyfin branding guidelines](https://jellyfin.org/docs/general/contributing/branding/): it
 names the Jellyfin server Wardarr talks to and is not used as Wardarr's own logo.
 
-### Products shown with a neutral mark
+### Trademarks
 
-| Product | Why there is no logo                                                                                                                                            |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plex    | Plex's trademark terms allow the logo for compatibility with attribution, but the official files are only offered on Plex's brand site and are not open source. |
-| Emby    | Emby's code is not open source and there is no published license or brand kit for its logo.                                                                     |
+Plex, the Plex logo and Plex Media Server are trademarks of Plex, Inc. Emby and the Emby logo
+are trademarks of Emby LLC. Jellyfin, Sonarr, Radarr, Lidarr, Readarr, Whisparr, Prowlarr,
+Bazarr, SABnzbd, NZBGet, qBittorrent, Transmission, Deluge and Seerr are names and marks of
+their respective projects. They are used here only to show compatibility.
 
-These products appear with the first letter of their name in a neutral square.
+### Products without a logo
+
+An adapter whose product has no file in the logo folder shows the first letter of its name in
+a neutral square.
 
 ## Adding a logo
 
