@@ -7,6 +7,7 @@ export const LIDARR_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownArtistItems',
   mediaIdField: 'albumId',
   mediaKind: 'album',
+  family: 'music',
 };
 
 export const lidarr = defineAdapter({
@@ -17,7 +18,7 @@ export const lidarr = defineAdapter({
   homepage: 'https://lidarr.audio',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'settings'],
+  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
   mediaKind: 'album',
   create: (ctx) => createArrInstance(ctx, 'lidarr', () => LIDARR_FLAVOR),
 });

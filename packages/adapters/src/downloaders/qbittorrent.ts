@@ -9,6 +9,7 @@ interface Torrent {
   hash: string;
   name: string;
   state: string;
+  tags?: string;
   progress: number;
   size: number;
   downloaded: number;
@@ -92,6 +93,16 @@ export const qbittorrent = defineAdapter({
       return ensureOk(res).text;
     };
 
+    const post = async (path: string, form: Record<string, string>, retried = false): Promise<void> => {
+      if (sid === null) await login();
+      const res = await ctx.http.request({ method: 'POST', path, form, headers: sid ? { cookie: `SID=${sid}` } : {} });
+      if (res.status === 403 && !retried) {
+        sid = null;
+        return post(path, form, true);
+      }
+      ensureOk(res);
+    };
+
     return {
       async testConnection() {
         const version = (await get('/api/v2/app/version')).trim();
@@ -111,7 +122,16 @@ export const qbittorrent = defineAdapter({
           etaSeconds: t.eta >= 8640000 ? null : t.eta,
           category: t.category || null,
           addedAt: t.added_on ? new Date(t.added_on * 1000).toISOString() : null,
+          tags: t.tags
+            ? t.tags
+                .split(',')
+                .map((x) => x.trim())
+                .filter(Boolean)
+            : [],
         }));
+      },
+      async removeDownload(jobId, opts) {
+        await post('/api/v2/torrents/delete', { hashes: jobId.toLowerCase(), deleteFiles: String(opts.deleteFiles) });
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

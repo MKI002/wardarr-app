@@ -9,8 +9,10 @@ import {
   type QueueItemState,
   type SettingsSection,
   type Signal,
+  type TagInfo,
 } from '@wardarr/core';
-import { arrLevel, jsonOf, toEntries } from '../shared/http.js';
+import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
+import { FAMILIES, type ArrFamily } from './families.js';
 
 export interface ArrFlavor {
   /** API prefix, for example `/api/v3`. */
@@ -20,6 +22,8 @@ export interface ArrFlavor {
   /** Field of a queue record that links to the library entry. */
   mediaIdField: string;
   mediaKind: MediaKind;
+  /** API shape of the library: series (Sonarr), movie (Radarr), music (Lidarr), book (Readarr). */
+  family: ArrFamily;
 }
 
 interface StatusResource {
@@ -78,7 +82,12 @@ export function queueState(r: ArrQueueRecord): QueueItemState {
   return 'unknown';
 }
 
-export function normalizeQueueRecord(r: ArrQueueRecord, flavor: ArrFlavor): QueueItem {
+export function normalizeQueueRecord(
+  r: ArrQueueRecord,
+  flavor: ArrFlavor,
+  tagLabels: Map<number, string> = new Map(),
+): QueueItem {
+  const family = FAMILIES[flavor.family];
   const mediaId = typeof r[flavor.mediaIdField] === 'number' ? (r[flavor.mediaIdField] as number) : undefined;
   const protocol = r.protocol === 'usenet' || r.protocol === 'torrent' ? r.protocol : 'unknown';
   return {
@@ -101,6 +110,7 @@ export function normalizeQueueRecord(r: ArrQueueRecord, flavor: ArrFlavor): Queu
     protocol,
     added: r.added,
     estimatedCompletion: r.estimatedCompletionTime,
+    ...family.queueExtras(r, tagLabels),
   };
 }
 
@@ -117,6 +127,23 @@ export function createArrInstance(
   const get = async <T>(path: string, query?: Record<string, string | number | boolean>) => {
     const f = await flavor();
     return jsonOf<T>(await ctx.http.request({ path: `${f.apiBase}${path}`, query, headers }));
+  };
+
+  const send = async (
+    method: 'POST' | 'PUT' | 'DELETE',
+    path: string,
+    json?: unknown,
+    query?: Record<string, string | number | boolean>,
+  ) => {
+    const f = await flavor();
+    const res = await ctx.http.request({ method, path: `${f.apiBase}${path}`, query, headers, json });
+    ensureOk(res);
+    return res;
+  };
+
+  const tags = async (): Promise<TagInfo[]> => {
+    const list = await get<Array<{ id: number; label: string }>>('/tag');
+    return list.map((t) => ({ id: t.id, label: t.label }));
   };
 
   const webPaths = {
@@ -151,17 +178,70 @@ export function createArrInstance(
 
     async queue() {
       const f = await flavor();
+      const family = FAMILIES[f.family];
+      const tagLabels = new Map((await tags().catch(() => [] as TagInfo[])).map((t) => [t.id, t.label]));
       const records: ArrQueueRecord[] = [];
       for (let page = 1; page <= MAX_PAGES; page++) {
         const res = await get<Paged<ArrQueueRecord>>('/queue', {
           page,
           pageSize: PAGE_SIZE,
           [f.includeUnknownParam]: true,
+          ...family.queueIncludes,
         });
         records.push(...res.records);
         if (records.length >= res.totalRecords || res.records.length === 0) break;
       }
-      return records.map((r) => normalizeQueueRecord(r, f));
+      return records.map((r) => normalizeQueueRecord(r, f, tagLabels));
+    },
+
+    tags,
+
+    async qualityProfiles() {
+      const list = await get<Array<{ id: number; name: string }>>('/qualityprofile');
+      return list.map((p) => ({ id: p.id, name: p.name }));
+    },
+
+    async removeQueueItem(queueId, opts) {
+      await send('DELETE', `/queue/${queueId}`, undefined, {
+        removeFromClient: opts.removeFromClient,
+        blocklist: opts.blocklist,
+        // Wardarr starts searches itself so it can count attempts.
+        skipRedownload: true,
+      });
+    },
+
+    async importPreview(downloadId) {
+      const f = await flavor();
+      const files = await get<Array<Record<string, unknown>>>('/manualimport', {
+        downloadId,
+        filterExistingFiles: true,
+      });
+      return files.map((file) => FAMILIES[f.family].previewFile(file));
+    },
+
+    async importFiles(downloadId, files) {
+      const f = await flavor();
+      await send('POST', '/command', {
+        name: 'ManualImport',
+        importMode: 'auto',
+        files: files.map((file) => FAMILIES[f.family].importFile(file.raw, downloadId)),
+      });
+    },
+
+    async wanted(list, opts) {
+      const f = await flavor();
+      return FAMILIES[f.family].wanted(list, opts, get);
+    },
+
+    async search(target) {
+      const f = await flavor();
+      await send('POST', '/command', FAMILIES[f.family].searchCommand(target));
+    },
+
+    async historySince(since) {
+      const f = await flavor();
+      const records = await get<Array<Record<string, unknown>>>('/history/since', { date: since });
+      return records.map((r) => FAMILIES[f.family].historyEvent(r));
     },
 
     async settings(): Promise<SettingsSection[]> {

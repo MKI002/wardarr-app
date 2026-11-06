@@ -53,7 +53,9 @@
               "eta": 300,
               "addedDate": 1700000000,
               "error": 0,
-              "labels": ["tv"],
+              "labels": [
+                "tv"
+              ],
               "downloadedEver": 200
             },
             {

@@ -145,11 +145,17 @@ export const transmission = defineAdapter({
             speedBytesPerSecond: Number(f(t, 'rateDownload', 'rate_download') ?? 0),
             etaSeconds: eta >= 0 ? eta : null,
             category: labels[0] ?? null,
+            tags: labels,
             addedAt: f(t, 'addedDate', 'added_date')
               ? new Date(Number(f(t, 'addedDate', 'added_date')) * 1000).toISOString()
               : null,
           };
         });
+      },
+      async removeDownload(jobId, opts) {
+        if (protocol === null) await call('session-get', 'session_get', { fields: ['version'] });
+        if (protocol === 'jsonrpc') await call('torrent-remove', 'torrent_remove', { ids: [jobId.toLowerCase()], delete_local_data: opts.deleteFiles });
+        else await call('torrent-remove', 'torrent_remove', { ids: [jobId.toLowerCase()], 'delete-local-data': opts.deleteFiles });
       },
       webUrl: () => `${ctx.baseUrl}/transmission/web/`,
     };
