@@ -1,5 +1,5 @@
 {
- "capturedAt": "2026-11-06T23:25:45.747Z",
+ "capturedAt": "2026-11-06T23:36:41.669Z",
  "fixtures": {
   "/api/setup/status": {
    "status": 200,
@@ -35,6 +35,7 @@
      "indexers",
      "trash",
      "map",
+     "storage",
      "settings"
     ],
     "capabilities": [
@@ -48,6 +49,7 @@
      "settings",
      "calendar",
      "trashSync",
+     "storage",
      "indexers",
      "downloads",
      "sessions",
@@ -77,7 +79,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:25:42.127Z",
+      "checkedAt": "2026-11-06T23:36:38.072Z",
       "errorKind": null
      },
      {
@@ -89,7 +91,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:25:42.137Z",
+      "checkedAt": "2026-11-06T23:36:38.082Z",
       "errorKind": null
      },
      {
@@ -101,7 +103,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:25:42.146Z",
+      "checkedAt": "2026-11-06T23:36:38.090Z",
       "errorKind": null
      },
      {
@@ -113,7 +115,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:25:42.157Z",
+      "checkedAt": "2026-11-06T23:36:38.097Z",
       "errorKind": null
      },
      {
@@ -125,7 +127,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T23:25:42.629Z",
+      "checkedAt": "2026-11-06T23:36:38.105Z",
       "errorKind": null
      },
      {
@@ -137,7 +139,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T23:25:42.173Z",
+      "checkedAt": "2026-11-06T23:36:38.114Z",
       "errorKind": null
      },
      {
@@ -149,7 +151,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T23:25:42.215Z",
+      "checkedAt": "2026-11-06T23:36:38.122Z",
       "errorKind": null
      },
      {
@@ -161,7 +163,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T23:25:42.188Z",
+      "checkedAt": "2026-11-06T23:36:38.129Z",
       "errorKind": null
      },
      {
@@ -173,7 +175,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T23:25:42.198Z",
+      "checkedAt": "2026-11-06T23:36:38.254Z",
       "errorKind": null
      },
      {
@@ -185,7 +187,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T23:25:44.003Z",
+      "checkedAt": "2026-11-06T23:36:38.144Z",
       "errorKind": null
      }
     ],
@@ -251,7 +253,7 @@
       "speedBytesPerSecond": 12400000,
       "etaSeconds": 74,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T23:00:37.000Z",
+      "addedAt": "2026-11-06T23:11:33.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -266,7 +268,7 @@
       "speedBytesPerSecond": 6100000,
       "etaSeconds": 190,
       "category": "radarr",
-      "addedAt": "2026-11-06T23:17:37.000Z",
+      "addedAt": "2026-11-06T23:28:33.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -281,7 +283,7 @@
       "speedBytesPerSecond": 0,
       "etaSeconds": null,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T23:22:37.000Z",
+      "addedAt": "2026-11-06T23:33:33.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -315,13 +317,44 @@
       "instanceName": "SABnzbd"
      }
     ],
+    "storage": {
+     "disks": 2,
+     "totalBytes": 26388279066624,
+     "freeBytes": 4371847210598,
+     "worst": "warning",
+     "soonest": {
+      "key": "d3c816c24",
+      "label": "/uhd",
+      "daysLeft": 24.5
+     }
+    },
     "issues": {
      "counts": {
       "critical": 0,
-      "warning": 4,
+      "warning": 5,
       "info": 3
      },
      "needsAttention": [
+      {
+       "fingerprint": "disk-filling-up:d3c816c24",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.diskFilling.titleForecast",
+        "params": {
+         "disk": "/uhd"
+        }
+       },
+       "affected": {
+        "key": "issues.diskFilling.affectedForecast",
+        "params": {
+         "disk": "/uhd",
+         "free": 633507676160,
+         "percent": 7.2,
+         "count": 25
+        }
+       }
+      },
       {
        "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
        "severity": "warning",
@@ -434,7 +467,8 @@
       "history",
       "settings",
       "calendar",
-      "trashSync"
+      "trashSync",
+      "storage"
      ]
     },
     {
@@ -462,7 +496,8 @@
       "history",
       "settings",
       "calendar",
-      "trashSync"
+      "trashSync",
+      "storage"
      ]
     },
     {
@@ -489,7 +524,8 @@
       "search",
       "history",
       "settings",
-      "calendar"
+      "calendar",
+      "storage"
      ]
     },
     {
@@ -515,7 +551,8 @@
       "wanted",
       "search",
       "history",
-      "settings"
+      "settings",
+      "storage"
      ]
     },
     {
@@ -561,7 +598,8 @@
       "search",
       "history",
       "settings",
-      "calendar"
+      "calendar",
+      "storage"
      ]
     },
     {
@@ -939,7 +977,7 @@
      "instanceName": "Sonarr",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T23:25:42.127Z",
+     "checkedAt": "2026-11-06T23:36:38.072Z",
      "items": [
       {
        "id": 51,
@@ -956,7 +994,7 @@
        "sizeLeftBytes": 850000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T23:00:37.972Z",
+       "added": "2026-11-06T23:11:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1102",
@@ -984,7 +1022,7 @@
        "sizeLeftBytes": 1900000000,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T23:13:37.972Z",
+       "added": "2026-11-06T23:24:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1103",
@@ -1015,7 +1053,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T21:50:37.972Z",
+       "added": "2026-11-06T22:01:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1200",
@@ -1046,7 +1084,7 @@
        "sizeLeftBytes": 1450000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T14:25:37.972Z",
+       "added": "2026-11-06T14:36:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1306",
@@ -1066,7 +1104,7 @@
      "instanceName": "Sonarr 4K",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T23:25:42.137Z",
+     "checkedAt": "2026-11-06T23:36:38.082Z",
      "items": []
     },
     {
@@ -1074,7 +1112,7 @@
      "instanceName": "Radarr",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T23:25:42.146Z",
+     "checkedAt": "2026-11-06T23:36:38.090Z",
      "items": []
     },
     {
@@ -1082,7 +1120,7 @@
      "instanceName": "Radarr 4K",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T23:25:42.157Z",
+     "checkedAt": "2026-11-06T23:36:38.097Z",
      "items": [
       {
        "id": 41,
@@ -1102,7 +1140,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T18:25:37.972Z",
+       "added": "2026-11-06T18:36:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:204",
@@ -1131,7 +1169,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T20:25:37.972Z",
+       "added": "2026-11-06T20:36:33.941Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:202",
@@ -1149,7 +1187,7 @@
      "instanceName": "Lidarr",
      "adapter": "lidarr",
      "adapterName": "Lidarr",
-     "checkedAt": "2026-11-06T23:25:42.629Z",
+     "checkedAt": "2026-11-06T23:36:38.105Z",
      "items": [
       {
        "id": 61,
@@ -1169,7 +1207,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T13:25:37.972Z",
+       "added": "2026-11-06T13:36:33.941Z",
        "tags": [],
        "titleKey": "album:301",
        "searchTarget": {
@@ -1198,7 +1236,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T12:55:37.972Z",
+       "added": "2026-11-06T13:06:33.941Z",
        "tags": [],
        "titleKey": "album:302",
        "searchTarget": {
@@ -1227,7 +1265,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T12:25:37.972Z",
+       "added": "2026-11-06T12:36:33.941Z",
        "tags": [],
        "titleKey": "album:303",
        "searchTarget": {
@@ -1251,7 +1289,7 @@
      "displayName": "Demo Admin",
      "role": "admin",
      "disabled": false,
-     "createdAt": "2026-11-06T23:25:38.482Z"
+     "createdAt": "2026-11-06T23:36:34.385Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000012",
@@ -1259,7 +1297,7 @@
      "displayName": "Mira",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T23:25:38.521Z"
+     "createdAt": "2026-11-06T23:36:34.417Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000013",
@@ -1267,7 +1305,7 @@
      "displayName": "Jonas",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T23:25:38.599Z"
+     "createdAt": "2026-11-06T23:36:34.454Z"
     }
    ]
   },
@@ -1408,7 +1446,7 @@
       "monthly": 3,
       "count": 10,
       "reachDays": 37,
-      "estimatedBytes": 349614
+      "estimatedBytes": 352334
      },
      {
       "level": 2,
@@ -1419,7 +1457,7 @@
       "monthly": 7,
       "count": 19,
       "reachDays": 159,
-      "estimatedBytes": 664267
+      "estimatedBytes": 669435
      },
      {
       "level": 3,
@@ -1430,7 +1468,7 @@
       "monthly": 13,
       "count": 33,
       "reachDays": 341,
-      "estimatedBytes": 1153726
+      "estimatedBytes": 1162702
      },
      {
       "level": 4,
@@ -1441,15 +1479,15 @@
       "monthly": 25,
       "count": 74,
       "reachDays": 706,
-      "estimatedBytes": 2587144
+      "estimatedBytes": 2607272
      }
     ],
     "backups": [
      {
-      "id": "wardarr-20261106T232539Z-manual-779aec",
+      "id": "wardarr-20261106T233634Z-manual-8b238e",
       "kind": "manual",
-      "createdAt": "2026-11-06T23:25:39.089Z",
-      "size": 34959,
+      "createdAt": "2026-11-06T23:36:34.917Z",
+      "size": 35231,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1460,10 +1498,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T212539Z-scheduled-d00000",
+      "id": "wardarr-20261106T213634Z-scheduled-d00000",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T21:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-06T21:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1478,10 +1516,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T092539Z-scheduled-d00001",
+      "id": "wardarr-20261106T093634Z-scheduled-d00001",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T09:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-06T09:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1492,10 +1530,10 @@
       ]
      },
      {
-      "id": "wardarr-20261105T182539Z-scheduled-d00002",
+      "id": "wardarr-20261105T183634Z-scheduled-d00002",
       "kind": "scheduled",
-      "createdAt": "2026-11-05T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-05T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1506,10 +1544,10 @@
       ]
      },
      {
-      "id": "wardarr-20261104T182539Z-scheduled-d00003",
+      "id": "wardarr-20261104T183634Z-scheduled-d00003",
       "kind": "scheduled",
-      "createdAt": "2026-11-04T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-04T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1520,10 +1558,10 @@
       ]
      },
      {
-      "id": "wardarr-20261103T182539Z-scheduled-d00004",
+      "id": "wardarr-20261103T183634Z-scheduled-d00004",
       "kind": "scheduled",
-      "createdAt": "2026-11-03T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-03T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1534,10 +1572,10 @@
       ]
      },
      {
-      "id": "wardarr-20261102T182539Z-scheduled-d00005",
+      "id": "wardarr-20261102T183634Z-scheduled-d00005",
       "kind": "scheduled",
-      "createdAt": "2026-11-02T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-02T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1548,10 +1586,10 @@
       ]
      },
      {
-      "id": "wardarr-20261101T182539Z-scheduled-d00006",
+      "id": "wardarr-20261101T183634Z-scheduled-d00006",
       "kind": "scheduled",
-      "createdAt": "2026-11-01T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-11-01T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1563,10 +1601,10 @@
       ]
      },
      {
-      "id": "wardarr-20261031T182539Z-scheduled-d00007",
+      "id": "wardarr-20261031T183634Z-scheduled-d00007",
       "kind": "scheduled",
-      "createdAt": "2026-10-31T18:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-10-31T18:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1578,10 +1616,10 @@
       ]
      },
      {
-      "id": "wardarr-20261027T232539Z-scheduled-d00008",
+      "id": "wardarr-20261027T233634Z-scheduled-d00008",
       "kind": "scheduled",
-      "createdAt": "2026-10-27T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-10-27T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1590,10 +1628,10 @@
       "keep": []
      },
      {
-      "id": "wardarr-20261026T212539Z-pre-migration-d00013",
+      "id": "wardarr-20261026T213634Z-pre-migration-d00013",
       "kind": "pre-migration",
-      "createdAt": "2026-10-26T21:25:39.114Z",
-      "size": 34966,
+      "createdAt": "2026-10-26T21:36:34.935Z",
+      "size": 35238,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1604,10 +1642,10 @@
       ]
      },
      {
-      "id": "wardarr-20261020T232539Z-scheduled-d00009",
+      "id": "wardarr-20261020T233634Z-scheduled-d00009",
       "kind": "scheduled",
-      "createdAt": "2026-10-20T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-10-20T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1618,10 +1656,10 @@
       ]
      },
      {
-      "id": "wardarr-20261013T232539Z-scheduled-d0000a",
+      "id": "wardarr-20261013T233634Z-scheduled-d0000a",
       "kind": "scheduled",
-      "createdAt": "2026-10-13T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-10-13T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1632,10 +1670,10 @@
       ]
      },
      {
-      "id": "wardarr-20261006T232539Z-scheduled-d0000b",
+      "id": "wardarr-20261006T233634Z-scheduled-d0000b",
       "kind": "scheduled",
-      "createdAt": "2026-10-06T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-10-06T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1646,10 +1684,10 @@
       ]
      },
      {
-      "id": "wardarr-20260929T232539Z-scheduled-d0000c",
+      "id": "wardarr-20260929T233634Z-scheduled-d0000c",
       "kind": "scheduled",
-      "createdAt": "2026-09-29T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-09-29T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1661,10 +1699,10 @@
       ]
      },
      {
-      "id": "wardarr-20260927T162539Z-manual-d00014",
+      "id": "wardarr-20260927T163634Z-manual-d00014",
       "kind": "manual",
-      "createdAt": "2026-09-27T16:25:39.114Z",
-      "size": 34959,
+      "createdAt": "2026-09-27T16:36:34.935Z",
+      "size": 35231,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1675,10 +1713,10 @@
       ]
      },
      {
-      "id": "wardarr-20260922T232539Z-scheduled-d0000d",
+      "id": "wardarr-20260922T233634Z-scheduled-d0000d",
       "kind": "scheduled",
-      "createdAt": "2026-09-22T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-09-22T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1689,10 +1727,10 @@
       ]
      },
      {
-      "id": "wardarr-20260915T232539Z-scheduled-d0000e",
+      "id": "wardarr-20260915T233634Z-scheduled-d0000e",
       "kind": "scheduled",
-      "createdAt": "2026-09-15T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-09-15T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1703,10 +1741,10 @@
       ]
      },
      {
-      "id": "wardarr-20260829T232539Z-scheduled-d0000f",
+      "id": "wardarr-20260829T233634Z-scheduled-d0000f",
       "kind": "scheduled",
-      "createdAt": "2026-08-29T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-08-29T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1717,10 +1755,10 @@
       ]
      },
      {
-      "id": "wardarr-20260730T232539Z-scheduled-d00010",
+      "id": "wardarr-20260730T233634Z-scheduled-d00010",
       "kind": "scheduled",
-      "createdAt": "2026-07-30T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-07-30T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1731,10 +1769,10 @@
       ]
      },
      {
-      "id": "wardarr-20260630T232539Z-scheduled-d00011",
+      "id": "wardarr-20260630T233634Z-scheduled-d00011",
       "kind": "scheduled",
-      "createdAt": "2026-06-30T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-06-30T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1745,10 +1783,10 @@
       ]
      },
      {
-      "id": "wardarr-20260531T232539Z-scheduled-d00012",
+      "id": "wardarr-20260531T233634Z-scheduled-d00012",
       "kind": "scheduled",
-      "createdAt": "2026-05-31T23:25:39.114Z",
-      "size": 34962,
+      "createdAt": "2026-05-31T23:36:34.935Z",
+      "size": 35234,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1760,10 +1798,10 @@
      }
     ],
     "lastRun": null,
-    "nextRunAt": "2026-11-07T09:25:39.114Z",
+    "nextRunAt": "2026-11-07T09:36:34.935Z",
     "storage": {
-     "usedBytes": 769162,
-     "freeBytes": 31610105856,
+     "usedBytes": 775146,
+     "freeBytes": 30674038784,
      "sameDiskAsData": true
     }
    }
@@ -1777,7 +1815,7 @@
       "instanceName": "Prowlarr",
       "adapterName": "Prowlarr",
       "status": "ok",
-      "checkedAt": "2026-11-06T23:25:42.173Z",
+      "checkedAt": "2026-11-06T23:36:38.114Z",
       "error": null,
       "indexers": [
        {
@@ -1811,7 +1849,7 @@
         "protocol": "torrent",
         "failing": true,
         "disabledUntil": "2099-01-01T00:00:00Z",
-        "mostRecentFailure": "2026-11-06T16:45:37.972Z",
+        "mostRecentFailure": "2026-11-06T16:56:33.941Z",
         "stats": {
          "indexerId": 2,
          "name": "Nightjar",
@@ -1951,7 +1989,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:25:42.127Z",
+      "checkedAt": "2026-11-06T23:36:38.072Z",
       "errorKind": null,
       "webUrl": "http://sonarr:8989",
       "live": {
@@ -1970,7 +2008,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:25:42.137Z",
+      "checkedAt": "2026-11-06T23:36:38.082Z",
       "errorKind": null,
       "webUrl": "http://sonarr-4k:8989",
       "live": {
@@ -1988,7 +2026,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:25:42.146Z",
+      "checkedAt": "2026-11-06T23:36:38.090Z",
       "errorKind": null,
       "webUrl": "http://radarr:7878",
       "live": {
@@ -2007,7 +2045,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:25:42.157Z",
+      "checkedAt": "2026-11-06T23:36:38.097Z",
       "errorKind": null,
       "webUrl": "http://radarr-4k:7878",
       "live": {
@@ -2026,7 +2064,7 @@
       "adapterName": "Lidarr",
       "instanceStatus": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T23:25:42.629Z",
+      "checkedAt": "2026-11-06T23:36:38.105Z",
       "errorKind": null,
       "webUrl": "http://lidarr:8686",
       "live": {
@@ -2045,7 +2083,7 @@
       "adapterName": "Prowlarr",
       "instanceStatus": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T23:25:42.173Z",
+      "checkedAt": "2026-11-06T23:36:38.114Z",
       "errorKind": null,
       "webUrl": "http://prowlarr:9696/",
       "live": {
@@ -2064,7 +2102,7 @@
       "adapterName": "qBittorrent",
       "instanceStatus": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T23:25:42.215Z",
+      "checkedAt": "2026-11-06T23:36:38.122Z",
       "errorKind": null,
       "webUrl": "http://qbittorrent:8080/",
       "live": {
@@ -2083,7 +2121,7 @@
       "adapterName": "SABnzbd",
       "instanceStatus": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T23:25:42.188Z",
+      "checkedAt": "2026-11-06T23:36:38.129Z",
       "errorKind": null,
       "webUrl": "http://sabnzbd:8080/",
       "live": {
@@ -2102,7 +2140,7 @@
       "adapterName": "Jellyfin",
       "instanceStatus": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T23:25:42.198Z",
+      "checkedAt": "2026-11-06T23:36:38.254Z",
       "errorKind": null,
       "webUrl": "http://jellyfin:8096/web/",
       "live": {
@@ -2121,7 +2159,7 @@
       "adapterName": "Seerr",
       "instanceStatus": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T23:25:44.003Z",
+      "checkedAt": "2026-11-06T23:36:38.144Z",
       "errorKind": null,
       "webUrl": "http://seerr:5055/",
       "live": {}
@@ -2144,8 +2182,8 @@
       "name": "/data",
       "adapter": null,
       "storage": {
-       "freeBytes": 2023406814208,
-       "totalBytes": 7999415812096,
+       "freeBytes": 3738339534438,
+       "totalBytes": 17592186044416,
        "mount": "/data",
        "members": [
         {
@@ -2156,22 +2194,8 @@
          "match": "space"
         },
         {
-         "instanceId": "00000000-0000-4000-8000-000000000003",
-         "path": "/data/media/tv-4k",
-         "use": "media",
-         "kind": "show",
-         "match": "space"
-        },
-        {
          "instanceId": "00000000-0000-4000-8000-000000000004",
          "path": "/data/media/movies",
-         "use": "media",
-         "kind": "movie",
-         "match": "space"
-        },
-        {
-         "instanceId": "00000000-0000-4000-8000-000000000005",
-         "path": "/data/media/movies-4k",
          "use": "media",
          "kind": "movie",
          "match": "space"
@@ -2211,14 +2235,6 @@
         },
         {
          "instanceId": "00000000-0000-4000-8000-000000000010",
-         "path": "/media/movies-4k",
-         "use": "library",
-         "name": "Films",
-         "kind": "movie",
-         "match": "path"
-        },
-        {
-         "instanceId": "00000000-0000-4000-8000-000000000010",
          "path": "/media/tv",
          "use": "library",
          "name": "Series",
@@ -2228,6 +2244,44 @@
        ]
       },
       "status": "ok",
+      "live": {}
+     },
+     {
+      "id": "storage:2",
+      "type": "storage",
+      "layer": 3,
+      "name": "/uhd",
+      "adapter": null,
+      "storage": {
+       "freeBytes": 633507676160,
+       "totalBytes": 8796093022208,
+       "mount": "/uhd",
+       "members": [
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000003",
+         "path": "/uhd/media/tv-4k",
+         "use": "media",
+         "kind": "show",
+         "match": "space"
+        },
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000005",
+         "path": "/uhd/media/movies-4k",
+         "use": "media",
+         "kind": "movie",
+         "match": "space"
+        },
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000010",
+         "path": "/media/movies-4k",
+         "use": "library",
+         "name": "Films",
+         "kind": "movie",
+         "match": "path"
+        }
+       ]
+      },
+      "status": "warning",
       "live": {}
      }
     ],
@@ -2542,33 +2596,9 @@
       "status": "ok"
      },
      {
-      "id": "00000000-0000-4000-8000-000000000003>storage:1:storage",
-      "labels": [],
-      "from": "00000000-0000-4000-8000-000000000003",
-      "to": "storage:1",
-      "kind": "storage",
-      "enabled": true,
-      "match": "space",
-      "confident": true,
-      "use": "media",
-      "status": "ok"
-     },
-     {
       "id": "00000000-0000-4000-8000-000000000004>storage:1:storage",
       "labels": [],
       "from": "00000000-0000-4000-8000-000000000004",
-      "to": "storage:1",
-      "kind": "storage",
-      "enabled": true,
-      "match": "space",
-      "confident": true,
-      "use": "media",
-      "status": "ok"
-     },
-     {
-      "id": "00000000-0000-4000-8000-000000000005>storage:1:storage",
-      "labels": [],
-      "from": "00000000-0000-4000-8000-000000000005",
       "to": "storage:1",
       "kind": "storage",
       "enabled": true,
@@ -2624,10 +2654,46 @@
       "confident": true,
       "use": "library",
       "status": "ok"
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000003>storage:2:storage",
+      "labels": [],
+      "from": "00000000-0000-4000-8000-000000000003",
+      "to": "storage:2",
+      "kind": "storage",
+      "enabled": true,
+      "match": "space",
+      "confident": true,
+      "use": "media",
+      "status": "ok"
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000005>storage:2:storage",
+      "labels": [],
+      "from": "00000000-0000-4000-8000-000000000005",
+      "to": "storage:2",
+      "kind": "storage",
+      "enabled": true,
+      "match": "space",
+      "confident": true,
+      "use": "media",
+      "status": "ok"
+     },
+     {
+      "id": "storage:2>00000000-0000-4000-8000-000000000010:storage",
+      "labels": [],
+      "from": "storage:2",
+      "to": "00000000-0000-4000-8000-000000000010",
+      "kind": "storage",
+      "enabled": true,
+      "match": "path",
+      "confident": true,
+      "use": "library",
+      "status": "ok"
      }
     ],
     "unread": [],
-    "readAt": "2026-11-06T23:25:45.357Z"
+    "readAt": "2026-11-06T23:36:41.285Z"
    }
   },
   "/api/streams/history?limit=25": {
@@ -2641,9 +2707,9 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T23:25:38.750Z",
+      "startedAt": "2026-11-06T23:36:34.604Z",
       "endedAt": null,
-      "playedMs": 3450,
+      "playedMs": 3653,
       "progress": 46,
       "transcoding": false,
       "resolution": "4K",
@@ -2656,7 +2722,7 @@
       "title": "Lanternfall",
       "subtitle": "S01E03 · The Long Watch",
       "mediaType": "episode",
-      "startedAt": "2026-11-06T23:25:38.750Z",
+      "startedAt": "2026-11-06T23:36:34.604Z",
       "endedAt": null,
       "playedMs": 0,
       "progress": 23,
@@ -2671,9 +2737,9 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T23:25:38.750Z",
+      "startedAt": "2026-11-06T23:36:34.604Z",
       "endedAt": null,
-      "playedMs": 3450,
+      "playedMs": 3653,
       "progress": 44,
       "transcoding": false,
       "resolution": "1080p",
@@ -3524,8 +3590,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.700Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.528Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3620,8 +3686,8 @@
     {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.732Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.561Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3727,8 +3793,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.737Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.591Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3823,8 +3889,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.744Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.599Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3947,8 +4013,8 @@
     {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.744Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.599Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4041,8 +4107,8 @@
     {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:39.031Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.869Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4133,10 +4199,126 @@
      "muted": false
     },
     {
+     "fingerprint": "disk-filling-up:d3c816c24",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:36:35.065Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "disk-filling-up:d3c816c24",
+      "ruleId": "disk-filling-up",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.diskFilling.titleForecast",
+       "params": {
+        "disk": "/uhd"
+       }
+      },
+      "affected": {
+       "key": "issues.diskFilling.affectedForecast",
+       "params": {
+        "disk": "/uhd",
+        "free": 633507676160,
+        "percent": 7.2,
+        "count": 25
+       }
+      },
+      "explanation": {
+       "key": "issues.diskFilling.explanation",
+       "params": {
+        "disk": "/uhd",
+        "apps": "Radarr 4K, Sonarr 4K"
+       }
+      },
+      "fix": {
+       "key": "issues.diskFilling.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:storage"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Storage.disk",
+        "level": "warning",
+        "message": "/uhd: 633507676160 of 8796093022208 bytes free"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-storage",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openStorage"
+        },
+        "href": "/storage?disk=d3c816c24"
+       },
+       {
+        "id": "guide",
+        "kind": "guide",
+        "class": "guide",
+        "label": {
+         "key": "issues.action.showSteps"
+        },
+        "steps": [
+         {
+          "key": "issues.diskFilling.step1"
+         },
+         {
+          "key": "issues.diskFilling.step2"
+         },
+         {
+          "key": "issues.diskFilling.step3"
+         }
+        ]
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "disk-filling-up:d3c816c24"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "disk-filling-up:d3c816c24"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:42.261Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:38.193Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4236,8 +4418,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.700Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.528Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4333,7 +4515,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:25:38.700Z"
+      "at": "2026-11-06T23:36:34.528Z"
      }
     ]
    }
@@ -4344,8 +4526,8 @@
     "issue": {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.732Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.561Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4452,7 +4634,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:25:38.732Z"
+      "at": "2026-11-06T23:36:34.561Z"
      }
     ]
    }
@@ -4463,8 +4645,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.737Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.591Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4560,7 +4742,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:25:38.737Z"
+      "at": "2026-11-06T23:36:34.591Z"
      }
     ]
    }
@@ -4571,8 +4753,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.744Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.599Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4696,7 +4878,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:25:38.744Z"
+      "at": "2026-11-06T23:36:34.599Z"
      }
     ]
    }
@@ -4707,8 +4889,8 @@
     "issue": {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:38.744Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.599Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4802,7 +4984,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:25:38.744Z"
+      "at": "2026-11-06T23:36:34.599Z"
      }
     ]
    }
@@ -4813,8 +4995,8 @@
     "issue": {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:39.031Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:34.869Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4908,7 +5090,135 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:25:39.031Z"
+      "at": "2026-11-06T23:36:34.869Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/disk-filling-up%3Ad3c816c24": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "disk-filling-up:d3c816c24",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:36:35.065Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "disk-filling-up:d3c816c24",
+      "ruleId": "disk-filling-up",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.diskFilling.titleForecast",
+       "params": {
+        "disk": "/uhd"
+       }
+      },
+      "affected": {
+       "key": "issues.diskFilling.affectedForecast",
+       "params": {
+        "disk": "/uhd",
+        "free": 633507676160,
+        "percent": 7.2,
+        "count": 25
+       }
+      },
+      "explanation": {
+       "key": "issues.diskFilling.explanation",
+       "params": {
+        "disk": "/uhd",
+        "apps": "Radarr 4K, Sonarr 4K"
+       }
+      },
+      "fix": {
+       "key": "issues.diskFilling.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000005:storage"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Storage.disk",
+        "level": "warning",
+        "message": "/uhd: 633507676160 of 8796093022208 bytes free"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-storage",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openStorage"
+        },
+        "href": "/storage?disk=d3c816c24"
+       },
+       {
+        "id": "guide",
+        "kind": "guide",
+        "class": "guide",
+        "label": {
+         "key": "issues.action.showSteps"
+        },
+        "steps": [
+         {
+          "key": "issues.diskFilling.step1"
+         },
+         {
+          "key": "issues.diskFilling.step2"
+         },
+         {
+          "key": "issues.diskFilling.step3"
+         }
+        ]
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "disk-filling-up:d3c816c24"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "disk-filling-up:d3c816c24"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T23:36:35.065Z"
      }
     ]
    }
@@ -4919,8 +5229,8 @@
     "issue": {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:25:42.261Z",
-     "lastSeenAt": "2026-11-06T23:25:44.008Z",
+     "firstSeenAt": "2026-11-06T23:36:38.193Z",
+     "lastSeenAt": "2026-11-06T23:36:38.259Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5016,7 +5326,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:25:42.261Z"
+      "at": "2026-11-06T23:36:38.193Z"
      }
     ]
    }
@@ -5050,8 +5360,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:25:42.215Z",
-      "nextRunAt": "2026-11-06T23:30:42.215Z",
+      "lastRunAt": "2026-11-06T23:36:38.154Z",
+      "nextRunAt": "2026-11-06T23:41:38.154Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5111,7 +5421,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:25:42.215Z",
+        "nextStrikeAt": "2026-11-07T00:36:38.154Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5208,8 +5518,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:25:42.246Z",
-      "nextRunAt": "2026-11-06T23:30:42.246Z",
+      "lastRunAt": "2026-11-06T23:36:38.178Z",
+      "nextRunAt": "2026-11-06T23:41:38.178Z",
       "error": null,
       "paused": null,
       "downloads": [],
@@ -5241,8 +5551,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:25:42.255Z",
-      "nextRunAt": "2026-11-06T23:30:42.255Z",
+      "lastRunAt": "2026-11-06T23:36:38.188Z",
+      "nextRunAt": "2026-11-06T23:41:38.188Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5258,7 +5568,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:25:42.255Z",
+        "nextStrikeAt": "2026-11-07T00:36:38.188Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5284,7 +5594,7 @@
         "strikes": 0,
         "maxStrikes": 4,
         "nextStrikeAt": null,
-        "waitUntil": "2026-11-13T23:25:42.255Z",
+        "waitUntil": "2026-11-13T23:36:38.188Z",
         "action": {
          "type": "none"
         },
@@ -5322,8 +5632,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:25:42.276Z",
-      "nextRunAt": "2026-11-06T23:30:42.276Z",
+      "lastRunAt": "2026-11-06T23:36:38.210Z",
+      "nextRunAt": "2026-11-06T23:41:38.210Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5339,7 +5649,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5364,7 +5674,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5389,7 +5699,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5413,7 +5723,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:30:42.215Z",
+    "at": "2026-11-06T23:41:38.154Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -5473,7 +5783,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:25:42.215Z",
+       "nextStrikeAt": "2026-11-07T00:36:38.154Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -5513,48 +5823,48 @@
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
        "title": "Lanternfall.S02E01.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:25:42.215Z",
+       "firstSeenAt": "2026-11-06T23:36:38.154Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:25:42.215Z",
+       "lastProgressAt": "2026-11-06T23:36:38.154Z",
        "lastSizeLeft": 850000000,
        "ignored": false
       },
       {
        "key": "sabnzbd_nzo_demo0001",
        "title": "Lanternfall.S02E02.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:25:42.215Z",
+       "firstSeenAt": "2026-11-06T23:36:38.154Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:25:42.215Z",
+       "lastProgressAt": "2026-11-06T23:36:38.154Z",
        "lastSizeLeft": 1900000000,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:25:42.215Z",
+       "firstSeenAt": "2026-11-06T23:36:38.154Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:25:42.215Z",
+       "problemSince": "2026-11-06T23:36:38.154Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:25:42.215Z",
-       "lastProgressAt": "2026-11-06T23:25:42.215Z",
+       "lastStrikeAt": "2026-11-06T23:36:38.154Z",
+       "lastProgressAt": "2026-11-06T23:36:38.154Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:25:42.215Z",
+       "firstSeenAt": "2026-11-06T23:36:38.154Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:25:42.215Z",
+       "lastProgressAt": "2026-11-06T23:36:38.154Z",
        "lastSizeLeft": 1450000000,
        "ignored": false
       }
@@ -5572,7 +5882,7 @@
      {
       "id": 1,
       "instanceId": "00000000-0000-4000-8000-000000000002",
-      "at": "2026-11-06T23:25:42.219Z",
+      "at": "2026-11-06T23:36:38.159Z",
       "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
       "kind": "strike",
@@ -5790,7 +6100,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:30:42.246Z",
+    "at": "2026-11-06T23:41:38.178Z",
     "plan": {
      "paused": null,
      "downloads": [],
@@ -5901,7 +6211,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:30:42.255Z",
+    "at": "2026-11-06T23:41:38.188Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -5917,7 +6227,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:25:42.255Z",
+       "nextStrikeAt": "2026-11-07T00:36:38.188Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -5943,7 +6253,7 @@
        "strikes": 0,
        "maxStrikes": 4,
        "nextStrikeAt": null,
-       "waitUntil": "2026-11-13T23:25:42.255Z",
+       "waitUntil": "2026-11-13T23:36:38.188Z",
        "action": {
         "type": "none"
        },
@@ -5957,24 +6267,24 @@
       {
        "key": "demofail0001",
        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
-       "firstSeenAt": "2026-11-06T23:25:42.255Z",
+       "firstSeenAt": "2026-11-06T23:36:38.188Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:25:42.255Z",
+       "problemSince": "2026-11-06T23:36:38.188Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:25:42.255Z",
-       "lastProgressAt": "2026-11-06T23:25:42.255Z",
+       "lastStrikeAt": "2026-11-06T23:36:38.188Z",
+       "lastProgressAt": "2026-11-06T23:36:38.188Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoimport01",
        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
-       "firstSeenAt": "2026-11-06T23:25:42.255Z",
+       "firstSeenAt": "2026-11-06T23:36:38.188Z",
        "problem": "importReady",
-       "problemSince": "2026-11-06T23:25:42.255Z",
+       "problemSince": "2026-11-06T23:36:38.188Z",
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:25:42.255Z",
+       "lastProgressAt": "2026-11-06T23:36:38.188Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -5992,7 +6302,7 @@
      {
       "id": 2,
       "instanceId": "00000000-0000-4000-8000-000000000005",
-      "at": "2026-11-06T23:25:42.259Z",
+      "at": "2026-11-06T23:36:38.191Z",
       "downloadKey": "demofail0001",
       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
       "kind": "strike",
@@ -6106,7 +6416,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:30:42.276Z",
+    "at": "2026-11-06T23:41:38.210Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -6122,7 +6432,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6147,7 +6457,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6172,7 +6482,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:25:42.276Z",
+       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6190,36 +6500,36 @@
       {
        "key": "demoalbum001",
        "title": "The Lamplighters-Night Shift",
-       "firstSeenAt": "2026-11-06T23:25:42.276Z",
+       "firstSeenAt": "2026-11-06T23:36:38.210Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:25:42.276Z",
+       "problemSince": "2026-11-06T23:36:38.210Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:25:42.276Z",
-       "lastProgressAt": "2026-11-06T23:25:42.276Z",
+       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
+       "lastProgressAt": "2026-11-06T23:36:38.210Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum002",
        "title": "The Lamplighters-Harbour Songs",
-       "firstSeenAt": "2026-11-06T23:25:42.276Z",
+       "firstSeenAt": "2026-11-06T23:36:38.210Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:25:42.276Z",
+       "problemSince": "2026-11-06T23:36:38.210Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:25:42.276Z",
-       "lastProgressAt": "2026-11-06T23:25:42.276Z",
+       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
+       "lastProgressAt": "2026-11-06T23:36:38.210Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum003",
        "title": "Marrow & Pine-Low Tide",
-       "firstSeenAt": "2026-11-06T23:25:42.276Z",
+       "firstSeenAt": "2026-11-06T23:36:38.210Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:25:42.276Z",
+       "problemSince": "2026-11-06T23:36:38.210Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:25:42.276Z",
-       "lastProgressAt": "2026-11-06T23:25:42.276Z",
+       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
+       "lastProgressAt": "2026-11-06T23:36:38.210Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -6237,7 +6547,7 @@
      {
       "id": 5,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:25:42.279Z",
+      "at": "2026-11-06T23:36:38.213Z",
       "downloadKey": "demoalbum003",
       "title": "Marrow & Pine-Low Tide",
       "kind": "strike",
@@ -6257,7 +6567,7 @@
      {
       "id": 4,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:25:42.279Z",
+      "at": "2026-11-06T23:36:38.213Z",
       "downloadKey": "demoalbum002",
       "title": "The Lamplighters-Harbour Songs",
       "kind": "strike",
@@ -6277,7 +6587,7 @@
      {
       "id": 3,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:25:42.278Z",
+      "at": "2026-11-06T23:36:38.213Z",
       "downloadKey": "demoalbum001",
       "title": "The Lamplighters-Night Shift",
       "kind": "strike",
@@ -6430,8 +6740,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:25:42.241Z",
-        "nextRunAt": "2026-11-07T00:25:42.241Z",
+        "lastRunAt": "2026-11-06T23:36:38.173Z",
+        "nextRunAt": "2026-11-07T00:36:38.173Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -6440,8 +6750,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:25:42.243Z",
-        "nextRunAt": "2026-11-07T01:25:42.243Z",
+        "lastRunAt": "2026-11-06T23:36:38.175Z",
+        "nextRunAt": "2026-11-07T01:36:38.175Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -6465,7 +6775,7 @@
           "count": 3
          }
         },
-        "at": "2026-11-06T23:25:42.240Z",
+        "at": "2026-11-06T23:36:38.173Z",
         "manual": false,
         "result": "pending"
        },
@@ -6477,7 +6787,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:25:42.238Z",
+        "at": "2026-11-06T23:36:38.171Z",
         "manual": false,
         "result": "pending"
        }
@@ -6523,7 +6833,7 @@
          "everyMinutes": 60
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T23:25:45.503Z",
+        "nextRunAt": "2026-11-06T23:36:41.412Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -6533,7 +6843,7 @@
          "everyMinutes": 120
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T23:25:45.503Z",
+        "nextRunAt": "2026-11-06T23:36:41.412Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -6658,8 +6968,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:25:42.271Z",
-        "nextRunAt": "2026-11-07T00:25:42.271Z",
+        "lastRunAt": "2026-11-06T23:36:38.203Z",
+        "nextRunAt": "2026-11-07T00:36:38.203Z",
         "upcoming": [
          {
           "key": "movie:203",
@@ -6677,7 +6987,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T00:25:42.271Z"
+          "at": "2026-11-07T00:36:38.203Z"
          },
          {
           "key": "movie:202",
@@ -6695,7 +7005,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T00:25:42.271Z"
+          "at": "2026-11-07T00:36:38.203Z"
          }
         ],
         "waiting": 2
@@ -6705,8 +7015,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:25:42.273Z",
-        "nextRunAt": "2026-11-07T01:25:42.273Z",
+        "lastRunAt": "2026-11-06T23:36:38.208Z",
+        "nextRunAt": "2026-11-07T01:36:38.208Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -6727,7 +7037,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:25:42.271Z",
+        "at": "2026-11-06T23:36:38.203Z",
         "manual": false,
         "result": "pending"
        },
@@ -6739,7 +7049,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:25:42.269Z",
+        "at": "2026-11-06T23:36:38.201Z",
         "manual": false,
         "result": "pending"
        }
@@ -6784,8 +7094,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:25:42.286Z",
-        "nextRunAt": "2026-11-07T00:25:42.286Z",
+        "lastRunAt": "2026-11-06T23:36:38.221Z",
+        "nextRunAt": "2026-11-07T00:36:38.221Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -6794,8 +7104,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:25:42.289Z",
-        "nextRunAt": "2026-11-07T01:25:42.289Z",
+        "lastRunAt": "2026-11-06T23:36:38.223Z",
+        "nextRunAt": "2026-11-07T01:36:38.223Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -7337,8 +7647,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T22:50:37.972Z",
-      "updatedAt": "2026-11-06T22:50:37.972Z",
+      "createdAt": "2026-11-06T23:01:33.941Z",
+      "updatedAt": "2026-11-06T23:01:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7359,8 +7669,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:45:37.972Z",
-      "updatedAt": "2026-11-06T20:45:37.972Z",
+      "createdAt": "2026-11-06T20:56:33.941Z",
+      "updatedAt": "2026-11-06T20:56:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7379,8 +7689,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7401,8 +7711,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:25:37.972Z",
-      "updatedAt": "2026-11-05T21:25:37.972Z",
+      "createdAt": "2026-11-05T21:36:33.941Z",
+      "updatedAt": "2026-11-05T21:36:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7421,8 +7731,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:25:37.972Z",
-      "updatedAt": "2026-11-04T21:25:37.972Z",
+      "createdAt": "2026-11-04T21:36:33.941Z",
+      "updatedAt": "2026-11-04T21:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7441,8 +7751,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T23:25:37.972Z",
-      "updatedAt": "2026-11-03T23:25:37.972Z",
+      "createdAt": "2026-11-03T23:36:33.941Z",
+      "updatedAt": "2026-11-03T23:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7464,8 +7774,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T23:25:37.972Z",
-      "updatedAt": "2026-10-31T23:25:37.972Z",
+      "createdAt": "2026-10-31T23:36:33.941Z",
+      "updatedAt": "2026-10-31T23:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7484,8 +7794,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:25:37.972Z",
-      "updatedAt": "2026-10-25T23:25:37.972Z",
+      "createdAt": "2026-10-25T23:36:33.941Z",
+      "updatedAt": "2026-10-25T23:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7504,8 +7814,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T23:25:37.972Z",
-      "updatedAt": "2026-10-22T23:25:37.972Z",
+      "createdAt": "2026-10-22T23:36:33.941Z",
+      "updatedAt": "2026-10-22T23:36:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7534,8 +7844,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7554,8 +7864,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:25:37.972Z",
-      "updatedAt": "2026-10-25T23:25:37.972Z",
+      "createdAt": "2026-10-25T23:36:33.941Z",
+      "updatedAt": "2026-10-25T23:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7583,8 +7893,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T22:50:37.972Z",
-      "updatedAt": "2026-11-06T22:50:37.972Z",
+      "createdAt": "2026-11-06T23:01:33.941Z",
+      "updatedAt": "2026-11-06T23:01:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7623,8 +7933,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:45:37.972Z",
-      "updatedAt": "2026-11-06T20:45:37.972Z",
+      "createdAt": "2026-11-06T20:56:33.941Z",
+      "updatedAt": "2026-11-06T20:56:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7643,8 +7953,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7665,8 +7975,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:25:37.972Z",
-      "updatedAt": "2026-11-05T21:25:37.972Z",
+      "createdAt": "2026-11-05T21:36:33.941Z",
+      "updatedAt": "2026-11-05T21:36:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7685,8 +7995,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:25:37.972Z",
-      "updatedAt": "2026-11-04T21:25:37.972Z",
+      "createdAt": "2026-11-04T21:36:33.941Z",
+      "updatedAt": "2026-11-04T21:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7715,8 +8025,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7746,8 +8056,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:45:37.972Z",
-      "updatedAt": "2026-11-06T20:45:37.972Z",
+      "createdAt": "2026-11-06T20:56:33.941Z",
+      "updatedAt": "2026-11-06T20:56:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7766,8 +8076,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7788,8 +8098,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:25:37.972Z",
-      "updatedAt": "2026-11-05T21:25:37.972Z",
+      "createdAt": "2026-11-05T21:36:33.941Z",
+      "updatedAt": "2026-11-05T21:36:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7808,8 +8118,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:25:37.972Z",
-      "updatedAt": "2026-11-04T21:25:37.972Z",
+      "createdAt": "2026-11-04T21:36:33.941Z",
+      "updatedAt": "2026-11-04T21:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7838,8 +8148,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:25:37.972Z",
-      "updatedAt": "2026-11-06T18:25:37.972Z",
+      "createdAt": "2026-11-06T18:36:33.941Z",
+      "updatedAt": "2026-11-06T18:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7870,8 +8180,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T23:25:37.972Z",
-      "updatedAt": "2026-10-31T23:25:37.972Z",
+      "createdAt": "2026-10-31T23:36:33.941Z",
+      "updatedAt": "2026-10-31T23:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7890,8 +8200,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:25:37.972Z",
-      "updatedAt": "2026-10-25T23:25:37.972Z",
+      "createdAt": "2026-10-25T23:36:33.941Z",
+      "updatedAt": "2026-10-25T23:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7920,8 +8230,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:25:37.972Z",
-      "updatedAt": "2026-10-25T23:25:37.972Z",
+      "createdAt": "2026-10-25T23:36:33.941Z",
+      "updatedAt": "2026-10-25T23:36:33.941Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7949,8 +8259,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T23:25:37.972Z",
-      "updatedAt": "2026-10-22T23:25:37.972Z",
+      "createdAt": "2026-10-22T23:36:33.941Z",
+      "updatedAt": "2026-10-22T23:36:33.941Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7987,8 +8297,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T23:25:37.972Z",
-      "updatedAt": "2026-11-03T23:25:37.972Z",
+      "createdAt": "2026-11-03T23:36:33.941Z",
+      "updatedAt": "2026-11-03T23:36:33.941Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8016,8 +8326,8 @@
     "guide": {
      "version": "cfd2ca038b4a08ed119940df760cca5ca904a528",
      "date": null,
-     "fetchedAt": "2026-11-06T23:25:38.855Z",
-     "checkedAt": "2026-11-06T23:25:38.855Z",
+     "fetchedAt": "2026-11-06T23:36:34.702Z",
+     "checkedAt": "2026-11-06T23:36:34.702Z",
      "error": null,
      "source": "directory",
      "skipped": [
@@ -8053,7 +8363,7 @@
       "lastSyncAt": null,
       "neverSynced": true,
       "state": {
-       "checkedAt": "2026-11-06T23:25:39.036Z",
+       "checkedAt": "2026-11-06T23:36:34.873Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8087,10 +8397,10 @@
       "templateId": "00000000-0000-4000-8000-000000000017",
       "templateName": "Movies HD",
       "guardMode": "auto",
-      "lastSyncAt": "2026-11-06T23:25:38.961Z",
+      "lastSyncAt": "2026-11-06T23:36:34.802Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T23:25:39.015Z",
+       "checkedAt": "2026-11-06T23:36:34.849Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8099,7 +8409,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T23:25:38.961Z",
+        "at": "2026-11-06T23:36:34.802Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000018",
         "error": null
@@ -8118,10 +8428,10 @@
       "templateId": "00000000-0000-4000-8000-000000000019",
       "templateName": "Movies 4K",
       "guardMode": "notify",
-      "lastSyncAt": "2026-11-06T23:25:38.995Z",
+      "lastSyncAt": "2026-11-06T23:36:34.831Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T23:25:39.025Z",
+       "checkedAt": "2026-11-06T23:36:34.863Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8130,7 +8440,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T23:25:38.995Z",
+        "at": "2026-11-06T23:36:34.831Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000020",
         "error": null
@@ -8164,8 +8474,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:25:38.906Z",
-      "updatedAt": "2026-11-06T23:25:38.906Z"
+      "createdAt": "2026-11-06T23:36:34.750Z",
+      "updatedAt": "2026-11-06T23:36:34.750Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000017",
@@ -8190,8 +8500,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:25:38.900Z",
-      "updatedAt": "2026-11-06T23:25:38.900Z"
+      "createdAt": "2026-11-06T23:36:34.745Z",
+      "updatedAt": "2026-11-06T23:36:34.745Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000016",
@@ -8228,8 +8538,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:25:38.911Z",
-      "updatedAt": "2026-11-06T23:25:38.911Z"
+      "createdAt": "2026-11-06T23:36:34.755Z",
+      "updatedAt": "2026-11-06T23:36:34.755Z"
      }
     ],
     "changelog": []
@@ -8243,7 +8553,7 @@
       "id": "00000000-0000-4000-8000-000000000020",
       "instanceId": "00000000-0000-4000-8000-000000000005",
       "templateName": "Movies 4K",
-      "at": "2026-11-06T23:25:38.995Z",
+      "at": "2026-11-06T23:36:34.831Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -8329,7 +8639,7 @@
       "id": "00000000-0000-4000-8000-000000000018",
       "instanceId": "00000000-0000-4000-8000-000000000004",
       "templateName": "Movies HD",
-      "at": "2026-11-06T23:25:38.961Z",
+      "at": "2026-11-06T23:36:34.802Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -10230,6 +10540,4332 @@
     "brakes": []
    }
   },
+  "/api/storage?days=30": {
+   "status": 200,
+   "body": {
+    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshing": false,
+    "settings": {
+     "warnDays": 30,
+     "criticalDays": 7,
+     "warnPercent": 5,
+     "criticalPercent": 2,
+     "lookbackDays": 30
+    },
+    "apps": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "instanceName": "Sonarr",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000003",
+      "instanceName": "Sonarr 4K",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "instanceName": "Radarr",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "instanceName": "Radarr 4K",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "instanceName": "Lidarr",
+      "adapter": "lidarr",
+      "error": null
+     }
+    ],
+    "disks": [
+     {
+      "key": "d3c816c24",
+      "label": "/uhd",
+      "media": true,
+      "totalBytes": 8796093022208,
+      "freeBytes": 633507676160,
+      "usedBytes": 8162585346048,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/tv-4k"
+        ],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 25850306882,
+       "daysLeft": 24.5,
+       "fullAt": "2026-12-01T11:46:20.492Z",
+       "earliestAt": "2026-11-30T17:20:06.607Z",
+       "latestAt": "2026-12-02T12:54:16.630Z",
+       "basisDays": 29
+      },
+      "level": "warning",
+      "reason": "forecast"
+     },
+     {
+      "key": "d8824d11d",
+      "label": "/data",
+      "media": true,
+      "totalBytes": 17592186044416,
+      "freeBytes": 3738339534438,
+      "usedBytes": 13853846509978,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/movies"
+        ],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/music"
+        ],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 33207623910,
+       "daysLeft": 112.6,
+       "fullAt": "2027-02-27T13:24:12.353Z",
+       "earliestAt": "2027-02-25T14:48:40.508Z",
+       "latestAt": "2027-03-01T11:48:01.406Z",
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     },
+     {
+      "key": "dd98521de",
+      "label": "/",
+      "media": false,
+      "totalBytes": 128849018880,
+      "freeBytes": 76235669504,
+      "usedBytes": 52613349376,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "stable",
+       "bytesPerDay": -15265874,
+       "daysLeft": null,
+       "fullAt": null,
+       "earliestAt": null,
+       "latestAt": null,
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     }
+    ],
+    "history": {
+     "d3c816c24": [
+      {
+       "day": "2026-10-08",
+       "usedBytes": 7405043470266,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 7436865203347,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 7494090659973,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 7525769761887,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 7506097574365,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 7537083787491,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 7559588704962,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 7584098528636,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 7620218478738,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 7653392834462,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 7698728587894,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 7687883575105,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 7719348345624,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 7744593991801,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 7774181045314,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 7795888664460,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 7826902764968,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 7873280796292,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 7876753082517,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 7903432579722,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 7927697441698,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 7952267302117,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 7975725717961,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 8033099446373,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 8063993706317,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 8054977074755,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 8081290303793,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 8103858147470,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 8126400979774,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 8162585346048,
+       "totalBytes": 8796093022208
+      }
+     ],
+     "d8824d11d": [
+      {
+       "day": "2026-10-08",
+       "usedBytes": 12884812435368,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 12928433041754,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 12951827312382,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 12988261513867,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 13019139780987,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 13057402170336,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 13081448706477,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 13124445003414,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 13156057621878,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 13184221608473,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 13227838241016,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 13257905803103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 13296121914195,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 13326427368097,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 13346488294118,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 13389428473716,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 13413801163190,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 13458178264988,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 13479406903668,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 13515984102054,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 13555002826543,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 13594819143764,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 13617986870103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 13650638195974,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 13692747476805,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 13715451946002,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 13756087813455,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 13782017910141,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 13813500687693,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 13853846509978,
+       "totalBytes": 17592186044416
+      }
+     ],
+     "dd98521de": [
+      {
+       "day": "2026-10-08",
+       "usedBytes": 52034160030,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 53130214168,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 51572654495,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 52883795500,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 53546206492,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 53546285155,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 53130335447,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 52667328906,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 52059279920,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 52248796721,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 53537848127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 52351283828,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 52232739620,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 52455296826,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 52554797479,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 52836278733,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 52114775770,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 52129823954,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 52074296683,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 52816523356,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 52079752408,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 52940182522,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 52375815158,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 52756228860,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 51675496801,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 53681014336,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 53610487260,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 51908469665,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 51753962442,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 52613349376,
+       "totalBytes": 128849018880
+      }
+     ]
+    }
+   }
+  },
+  "/api/storage?days=90": {
+   "status": 200,
+   "body": {
+    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshing": false,
+    "settings": {
+     "warnDays": 30,
+     "criticalDays": 7,
+     "warnPercent": 5,
+     "criticalPercent": 2,
+     "lookbackDays": 30
+    },
+    "apps": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "instanceName": "Sonarr",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000003",
+      "instanceName": "Sonarr 4K",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "instanceName": "Radarr",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "instanceName": "Radarr 4K",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "instanceName": "Lidarr",
+      "adapter": "lidarr",
+      "error": null
+     }
+    ],
+    "disks": [
+     {
+      "key": "d3c816c24",
+      "label": "/uhd",
+      "media": true,
+      "totalBytes": 8796093022208,
+      "freeBytes": 633507676160,
+      "usedBytes": 8162585346048,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/tv-4k"
+        ],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 25850306882,
+       "daysLeft": 24.5,
+       "fullAt": "2026-12-01T11:46:20.492Z",
+       "earliestAt": "2026-11-30T17:20:06.607Z",
+       "latestAt": "2026-12-02T12:54:16.630Z",
+       "basisDays": 29
+      },
+      "level": "warning",
+      "reason": "forecast"
+     },
+     {
+      "key": "d8824d11d",
+      "label": "/data",
+      "media": true,
+      "totalBytes": 17592186044416,
+      "freeBytes": 3738339534438,
+      "usedBytes": 13853846509978,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/movies"
+        ],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/music"
+        ],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 33207623910,
+       "daysLeft": 112.6,
+       "fullAt": "2027-02-27T13:24:12.353Z",
+       "earliestAt": "2027-02-25T14:48:40.508Z",
+       "latestAt": "2027-03-01T11:48:01.406Z",
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     },
+     {
+      "key": "dd98521de",
+      "label": "/",
+      "media": false,
+      "totalBytes": 128849018880,
+      "freeBytes": 76235669504,
+      "usedBytes": 52613349376,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "stable",
+       "bytesPerDay": -15265874,
+       "daysLeft": null,
+       "fullAt": null,
+       "earliestAt": null,
+       "latestAt": null,
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     }
+    ],
+    "history": {
+     "d3c816c24": [
+      {
+       "day": "2026-08-09",
+       "usedBytes": 5890390504348,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 5895753755852,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 5907106858455,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 5940832268054,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 5964501110554,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 5995340329664,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 6034013908813,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 6065948107377,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 6065423708938,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 6084970791645,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 6116221342298,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 6149978684620,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 6171132819635,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 6228346451910,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 6241616377145,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 6253465439956,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 6280401634531,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 6301483126359,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 6327355253754,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 6353230785446,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 6396917628613,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 6455606331606,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 6426474187773,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 6464553446041,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 6486737259516,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 6516078893076,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 6539353688610,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 6567684287662,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 6596755221000,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 6607343801256,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 6637186627649,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 6663966884881,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 6691831823153,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 6715769497114,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 6784017042763,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 6794652610455,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 6789015138395,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 6816607603944,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 6843693836655,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 6873818827050,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 6889002120931,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 6951715701282,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 6950382439923,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 6971646503222,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 7002318192735,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 7028429779169,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 7052476110476,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 7080213718752,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 7141650571150,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 7135522083781,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 7154495671795,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 7186185301000,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 7210647997261,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 7233729401572,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 7265041458509,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 7313393113811,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 7316832131038,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 7333638035396,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 7361880501500,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 7377176797073,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 7405043470266,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 7436865203347,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 7494090659973,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 7525769761887,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 7506097574365,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 7537083787491,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 7559588704962,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 7584098528636,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 7620218478738,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 7653392834462,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 7698728587894,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 7687883575105,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 7719348345624,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 7744593991801,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 7774181045314,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 7795888664460,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 7826902764968,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 7873280796292,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 7876753082517,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 7903432579722,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 7927697441698,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 7952267302117,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 7975725717961,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 8033099446373,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 8063993706317,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 8054977074755,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 8081290303793,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 8103858147470,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 8126400979774,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 8162585346048,
+       "totalBytes": 8796093022208
+      }
+     ],
+     "d8824d11d": [
+      {
+       "day": "2026-08-09",
+       "usedBytes": 11644314621534,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 11676449221959,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 11709778951195,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 11738388736374,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 11772549761890,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 11808304272580,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 11835926427797,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 11882768486235,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 11909857258165,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 11945530295662,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 11977428368823,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 12002110794921,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 12048754584961,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 12076674311434,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 12110510009566,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 12150348202959,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 12176178395340,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 12203606039096,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 12243512387021,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 12279480617539,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 12306081356142,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 12334049519426,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 12368908215930,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 12409828662880,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 12440372166658,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 12482985025912,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 12509192413265,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 12542076060654,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 12571730055949,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 12607825520976,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 12646620025170,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 12668717407278,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 12706394408823,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 12739992243753,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 12770833147666,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 12811541384371,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 12837512180220,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 12876566815683,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 12912855983792,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 12936250922276,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 12975464107161,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 13004913750255,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 13049249721725,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 13080220908417,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 13107571951173,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 13133139915631,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 13173919225091,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 12460319617853,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 12481226969681,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 12525714438059,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 12562327023596,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 12590059414659,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 12622845472978,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 12649201877850,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 12686410708746,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 12729501619419,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 12753279130639,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 12791646589505,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 12821040316650,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 12857779076233,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 12884812435368,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 12928433041754,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 12951827312382,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 12988261513867,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 13019139780987,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 13057402170336,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 13081448706477,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 13124445003414,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 13156057621878,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 13184221608473,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 13227838241016,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 13257905803103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 13296121914195,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 13326427368097,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 13346488294118,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 13389428473716,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 13413801163190,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 13458178264988,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 13479406903668,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 13515984102054,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 13555002826543,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 13594819143764,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 13617986870103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 13650638195974,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 13692747476805,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 13715451946002,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 13756087813455,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 13782017910141,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 13813500687693,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 13853846509978,
+       "totalBytes": 17592186044416
+      }
+     ],
+     "dd98521de": [
+      {
+       "day": "2026-08-09",
+       "usedBytes": 51578509646,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 52060679127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 52717841322,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 53178175078,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 53225852130,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 52500111317,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 51581808936,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 53243660801,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 53513170199,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 51851540284,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 53639128536,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 52841692511,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 52658676791,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 52084495545,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 52050942105,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 51781734449,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 53004713638,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 51562635690,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 53000860646,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 52405912072,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 53109686975,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 53503825991,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 52315044624,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 53596150367,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 51921514471,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 52312779969,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 53185256338,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 52777149494,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 53553458744,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 52014088469,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 53683752756,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 52758865845,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 52672620540,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 53246535411,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 52380937774,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 52081020911,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 53550811410,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 53449417687,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 51997564294,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 52197255856,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 53204641314,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 51778564199,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 52923279342,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 52990040464,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 53485405618,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 52015672929,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 53186249153,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 53415910022,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 52794903799,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 53104702185,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 53016915888,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 51958038942,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 53064752589,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 53607771024,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 52478961735,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 52281120077,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 53371292059,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 53595225579,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 53247813176,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 53170217266,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 52034160030,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 53130214168,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 51572654495,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 52883795500,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 53546206492,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 53546285155,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 53130335447,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 52667328906,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 52059279920,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 52248796721,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 53537848127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 52351283828,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 52232739620,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 52455296826,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 52554797479,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 52836278733,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 52114775770,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 52129823954,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 52074296683,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 52816523356,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 52079752408,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 52940182522,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 52375815158,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 52756228860,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 51675496801,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 53681014336,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 53610487260,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 51908469665,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 51753962442,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 52613349376,
+       "totalBytes": 128849018880
+      }
+     ]
+    }
+   }
+  },
+  "/api/storage?days=365": {
+   "status": 200,
+   "body": {
+    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshing": false,
+    "settings": {
+     "warnDays": 30,
+     "criticalDays": 7,
+     "warnPercent": 5,
+     "criticalPercent": 2,
+     "lookbackDays": 30
+    },
+    "apps": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000002",
+      "instanceName": "Sonarr",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000003",
+      "instanceName": "Sonarr 4K",
+      "adapter": "sonarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "instanceName": "Radarr",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "instanceName": "Radarr 4K",
+      "adapter": "radarr",
+      "error": null
+     },
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000006",
+      "instanceName": "Lidarr",
+      "adapter": "lidarr",
+      "error": null
+     }
+    ],
+    "disks": [
+     {
+      "key": "d3c816c24",
+      "label": "/uhd",
+      "media": true,
+      "totalBytes": 8796093022208,
+      "freeBytes": 633507676160,
+      "usedBytes": 8162585346048,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/tv-4k"
+        ],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 25850306882,
+       "daysLeft": 24.5,
+       "fullAt": "2026-12-01T11:46:20.492Z",
+       "earliestAt": "2026-11-30T17:20:06.607Z",
+       "latestAt": "2026-12-02T12:54:16.630Z",
+       "basisDays": 29
+      },
+      "level": "warning",
+      "reason": "forecast"
+     },
+     {
+      "key": "d8824d11d",
+      "label": "/data",
+      "media": true,
+      "totalBytes": 17592186044416,
+      "freeBytes": 3738339534438,
+      "usedBytes": 13853846509978,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/movies"
+        ],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/music"
+        ],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       }
+      ],
+      "forecast": {
+       "status": "filling",
+       "bytesPerDay": 33207623910,
+       "daysLeft": 112.6,
+       "fullAt": "2027-02-27T13:24:12.353Z",
+       "earliestAt": "2027-02-25T14:48:40.508Z",
+       "latestAt": "2027-03-01T11:48:01.406Z",
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     },
+     {
+      "key": "dd98521de",
+      "label": "/",
+      "media": false,
+      "totalBytes": 128849018880,
+      "freeBytes": 76235669504,
+      "usedBytes": 52613349376,
+      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "members": [
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       }
+      ],
+      "forecast": {
+       "status": "stable",
+       "bytesPerDay": -15265874,
+       "daysLeft": null,
+       "fullAt": null,
+       "earliestAt": null,
+       "latestAt": null,
+       "basisDays": 29
+      },
+      "level": "ok",
+      "reason": null
+     }
+    ],
+    "history": {
+     "d3c816c24": [
+      {
+       "day": "2026-07-09",
+       "usedBytes": 5069524019131,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-10",
+       "usedBytes": 5086683083544,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-11",
+       "usedBytes": 5158605182863,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-12",
+       "usedBytes": 5192614382297,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-13",
+       "usedBytes": 5163641091135,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-14",
+       "usedBytes": 5196406545467,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-15",
+       "usedBytes": 5216198777358,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-16",
+       "usedBytes": 5253403521533,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-17",
+       "usedBytes": 5266072942422,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-18",
+       "usedBytes": 5335750911667,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-19",
+       "usedBytes": 5354511414868,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-20",
+       "usedBytes": 5345421355300,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-21",
+       "usedBytes": 5379571668861,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-22",
+       "usedBytes": 5404496008333,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-23",
+       "usedBytes": 5420681552849,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-24",
+       "usedBytes": 5453917984775,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-25",
+       "usedBytes": 5503270172189,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-26",
+       "usedBytes": 5526130946256,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-27",
+       "usedBytes": 5533508670083,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-28",
+       "usedBytes": 5554471246620,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-29",
+       "usedBytes": 5571025126447,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-30",
+       "usedBytes": 5615280398154,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-07-31",
+       "usedBytes": 5634901407039,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-01",
+       "usedBytes": 5689569837277,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-02",
+       "usedBytes": 5719250926081,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-03",
+       "usedBytes": 5717040039506,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-04",
+       "usedBytes": 5735603603520,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-05",
+       "usedBytes": 5764059963975,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-06",
+       "usedBytes": 5786142692293,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-07",
+       "usedBytes": 5816961461098,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-08",
+       "usedBytes": 5860811575260,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-09",
+       "usedBytes": 5890390504348,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 5895753755852,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 5907106858455,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 5940832268054,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 5964501110554,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 5995340329664,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 6034013908813,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 6065948107377,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 6065423708938,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 6084970791645,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 6116221342298,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 6149978684620,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 6171132819635,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 6228346451910,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 6241616377145,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 6253465439956,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 6280401634531,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 6301483126359,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 6327355253754,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 6353230785446,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 6396917628613,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 6455606331606,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 6426474187773,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 6464553446041,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 6486737259516,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 6516078893076,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 6539353688610,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 6567684287662,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 6596755221000,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 6607343801256,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 6637186627649,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 6663966884881,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 6691831823153,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 6715769497114,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 6784017042763,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 6794652610455,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 6789015138395,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 6816607603944,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 6843693836655,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 6873818827050,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 6889002120931,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 6951715701282,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 6950382439923,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 6971646503222,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 7002318192735,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 7028429779169,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 7052476110476,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 7080213718752,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 7141650571150,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 7135522083781,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 7154495671795,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 7186185301000,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 7210647997261,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 7233729401572,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 7265041458509,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 7313393113811,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 7316832131038,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 7333638035396,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 7361880501500,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 7377176797073,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 7405043470266,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 7436865203347,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 7494090659973,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 7525769761887,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 7506097574365,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 7537083787491,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 7559588704962,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 7584098528636,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 7620218478738,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 7653392834462,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 7698728587894,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 7687883575105,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 7719348345624,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 7744593991801,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 7774181045314,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 7795888664460,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 7826902764968,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 7873280796292,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 7876753082517,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 7903432579722,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 7927697441698,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 7952267302117,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 7975725717961,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 8033099446373,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 8063993706317,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 8054977074755,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 8081290303793,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 8103858147470,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 8126400979774,
+       "totalBytes": 8796093022208
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 8162585346048,
+       "totalBytes": 8796093022208
+      }
+     ],
+     "d8824d11d": [
+      {
+       "day": "2026-07-09",
+       "usedBytes": 10610236856565,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-10",
+       "usedBytes": 10639317638601,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-11",
+       "usedBytes": 10679863504754,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-12",
+       "usedBytes": 10703190858099,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-13",
+       "usedBytes": 10752083627013,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-14",
+       "usedBytes": 10783578514870,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-15",
+       "usedBytes": 10809383795682,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-16",
+       "usedBytes": 10836304782351,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-17",
+       "usedBytes": 10873171190556,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-18",
+       "usedBytes": 10903365846257,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-19",
+       "usedBytes": 10941117846227,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-20",
+       "usedBytes": 10983035741776,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-21",
+       "usedBytes": 11016974675387,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-22",
+       "usedBytes": 11039937548131,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-23",
+       "usedBytes": 11083630022376,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-24",
+       "usedBytes": 11109865634097,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-25",
+       "usedBytes": 11145821341886,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-26",
+       "usedBytes": 11171612471236,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-27",
+       "usedBytes": 11205545519792,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-28",
+       "usedBytes": 11244000851017,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-29",
+       "usedBytes": 11284394493677,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-30",
+       "usedBytes": 11308674394850,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-07-31",
+       "usedBytes": 11340838633964,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-01",
+       "usedBytes": 11378218623316,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-02",
+       "usedBytes": 11412574915406,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-03",
+       "usedBytes": 11447023912438,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-04",
+       "usedBytes": 11479224760228,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-05",
+       "usedBytes": 11504340039474,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-06",
+       "usedBytes": 11535421943270,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-07",
+       "usedBytes": 11584352775587,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-08",
+       "usedBytes": 11614557499546,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-09",
+       "usedBytes": 11644314621534,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 11676449221959,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 11709778951195,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 11738388736374,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 11772549761890,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 11808304272580,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 11835926427797,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 11882768486235,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 11909857258165,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 11945530295662,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 11977428368823,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 12002110794921,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 12048754584961,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 12076674311434,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 12110510009566,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 12150348202959,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 12176178395340,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 12203606039096,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 12243512387021,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 12279480617539,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 12306081356142,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 12334049519426,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 12368908215930,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 12409828662880,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 12440372166658,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 12482985025912,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 12509192413265,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 12542076060654,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 12571730055949,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 12607825520976,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 12646620025170,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 12668717407278,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 12706394408823,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 12739992243753,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 12770833147666,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 12811541384371,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 12837512180220,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 12876566815683,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 12912855983792,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 12936250922276,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 12975464107161,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 13004913750255,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 13049249721725,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 13080220908417,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 13107571951173,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 13133139915631,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 13173919225091,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 12460319617853,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 12481226969681,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 12525714438059,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 12562327023596,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 12590059414659,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 12622845472978,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 12649201877850,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 12686410708746,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 12729501619419,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 12753279130639,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 12791646589505,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 12821040316650,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 12857779076233,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 12884812435368,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 12928433041754,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 12951827312382,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 12988261513867,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 13019139780987,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 13057402170336,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 13081448706477,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 13124445003414,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 13156057621878,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 13184221608473,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 13227838241016,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 13257905803103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 13296121914195,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 13326427368097,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 13346488294118,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 13389428473716,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 13413801163190,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 13458178264988,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 13479406903668,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 13515984102054,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 13555002826543,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 13594819143764,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 13617986870103,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 13650638195974,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 13692747476805,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 13715451946002,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 13756087813455,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 13782017910141,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 13813500687693,
+       "totalBytes": 17592186044416
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 13853846509978,
+       "totalBytes": 17592186044416
+      }
+     ],
+     "dd98521de": [
+      {
+       "day": "2026-07-09",
+       "usedBytes": 52666898235,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-10",
+       "usedBytes": 53107329577,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-11",
+       "usedBytes": 53125078754,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-12",
+       "usedBytes": 52026512063,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-13",
+       "usedBytes": 51844900229,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-14",
+       "usedBytes": 52743077856,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-15",
+       "usedBytes": 53046984020,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-16",
+       "usedBytes": 52674497874,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-17",
+       "usedBytes": 53638998085,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-18",
+       "usedBytes": 53013661358,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-19",
+       "usedBytes": 51592504827,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-20",
+       "usedBytes": 52235614421,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-21",
+       "usedBytes": 51694014127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-22",
+       "usedBytes": 51881960408,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-23",
+       "usedBytes": 52702996645,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-24",
+       "usedBytes": 52583541062,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-25",
+       "usedBytes": 51702934127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-26",
+       "usedBytes": 53437918935,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-27",
+       "usedBytes": 51659307515,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-28",
+       "usedBytes": 51696399625,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-29",
+       "usedBytes": 53496439998,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-30",
+       "usedBytes": 52486688359,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-07-31",
+       "usedBytes": 52767800231,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-01",
+       "usedBytes": 52654433436,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-02",
+       "usedBytes": 52162041762,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-03",
+       "usedBytes": 52345814095,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-04",
+       "usedBytes": 53032480314,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-05",
+       "usedBytes": 52948782308,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-06",
+       "usedBytes": 53034751240,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-07",
+       "usedBytes": 52822617316,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-08",
+       "usedBytes": 51629160403,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-09",
+       "usedBytes": 51578509646,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-10",
+       "usedBytes": 52060679127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-11",
+       "usedBytes": 52717841322,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-12",
+       "usedBytes": 53178175078,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-13",
+       "usedBytes": 53225852130,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-14",
+       "usedBytes": 52500111317,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-15",
+       "usedBytes": 51581808936,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-16",
+       "usedBytes": 53243660801,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-17",
+       "usedBytes": 53513170199,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-18",
+       "usedBytes": 51851540284,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-19",
+       "usedBytes": 53639128536,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-20",
+       "usedBytes": 52841692511,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-21",
+       "usedBytes": 52658676791,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-22",
+       "usedBytes": 52084495545,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-23",
+       "usedBytes": 52050942105,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-24",
+       "usedBytes": 51781734449,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-25",
+       "usedBytes": 53004713638,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-26",
+       "usedBytes": 51562635690,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-27",
+       "usedBytes": 53000860646,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-28",
+       "usedBytes": 52405912072,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-29",
+       "usedBytes": 53109686975,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-30",
+       "usedBytes": 53503825991,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-08-31",
+       "usedBytes": 52315044624,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-01",
+       "usedBytes": 53596150367,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-02",
+       "usedBytes": 51921514471,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-03",
+       "usedBytes": 52312779969,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-04",
+       "usedBytes": 53185256338,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-05",
+       "usedBytes": 52777149494,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-06",
+       "usedBytes": 53553458744,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-07",
+       "usedBytes": 52014088469,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-08",
+       "usedBytes": 53683752756,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-09",
+       "usedBytes": 52758865845,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-10",
+       "usedBytes": 52672620540,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-11",
+       "usedBytes": 53246535411,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-12",
+       "usedBytes": 52380937774,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-13",
+       "usedBytes": 52081020911,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-14",
+       "usedBytes": 53550811410,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-15",
+       "usedBytes": 53449417687,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-16",
+       "usedBytes": 51997564294,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-17",
+       "usedBytes": 52197255856,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-18",
+       "usedBytes": 53204641314,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-19",
+       "usedBytes": 51778564199,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-20",
+       "usedBytes": 52923279342,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-21",
+       "usedBytes": 52990040464,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-22",
+       "usedBytes": 53485405618,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-23",
+       "usedBytes": 52015672929,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-24",
+       "usedBytes": 53186249153,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-25",
+       "usedBytes": 53415910022,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-26",
+       "usedBytes": 52794903799,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-27",
+       "usedBytes": 53104702185,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-28",
+       "usedBytes": 53016915888,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-29",
+       "usedBytes": 51958038942,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-09-30",
+       "usedBytes": 53064752589,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-01",
+       "usedBytes": 53607771024,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-02",
+       "usedBytes": 52478961735,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-03",
+       "usedBytes": 52281120077,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-04",
+       "usedBytes": 53371292059,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-05",
+       "usedBytes": 53595225579,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-06",
+       "usedBytes": 53247813176,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-07",
+       "usedBytes": 53170217266,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-08",
+       "usedBytes": 52034160030,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-09",
+       "usedBytes": 53130214168,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-10",
+       "usedBytes": 51572654495,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-11",
+       "usedBytes": 52883795500,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-12",
+       "usedBytes": 53546206492,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-13",
+       "usedBytes": 53546285155,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-14",
+       "usedBytes": 53130335447,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-15",
+       "usedBytes": 52667328906,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-16",
+       "usedBytes": 52059279920,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-17",
+       "usedBytes": 52248796721,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-18",
+       "usedBytes": 53537848127,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-19",
+       "usedBytes": 52351283828,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-20",
+       "usedBytes": 52232739620,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-21",
+       "usedBytes": 52455296826,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-22",
+       "usedBytes": 52554797479,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-23",
+       "usedBytes": 52836278733,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-24",
+       "usedBytes": 52114775770,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-25",
+       "usedBytes": 52129823954,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-26",
+       "usedBytes": 52074296683,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-27",
+       "usedBytes": 52816523356,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-28",
+       "usedBytes": 52079752408,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-29",
+       "usedBytes": 52940182522,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-30",
+       "usedBytes": 52375815158,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-10-31",
+       "usedBytes": 52756228860,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-01",
+       "usedBytes": 51675496801,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-02",
+       "usedBytes": 53681014336,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-03",
+       "usedBytes": 53610487260,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-04",
+       "usedBytes": 51908469665,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-05",
+       "usedBytes": 51753962442,
+       "totalBytes": 128849018880
+      },
+      {
+       "day": "2026-11-06",
+       "usedBytes": 52613349376,
+       "totalBytes": 128849018880
+      }
+     ]
+    }
+   }
+  },
   "/api/library?days=7": {
    "status": 200,
    "body": {
@@ -10239,7 +14875,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:25:39.121Z",
+      "refreshedAt": "2026-11-06T23:36:35.068Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -10469,13 +15105,13 @@
       ]
      ],
      "plays": 16,
-     "playedMs": 35432100,
+     "playedMs": 35432506,
      "transcodes": 5,
      "users": [
       {
        "user": "Mira",
        "plays": 6,
-       "playedMs": 10408650
+       "playedMs": 10408853
       },
       {
        "user": "Jonas",
@@ -10485,7 +15121,7 @@
       {
        "user": "Demo",
        "plays": 5,
-       "playedMs": 10323450
+       "playedMs": 10323653
       }
      ],
      "topTitles": [
@@ -10565,7 +15201,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:25:39.121Z"
+     "refreshedAt": "2026-11-06T23:36:35.068Z"
     },
     "streams": {
      "days": 7,
@@ -10754,7 +15390,7 @@
       ]
      ],
      "plays": 16,
-     "playedMs": 35432100,
+     "playedMs": 35432506,
      "transcodes": 5,
      "topTitles": [
       {
@@ -10821,7 +15457,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:25:39.121Z",
+      "refreshedAt": "2026-11-06T23:36:35.068Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -11051,18 +15687,18 @@
       ]
      ],
      "plays": 71,
-     "playedMs": 238588500,
+     "playedMs": 238588906,
      "transcodes": 14,
      "users": [
       {
        "user": "Mira",
        "plays": 38,
-       "playedMs": 132038250
+       "playedMs": 132038453
       },
       {
        "user": "Demo",
        "plays": 19,
-       "playedMs": 68174250
+       "playedMs": 68174453
       },
       {
        "user": "Jonas",
@@ -11250,7 +15886,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:25:39.121Z"
+     "refreshedAt": "2026-11-06T23:36:35.068Z"
     },
     "streams": {
      "days": 30,
@@ -11439,7 +16075,7 @@
       ]
      ],
      "plays": 71,
-     "playedMs": 238588500,
+     "playedMs": 238588906,
      "transcodes": 14,
      "topTitles": [
       {
@@ -11609,7 +16245,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:25:39.121Z",
+      "refreshedAt": "2026-11-06T23:36:35.068Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -11839,18 +16475,18 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339908100,
+     "playedMs": 339908506,
      "transcodes": 18,
      "users": [
       {
        "user": "Mira",
        "plays": 55,
-       "playedMs": 200863650
+       "playedMs": 200863853
       },
       {
        "user": "Demo",
        "plays": 26,
-       "playedMs": 88248450
+       "playedMs": 88248653
       },
       {
        "user": "Jonas",
@@ -12098,7 +16734,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:25:39.121Z"
+     "refreshedAt": "2026-11-06T23:36:35.068Z"
     },
     "streams": {
      "days": 90,
@@ -12287,7 +16923,7 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339908100,
+     "playedMs": 339908506,
      "transcodes": 18,
      "topTitles": [
       {
@@ -12517,7 +17153,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:25:39.121Z",
+      "refreshedAt": "2026-11-06T23:36:35.068Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -12747,18 +17383,18 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505916700,
+     "playedMs": 505917106,
      "transcodes": 33,
      "users": [
       {
        "user": "Mira",
        "plays": 83,
-       "playedMs": 280463850
+       "playedMs": 280464053
       },
       {
        "user": "Demo",
        "plays": 37,
-       "playedMs": 125508450
+       "playedMs": 125508653
       },
       {
        "user": "Jonas",
@@ -13202,7 +17838,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:25:39.121Z"
+     "refreshedAt": "2026-11-06T23:36:35.068Z"
     },
     "streams": {
      "days": 365,
@@ -13391,7 +18027,7 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505916700,
+     "playedMs": 505917106,
      "transcodes": 33,
      "topTitles": [
       {
@@ -14546,8 +19182,8 @@
    "body": {
     "feed": {
      "id": "00000000-0000-4000-8000-000000000021",
-     "createdAt": "2026-11-06T23:25:45.690Z",
-     "lastUsedAt": "2026-11-06T23:25:45.693Z"
+     "createdAt": "2026-11-06T23:36:41.615Z",
+     "lastUsedAt": "2026-11-06T23:36:41.618Z"
     }
    }
   },
@@ -14560,8 +19196,8 @@
       "userId": "00000000-0000-4000-8000-000000000001",
       "username": "demo",
       "displayName": "Demo Admin",
-      "createdAt": "2026-11-06T23:25:45.690Z",
-      "lastUsedAt": "2026-11-06T23:25:45.693Z"
+      "createdAt": "2026-11-06T23:36:41.615Z",
+      "lastUsedAt": "2026-11-06T23:36:41.618Z"
      }
     ]
    }
@@ -14571,361 +19207,361 @@
    "body": {
     "points": [
      {
-      "at": "2026-11-06T22:26:00.000Z",
+      "at": "2026-11-06T22:37:00.000Z",
       "speed": 48592000,
       "downloads": 3,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:27:00.000Z",
+      "at": "2026-11-06T22:38:00.000Z",
       "speed": 56163283,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:28:00.000Z",
+      "at": "2026-11-06T22:39:00.000Z",
       "speed": 62248972,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:29:00.000Z",
+      "at": "2026-11-06T22:40:00.000Z",
       "speed": 65820625,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:30:00.000Z",
+      "at": "2026-11-06T22:41:00.000Z",
       "speed": 66612115,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:31:00.000Z",
+      "at": "2026-11-06T22:42:00.000Z",
       "speed": 65171834,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:32:00.000Z",
+      "at": "2026-11-06T22:43:00.000Z",
       "speed": 62645877,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:33:00.000Z",
+      "at": "2026-11-06T22:44:00.000Z",
       "speed": 60366385,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:34:00.000Z",
+      "at": "2026-11-06T22:45:00.000Z",
       "speed": 59384477,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:35:00.000Z",
+      "at": "2026-11-06T22:46:00.000Z",
       "speed": 60105556,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:36:00.000Z",
+      "at": "2026-11-06T22:47:00.000Z",
       "speed": 62150023,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:37:00.000Z",
+      "at": "2026-11-06T22:48:00.000Z",
       "speed": 64486352,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:38:00.000Z",
+      "at": "2026-11-06T22:49:00.000Z",
       "speed": 65791575,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:39:00.000Z",
+      "at": "2026-11-06T22:50:00.000Z",
       "speed": 64917433,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:40:00.000Z",
+      "at": "2026-11-06T22:51:00.000Z",
       "speed": 61304661,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:41:00.000Z",
+      "at": "2026-11-06T22:52:00.000Z",
       "speed": 55205002,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:42:00.000Z",
+      "at": "2026-11-06T22:53:00.000Z",
       "speed": 47634958,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T22:43:00.000Z",
+      "at": "2026-11-06T22:54:00.000Z",
       "speed": 40075308,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:44:00.000Z",
+      "at": "2026-11-06T22:55:00.000Z",
       "speed": 34015748,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:45:00.000Z",
+      "at": "2026-11-06T22:56:00.000Z",
       "speed": 30496042,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:46:00.000Z",
+      "at": "2026-11-06T22:57:00.000Z",
       "speed": 29796248,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:47:00.000Z",
+      "at": "2026-11-06T22:58:00.000Z",
       "speed": 31378584,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:48:00.000Z",
+      "at": "2026-11-06T22:59:00.000Z",
       "speed": 34099024,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:49:00.000Z",
+      "at": "2026-11-06T23:00:00.000Z",
       "speed": 36616272,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:50:00.000Z",
+      "at": "2026-11-06T23:01:00.000Z",
       "speed": 37859665,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:51:00.000Z",
+      "at": "2026-11-06T23:02:00.000Z",
       "speed": 37398036,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:52:00.000Z",
+      "at": "2026-11-06T23:03:00.000Z",
       "speed": 35585176,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:53:00.000Z",
+      "at": "2026-11-06T23:04:00.000Z",
       "speed": 33432988,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:54:00.000Z",
+      "at": "2026-11-06T23:05:00.000Z",
       "speed": 32255284,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:55:00.000Z",
+      "at": "2026-11-06T23:06:00.000Z",
       "speed": 33202599,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:56:00.000Z",
+      "at": "2026-11-06T23:07:00.000Z",
       "speed": 36845346,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:57:00.000Z",
+      "at": "2026-11-06T23:08:00.000Z",
       "speed": 42946632,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-06T22:58:00.000Z",
+      "at": "2026-11-06T23:09:00.000Z",
       "speed": 50502516,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-06T22:59:00.000Z",
+      "at": "2026-11-06T23:10:00.000Z",
       "speed": 58037750,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:00:00.000Z",
+      "at": "2026-11-06T23:11:00.000Z",
       "speed": 64059246,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:01:00.000Z",
+      "at": "2026-11-06T23:12:00.000Z",
       "speed": 67516532,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:02:00.000Z",
+      "at": "2026-11-06T23:13:00.000Z",
       "speed": 68116055,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:03:00.000Z",
+      "at": "2026-11-06T23:14:00.000Z",
       "speed": 66385235,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:04:00.000Z",
+      "at": "2026-11-06T23:15:00.000Z",
       "speed": 63466104,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:05:00.000Z",
+      "at": "2026-11-06T23:16:00.000Z",
       "speed": 60709072,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:06:00.000Z",
+      "at": "2026-11-06T23:17:00.000Z",
       "speed": 59204258,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:07:00.000Z",
+      "at": "2026-11-06T23:18:00.000Z",
       "speed": 59408532,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:08:00.000Z",
+      "at": "2026-11-06T23:19:00.000Z",
       "speed": 60993883,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:09:00.000Z",
+      "at": "2026-11-06T23:20:00.000Z",
       "speed": 62968021,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:10:00.000Z",
+      "at": "2026-11-06T23:21:00.000Z",
       "speed": 64026263,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:11:00.000Z",
+      "at": "2026-11-06T23:22:00.000Z",
       "speed": 63015659,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:12:00.000Z",
+      "at": "2026-11-06T23:23:00.000Z",
       "speed": 59354357,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:13:00.000Z",
+      "at": "2026-11-06T23:24:00.000Z",
       "speed": 53263931,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T23:14:00.000Z",
+      "at": "2026-11-06T23:25:00.000Z",
       "speed": 45735133,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T23:15:00.000Z",
+      "at": "2026-11-06T23:26:00.000Z",
       "speed": 38236967,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:16:00.000Z",
+      "at": "2026-11-06T23:27:00.000Z",
       "speed": 32265205,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:17:00.000Z",
+      "at": "2026-11-06T23:28:00.000Z",
       "speed": 28880428,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:18:00.000Z",
+      "at": "2026-11-06T23:29:00.000Z",
       "speed": 28389250,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:19:00.000Z",
+      "at": "2026-11-06T23:30:00.000Z",
       "speed": 30274389,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:20:00.000Z",
+      "at": "2026-11-06T23:31:00.000Z",
       "speed": 33395754,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:21:00.000Z",
+      "at": "2026-11-06T23:32:00.000Z",
       "speed": 36393891,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:22:00.000Z",
+      "at": "2026-11-06T23:33:00.000Z",
       "speed": 38159334,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:23:00.000Z",
+      "at": "2026-11-06T23:34:00.000Z",
       "speed": 38209613,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:24:00.000Z",
+      "at": "2026-11-06T23:35:00.000Z",
       "speed": 36847016,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:25:00.000Z",
+      "at": "2026-11-06T23:36:00.000Z",
       "speed": 60740000,
       "downloads": 3,
       "streams": 3
@@ -15018,7 +19654,7 @@
      {
       "day": "2026-11-06",
       "critical": 0,
-      "warning": 4,
+      "warning": 5,
       "info": 3
      }
     ]
