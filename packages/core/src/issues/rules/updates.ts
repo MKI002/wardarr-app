@@ -37,7 +37,9 @@ export const updateAvailable: IssueRule<{ version: string }> = {
       severity: 'info',
       title: { key: 'issues.update.title', params: { instances: names } },
       affected: { key: 'issues.common.instances', params: { instances: names } },
-      explanation: { key: 'issues.update.explanation', params: { version: matches[0]!.params.version } },
+      explanation: matches[0]!.params.version
+        ? { key: 'issues.update.explanation', params: { version: matches[0]!.params.version } }
+        : { key: 'issues.update.explanationNoVersion' },
       fix: { key: 'issues.update.fix' },
       actions: href
         ? [

@@ -13,5 +13,8 @@
   "dependencies": {
     "@wardarr/core": "workspace:*",
     "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@wardarr/i18n": "workspace:*"
   }
 }

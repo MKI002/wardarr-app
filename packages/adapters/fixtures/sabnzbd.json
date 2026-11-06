@@ -1,0 +1,96 @@
+{
+  "adapter": "sabnzbd",
+  "baseUrl": "http://sabnzbd.example.test",
+  "credentials": {
+    "apiKey": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/api",
+      "query": {
+        "mode": "version"
+      },
+      "json": {
+        "version": "4.5.3"
+      }
+    },
+    {
+      "path": "/api",
+      "query": {
+        "mode": "queue",
+        "apikey": "00000000000000000000000000000001"
+      },
+      "json": {
+        "queue": {
+          "kbpersec": "2048.0",
+          "paused": false,
+          "slots": [
+            {
+              "nzo_id": "SABnzbd_nzo_fixture1",
+              "filename": "Example.Show.S01E02.1080p",
+              "status": "Downloading",
+              "percentage": "42",
+              "mb": "1000",
+              "mbleft": "580",
+              "timeleft": "0:04:10",
+              "cat": "tv"
+            },
+            {
+              "nzo_id": "SABnzbd_nzo_fixture2",
+              "filename": "Sample.Movie.2024.1080p",
+              "status": "Queued",
+              "percentage": "0",
+              "mb": "4000",
+              "mbleft": "4000",
+              "timeleft": "0:00:00",
+              "cat": "movies"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api",
+      "query": {
+        "mode": "warnings",
+        "apikey": "00000000000000000000000000000001"
+      },
+      "json": {
+        "warnings": [
+          {
+            "text": "Example warning from the downloader",
+            "type": "WARNING",
+            "time": 1700000000
+          }
+        ]
+      }
+    },
+    {
+      "path": "/api",
+      "json": {
+        "status": false,
+        "error": "API Key Incorrect"
+      }
+    }
+  ],
+  "expect": {
+    "version": "4.5.3",
+    "health": [
+      {
+        "source": "Warnings",
+        "level": "warning"
+      }
+    ],
+    "downloads": [
+      {
+        "state": "downloading"
+      },
+      {
+        "state": "queued"
+      }
+    ]
+  }
+}

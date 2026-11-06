@@ -60,6 +60,7 @@
   "update": {
     "title": "Update available for {{instances}}",
     "explanation": "Version {{version}} is available.",
+    "explanationNoVersion": "A new version is available.",
     "fix": "Install the update when it suits you"
   },
   "downloadsFailed": {

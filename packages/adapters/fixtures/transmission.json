@@ -1,0 +1,107 @@
+{
+  "adapter": "transmission",
+  "baseUrl": "http://transmission.example.test",
+  "credentials": {
+    "username": "example-user",
+    "password": "example-password"
+  },
+  "wrongCredentials": {
+    "username": "example-user",
+    "password": "wrong-password"
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/transmission/rpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ=",
+        "x-transmission-session-id": "fixture-session"
+      },
+      "body": {
+        "method": "session-get"
+      },
+      "json": {
+        "result": "success",
+        "arguments": {
+          "version": "4.0.6 (38c164933e)",
+          "rpc-version": 17
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/transmission/rpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ=",
+        "x-transmission-session-id": "fixture-session"
+      },
+      "body": {
+        "method": "torrent-get"
+      },
+      "json": {
+        "result": "success",
+        "arguments": {
+          "torrents": [
+            {
+              "id": 1,
+              "hashString": "0000000000000000000000000000000000000011",
+              "name": "Example.Show.S03E01.720p",
+              "status": 4,
+              "percentDone": 0.25,
+              "totalSize": 800,
+              "rateDownload": 4096,
+              "eta": 300,
+              "addedDate": 1700000000,
+              "error": 0,
+              "labels": ["tv"],
+              "downloadedEver": 200
+            },
+            {
+              "id": 2,
+              "hashString": "0000000000000000000000000000000000000012",
+              "name": "Sample.Movie.2020.1080p",
+              "status": 6,
+              "percentDone": 1,
+              "totalSize": 3000,
+              "rateDownload": 0,
+              "eta": -1,
+              "addedDate": 1700000100,
+              "error": 0,
+              "labels": [],
+              "downloadedEver": 3000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/transmission/rpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ="
+      },
+      "status": 409,
+      "responseHeaders": {
+        "X-Transmission-Session-Id": "fixture-session"
+      },
+      "text": "<h1>409: Conflict</h1>"
+    },
+    {
+      "path": "*",
+      "status": 401,
+      "text": "Unauthorized"
+    }
+  ],
+  "expect": {
+    "version": "4.0.6",
+    "variant": "legacy",
+    "downloads": [
+      {
+        "state": "downloading"
+      },
+      {
+        "state": "seeding"
+      }
+    ]
+  }
+}

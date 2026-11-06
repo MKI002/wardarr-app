@@ -1,0 +1,109 @@
+{
+  "adapter": "qbittorrent",
+  "baseUrl": "http://qbittorrent.example.test",
+  "credentials": {
+    "username": "example-user",
+    "password": "example-password"
+  },
+  "wrongCredentials": {
+    "username": "example-user",
+    "password": "wrong-password"
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/login",
+      "form": {
+        "username": "example-user",
+        "password": "example-password"
+      },
+      "text": "Ok.",
+      "responseHeaders": {
+        "set-cookie": "SID=fixture-sid; HttpOnly; SameSite=Strict; path=/"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/auth/login",
+      "text": "Fails."
+    },
+    {
+      "path": "/api/v2/app/version",
+      "headers": {
+        "cookie": "SID=fixture-sid"
+      },
+      "text": "v5.1.2"
+    },
+    {
+      "path": "/api/v2/app/webapiVersion",
+      "headers": {
+        "cookie": "SID=fixture-sid"
+      },
+      "text": "2.11.4"
+    },
+    {
+      "path": "/api/v2/torrents/info",
+      "headers": {
+        "cookie": "SID=fixture-sid"
+      },
+      "json": [
+        {
+          "hash": "0000000000000000000000000000000000000001",
+          "name": "Example.Show.S02E01.1080p",
+          "state": "downloading",
+          "progress": 0.5,
+          "size": 1000,
+          "downloaded": 500,
+          "dlspeed": 2048,
+          "eta": 120,
+          "category": "tv",
+          "added_on": 1700000000
+        },
+        {
+          "hash": "0000000000000000000000000000000000000002",
+          "name": "Sample.Movie.2021.1080p",
+          "state": "stalledDL",
+          "progress": 0.1,
+          "size": 4000,
+          "downloaded": 400,
+          "dlspeed": 0,
+          "eta": 8640000,
+          "category": "movies",
+          "added_on": 1700000100
+        },
+        {
+          "hash": "0000000000000000000000000000000000000003",
+          "name": "Example.Album.FLAC",
+          "state": "stoppedUP",
+          "progress": 1,
+          "size": 500,
+          "downloaded": 500,
+          "dlspeed": 0,
+          "eta": 8640000,
+          "category": "music",
+          "added_on": 1700000200
+        }
+      ]
+    },
+    {
+      "path": "*",
+      "status": 403,
+      "text": "Forbidden"
+    }
+  ],
+  "expect": {
+    "version": "v5.1.2",
+    "variant": "webapi 2.11.4",
+    "downloads": [
+      {
+        "state": "downloading"
+      },
+      {
+        "state": "stalled"
+      },
+      {
+        "state": "completed"
+      }
+    ]
+  }
+}

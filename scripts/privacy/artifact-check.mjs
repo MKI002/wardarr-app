@@ -101,7 +101,9 @@ function checkText(file, text) {
       for (const m of line.matchAll(EMAIL)) {
         if (!emailAllowed(m[0])) add(file, n, 'e-mail address outside example domains');
       }
-      for (const m of line.matchAll(IPV4)) {
+      // Four-part version numbers (for example 4.9.1.80) look like addresses.
+      const isVersion = /version/i.test(line);
+      for (const m of isVersion ? [] : line.matchAll(IPV4)) {
         if (!ipAllowed(m[1], m[2], m[3], m[4])) add(file, n, 'IPv4 address outside documentation ranges');
       }
     }

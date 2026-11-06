@@ -1,0 +1,104 @@
+{
+  "adapter": "prowlarr",
+  "baseUrl": "http://prowlarr.example.test",
+  "credentials": {
+    "apiKey": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/api/v1/system/status",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "appName": "Prowlarr",
+        "version": "2.1.5.5216"
+      }
+    },
+    {
+      "path": "/api/v1/health",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "source": "IndexerStatusCheck",
+          "type": "warning",
+          "message": "Indexers unavailable due to failures: ExampleIndexer",
+          "wikiUrl": "https://wiki.example.test/prowlarr#indexers"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/indexer",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "id": 1,
+          "name": "ExampleIndexer",
+          "enable": true,
+          "protocol": "torrent"
+        },
+        {
+          "id": 2,
+          "name": "SampleNewz",
+          "enable": true,
+          "protocol": "usenet"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/indexerstatus",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "indexerId": 1,
+          "disabledTill": "2999-01-01T00:00:00Z",
+          "mostRecentFailure": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/config/host",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "port": 9696,
+        "apiKey": "00000000000000000000000000000001",
+        "password": "example-password",
+        "username": "example-admin"
+      }
+    },
+    {
+      "path": "*",
+      "status": 401
+    }
+  ],
+  "expect": {
+    "version": "2.1.5.5216",
+    "health": [
+      {
+        "source": "IndexerStatusCheck",
+        "level": "warning"
+      }
+    ],
+    "indexers": [
+      {
+        "name": "ExampleIndexer",
+        "failing": true
+      },
+      {
+        "name": "SampleNewz",
+        "failing": false
+      }
+    ]
+  }
+}

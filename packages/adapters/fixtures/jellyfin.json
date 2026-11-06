@@ -1,0 +1,99 @@
+{
+  "adapter": "jellyfin",
+  "baseUrl": "http://jellyfin.example.test",
+  "credentials": {
+    "apiKey": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/System/Info",
+      "headers": {
+        "authorization": "MediaBrowser Token=\"00000000000000000000000000000001\""
+      },
+      "json": {
+        "Version": "10.11.2",
+        "ProductName": "Jellyfin Server",
+        "ServerName": "Example Server"
+      }
+    },
+    {
+      "path": "/Sessions",
+      "headers": {
+        "authorization": "MediaBrowser Token=\"00000000000000000000000000000001\""
+      },
+      "query": {
+        "ActiveWithinSeconds": "960"
+      },
+      "json": [
+        {
+          "Id": "session-1",
+          "UserName": "demo-viewer",
+          "Client": "Example Web",
+          "DeviceName": "Living Room",
+          "PlayMethod": "DirectPlay",
+          "NowPlayingItem": {
+            "Name": "Pilot",
+            "SeriesName": "Example Show",
+            "Type": "Episode",
+            "RunTimeTicks": 26000000000,
+            "IndexNumber": 1,
+            "ParentIndexNumber": 1,
+            "Height": 1080
+          },
+          "PlayState": {
+            "PositionTicks": 13000000000,
+            "IsPaused": false
+          }
+        },
+        {
+          "Id": "session-2",
+          "UserName": "demo-guest",
+          "Client": "Example TV",
+          "DeviceName": "Bedroom",
+          "PlayMethod": "Transcode",
+          "NowPlayingItem": {
+            "Name": "Sample Movie",
+            "Type": "Movie",
+            "RunTimeTicks": 60000000000,
+            "Height": 2160
+          },
+          "PlayState": {
+            "PositionTicks": 6000000000,
+            "IsPaused": true
+          },
+          "TranscodingInfo": {
+            "IsVideoDirect": false
+          }
+        },
+        {
+          "Id": "session-3",
+          "UserName": "demo-idle",
+          "Client": "Example App",
+          "DeviceName": "Phone"
+        }
+      ]
+    },
+    {
+      "path": "*",
+      "status": 401
+    }
+  ],
+  "expect": {
+    "version": "10.11.2",
+    "sessions": [
+      {
+        "title": "Example Show",
+        "state": "playing",
+        "transcoding": false
+      },
+      {
+        "title": "Sample Movie",
+        "state": "paused",
+        "transcoding": true
+      }
+    ]
+  }
+}
