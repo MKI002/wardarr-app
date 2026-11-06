@@ -241,7 +241,17 @@
     },
     "expand": "Show details",
     "collapse": "Hide details",
-    "bySeverity": "Open issues by severity"
+    "bySeverity": "Open issues by severity",
+    "eyebrow": "Issue center",
+    "heroClear": "All clear. Wardarr keeps watching.",
+    "heroCritical_one": "{{count}} critical issue needs you now.",
+    "heroCritical_other": "{{count}} critical issues need you now.",
+    "heroCalm": "Nothing critical. Have a look when you have time.",
+    "newPerDay": "New in the last 14 days",
+    "resolvedRecently_one": "{{count}} resolved",
+    "resolvedRecently_other": "{{count}} resolved",
+    "noneNew": "No new issues",
+    "byService": "Most affected"
   },
   "queue": {
     "unmatched": "Not matched to the library",

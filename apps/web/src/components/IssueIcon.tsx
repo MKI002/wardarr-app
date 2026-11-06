@@ -2,25 +2,31 @@
 // The kind comes from the rule id at the front of the fingerprint.
 import type { Tone } from './ui';
 
-type Kind = 'indexer' | 'download' | 'folder' | 'update' | 'connection' | 'pause' | 'alert';
+type Kind = 'indexer' | 'download' | 'folder' | 'update' | 'connection' | 'pause' | 'sync' | 'alert';
 
 const RULE_KIND: Record<string, Kind> = {
-  indexerUnavailable: 'indexer',
-  allIndexersUnavailable: 'indexer',
-  indexerSearch: 'indexer',
-  downloadClient: 'download',
-  downloadsFailed: 'download',
-  importReady: 'download',
-  attemptsExhausted: 'download',
-  orphans: 'download',
-  rootFolder: 'folder',
-  remotePath: 'folder',
-  mediaCache: 'folder',
-  update: 'update',
-  unreachable: 'connection',
-  unauthorized: 'connection',
-  apiCompat: 'connection',
-  cleanerPaused: 'pause',
+  'indexer-unavailable': 'indexer',
+  'all-indexers-unavailable': 'indexer',
+  'indexer-search-unavailable': 'indexer',
+  'download-client-unavailable': 'download',
+  'downloads-failed': 'download',
+  'cleaner-import-ready': 'download',
+  'cleaner-attempts-exhausted': 'download',
+  'cleaner-orphaned-downloads': 'download',
+  'root-folder-missing': 'folder',
+  'remote-path-mapping': 'folder',
+  'wardarr-media-cache': 'folder',
+  'update-available': 'update',
+  'instance-unreachable': 'connection',
+  'credentials-rejected': 'connection',
+  'wardarr-api-compatibility': 'connection',
+  'cleaner-paused': 'pause',
+  'trash-guide-fetch-failed': 'sync',
+  'trash-local-drift': 'sync',
+  'trash-guide-drift': 'sync',
+  'trash-sync-failed': 'sync',
+  'trash-sync-paused': 'pause',
+  'trash-unsupported-version': 'connection',
 };
 
 const PATHS: Record<Kind, string[]> = {
@@ -30,6 +36,7 @@ const PATHS: Record<Kind, string[]> = {
   update: ['M12 19V6', 'm6 11 6-6 6 6'],
   connection: ['M9 7V3', 'M15 7V3', 'M6 7h12v4a6 6 0 0 1-12 0Z', 'M12 17v4'],
   pause: ['M9 6v12', 'M15 6v12'],
+  sync: ['M20 11a8 8 0 0 0-14.3-4.9L4 8', 'M4 4v4h4', 'M4 13a8 8 0 0 0 14.3 4.9L20 16', 'M20 20v-4h-4'],
   alert: [
     'M12 8v5',
     'M12 16.5v.5',
