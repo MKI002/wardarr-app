@@ -13,6 +13,7 @@ Admins set this up under **Settings → Notifications**.
 | ntfy     | A topic, and the server if it is not ntfy.sh        | Optional access token for protected topics. |
 | Gotify   | Your Gotify server and an application token         |                                             |
 | Telegram | A bot token and the chat id the bot writes to       |                                             |
+| E-mail   | An SMTP server, a sender and up to ten recipients   | STARTTLS, TLS or none; login optional.      |
 
 Every channel has a **Send test** button. Secrets are write-only: once
 saved, the form only shows that a value is set. Leave the field empty to
@@ -20,11 +21,14 @@ keep it.
 
 ## What is sent
 
+A new channel only announces new issues. Turn on the rest per channel.
+
 - **New issues** above the threshold you pick: critical only, warnings and
-  critical, all, or none. Wardarr waits a minute before it announces an
-  issue, so problems that fix themselves stay quiet.
-- **Issues resolved**, only on channels that announced them.
-- **Requests waiting for approval**, for requests made in Wardarr.
+  critical (the default), all, or none. Wardarr waits a minute before it
+  announces an issue, so problems that fix themselves stay quiet.
+- **Issues resolved**, only on channels that announced them. Off by default.
+- **Requests waiting for approval**, for requests made in Wardarr. Off by
+  default.
 
 A channel sends at most 20 messages in 10 minutes. Each channel has its
 own language.

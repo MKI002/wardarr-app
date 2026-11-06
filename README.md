@@ -42,9 +42,9 @@ titles at a gentle pace and lets everyone in the house request something to watc
   now, plays per day, most watched titles and who watched what.
 - **Indexer statistics.** Queries, grabs, failures and response times per indexer from
   Prowlarr, and which apps depend on an indexer that is failing.
-- **Notifications** to ntfy, Discord, Gotify, Telegram or any webhook: new issues above a
-  threshold, resolved issues and requests waiting for approval. Problems that fix themselves
-  within a minute stay quiet.
+- **Notifications** by e-mail, ntfy, Discord, Gotify, Telegram or any webhook. New issues
+  above a threshold by default; resolved issues and requests waiting for approval when you want
+  them. Problems that fix themselves within a minute stay quiet.
 - **Knows your versions.** Wardarr detects the version and API of each service and keeps
   talking to it correctly after an update. When a product moves beyond what was tested, it
   says so and switches to a careful compatibility mode.

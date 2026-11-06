@@ -87,6 +87,9 @@ importers:
       fastify-plugin:
         specifier: ^6.0.1
         version: 6.0.1
+      nodemailer:
+        specifier: ^10.3.1
+        version: 10.3.1
       undici:
         specifier: ^8.12.4
         version: 8.12.4
@@ -2165,6 +2168,10 @@ packages:
   node-releases@2.0.63:
     resolution: {integrity: sha512-6li2QanLsAXpIH2R6j77MzRyvOyrvdTqlKtO4CgBdHGNvN99ZZfyxszHc5o5+IZBWD5u6Hzwg83JoGXmqZNG9Q==}
     engines: {node: '>=18'}
+
+  nodemailer@10.3.1:
+    resolution: {integrity: sha512-uF0AFsJC07Y1vdW7p580DKAnh7rAO+4UPSSB3mDCPNDufoiaOebV6JmrzpxB14OjEEEiBsNdYoM2Y+fN8M7BBA==}
+    engines: {node: '>=20.0.0'}
 
   obug@3.0.0:
     resolution: {integrity: sha512-5vvB5+W7ePv+p3uqxi+RcW1XAzLW0/hxt3/4X4Lc4qHudzOhmBiBwOY6DRob4WnanAEGvNcLjF+KNOufrUoEQw==}
@@ -4290,6 +4297,8 @@ snapshots:
   node-addon-api@8.9.2: {}
 
   node-releases@2.0.63: {}
+
+  nodemailer@10.3.1: {}
 
   obug@3.0.0: {}
 

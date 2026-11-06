@@ -7,12 +7,15 @@
 //   POST /__control/stage2        turns on the Queue Cleaner and Hunting scenario
 //   GET  /__control/calls         changing calls the services received
 //   POST /hook/...                webhook receiver for notifications
+//   SMTP on port 19025            mail server for notifications
 import http from 'node:http';
+import net from 'node:net';
 import { INDEXER_APPS, INDEXER_STATS, createStage3 } from './stage3.mjs';
 
 export const API_KEY = '00000000000000000000000000000001';
 const PORT = Number(process.env.MOCK_PORT ?? 19000);
 const HOST = process.env.MOCK_HOST ?? '127.0.0.1';
+const SMTP_PORT = Number(process.env.MOCK_SMTP_PORT ?? 19025);
 
 const initial = () => ({ indexerBroken: true, updateAvailable: true, queueFailed: true, stage2: false });
 let state = initial();
@@ -333,3 +336,40 @@ http
     return notFound(res);
   })
   .listen(PORT, HOST);
+
+// A minimal SMTP server for e-mail notifications. Records the subject of
+// every message it accepts; logins succeed.
+net
+  .createServer((socket) => {
+    let inData = false;
+    let message = '';
+    let buffer = '';
+    socket.write('220 mail.example.test ESMTP\r\n');
+    socket.on('data', (chunk) => {
+      buffer += chunk.toString();
+      let i;
+      while ((i = buffer.indexOf('\r\n')) >= 0) {
+        const line = buffer.slice(0, i);
+        buffer = buffer.slice(i + 2);
+        if (inData) {
+          if (line === '.') {
+            inData = false;
+            const subject = message.match(/^Subject: (.*)$/m)?.[1] ?? '';
+            calls.push({ service: 'smtp', method: 'DATA', path: '/', body: { subject } });
+            message = '';
+            socket.write('250 queued\r\n');
+          } else message += `${line}\n`;
+          continue;
+        }
+        const cmd = line.slice(0, 4).toUpperCase();
+        if (cmd === 'EHLO') socket.write('250-mail.example.test\r\n250 AUTH PLAIN\r\n');
+        else if (cmd === 'AUTH') socket.write('235 ok\r\n');
+        else if (cmd === 'DATA') {
+          inData = true;
+          socket.write('354 go\r\n');
+        } else if (cmd === 'QUIT') socket.end('221 bye\r\n');
+        else socket.write('250 ok\r\n');
+      }
+    });
+  })
+  .listen(SMTP_PORT, HOST);
