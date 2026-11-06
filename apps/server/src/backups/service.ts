@@ -239,13 +239,11 @@ export class BackupService {
   /** Absolute path of a backup, after checking the id. */
   file(id: string): string {
     if (!ID_PATTERN.test(id)) throw new HttpError(404, 'notFound');
-    const file = path.join(this.dir, `${id}${EXTENSION}`);
-    try {
-      statSync(file);
-    } catch {
-      throw new HttpError(404, 'notFound');
-    }
-    return file;
+    // The path is built from the directory listing, never from the request.
+    const wanted = `${id}${EXTENSION}`;
+    const name = readdirSync(this.dir).find((f) => f === wanted);
+    if (!name) throw new HttpError(404, 'notFound');
+    return path.join(this.dir, name);
   }
 
   private header(id: string): BackupHeader {
