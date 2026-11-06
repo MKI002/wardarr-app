@@ -50,6 +50,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - name: Build the demo (docs/demo.md)
+        run: pnpm --filter @wardarr/web build:demo
 
   e2e:
     name: End-to-end tests

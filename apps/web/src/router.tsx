@@ -132,6 +132,8 @@ const routeTree = rootRoute.addChildren([
 
 export const router = createRouter({
   routeTree,
+  // Wardarr itself is served at `/`; the public demo lives under a sub-path.
+  basepath: import.meta.env.BASE_URL,
   context: { queryClient: undefined as unknown as QueryClient },
 });
 

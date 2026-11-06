@@ -7,6 +7,7 @@ export default tseslint.config(
   {
     ignores: [
       '**/dist/**',
+      '**/dist-demo/**',
       '**/coverage/**',
       '**/drizzle/**',
       '**/playwright-report/**',
