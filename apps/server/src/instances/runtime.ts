@@ -10,6 +10,7 @@ import {
   type QueueItem,
   type Signal,
   type StreamSession,
+  type TranscodeStatus,
 } from '@wardarr/core';
 import type { FastifyBaseLogger } from 'fastify';
 import type { EventBus } from '../events/bus.js';
@@ -33,6 +34,7 @@ export interface InstanceSnapshot {
   sessions: StreamSession[] | null;
   downloads: DownloadJob[] | null;
   indexers: IndexerInfo[] | null;
+  transcoding: TranscodeStatus | null;
 }
 
 interface Entry {
@@ -60,6 +62,7 @@ function emptySnapshot(id: string, status: InstanceHealth): InstanceSnapshot {
     sessions: null,
     downloads: null,
     indexers: null,
+    transcoding: null,
   };
 }
 
@@ -287,12 +290,13 @@ export class InstanceRuntime {
       }
     };
 
-    const [health, queue, sessions, downloads, indexers] = await Promise.all([
+    const [health, queue, sessions, downloads, indexers, transcoding] = await Promise.all([
       step('health', adapter.health?.bind(adapter)),
       step('queue', adapter.queue?.bind(adapter)),
       step('sessions', adapter.sessions?.bind(adapter)),
       step('downloads', adapter.downloads?.bind(adapter)),
       step('indexers', adapter.indexers?.bind(adapter)),
+      step('transcoding', adapter.transcoding?.bind(adapter)),
     ]);
 
     if (health) signals.push(...health);
@@ -320,6 +324,7 @@ export class InstanceRuntime {
     snap.sessions = sessions ?? entry.snapshot.sessions;
     snap.downloads = downloads ?? entry.snapshot.downloads;
     snap.indexers = indexers ?? entry.snapshot.indexers;
+    snap.transcoding = transcoding ?? entry.snapshot.transcoding;
     snap.signals = signals;
     const hasProblems = signals.some((s) => s.level === 'error' || s.level === 'warning');
     snap.status = complete && !hasProblems ? 'ok' : 'degraded';

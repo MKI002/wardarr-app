@@ -17,7 +17,7 @@ way to the screen:
 | Library managers  | Sonarr, Radarr, Lidarr, Readarr, Whisparr |
 | Download clients  | qBittorrent, SABnzbd, Transmission, ...   |
 | Storage           | disks, put together from folders          |
-| Media servers     | Jellyfin, Plex, Emby                      |
+| Media servers     | Jellyfin, Plex, Emby, Tdarr               |
 
 Empty columns are left out. A column with more services than fit side by side
 on a phone wraps into several rows.
@@ -35,6 +35,7 @@ on a phone wraps into several rows.
 | \*arr app → storage         | root folders (`/rootfolder`) and disks (`/diskspace`)         |
 | download client → storage   | the default save folder and the free space the client reports |
 | storage → media server      | the folders of each library                                   |
+| storage → Tdarr             | the folder of each Tdarr library                              |
 
 Wardarr then matches each reported address to a connected instance: the same
 host and port first, then the same name, then being the only instance of that

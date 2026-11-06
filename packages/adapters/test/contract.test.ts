@@ -91,6 +91,7 @@ const METHOD_FOR: Partial<Record<(typeof CAPABILITIES)[number], keyof AdapterIns
   requests: 'requests',
   calendar: 'calendar',
   storage: 'storage',
+  transcoding: 'transcoding',
 };
 
 describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDef) => {

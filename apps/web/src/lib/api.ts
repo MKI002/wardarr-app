@@ -93,7 +93,7 @@ export interface CredentialField {
 export interface AdapterInfo {
   id: string;
   name: string;
-  category: 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests';
+  category: 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests' | 'transcoder';
   lifecycle: 'active' | 'upstreamDiscontinued';
   homepage: string;
   fields: CredentialField[];

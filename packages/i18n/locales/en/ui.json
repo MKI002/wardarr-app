@@ -42,7 +42,8 @@
     "trash": "TRaSH Guides",
     "map": "Map",
     "calendar": "Calendar",
-    "storage": "Storage"
+    "storage": "Storage",
+    "tdarr": "Tdarr"
   },
   "errors": {
     "serverUnreachable": "Wardarr's server does not answer.",
@@ -897,7 +898,9 @@
       "indexersFailing_one": "{{count}} indexer, {{failing}} failing",
       "indexersFailing_other": "{{count}} indexers, {{failing}} failing",
       "queue_one": "{{count}} in queue",
-      "queue_other": "{{count}} in queue"
+      "queue_other": "{{count}} in queue",
+      "workers_one": "{{count}} job running",
+      "workers_other": "{{count}} jobs running"
     },
     "stat": {
       "queue": "In queue",
@@ -907,7 +910,9 @@
       "transcodes": "Transcodes",
       "indexers": "Indexers",
       "failing": "Failing",
-      "issues": "Problems"
+      "issues": "Problems",
+      "nodes": "Nodes",
+      "workers": "Workers busy"
     },
     "storage": {
       "name": "Storage",
@@ -1015,5 +1020,97 @@
     "sentenceFillingAround": "At the current pace {{disk}} is full around {{date}}.",
     "rangeSteady": "It has been filling at a steady pace, so the date is fairly certain.",
     "growthBars": "Space added per day on {{disk}} in the last two weeks"
+  },
+  "tdarr": {
+    "title": "Tdarr",
+    "intro": "What your transcode servers do right now, how much space they saved and which files need a look.",
+    "open": "Open Tdarr",
+    "reload": "Check again",
+    "instances": "Tdarr servers",
+    "none": "No Tdarr connected",
+    "noneBody": "Add Tdarr in Settings to see its nodes, workers, queue and the space it saves here.",
+    "add": "Add Tdarr",
+    "disabled": "{{name}} is switched off in Wardarr.",
+    "unreachable": "{{name}} does not answer right now.",
+    "checked": "Last checked {{when}}.",
+    "saved": "Space saved",
+    "heroNoNodes": "No node is connected, so nothing is being transcoded.",
+    "heroBusy_one": "1 job running on {{nodes}} nodes, {{queued}} files waiting.",
+    "heroBusy_other": "{{count}} jobs running on {{nodes}} nodes, {{queued}} files waiting.",
+    "heroWaiting_one": "All workers are free, 1 file is waiting.",
+    "heroWaiting_other": "All workers are free, {{count}} files are waiting.",
+    "heroIdle": "Everything is done. Tdarr waits for new files.",
+    "savedTrend": "Space saved over the last 30 days",
+    "libraryState": "Transcode state of the library",
+    "state": {
+      "done": "Done",
+      "queued": "Waiting",
+      "failed": "Failed"
+    },
+    "libraryLine": "{{files}} files, {{share}} % done, {{failed}} failed",
+    "nodeState": {
+      "busy": "Working",
+      "idle": "Idle",
+      "paused": "Paused",
+      "offline": "Offline"
+    },
+    "nodesRing": "Nodes by state, {{count}} in total",
+    "ofNodes_one": "of 1 node",
+    "ofNodes_other": "of {{count}} nodes",
+    "transcodes": "Transcodes",
+    "healthChecks": "Health checks",
+    "failed": "Failed",
+    "lastWeek_one": "1 in the last 7 days",
+    "lastWeek_other": "{{count}} in the last 7 days",
+    "perDay": "{{label}} per day, last 14 days",
+    "noFailures": "No file failed",
+    "failedSplit": "{{transcode}} transcodes, {{healthCheck}} health checks",
+    "nodes": "Nodes",
+    "noNodes": "No node connected",
+    "noNodesBody": "Tdarr works on its nodes. Start a node or switch on the node built into the server, and it shows up here.",
+    "slots": "{{busy}} of {{total}} workers busy",
+    "slotBusy": "Busy",
+    "slotFree": "Free",
+    "limits": "{{transcode}} transcode ({{gpu}} GPU), {{check}} health check",
+    "cpu": "CPU",
+    "memory": "Memory",
+    "pausedBody": "Paused in Tdarr. It takes no new jobs.",
+    "idleBody": "Idle, waiting for files.",
+    "fps": "{{fps}} fps",
+    "eta": "{{eta}} left",
+    "progress": "{{file}}: {{pct}} %",
+    "unknownFile": "Unknown file",
+    "kind": {
+      "transcode": "Transcode",
+      "healthCheck": "Health check"
+    },
+    "stuck": "No progress for {{minutes}} min",
+    "offlineSince": "Offline, last seen {{when}}",
+    "finished": "Finished",
+    "history": "Jobs per day",
+    "historyHint": "Last 30 days. Wardarr records this while it runs.",
+    "historyEmpty": "Nothing recorded yet",
+    "libraries": "Space saved per library",
+    "detailFailed": "Could not be read: {{reason}}",
+    "noLibraries": "No library set up in Tdarr",
+    "savedShort": "{{size}} saved",
+    "files_one": "1 file",
+    "files_other": "{{formatted}} files",
+    "openErrors": "Open in Tdarr",
+    "failures": "Failed files",
+    "noFailuresTitle": "No failed files",
+    "noFailuresBody": "When a transcode or health check fails, the file shows up here.",
+    "failuresCount_one": "1 file failed",
+    "failuresCount_other": "{{count}} files failed",
+    "outcome": {
+      "error": "Error",
+      "cancelled": "Cancelled"
+    },
+    "failedKind": {
+      "transcode": "Transcode",
+      "healthCheck": "Health check"
+    },
+    "moreFailures_one": "1 more in Tdarr",
+    "moreFailures_other": "{{count}} more in Tdarr"
   }
 }

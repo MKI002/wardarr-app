@@ -12,14 +12,16 @@
     "apiKeySabnzbd": "Zu finden unter Config → General → Security.",
     "apiKeyJellyfin": "Unter Dashboard → API Keys anlegen.",
     "apiKeyEmby": "Unter Settings → Advanced → API Keys anlegen.",
-    "plexToken": "Dein X-Plex-Token. Der Plex-Hilfeartikel „Finding an authentication token“ erklärt, wo du ihn findest."
+    "plexToken": "Dein X-Plex-Token. Der Plex-Hilfeartikel „Finding an authentication token“ erklärt, wo du ihn findest.",
+    "apiKeyTdarr": "Nur nötig, wenn in Tdarr die Anmeldung aktiv ist. Unter Tools → API Keys anlegen."
   },
   "category": {
     "arr": "Medienverwaltung",
     "indexer": "Indexer",
     "downloader": "Download-Clients",
     "mediaServer": "Medienserver",
-    "requests": "Anfragen"
+    "requests": "Anfragen",
+    "transcoder": "Transkodierung"
   },
   "lifecycle": {
     "upstreamDiscontinued": "Wird nicht mehr weiterentwickelt"

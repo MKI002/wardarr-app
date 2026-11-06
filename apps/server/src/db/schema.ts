@@ -371,3 +371,43 @@ export const storageSettings = sqliteTable('storage_settings', {
   config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
   updatedAt: text('updated_at').notNull().default(now),
 });
+
+/**
+ * Transcode nodes (Tdarr) Wardarr has seen. Nodes that disconnect simply
+ * vanish from the server's list, so Wardarr remembers them to notice that.
+ */
+export const transcodeNodes = sqliteTable(
+  'transcode_nodes',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    nodeId: text('node_id').notNull(),
+    name: text('name').notNull(),
+    firstSeenAt: text('first_seen_at').notNull(),
+    lastSeenAt: text('last_seen_at').notNull(),
+  },
+  (t) => [uniqueIndex('transcode_nodes_instance_node').on(t.instanceId, t.nodeId)],
+);
+
+/**
+ * The counters of a transcode server at the end of each day. Tdarr only
+ * keeps running totals; the differences between days give the history.
+ */
+export const transcodeDaily = sqliteTable(
+  'transcode_daily',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    /** UTC day, `YYYY-MM-DD`. */
+    day: text('day').notNull(),
+    transcodes: integer('transcodes').notNull(),
+    healthChecks: integer('health_checks').notNull(),
+    savedBytes: integer('saved_bytes').notNull(),
+    failedTranscodes: integer('failed_transcodes').notNull(),
+    failedHealthChecks: integer('failed_health_checks').notNull(),
+    queued: integer('queued').notNull(),
+  },
+  (t) => [uniqueIndex('transcode_daily_instance_day').on(t.instanceId, t.day)],
+);

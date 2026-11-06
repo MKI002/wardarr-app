@@ -21,7 +21,8 @@
     "openTrash": "Open TRaSH Guides",
     "previewSync": "Preview sync",
     "openTrashHistory": "Open history",
-    "openStorage": "Open storage"
+    "openStorage": "Open storage",
+    "openTdarr": "Open Tdarr view"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} is unreachable",
@@ -212,5 +213,38 @@
     "affected": "{{count}} instances",
     "explanation": "Wardarr could not download the TRaSH Guides. It keeps working with the last version it has.",
     "fix": "Check the internet access of Wardarr, or the repository in the TRaSH Guides settings"
+  },
+  "transcodeNodeOffline": {
+    "title": "Tdarr node {{node}} is offline",
+    "explanation": "{{node}} was connected to {{instance}} before and is gone now. Its workers stopped, so files wait longer or not at all.",
+    "fix": "Check that {{node}} is running and can reach the Tdarr server. If you removed it on purpose, this resolves after 7 days"
+  },
+  "transcodeNoNodes": {
+    "title": "{{instance}} has no node connected",
+    "explanation": "Tdarr only transcodes and checks files on its nodes. Without a node, {{instance}} does nothing.",
+    "fix": "Start a Tdarr node, or switch on the node built into the server"
+  },
+  "transcodeFailures": {
+    "title_one": "1 file failed in {{instance}}",
+    "title_other": "{{count}} files failed in {{instance}}",
+    "titleBurst_one": "1 new failure in {{instance}} today",
+    "titleBurst_other": "{{count}} new failures in {{instance}} today",
+    "affectedTranscode_one": "1 transcode",
+    "affectedTranscode_other": "{{count}} transcodes",
+    "affectedHealthCheck_one": "1 health check",
+    "affectedHealthCheck_other": "{{count}} health checks",
+    "affectedBoth": "{{transcode}} transcodes, {{healthCheck}} health checks",
+    "explanation": "Tdarr could not transcode these files. The originals are untouched, but they stay as they are.",
+    "explanationHealth": "Tdarr found files that fail their health check, which often means a damaged or incomplete file. Some transcodes may have failed too.",
+    "fix": "Open the error list in Tdarr, read the job report of one file, fix the plugin, flow or node it names and requeue the files"
+  },
+  "transcodeStuck": {
+    "title_one": "1 job seems stuck in {{instance}}",
+    "title_other": "{{count}} jobs seem stuck in {{instance}}",
+    "affected_one": "1 job, no progress for {{minutes}} min",
+    "affected_other": "{{count}} jobs, up to {{minutes}} min without progress",
+    "explanation": "The progress of these jobs has not moved for a long time. A hung encoder or a full cache disk keeps the worker busy and blocks the queue.",
+    "fix": "Look at the worker in Tdarr. Cancel the job if it hangs, and check free space of the transcode cache",
+    "item": "on {{node}}, {{minutes}} min without progress"
   }
 }

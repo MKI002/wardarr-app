@@ -38,6 +38,9 @@ export interface MapNodeView extends MapNode {
     queue?: number;
     streams?: number;
     transcodes?: number;
+    /** Transcode servers: busy workers and connected nodes. */
+    workers?: number;
+    nodes?: number;
     indexers?: number;
     failingIndexers?: number;
     issues?: number;
@@ -161,6 +164,12 @@ export class TopologyService {
       if (snap.sessions) {
         live.streams = snap.sessions.length;
         live.transcodes = snap.sessions.filter((s) => s.transcoding).length;
+      }
+      if (snap.transcoding) {
+        live.nodes = snap.transcoding.nodes.length;
+        live.workers = snap.transcoding.nodes.reduce((sum, n) => sum + n.workers.length, 0);
+        const q = snap.transcoding.totals?.queued;
+        if (q) live.queue = q.transcode + q.healthCheck;
       }
       if (snap.indexers) {
         live.indexers = snap.indexers.filter((i) => i.enabled).length;

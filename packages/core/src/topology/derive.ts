@@ -88,7 +88,9 @@ export function layerOf(category: AdapterCategory | 'storage', adapter?: string 
       return 2;
     case 'storage':
       return 3;
+    // Transcoders work on the stored media, next to the media servers.
     case 'mediaServer':
+    case 'transcoder':
       return 4;
   }
 }

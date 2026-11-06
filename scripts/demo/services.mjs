@@ -8,6 +8,7 @@
 import http from 'node:http';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
 import { DEMO_DISKS } from './disks.mjs';
+import { createTdarr } from './tdarr.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
 const PORT = Number(process.env.DEMO_MOCK_PORT ?? 19300);
@@ -1085,6 +1086,8 @@ async function seerr(path, url, req, res) {
 
 // -------------------------------------------------------------------- server
 
+const tdarr = createTdarr({ now: NOW });
+
 http
   .createServer(async (req, res) => {
     const url = new URL(req.url ?? '/', 'http://mock.invalid');
@@ -1099,6 +1102,7 @@ http
     if (prefix === 'jellyfin') return jellyfin(path, url, res);
     if (prefix === 'prowlarr') return prowlarr(path, req, res);
     if (prefix === 'seerr') return seerr(path, url, req, res);
+    if (prefix === 'tdarr') return tdarr(path, req, res);
     return arr(prefix, path, url, req, res);
   })
   .listen(PORT, HOST);

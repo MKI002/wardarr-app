@@ -42,6 +42,8 @@ export interface MapNode {
     queue?: number;
     streams?: number;
     transcodes?: number;
+    workers?: number;
+    nodes?: number;
     indexers?: number;
     failingIndexers?: number;
     issues?: number;

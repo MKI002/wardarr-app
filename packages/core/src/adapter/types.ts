@@ -6,7 +6,7 @@ import type { Signal } from '../issues/types.js';
 import type { ProfileSyncApi } from '../trash/types.js';
 import type { DiskReport } from '../storage/disks.js';
 
-export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests';
+export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests' | 'transcoder';
 
 /** Capabilities drive which parts of the UI are shown. */
 export const CAPABILITIES = [
@@ -27,6 +27,7 @@ export const CAPABILITIES = [
   'trashSync',
   'calendar',
   'storage',
+  'transcoding',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -401,6 +402,91 @@ export interface LibraryStats {
   videoCodecs: Record<string, number>;
 }
 
+/** What a transcode worker does: convert files or check that they play. */
+export type TranscodeWorkKind = 'transcode' | 'healthCheck';
+
+/** One worker on a transcode node (Tdarr). */
+export interface TranscodeWorker {
+  id: string;
+  kind: TranscodeWorkKind;
+  gpu: boolean;
+  /** Path of the file being worked on, as the service reports it. */
+  file: string | null;
+  /** 0-1. */
+  progress: number;
+  fps: number | null;
+  /** Remaining time as the service reports it, for example `0:12:03`. */
+  eta: string | null;
+  /** Current step, for example the plugin or flow step that runs. */
+  step: string | null;
+  /** When the job started. */
+  startedAt: string | null;
+  originalBytes: number | null;
+  /** Expected size of the output, while the job runs. */
+  estimatedBytes: number | null;
+}
+
+/** Worker slots of a node per kind of work. */
+export interface TranscodeWorkerLimits {
+  transcodeCpu: number;
+  transcodeGpu: number;
+  healthCheckCpu: number;
+  healthCheckGpu: number;
+}
+
+/** A machine that runs transcode workers for a server (a Tdarr node). */
+export interface TranscodeNode {
+  id: string;
+  name: string;
+  paused: boolean;
+  workers: TranscodeWorker[];
+  limits: TranscodeWorkerLimits;
+  cpuPercent: number | null;
+  memoryUsedBytes: number | null;
+  memoryTotalBytes: number | null;
+}
+
+/** Totals of a transcode server. Counters cover the whole library. */
+export interface TranscodeTotals {
+  files: number;
+  transcodes: number;
+  healthChecks: number;
+  /** Space saved by transcodes so far; negative when files grew. */
+  savedBytes: number;
+  queued: { transcode: number; healthCheck: number };
+  /** Transcoded or not required, healthy. */
+  done: { transcode: number; healthCheck: number };
+  /** Errors and cancelled jobs. */
+  failed: { transcode: number; healthCheck: number };
+}
+
+/** What a transcode server is doing right now (capability `transcoding`). */
+export interface TranscodeStatus {
+  nodes: TranscodeNode[];
+  totals: TranscodeTotals | null;
+}
+
+/** A library a transcode server watches, with its own totals when known. */
+export interface TranscodeLibrary {
+  id: string;
+  name: string;
+  folder: string | null;
+  files: number | null;
+  transcodes: number | null;
+  healthChecks: number | null;
+  savedBytes: number | null;
+}
+
+/** A file whose transcode or health check failed. */
+export interface TranscodeFailure {
+  file: string;
+  kind: TranscodeWorkKind;
+  /** `error` or `cancelled`. */
+  outcome: 'error' | 'cancelled';
+  at: string | null;
+  sizeBytes: number | null;
+}
+
 /** What a reported connection between two services is for (stack map). */
 export type LinkKind = 'indexers' | 'downloads' | 'requests' | 'subtitles' | 'mediaServer' | 'libraryUpdate';
 
@@ -498,6 +584,10 @@ export interface AdapterInstance {
   users?(): Promise<ExternalUser[]>;
   // Media servers (capability `library`).
   libraries?(): Promise<LibraryStats[]>;
+  // Transcode servers (capability `transcoding`).
+  transcoding?(): Promise<TranscodeStatus>;
+  transcodeLibraries?(): Promise<TranscodeLibrary[]>;
+  transcodeFailures?(limit: number): Promise<TranscodeFailure[]>;
   // Download clients.
   removeDownload?(jobId: string, opts: { deleteFiles: boolean }): Promise<void>;
   /** Read-only settings. Secrets must already be masked. */

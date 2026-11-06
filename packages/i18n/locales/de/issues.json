@@ -21,7 +21,8 @@
     "openTrash": "TRaSH Guides öffnen",
     "previewSync": "Vorschau ansehen",
     "openTrashHistory": "Verlauf öffnen",
-    "openStorage": "Speicher öffnen"
+    "openStorage": "Speicher öffnen",
+    "openTdarr": "Tdarr-Ansicht öffnen"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} ist nicht erreichbar",
@@ -212,5 +213,38 @@
     "affected": "{{count}} Instanzen",
     "explanation": "Wardarr konnte die TRaSH Guides nicht herunterladen. Es arbeitet mit dem letzten Stand weiter.",
     "fix": "Internetzugang von Wardarr prüfen oder das Repository in den TRaSH-Guides-Einstellungen"
+  },
+  "transcodeNodeOffline": {
+    "title": "Tdarr-Node {{node}} ist offline",
+    "explanation": "{{node}} war mit {{instance}} verbunden und ist jetzt weg. Seine Worker stehen still, Dateien warten länger oder gar nicht.",
+    "fix": "Prüfe, ob {{node}} läuft und den Tdarr-Server erreicht. Wenn du ihn absichtlich entfernt hast, löst sich das nach 7 Tagen von selbst"
+  },
+  "transcodeNoNodes": {
+    "title": "An {{instance}} ist kein Node verbunden",
+    "explanation": "Tdarr transkodiert und prüft Dateien nur auf seinen Nodes. Ohne Node tut {{instance}} nichts.",
+    "fix": "Starte einen Tdarr-Node oder schalte den im Server eingebauten Node ein"
+  },
+  "transcodeFailures": {
+    "title_one": "1 Datei in {{instance}} fehlgeschlagen",
+    "title_other": "{{count}} Dateien in {{instance}} fehlgeschlagen",
+    "titleBurst_one": "1 neuer Fehler in {{instance}} heute",
+    "titleBurst_other": "{{count}} neue Fehler in {{instance}} heute",
+    "affectedTranscode_one": "1 Transkodierung",
+    "affectedTranscode_other": "{{count}} Transkodierungen",
+    "affectedHealthCheck_one": "1 Health-Check",
+    "affectedHealthCheck_other": "{{count}} Health-Checks",
+    "affectedBoth": "{{transcode}} Transkodierungen, {{healthCheck}} Health-Checks",
+    "explanation": "Tdarr konnte diese Dateien nicht transkodieren. Die Originale bleiben unverändert, werden aber auch nicht kleiner.",
+    "explanationHealth": "Tdarr hat Dateien gefunden, die den Health-Check nicht bestehen. Oft heißt das: Die Datei ist beschädigt oder unvollständig. Eventuell sind auch Transkodierungen fehlgeschlagen.",
+    "fix": "Öffne in Tdarr die Fehlerliste, lies den Job-Bericht einer Datei, behebe das genannte Plugin, den Flow oder den Node und stelle die Dateien neu in die Warteschlange"
+  },
+  "transcodeStuck": {
+    "title_one": "1 Job in {{instance}} scheint zu hängen",
+    "title_other": "{{count}} Jobs in {{instance}} scheinen zu hängen",
+    "affected_one": "1 Job, seit {{minutes}} Min. ohne Fortschritt",
+    "affected_other": "{{count}} Jobs, bis zu {{minutes}} Min. ohne Fortschritt",
+    "explanation": "Der Fortschritt dieser Jobs bewegt sich seit langem nicht. Ein hängender Encoder oder eine volle Cache-Platte hält den Worker fest und blockiert die Warteschlange.",
+    "fix": "Sieh dir den Worker in Tdarr an. Brich den Job ab, wenn er hängt, und prüfe den freien Platz des Transcode-Caches",
+    "item": "auf {{node}}, seit {{minutes}} Min. ohne Fortschritt"
   }
 }

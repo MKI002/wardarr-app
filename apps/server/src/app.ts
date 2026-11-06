@@ -51,6 +51,8 @@ import type { GuideSource } from './trash/source.js';
 import type { SecretBox } from './security/crypto.js';
 import { redact, redactString } from './security/redact.js';
 import { registerTopologyRoutes } from './topology/routes.js';
+import { registerTranscodingRoutes } from './transcoding/routes.js';
+import { TranscodingService } from './transcoding/service.js';
 import { TopologyService } from './topology/service.js';
 import { registerUserRoutes } from './users/routes.js';
 import { UserStore } from './users/store.js';
@@ -100,6 +102,7 @@ export interface App {
   trash: TrashService;
   calendar: CalendarService;
   storage: StorageService;
+  transcoding: TranscodingService;
 }
 
 function isFile(p: string): boolean {
@@ -187,6 +190,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const indexers = new IndexerService(runtime);
   const trend = new TrendSampler(runtime);
   const topology = new TopologyService(runtime);
+  const transcoding = new TranscodingService(opts.db, runtime);
   const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
@@ -264,6 +268,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   }
   registerCalendarRoutes(app, { calendar, publicUrl: opts.publicUrl });
   registerStorageRoutes(app, { storage });
+  registerTranscodingRoutes(app, { transcoding });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
@@ -315,5 +320,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     trash,
     calendar,
     storage,
+    transcoding,
   };
 }
