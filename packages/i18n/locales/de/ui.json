@@ -608,14 +608,16 @@
       "discord": "Discord",
       "ntfy": "ntfy",
       "gotify": "Gotify",
-      "telegram": "Telegram"
+      "telegram": "Telegram",
+      "email": "E-Mail"
     },
     "kindHint": {
       "webhook": "JSON an eine beliebige Adresse, auf Wunsch signiert.",
       "discord": "Eine Nachricht in einem Discord-Kanal.",
       "ntfy": "Push aufs Handy über ntfy.sh oder deinen eigenen Server.",
       "gotify": "Push über deinen eigenen Gotify-Server.",
-      "telegram": "Eine Nachricht von deinem Telegram-Bot."
+      "telegram": "Eine Nachricht von deinem Telegram-Bot.",
+      "email": "Eine Nachricht über deinen Mailserver."
     },
     "field": {
       "url": "Adresse",
@@ -626,14 +628,25 @@
       "token": "Zugangstoken",
       "appToken": "Anwendungstoken",
       "botToken": "Bot-Token",
-      "signingSecret": "Signaturschlüssel"
+      "signingSecret": "Signaturschlüssel",
+      "host": "SMTP-Server",
+      "port": "Port",
+      "security": "Verschlüsselung",
+      "username": "Benutzername",
+      "from": "Absenderadresse",
+      "to": "Empfänger",
+      "password": "Passwort"
     },
     "fieldHelp": {
       "topic": "Wähle auf öffentlichen Servern ein langes, schwer zu erratendes Thema.",
       "server": "Für ntfy.sh so lassen.",
       "signingSecret": "Wardarr signiert jede Nachricht mit HMAC-SHA256 im Header x-wardarr-signature.",
       "webhookUrl": "Discord: Kanaleinstellungen → Integrationen → Webhooks.",
-      "chatId": "Der Chat, die Gruppe oder der Kanal, in den der Bot schreibt."
+      "chatId": "Der Chat, die Gruppe oder der Kanal, in den der Bot schreibt.",
+      "host": "Der Hostname deines Mailservers.",
+      "port": "Meist 587 mit STARTTLS oder 465 mit TLS.",
+      "to": "Bis zu zehn Adressen, durch Kommas getrennt.",
+      "username": "Leer lassen, wenn der Server keine Anmeldung braucht."
     },
     "name": "Name",
     "when": "Senden bei",
@@ -662,6 +675,11 @@
     "lastErrorNext": "Prüfe Adresse und Token, und sende dann einen Test.",
     "editTitle": "{{name}} bearbeiten",
     "deleteTitle": "{{name}} löschen?",
-    "deleteBody": "Wardarr sendet dorthin keine Benachrichtigungen mehr. Am Dienst selbst ändert sich nichts."
+    "deleteBody": "Wardarr sendet dorthin keine Benachrichtigungen mehr. Am Dienst selbst ändert sich nichts.",
+    "security": {
+      "starttls": "STARTTLS (Port 587)",
+      "tls": "TLS (Port 465)",
+      "none": "Keine, nur im eigenen Netz"
+    }
   }
 }

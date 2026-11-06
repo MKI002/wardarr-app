@@ -233,7 +233,7 @@ export const requestLinks = sqliteTable(
 export const notificationChannels = sqliteTable('notification_channels', {
   id: text('id').primaryKey(),
   name: text('name').notNull().unique(),
-  kind: text('kind', { enum: ['webhook', 'discord', 'ntfy', 'gotify', 'telegram'] }).notNull(),
+  kind: text('kind', { enum: ['webhook', 'discord', 'ntfy', 'gotify', 'telegram', 'email'] }).notNull(),
   enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
   /** Non-secret settings such as the server address or topic. */
   config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),

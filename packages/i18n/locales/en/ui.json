@@ -608,14 +608,16 @@
       "discord": "Discord",
       "ntfy": "ntfy",
       "gotify": "Gotify",
-      "telegram": "Telegram"
+      "telegram": "Telegram",
+      "email": "E-mail"
     },
     "kindHint": {
       "webhook": "JSON to any address, optionally signed.",
       "discord": "A message in a Discord channel.",
       "ntfy": "Push to your phone through ntfy.sh or your own server.",
       "gotify": "Push through your own Gotify server.",
-      "telegram": "A message from your Telegram bot."
+      "telegram": "A message from your Telegram bot.",
+      "email": "A message through your mail server."
     },
     "field": {
       "url": "Address",
@@ -626,14 +628,25 @@
       "token": "Access token",
       "appToken": "Application token",
       "botToken": "Bot token",
-      "signingSecret": "Signing secret"
+      "signingSecret": "Signing secret",
+      "host": "SMTP server",
+      "port": "Port",
+      "security": "Encryption",
+      "username": "User name",
+      "from": "Sender address",
+      "to": "Recipients",
+      "password": "Password"
     },
     "fieldHelp": {
       "topic": "Pick a long, hard to guess topic on public servers.",
       "server": "Leave as is for ntfy.sh.",
       "signingSecret": "Wardarr signs each message with HMAC-SHA256 in the x-wardarr-signature header.",
       "webhookUrl": "Discord: channel settings → Integrations → Webhooks.",
-      "chatId": "The chat, group or channel the bot writes to."
+      "chatId": "The chat, group or channel the bot writes to.",
+      "host": "The host name of your mail server.",
+      "port": "Usually 587 with STARTTLS or 465 with TLS.",
+      "to": "Up to ten addresses, separated by commas.",
+      "username": "Leave empty if the server does not need a login."
     },
     "name": "Name",
     "when": "Send when",
@@ -662,6 +675,11 @@
     "lastErrorNext": "Check the address and token, then send a test.",
     "editTitle": "Edit {{name}}",
     "deleteTitle": "Delete {{name}}?",
-    "deleteBody": "Wardarr stops sending notifications there. The service itself is not changed."
+    "deleteBody": "Wardarr stops sending notifications there. The service itself is not changed.",
+    "security": {
+      "starttls": "STARTTLS (port 587)",
+      "tls": "TLS (port 465)",
+      "none": "None, only inside your network"
+    }
   }
 }

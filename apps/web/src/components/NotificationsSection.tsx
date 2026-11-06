@@ -22,7 +22,7 @@ import {
   spring,
 } from './ui';
 
-type Kind = 'webhook' | 'discord' | 'ntfy' | 'gotify' | 'telegram';
+type Kind = 'webhook' | 'discord' | 'ntfy' | 'gotify' | 'telegram' | 'email';
 type Threshold = 'critical' | 'warning' | 'info' | 'off';
 
 interface Events {
@@ -49,8 +49,16 @@ interface Data {
   kinds: Array<{ kind: Kind; fields: string[]; secrets: string[] }>;
 }
 
-const KINDS: Kind[] = ['ntfy', 'discord', 'telegram', 'gotify', 'webhook'];
-const DEFAULT_EVENTS: Events = { issueOpened: 'warning', issueResolved: true, requestPending: true };
+const KINDS: Kind[] = ['ntfy', 'discord', 'telegram', 'email', 'gotify', 'webhook'];
+// Like the server: new channels only announce new issues until you choose more.
+const DEFAULT_EVENTS: Events = { issueOpened: 'warning', issueResolved: false, requestPending: false };
+const INITIAL_CONFIG: Partial<Record<Kind, Record<string, string>>> = {
+  ntfy: { server: 'https://ntfy.sh', topic: '' },
+  email: { port: '587', security: 'starttls' },
+};
+/** Fields that may stay empty. */
+const OPTIONAL_FIELDS: Partial<Record<Kind, string[]>> = { ntfy: ['server'], email: ['username'] };
+const SECURITY = ['starttls', 'tls', 'none'] as const;
 
 export function NotificationsSection() {
   const { t } = useTranslation();
@@ -206,9 +214,7 @@ function ChannelDialog({
     channel?.language ?? (i18n.language.startsWith('de') ? 'de' : 'en'),
   );
   const [events, setEvents] = useState<Events>(channel?.events ?? DEFAULT_EVENTS);
-  const [config, setConfig] = useState<Record<string, string>>(
-    channel?.config ?? (kind === 'ntfy' ? { server: 'https://ntfy.sh', topic: '' } : {}),
-  );
+  const [config, setConfig] = useState<Record<string, string>>(channel?.config ?? INITIAL_CONFIG[kind] ?? {});
   const [secret, setSecret] = useState<Record<string, string>>({});
   const [confirmDelete, setConfirmDelete] = useState(false);
   const close = () => {
@@ -242,7 +248,7 @@ function ChannelDialog({
       close();
     },
   });
-  const optionalSecret = kind === 'webhook' || kind === 'ntfy';
+  const optionalSecret = kind === 'webhook' || kind === 'ntfy' || kind === 'email';
 
   return (
     <Dialog
@@ -266,18 +272,38 @@ function ChannelDialog({
           onChange={(e) => setName(e.target.value)}
           required
         />
-        {(fields?.fields ?? []).map((f) => (
-          <TextField
-            key={f}
-            label={t(`ui.notifications.field.${f}`)}
-            help={t(`ui.notifications.fieldHelp.${f}`, { defaultValue: '' }) || undefined}
-            value={config[f] ?? ''}
-            onChange={(e) => setConfig((c) => ({ ...c, [f]: e.target.value }))}
-            required={!(kind === 'ntfy' && f === 'server')}
-            autoComplete="off"
-            spellCheck={false}
-          />
-        ))}
+        {(fields?.fields ?? []).map((f) =>
+          f === 'security' ? (
+            <Select
+              key={f}
+              label={t('ui.notifications.field.security')}
+              value={String(config[f] ?? 'starttls')}
+              onChange={(v) =>
+                setConfig((c) => {
+                  // Follow the usual port when it was still the other default.
+                  const port = String(c.port ?? '');
+                  const next =
+                    v === 'tls' && port === '587' ? '465' : v === 'starttls' && port === '465' ? '587' : port;
+                  return { ...c, [f]: v, port: next };
+                })
+              }
+              options={SECURITY.map((o) => [o, t(`ui.notifications.security.${o}`)])}
+            />
+          ) : (
+            <TextField
+              key={f}
+              label={`${t(`ui.notifications.field.${f}`)}${OPTIONAL_FIELDS[kind]?.includes(f) && kind !== 'ntfy' ? ` (${t('ui.common.optional')})` : ''}`}
+              help={t(`ui.notifications.fieldHelp.${f}`, { defaultValue: '' }) || undefined}
+              value={config[f] ?? ''}
+              onChange={(e) => setConfig((c) => ({ ...c, [f]: e.target.value }))}
+              required={!OPTIONAL_FIELDS[kind]?.includes(f)}
+              type={f === 'from' ? 'email' : 'text'}
+              inputMode={f === 'port' ? 'numeric' : undefined}
+              autoComplete="off"
+              spellCheck={false}
+            />
+          ),
+        )}
         {(fields?.secrets ?? []).map((f) => (
           <TextField
             key={f}

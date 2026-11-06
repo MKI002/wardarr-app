@@ -15,12 +15,15 @@ import { HttpError } from '../http/validate.js';
 import type { IssueService } from '../issues/service.js';
 import { createHttpClient } from '../net/httpClient.js';
 import { checkUrl } from '../net/ssrf.js';
+import { sendMail } from './mailer.js';
 import type { SecretBox } from '../security/crypto.js';
 import { renderMsg, t } from './render.js';
 import {
   KIND_SCHEMAS,
   SECRET_FIELDS,
+  buildMail,
   buildRequest,
+  type OutgoingMail,
   targetUrls,
   type ChannelKind,
   type Level,
@@ -38,8 +41,8 @@ export interface ChannelEvents {
 
 export const DEFAULT_EVENTS: ChannelEvents = {
   issueOpened: 'warning',
-  issueResolved: true,
-  requestPending: true,
+  issueResolved: false,
+  requestPending: false,
 };
 
 const RANK: Record<string, number> = { critical: 0, warning: 1, info: 2, off: 99 };
@@ -80,6 +83,8 @@ export interface NotificationOptions {
   now?: () => Date;
   /** Replaces the HTTP call, for tests. */
   send?: (out: ReturnType<typeof buildRequest>) => Promise<{ status: number }>;
+  /** Replaces the SMTP call, for tests. */
+  sendMail?: (out: OutgoingMail) => Promise<void>;
 }
 
 export class NotificationService {
@@ -269,16 +274,20 @@ export class NotificationService {
     }
     let error: string | null = null;
     try {
-      const out = buildRequest(row.kind, row.config, this.secretOf(row), n);
-      const send =
-        this.opts.send ??
-        (async (o: typeof out) =>
-          createHttpClient({ baseUrl: o.baseUrl, timeoutMs: 10_000, followRedirects: false }).request(
-            o.request,
-          ));
-      const res = await send(out);
-      if (res.status < 200 || res.status >= 300)
-        error = res.status === 401 || res.status === 403 ? 'unauthorized' : 'badResponse';
+      if (row.kind === 'email') {
+        await (this.opts.sendMail ?? sendMail)(buildMail(row.config, this.secretOf(row), n));
+      } else {
+        const out = buildRequest(row.kind, row.config, this.secretOf(row), n);
+        const send =
+          this.opts.send ??
+          (async (o: typeof out) =>
+            createHttpClient({ baseUrl: o.baseUrl, timeoutMs: 10_000, followRedirects: false }).request(
+              o.request,
+            ));
+        const res = await send(out);
+        if (res.status < 200 || res.status >= 300)
+          error = res.status === 401 || res.status === 403 ? 'unauthorized' : 'badResponse';
+      }
     } catch (err) {
       error = err instanceof AdapterError ? err.kind : 'unreachable';
     }

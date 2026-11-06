@@ -44,9 +44,9 @@ anfragen.
   pro Tag, meistgesehene Titel und wer was geschaut hat.
 - **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
   und welche Apps an einem ausfallenden Indexer hängen.
-- **Benachrichtigungen** an ntfy, Discord, Gotify, Telegram oder jeden Webhook: neue Probleme
-  ab einer Schwelle, gelöste Probleme und Anfragen, die auf Freigabe warten. Was sich innerhalb
-  einer Minute selbst erledigt, bleibt still.
+- **Benachrichtigungen** per E-Mail, ntfy, Discord, Gotify, Telegram oder an jeden Webhook.
+  Standardmäßig neue Probleme ab einer Schwelle; gelöste Probleme und Anfragen, die auf Freigabe
+  warten, auf Wunsch. Was sich innerhalb einer Minute selbst erledigt, bleibt still.
 - **Kennt deine Versionen.** Wardarr erkennt Version und API jedes Dienstes und spricht nach
   einem Update weiter richtig mit ihm. Geht ein Produkt über das Getestete hinaus, sagt Wardarr
   das und wechselt in einen vorsichtigen Kompatibilitätsmodus.
