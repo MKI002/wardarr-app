@@ -1,4 +1,5 @@
 // What adapters report for the stack map. All hosts, paths and names are invented.
+import type { ServiceTopology } from '@wardarr/core';
 import { describe, expect, it } from 'vitest';
 import { radarr } from '../src/arr/radarr.js';
 import { jellyfin } from '../src/media/jellyfin.js';
@@ -20,7 +21,7 @@ function make(def: { create: (ctx: never) => unknown }, routes: FixtureRoute[]) 
     credentials: { apiKey: KEY },
     http,
     log: { debug() {}, warn() {} },
-  } as never) as { topology(): Promise<import('@wardarr/core').ServiceTopology> };
+  } as never) as { topology(): Promise<ServiceTopology> };
 }
 
 describe('topology helpers', () => {

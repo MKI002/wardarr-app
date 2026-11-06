@@ -1,10 +1,11 @@
 // Draws the stack map: nodes as logo circles with a status ring, edges as
 // smooth curves. Downloads in progress run along their edge as small dots.
 // All colours come from the theme tokens, so light and dark both work.
-import { motion, useReducedMotionConfig } from 'motion/react';
+import { motion } from 'motion/react';
 import { useMemo, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatBytes, formatSpeed } from '../../lib/format';
+import { useCalm } from '../charts';
 import { logoUrl, needsPlate } from '../ServiceLogo';
 import { spring } from '../ui';
 import { LABEL_H, NODE_R, type MapLayout, type PlacedEdge, type PlacedNode } from './layout';
@@ -12,8 +13,8 @@ import type { MapEdge, MapNode, MapTone } from './types';
 
 export const TONE_VAR: Record<MapTone, string> = {
   ok: 'var(--ok)',
-  // Marks use the brighter warning step where the theme defines one.
-  warning: 'var(--warning-mark, var(--warning))',
+  // Marks use the brighter warning step (see docs/DESIGN.md).
+  warning: 'var(--warning-mark)',
   critical: 'var(--critical)',
   unknown: 'var(--muted)',
   off: 'var(--border)',
@@ -54,8 +55,11 @@ export function nodeLabel(t: T, n: MapNode): string {
   return `${n.name}, ${status}, ${nodeSubline(t, n)}`;
 }
 
-/** A lighter step of a colour, mixed with the card surface instead of using opacity. */
-export function tint(color: string, percent: number): string {
+/**
+ * A lighter step of any colour, mixed with the card surface instead of using
+ * opacity. Like `mix()` in charts.tsx, but for colours that are not a tone.
+ */
+function mix(color: string, percent: number): string {
   return percent >= 100 ? color : `color-mix(in oklab, ${color} ${percent}%, var(--surface))`;
 }
 
@@ -188,7 +192,7 @@ function Node({
       {selected ? (
         <motion.circle
           r={NODE_R + 9}
-          fill={tint('var(--accent)', 16)}
+          fill={mix('var(--accent)', 16)}
           initial={calm ? false : { scale: 0.6 }}
           animate={{ scale: 1 }}
           transition={spring}
@@ -206,7 +210,7 @@ function Node({
         <circle
           r={NODE_R + 3}
           fill="none"
-          stroke={n.type === 'ghost' ? tint('var(--muted)', 70) : tint(TONE_VAR[tone], dim ? 45 : 100)}
+          stroke={n.type === 'ghost' ? mix('var(--muted)', 70) : mix(TONE_VAR[tone], dim ? 45 : 100)}
           strokeWidth={n.type === 'ghost' ? 1.5 : 2.5}
           strokeDasharray={n.type === 'ghost' || tone === 'off' ? '4 4' : undefined}
           style={{ transition: 'stroke 150ms' }}
@@ -284,7 +288,7 @@ function Edge({
       <motion.path
         d={pe.d}
         fill="none"
-        stroke={tint(stroke, strength)}
+        stroke={mix(stroke, strength)}
         strokeWidth={lit ? 2.25 : 1.75}
         strokeLinecap="round"
         strokeDasharray={dash}
@@ -299,7 +303,7 @@ function Edge({
       {e.active && !calm ? (
         <g aria-hidden>
           {[0, 1, 2].map((k) => (
-            <circle key={k} r={2.6} fill={tint('var(--accent)', dim ? 20 : 100)}>
+            <circle key={k} r={2.6} fill={mix('var(--accent)', dim ? 20 : 100)}>
               <animateMotion dur="2.4s" begin={`${-k * 0.8}s`} repeatCount="indefinite" path={pe.d} />
             </circle>
           ))}
@@ -363,7 +367,7 @@ export function StackMapCanvas({
   onSelect: (id: string) => void;
 }) {
   const { t } = useTranslation();
-  const calm = useReducedMotionConfig() === true;
+  const calm = useCalm();
   const [hoverNode, setHoverNode] = useState<string | null>(null);
   const [hoverEdge, setHoverEdge] = useState<PlacedEdge | null>(null);
   const focus = hoverNode ?? selected;

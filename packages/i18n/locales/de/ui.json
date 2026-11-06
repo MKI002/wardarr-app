@@ -717,6 +717,10 @@
   },
   "map": {
     "title": "Stack-Map",
+    "eyebrowServices_one": "{{count}} Dienst",
+    "eyebrowServices_other": "{{count}} Dienste",
+    "eyebrowLinks_one": "{{count}} Verbindung",
+    "eyebrowLinks_other": "{{count}} Verbindungen",
     "intro": "So hängen deine Dienste zusammen, gezeichnet aus dem, was sie voneinander melden.",
     "reload": "Neu einlesen",
     "readAt": "Verbindungen gelesen {{when}}",
