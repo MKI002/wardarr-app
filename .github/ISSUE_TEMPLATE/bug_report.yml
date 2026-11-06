@@ -1,0 +1,64 @@
+name: Bug report
+description: Something in Wardarr does not work as expected.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. **Before you paste anything, remove API keys, tokens,
+        passwords, IP addresses, host names, user names and real titles.** Wardarr masks
+        secrets in its logs, but please check.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. See …
+  - type: input
+    id: version
+    attributes:
+      label: Wardarr version
+      description: The image tag or release, for example 1.2.0.
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How do you run Wardarr?
+      options:
+        - Docker Compose
+        - docker run
+        - Unraid
+        - Other container platform
+        - From source
+    validations:
+      required: true
+  - type: textarea
+    id: services
+    attributes:
+      label: Services involved
+      description: Products and versions, for example "Sonarr 4.0, qBittorrent 5.1".
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant lines from the container log, with personal data removed.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I removed keys, tokens, addresses, names and real titles from everything above.
+          required: true
+        - label: I searched the existing issues.
+          required: true

@@ -1,0 +1,35 @@
+name: New service
+description: Ask for support of a service Wardarr cannot connect to yet.
+labels: [adapter]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adapters are small. If you want to write one yourself, see the
+        [adapter guide](https://github.com/MKI002/wardarr-app/blob/main/docs/guide/adapters.md).
+  - type: input
+    id: service
+    attributes:
+      label: Service
+      description: Name and project homepage.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What should Wardarr show or do with it?
+      description: Health, queue, downloads, sessions, library, requests …
+    validations:
+      required: true
+  - type: input
+    id: api
+    attributes:
+      label: API documentation
+      description: A link to the public API documentation, if there is one.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Help
+      options:
+        - label: I can test an adapter against my own instance.
+        - label: I would like to write the adapter myself.

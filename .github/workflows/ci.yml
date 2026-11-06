@@ -92,7 +92,10 @@ jobs:
       contents: read
       packages: write
     env:
-      PUBLISH: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) }}
+      # Publish from main and from release tags. The release workflow starts
+      # this workflow on the new tag with workflow_dispatch, because a tag
+      # pushed with the workflow token does not trigger a push event.
+      PUBLISH: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Image name
@@ -113,7 +116,8 @@ jobs:
           cache-to: type=gha,mode=max
       - name: Smoke test
         run: |
-          docker run -d --name wardarr -p 8484:8484 wardarr:ci
+          docker run -d --name wardarr -p 8484:8484 --read-only --tmpfs /tmp \
+            --cap-drop ALL --security-opt no-new-privileges:true wardarr:ci
           for i in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:8484/healthz; then break; fi
             sleep 1
