@@ -2,9 +2,10 @@
 // server, plays per person and recent plays; everyone else sees the shared
 // totals without names.
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BarRow, Columns, Heatmap, LiveDot, ProgressRing, SegmentBar } from '../components/charts';
+import { KpiCard, Odometer, PageHeader, SectionRule } from '../components/dash';
 import {
   Badge,
   Button,
@@ -15,7 +16,6 @@ import {
   InlineError,
   SectionTitle,
   Skeleton,
-  spring,
 } from '../components/ui';
 import { api } from '../lib/api';
 import { errorText } from '../lib/errors';
@@ -53,6 +53,8 @@ interface StreamStats {
   users?: Array<{ user: string; plays: number; playedMs: number }>;
   topTitles: Array<{ title: string; mediaType: string; plays: number }>;
   perDay: Array<{ day: string; plays: number }>;
+  /** Plays per weekday (Monday first) and local hour. */
+  perHour?: number[][];
 }
 
 interface SharedStats {
@@ -82,6 +84,8 @@ interface Play {
 const RANGES = [7, 30, 90, 365] as const;
 const RES_ORDER = ['4K', '1080p', '720p', 'SD'];
 
+const tz = () => -new Date().getTimezoneOffset();
+
 export function LibraryPage() {
   const { t } = useTranslation();
   const { me } = useSession();
@@ -89,41 +93,44 @@ export function LibraryPage() {
   const [days, setDays] = useState<(typeof RANGES)[number]>(30);
   const shared = useQuery({
     queryKey: ['stats', days],
-    queryFn: () => api<SharedStats>(`/api/stats?days=${days}`),
+    queryFn: () => api<SharedStats>(`/api/stats?days=${days}&tz=${tz()}`),
   });
   const full = useQuery({
     queryKey: ['library', days],
-    queryFn: () => api<{ servers: ServerView[]; streams: StreamStats }>(`/api/library?days=${days}`),
+    queryFn: () =>
+      api<{ servers: ServerView[]; streams: StreamStats }>(`/api/library?days=${days}&tz=${tz()}`),
     enabled: isAdmin,
   });
   const streams = isAdmin ? full.data?.streams : shared.data?.streams;
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t('ui.library.title')}</h1>
-          <p className="text-sm text-muted">{t(isAdmin ? 'ui.library.introAdmin' : 'ui.library.intro')}</p>
-        </div>
-        <Choice
-          label={t('ui.library.range')}
-          hideLabel
-          value={String(days)}
-          onChange={(v) => setDays(Number(v) as (typeof RANGES)[number])}
-          options={RANGES.map((d) => [String(d), t('ui.library.days', { count: d })])}
-        />
-      </div>
+      <PageHeader
+        eyebrow={t('ui.library.eyebrow')}
+        title={t('ui.library.title')}
+        intro={t(isAdmin ? 'ui.library.introAdmin' : 'ui.library.intro')}
+        actions={
+          <Choice
+            label={t('ui.library.range')}
+            hideLabel
+            value={String(days)}
+            onChange={(v) => setDays(Number(v) as (typeof RANGES)[number])}
+            options={RANGES.map((d) => [String(d), t('ui.library.days', { count: d })])}
+          />
+        }
+      />
 
       {shared.isError ? (
         <InlineError {...errorText(t, shared.error)} onRetry={() => void shared.refetch()} />
       ) : null}
 
+      {streams ? <Hero stats={streams} /> : <Skeleton className="h-64 rounded-[var(--radius-card)]" />}
       <Totals data={shared.data} />
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <SectionTitle>{t('ui.library.playsPerDay')}</SectionTitle>
-          {streams ? <PlaysPerDay stats={streams} /> : <Skeleton className="h-40" />}
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <Card className="flex flex-col gap-3">
+          <SectionTitle>{t('ui.library.whenWatched')}</SectionTitle>
+          {streams ? <WhenWatched stats={streams} /> : <Skeleton className="h-40" />}
         </Card>
         <Card>
           <SectionTitle>{t('ui.library.topTitles')}</SectionTitle>
@@ -138,7 +145,7 @@ export function LibraryPage() {
           ) : null}
           {full.data?.streams.users ? <PerUser users={full.data.streams.users} /> : null}
           <section className="flex flex-col gap-3">
-            <SectionTitle>{t('ui.library.servers')}</SectionTitle>
+            <SectionRule>{t('ui.library.servers')}</SectionRule>
             {full.isPending ? (
               <Skeleton className="h-48 rounded-[var(--radius-card)]" />
             ) : full.data?.servers.length === 0 ? (
@@ -156,11 +163,64 @@ export function LibraryPage() {
   );
 }
 
-function Stat({ label, children }: { label: string; children: React.ReactNode }) {
+/** Hours watched as the hero, plays per day beside it, and how playback went. */
+function Hero({ stats }: { stats: StreamStats }) {
+  const { t, i18n } = useTranslation();
+  const [today] = useState(() => Date.now());
+  const dateFmt = new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' });
+  const perDay = Array.from({ length: stats.days }, (_, i) => {
+    const day = new Date(today - (stats.days - 1 - i) * 86_400_000).toISOString().slice(0, 10);
+    return { day, plays: stats.perDay.find((p) => p.day === day)?.plays ?? 0 };
+  });
+  const direct = stats.plays - stats.transcodes;
   return (
-    <Card className="!p-4">
-      <p className="text-xs text-muted">{label}</p>
-      <p className="mt-1 text-2xl font-semibold tabular-nums">{children}</p>
+    <Card className="grid gap-8 lg:grid-cols-[1fr_1.7fr] lg:items-center">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
+          <Odometer
+            text={formatDuration(Math.round(stats.playedMs / 1000))}
+            className="text-5xl font-bold tracking-tight sm:text-6xl"
+          />
+          <span className="text-sm text-muted">{t('ui.library.watchedLabel')}</span>
+        </div>
+        <p className="text-lg font-medium text-balance">
+          {t('ui.library.heroPlays', { count: stats.plays, days: stats.days })}
+        </p>
+        {stats.plays > 0 ? (
+          <div className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium text-muted">{t('ui.overview.playback')}</span>
+            <SegmentBar
+              tall
+              label={t('ui.overview.playback')}
+              segments={[
+                { key: 'direct', label: t('ui.overview.directPlay'), value: direct, tone: 'accent' },
+                {
+                  key: 'transcode',
+                  label: t('ui.library.transcoded'),
+                  value: stats.transcodes,
+                  tone: 'accent',
+                  shade: 0.45,
+                },
+              ]}
+            />
+          </div>
+        ) : null}
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+          {t('ui.library.playsPerDay')}
+        </span>
+        <Columns
+          height={180}
+          label={t('ui.library.playsPerDay')}
+          emptyLabel={t('ui.library.noPlays')}
+          data={perDay.map((d) => ({
+            key: d.day,
+            label: dateFmt.format(new Date(`${d.day}T12:00:00`)),
+            parts: [{ tone: 'accent', value: d.plays, label: t('ui.library.plays') }],
+          }))}
+        />
+      </div>
     </Card>
   );
 }
@@ -169,38 +229,36 @@ function Totals({ data }: { data: SharedStats | undefined }) {
   const { t, i18n } = useTranslation();
   if (!data) {
     return (
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-        {Array.from({ length: 5 }, (_, i) => (
-          <Skeleton key={i} className="h-20 rounded-[var(--radius-card)]" />
+      <div className="grid gap-3 sm:grid-cols-3">
+        {Array.from({ length: 3 }, (_, i) => (
+          <Skeleton key={i} className="h-24 rounded-[var(--radius-card)]" />
         ))}
       </div>
     );
   }
   const n = new Intl.NumberFormat(i18n.language);
   const k = data.library.kinds;
-  const transcodeShare = data.streams.plays
-    ? Math.round((data.streams.transcodes / data.streams.plays) * 100)
-    : 0;
   return (
     <div className="flex flex-col gap-2">
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-        <Stat label={t('ui.library.movies')}>
-          <CountUp value={k.movie?.items ?? 0} format={(v) => n.format(Math.round(v))} />
-        </Stat>
-        <Stat label={t('ui.library.shows')}>
-          <CountUp value={k.show?.items ?? 0} format={(v) => n.format(Math.round(v))} />
-        </Stat>
-        <Stat label={t('ui.library.size')}>{formatBytes(data.library.sizeBytes || null)}</Stat>
-        <Stat label={t('ui.library.plays')}>
-          <CountUp value={data.streams.plays} format={(v) => n.format(Math.round(v))} />
-        </Stat>
-        <Stat label={t('ui.library.watched')}>
-          {formatDuration(Math.round(data.streams.playedMs / 1000))}
-        </Stat>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <KpiCard
+          label={t('ui.library.movies')}
+          value={<CountUp value={k.movie?.items ?? 0} format={(v) => n.format(Math.round(v))} />}
+          sub={formatBytes(k.movie?.sizeBytes || null)}
+        />
+        <KpiCard
+          label={t('ui.library.shows')}
+          value={<CountUp value={k.show?.items ?? 0} format={(v) => n.format(Math.round(v))} />}
+          sub={formatBytes(k.show?.sizeBytes || null)}
+          delay={0.05}
+        />
+        <KpiCard
+          label={t('ui.library.size')}
+          value={formatBytes(data.library.sizeBytes || null)}
+          delay={0.1}
+        />
       </div>
       <p className="text-xs text-muted">
-        {t('ui.library.transcodeShare', { percent: transcodeShare })}
-        {' · '}
         {data.library.refreshedAt
           ? t('ui.library.refreshed', { when: formatRelative(data.library.refreshedAt, i18n.language) })
           : t('ui.library.notRefreshed')}
@@ -209,63 +267,59 @@ function Totals({ data }: { data: SharedStats | undefined }) {
   );
 }
 
-/** Plays per day as thin bars, one hue, with a value on hover and focus. */
-function PlaysPerDay({ stats }: { stats: StreamStats }) {
-  const { t, i18n } = useTranslation();
-  const [hover, setHover] = useState<number | null>(null);
-  const [today] = useState(() => Date.now());
-  const days = Array.from({ length: stats.days }, (_, i) => {
-    const d = new Date(today - (stats.days - 1 - i) * 86_400_000).toISOString().slice(0, 10);
-    return { day: d, plays: stats.perDay.find((p) => p.day === d)?.plays ?? 0 };
-  });
-  const max = Math.max(1, ...days.map((d) => d.plays));
-  if (stats.plays === 0)
-    return <EmptyState title={t('ui.library.noPlays')} body={t('ui.library.noPlaysBody')} />;
-  const dateFmt = new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' });
-  const active = hover !== null ? days[hover] : undefined;
-  return (
-    <figure className="flex flex-col gap-2">
-      <p className="h-5 text-sm tabular-nums" aria-live="polite">
-        {active ? (
-          <>
-            <span className="text-muted">{dateFmt.format(new Date(active.day))}: </span>
-            {t('ui.library.playsCount', { count: active.plays })}
-          </>
-        ) : (
-          <span className="text-muted">{t('ui.library.peak', { count: max })}</span>
-        )}
-      </p>
-      <div className="flex h-36 items-end gap-[2px]" onMouseLeave={() => setHover(null)}>
-        {days.map((d, i) => (
-          <button
-            key={d.day}
-            type="button"
-            className="group flex h-full min-w-0 flex-1 items-end outline-none"
-            onMouseEnter={() => setHover(i)}
-            onFocus={() => setHover(i)}
-            onBlur={() => setHover(null)}
-            aria-label={`${dateFmt.format(new Date(d.day))}: ${t('ui.library.playsCount', { count: d.plays })}`}
-          >
-            <motion.span
-              className={`block w-full rounded-t-[4px] ${hover === i ? 'bg-accent' : 'bg-accent/70'} group-focus-visible:ring-2 group-focus-visible:ring-accent`}
-              initial={{ height: 0 }}
-              animate={{ height: d.plays ? `${Math.max(4, (d.plays / max) * 100)}%` : '2px' }}
-              transition={spring}
-              style={d.plays ? undefined : { opacity: 0.25 }}
-            />
-          </button>
-        ))}
-      </div>
-      <figcaption className="flex justify-between text-xs text-muted">
-        <span>{dateFmt.format(new Date(days[0]!.day))}</span>
-        <span>{dateFmt.format(new Date(days[days.length - 1]!.day))}</span>
-      </figcaption>
-    </figure>
+function sortedResolutions(r: Record<string, number>): Array<[string, number]> {
+  return Object.entries(r).sort(
+    (a, b) => ((RES_ORDER.indexOf(a[0]) + 99) % 99) - ((RES_ORDER.indexOf(b[0]) + 99) % 99),
   );
 }
 
-/** A ranked list with a bar per row; the number stays in text color. */
-function BarList({
+/** One hue, darker for higher resolutions. */
+function resolutionSegments(res: Array<[string, number]>) {
+  return res.map(([key, value], i) => ({
+    key,
+    label: key,
+    value,
+    tone: 'accent' as const,
+    shade: Math.max(0.3, 1 - i * 0.22),
+  }));
+}
+
+/** Weekday × hour heatmap in the viewer's time zone. */
+function WhenWatched({ stats }: { stats: StreamStats }) {
+  const { t, i18n } = useTranslation();
+  if (!stats.perHour || stats.plays === 0)
+    return <EmptyState title={t('ui.library.noPlays')} body={t('ui.library.noPlaysBody')} />;
+  // 2024-01-01 was a Monday.
+  const weekdays = Array.from({ length: 7 }, (_, i) =>
+    new Date(2024, 0, 1 + i).toLocaleDateString(i18n.language, { weekday: 'short' }),
+  );
+  return (
+    <Heatmap
+      rows={weekdays}
+      columns={24}
+      values={stats.perHour}
+      label={t('ui.library.heatLabel')}
+      cellLabel={(row, col, value) =>
+        t('ui.library.heatCell', {
+          day: weekdays[row],
+          hour: String(col).padStart(2, '0'),
+          plays: t('ui.library.playsCount', { count: value }),
+        })
+      }
+      columnTicks={[
+        [0, '0'],
+        [6, '6'],
+        [12, '12'],
+        [18, '18'],
+        [23, '23'],
+      ]}
+      less={t('ui.library.fewer')}
+      more={t('ui.library.more')}
+    />
+  );
+}
+
+function RankList({
   rows,
   format,
 }: {
@@ -274,24 +328,18 @@ function BarList({
 }) {
   const max = Math.max(1, ...rows.map((r) => r.value));
   return (
-    <ul className="flex flex-col gap-2.5">
-      {rows.map((r) => (
-        <li key={r.key} className="flex flex-col gap-1">
-          <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="truncate">{r.label}</span>
-            <span className="shrink-0 text-muted tabular-nums">{format(r.value)}</span>
-          </div>
-          <div className="h-1.5 rounded-full bg-surface-2">
-            <motion.div
-              className="h-full rounded-full bg-accent"
-              initial={{ width: 0 }}
-              animate={{ width: `${(r.value / max) * 100}%` }}
-              transition={spring}
-            />
-          </div>
-        </li>
+    <div className="flex flex-col gap-3">
+      {rows.map((r, i) => (
+        <BarRow
+          key={r.key}
+          label={r.label}
+          value={r.value}
+          max={max}
+          display={format(r.value)}
+          delay={0.05 * i}
+        />
       ))}
-    </ul>
+    </div>
   );
 }
 
@@ -299,8 +347,8 @@ function TopTitles({ stats }: { stats: StreamStats }) {
   const { t } = useTranslation();
   if (stats.topTitles.length === 0) return <EmptyState title={t('ui.library.noPlays')} />;
   return (
-    <BarList
-      rows={stats.topTitles.map((x) => ({
+    <RankList
+      rows={stats.topTitles.slice(0, 8).map((x) => ({
         key: `${x.mediaType}:${x.title}`,
         label: x.title,
         value: x.plays,
@@ -316,7 +364,7 @@ function PerUser({ users }: { users: NonNullable<StreamStats['users']> }) {
   return (
     <Card>
       <SectionTitle>{t('ui.library.perUser')}</SectionTitle>
-      <BarList
+      <RankList
         rows={users.map((u) => ({ key: u.user, label: u.user, value: u.plays }))}
         format={(n) => t('ui.library.playsCount', { count: n })}
       />
@@ -364,36 +412,29 @@ function ServerCard({ server }: { server: ServerView }) {
       ) : (
         <ul className="grid gap-4 md:grid-cols-2">
           {server.libraries.map((lib) => {
-            const res = Object.entries(lib.resolutions).sort(
-              (a, b) => ((RES_ORDER.indexOf(a[0]) + 99) % 99) - ((RES_ORDER.indexOf(b[0]) + 99) % 99),
-            );
+            const res = sortedResolutions(lib.resolutions);
             const codecs = Object.entries(lib.videoCodecs).sort((a, b) => b[1] - a[1]);
             return (
-              <li key={lib.id} className="rounded-xl border border-border p-4">
-                <div className="mb-3 flex items-baseline justify-between gap-2">
+              <li key={lib.id} className="flex flex-col gap-3 rounded-xl bg-surface-2 p-4">
+                <div className="flex items-baseline justify-between gap-2">
                   <p className="truncate font-medium">{lib.name}</p>
-                  <Badge tone="neutral">{t(`ui.library.kind.${lib.kind}`)}</Badge>
+                  <span className="text-xs text-muted">{t(`ui.library.kind.${lib.kind}`)}</span>
                 </div>
                 <p className="text-sm">
-                  <span className="text-xl font-semibold tabular-nums">{n.format(lib.items)}</span>{' '}
+                  <span className="text-2xl font-semibold tabular-nums">{n.format(lib.items)}</span>{' '}
                   <span className="text-muted">
                     {t(`ui.library.items.${lib.kind}`)} · {formatBytes(lib.sizeBytes)}
                   </span>
                 </p>
                 {res.length ? (
-                  <div className="mt-3">
-                    <BarList
-                      rows={res.map(([k, v]) => ({ key: k, label: k, value: v }))}
-                      format={(v) => n.format(v)}
-                    />
-                  </div>
+                  <SegmentBar tall label={t('ui.library.resolutions')} segments={resolutionSegments(res)} />
                 ) : null}
                 {codecs.length ? (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5">
                     {codecs.map(([c, v]) => (
-                      <Badge key={c} tone="neutral">
-                        {c.toUpperCase()} {n.format(v)}
-                      </Badge>
+                      <span key={c} className="rounded-md bg-surface px-1.5 py-0.5 text-xs text-muted">
+                        {c.toUpperCase()} <span className="text-text tabular-nums">{n.format(v)}</span>
+                      </span>
                     ))}
                   </div>
                 ) : null}
@@ -406,15 +447,34 @@ function ServerCard({ server }: { server: ServerView }) {
   );
 }
 
+const RECENT = 8;
+
 function RecentPlays() {
   const { t, i18n } = useTranslation();
+  const [all, setAll] = useState(false);
   const plays = useQuery({
     queryKey: ['stream-history'],
     queryFn: () => api<{ plays: Play[] }>('/api/streams/history?limit=25'),
   });
+  const list = plays.data?.plays ?? [];
+  const shown = all ? list : list.slice(0, RECENT);
   return (
-    <section>
-      <SectionTitle>{t('ui.library.recent')}</SectionTitle>
+    <section className="flex flex-col gap-3">
+      <SectionRule
+        action={
+          list.length > RECENT ? (
+            <button
+              type="button"
+              className="rounded-md px-2 py-1 text-xs text-muted hover:bg-surface-2 hover:text-text"
+              onClick={() => setAll(!all)}
+            >
+              {all ? t('ui.library.showFewer') : t('ui.library.showAll', { count: list.length })}
+            </button>
+          ) : null
+        }
+      >
+        {t('ui.library.recent')}
+      </SectionRule>
       <Card className="!p-0">
         {plays.isPending ? (
           <div className="p-5">
@@ -424,13 +484,16 @@ function RecentPlays() {
           <div className="p-5">
             <InlineError {...errorText(t, plays.error)} onRetry={() => void plays.refetch()} />
           </div>
-        ) : plays.data.plays.length === 0 ? (
+        ) : list.length === 0 ? (
           <EmptyState title={t('ui.library.noPlays')} body={t('ui.library.noPlaysBody')} />
         ) : (
           <ul className="divide-y divide-border">
-            {plays.data.plays.map((p) => (
-              <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 text-sm">
-                <div className="min-w-0">
+            {shown.map((p) => (
+              <li key={p.id} className="flex items-center gap-3 px-5 py-3 text-sm">
+                <ProgressRing value={p.progress / 100} size={36} label={`${p.progress}%`}>
+                  {p.progress}
+                </ProgressRing>
+                <div className="min-w-0 flex-1">
                   <p className="truncate font-medium">
                     {p.title}
                     {p.subtitle ? <span className="font-normal text-muted"> · {p.subtitle}</span> : null}
@@ -441,10 +504,14 @@ function RecentPlays() {
                       .join(' · ')}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  {p.endedAt ? null : <Badge tone="ok">{t('ui.library.live')}</Badge>}
+                <div className="flex shrink-0 items-center gap-2">
                   {p.transcoding ? <Badge tone="warning">{t('ui.library.transcoded')}</Badge> : null}
-                  <Badge tone="neutral">{p.progress}%</Badge>
+                  {p.endedAt ? null : (
+                    <span className="flex items-center gap-1.5 text-xs text-ok">
+                      <LiveDot label={t('ui.library.live')} />
+                      {t('ui.library.live')}
+                    </span>
+                  )}
                 </div>
               </li>
             ))}

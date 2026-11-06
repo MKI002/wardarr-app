@@ -7,10 +7,9 @@ import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionMenu } from '../components/ActionMenu';
-import { Columns, ProgressRing, toneColor, useCalm, type ChartTone } from '../components/charts';
-import { PageHeader, SectionRule } from '../components/dash';
+import { Columns, Funnel, ProgressRing, toneColor, useCalm, type ChartTone } from '../components/charts';
+import { InstanceChips, PageHeader, SectionRule } from '../components/dash';
 import { ConfirmDialog, Dialog } from '../components/Dialog';
-import { ServiceLogo } from '../components/ServiceLogo';
 import {
   Badge,
   Button,
@@ -182,8 +181,15 @@ export function CleanerPage() {
         intro={t('ui.cleaner.subtitle')}
       />
       {instances.length > 1 ? (
-        <InstancePicker
-          instances={instances}
+        <InstanceChips
+          label={t('ui.cleaner.instances')}
+          items={instances.map((i) => ({
+            id: i.instanceId,
+            name: i.instanceName,
+            adapter: i.adapter,
+            count: i.downloads.filter((d) => d.strikes > 0).length,
+            tone: instanceTone(i),
+          }))}
           current={current?.instanceId}
           onPick={(id) => setSearch({ instance: id, review: undefined })}
         />
@@ -234,68 +240,10 @@ export function CleanerPage() {
   );
 }
 
-// ------------------------------------------------------- instance picker
-
 function instanceTone(i: CleanerInstance): ChartTone {
   if (i.paused || i.error) return 'critical';
   if (i.downloads.some((d) => d.action.type === 'remove' || d.strikes > 0)) return 'warning';
   return i.config.enabled ? 'ok' : 'neutral';
-}
-
-function InstancePicker({
-  instances,
-  current,
-  onPick,
-}: {
-  instances: CleanerInstance[];
-  current?: string;
-  onPick: (id: string) => void;
-}) {
-  const { t } = useTranslation();
-  return (
-    <div role="radiogroup" aria-label={t('ui.cleaner.instances')} className="flex flex-wrap gap-2">
-      {instances.map((i) => {
-        const active = i.instanceId === current;
-        const stuck = i.downloads.filter((d) => d.strikes > 0).length;
-        return (
-          <button
-            key={i.instanceId}
-            type="button"
-            role="radio"
-            aria-checked={active}
-            onClick={() => onPick(i.instanceId)}
-            className={`relative flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-              active ? 'border-transparent text-text' : 'border-border text-muted hover:text-text'
-            }`}
-          >
-            {active ? (
-              <motion.span
-                layoutId="cleaner-instance"
-                className="absolute inset-0 rounded-full bg-surface-2 ring-1 ring-accent"
-                transition={spring}
-                aria-hidden
-              />
-            ) : null}
-            <span className="relative flex items-center gap-2">
-              <ServiceLogo adapter={i.adapter} name={i.adapterName} size={16} />
-              <span className="font-medium">{i.instanceName}</span>
-              {stuck > 0 ? (
-                <span className="rounded-full bg-warning-bg px-1.5 text-xs font-semibold text-warning tabular-nums">
-                  {stuck}
-                </span>
-              ) : (
-                <span
-                  className="size-1.5 rounded-full"
-                  style={{ background: toneColor(instanceTone(i)) }}
-                  aria-hidden
-                />
-              )}
-            </span>
-          </button>
-        );
-      })}
-    </div>
-  );
 }
 
 // ------------------------------------------------------------------ hero
@@ -395,46 +343,32 @@ function Countdown({ inst }: { inst: CleanerInstance }) {
   );
 }
 
-/** Downloads → with strikes → removed next run, as bars that narrow like a funnel. */
-function Funnel({ inst }: { inst: CleanerInstance }) {
+function QueueFunnel({ inst }: { inst: CleanerInstance }) {
   const { t } = useTranslation();
-  const calm = useCalm();
-  const total = inst.downloads.length;
   const strikes = inst.downloads.filter((d) => d.strikes > 0).length;
-  const remove = inst.downloads.filter((d) => d.action.type === 'remove').length;
-  const stages: Array<{ key: string; value: number; tone: ChartTone }> = [
-    { key: 'downloads', value: total, tone: 'accent' },
-    { key: 'strikes', value: strikes, tone: 'warning' },
-    { key: 'remove', value: remove, tone: 'critical' },
-  ];
   return (
     <div className="flex flex-col gap-3">
       <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
         {t('ui.cleaner.queueNow')}
       </span>
-      <ol className="flex flex-col gap-2.5">
-        {stages.map((s, i) => {
-          const share = total > 0 ? s.value / total : 0;
-          return (
-            <li key={s.key} className="grid grid-cols-[minmax(0,9rem)_1fr_2rem] items-center gap-3 text-sm">
-              <span className="truncate text-muted">{t(`ui.cleaner.funnel.${s.key}`)}</span>
-              <span className="flex h-7 justify-center rounded-lg bg-surface-2">
-                <motion.span
-                  className="h-full rounded-lg"
-                  style={{
-                    width: s.value > 0 ? `${Math.max(8, share * 100)}%` : 0,
-                    background: toneColor(s.tone),
-                  }}
-                  initial={calm ? false : { scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ ...spring, delay: 0.1 + i * 0.12 }}
-                />
-              </span>
-              <span className="text-right text-lg font-semibold tabular-nums">{s.value}</span>
-            </li>
-          );
-        })}
-      </ol>
+      <Funnel
+        label={t('ui.cleaner.queueNow')}
+        stages={[
+          {
+            key: 'downloads',
+            label: t('ui.cleaner.funnel.downloads'),
+            value: inst.downloads.length,
+            tone: 'accent',
+          },
+          { key: 'strikes', label: t('ui.cleaner.funnel.strikes'), value: strikes, tone: 'warning' },
+          {
+            key: 'remove',
+            label: t('ui.cleaner.funnel.remove'),
+            value: inst.downloads.filter((d) => d.action.type === 'remove').length,
+            tone: 'critical',
+          },
+        ]}
+      />
       <p className="text-sm">
         {strikes > 0 ? t('ui.cleaner.funnelStuck', { count: strikes }) : t('ui.cleaner.funnelClear')}
       </p>
@@ -490,7 +424,7 @@ function CleanerHero({ inst }: { inst: CleanerInstance }) {
             )}
           </div>
         </div>
-        <Funnel inst={inst} />
+        <QueueFunnel inst={inst} />
         <Countdown inst={inst} />
       </div>
       {inst.paused ? (

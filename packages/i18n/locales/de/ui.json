@@ -493,7 +493,28 @@
       "profiles": "Nur diese Qualitätsprofile",
       "minYear": "Ab Jahr",
       "maxYear": "Bis Jahr"
-    }
+    },
+    "eyebrow": "Sanfte Suche",
+    "instances": "Instanzen",
+    "callsLeft": "Aufrufe übrig",
+    "ofLimit": "von {{count}} in dieser Stunde",
+    "funnelTitle": "Letzte 30 Tage",
+    "funnel": {
+      "searched": "Gesucht",
+      "found": "Etwas gefunden",
+      "imported": "Importiert"
+    },
+    "funnelNone": "Noch keine abgeschlossenen Suchen.",
+    "funnelRate": "{{percent}} % der Suchen fanden etwas.",
+    "plan": "Nächste 24 Stunden",
+    "planLabel": "Geplante Suchen in den nächsten 24 Stunden",
+    "planNow": "jetzt",
+    "planTip_one": "{{time}} · 1 Titel ({{list}})",
+    "planTip_other": "{{time}} · {{count}} Titel ({{list}})",
+    "planTotal_one": "1 Suche geplant",
+    "planTotal_other": "{{count}} Suchen geplant",
+    "planPaused": "Pausiert, nichts geplant.",
+    "outcomes": "Ergebnisse nach Ausgang"
   },
   "discover": {
     "title": "Entdecken",
@@ -578,7 +599,11 @@
       "auto": "Über den Namen zugeordnet: {{name}}",
       "manual": "Von Hand verknüpft: {{name}}",
       "none": "Nicht verknüpft"
-    }
+    },
+    "eyebrow": "Wünsche auf dem Weg",
+    "pipeline": "Anfragen nach Status",
+    "offPath": "Angehalten",
+    "steps": "Fortschritt: {{status}}"
   },
   "library": {
     "title": "Bibliothek",
@@ -625,7 +650,19 @@
     },
     "recent": "Letzte Wiedergaben",
     "live": "Läuft gerade",
-    "transcoded": "Transcodiert"
+    "transcoded": "Transcodiert",
+    "eyebrow": "Gesehen und gespeichert",
+    "heroPlays_one": "1 Wiedergabe in den letzten {{days}} Tagen.",
+    "heroPlays_other": "{{count}} Wiedergaben in den letzten {{days}} Tagen.",
+    "watchedLabel": "geschaut",
+    "whenWatched": "Wann geschaut wird",
+    "heatLabel": "Wiedergaben nach Wochentag und Stunde",
+    "heatCell": "{{day}}, {{hour}}:00 Uhr: {{plays}}",
+    "fewer": "Weniger",
+    "more": "Mehr",
+    "resolutions": "Auflösungen",
+    "showAll": "Alle {{count}} zeigen",
+    "showFewer": "Weniger zeigen"
   },
   "indexers": {
     "title": "Indexer",

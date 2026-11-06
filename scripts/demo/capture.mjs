@@ -404,6 +404,15 @@ try {
     );
   }
 
+  // Hunting only has today's two searches; show an invented month of results.
+  for (const [n, inst] of (fixtures['/api/hunting']?.body?.instances ?? []).entries()) {
+    if (inst.pause) continue;
+    const finished = 38 + n * 7;
+    const found = Math.round(finished * (0.42 + n * 0.05));
+    const imported = Math.round(found * 0.7);
+    inst.stats = { searches: finished + 2, finished, found, imported, rate: found / finished };
+  }
+
   // Answers to a few actions, so buttons in the demo show real results.
   const mutations = {};
   const radarr4k = encodeURIComponent(ids['radarr-4k']);

@@ -769,3 +769,46 @@ export function BarRow({
     </div>
   );
 }
+
+// ------------------------------------------------------------------ funnel
+
+export interface FunnelStage {
+  key: string;
+  label: string;
+  value: number;
+  tone: ChartTone;
+}
+
+/**
+ * Stages that narrow like a funnel (downloads → strikes → removals). Every
+ * bar is centred and sized against the first stage.
+ */
+export function Funnel({ stages, label }: { stages: FunnelStage[]; label: string }) {
+  const calm = useCalm();
+  const top = stages[0]?.value ?? 0;
+  return (
+    <ol className="flex flex-col gap-2.5" aria-label={label}>
+      {stages.map((s, i) => {
+        const share = top > 0 ? Math.min(1, s.value / top) : 0;
+        return (
+          <li key={s.key} className="grid grid-cols-[minmax(0,9rem)_1fr_2.5rem] items-center gap-3 text-sm">
+            <span className="truncate text-muted">{s.label}</span>
+            <span className="flex h-7 justify-center rounded-lg bg-surface-2">
+              <motion.span
+                className="h-full rounded-lg"
+                style={{
+                  width: s.value > 0 ? `${Math.max(8, share * 100)}%` : 0,
+                  background: toneColor(s.tone),
+                }}
+                initial={calm ? false : { scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 26, delay: 0.1 + i * 0.12 }}
+              />
+            </span>
+            <span className="text-right text-lg font-semibold tabular-nums">{s.value}</span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}

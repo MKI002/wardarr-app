@@ -6,6 +6,8 @@ import type { Msg } from '@wardarr/core';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Funnel, Gauge, SegmentBar, useCalm, useWidth, type ChartTone } from '../components/charts';
+import { InstanceChips, PageHeader } from '../components/dash';
 import {
   Badge,
   Button,
@@ -16,7 +18,6 @@ import {
   EmptyState,
   InlineError,
   NumberField,
-  ProgressBar,
   SectionTitle,
   Skeleton,
   Toggle,
@@ -63,6 +64,7 @@ interface Candidate {
 interface HuntInstance {
   instanceId: string;
   instanceName: string;
+  adapter: string;
   adapterName: string;
   config: HuntingConfig;
   pause: { kind: string; reason: Msg } | null;
@@ -110,27 +112,25 @@ export function HuntingPage() {
   const current = instances.find((i) => i.instanceId === search.instance) ?? instances[0];
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-semibold">{t('ui.hunting.title')}</h1>
-          <p className="text-sm text-muted">{t('ui.hunting.subtitle')}</p>
-        </div>
-        {instances.length > 1 ? (
-          <select
-            aria-label={t('ui.cleaner.instance')}
-            className="min-h-9 rounded-lg border border-border bg-surface px-3 text-sm"
-            value={current?.instanceId ?? ''}
-            onChange={(e) => void navigate({ search: { instance: e.target.value } })}
-          >
-            {instances.map((i) => (
-              <option key={i.instanceId} value={i.instanceId}>
-                {i.instanceName}
-              </option>
-            ))}
-          </select>
-        ) : null}
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        eyebrow={t('ui.hunting.eyebrow')}
+        title={t('ui.hunting.title')}
+        intro={t('ui.hunting.subtitle')}
+      />
+      {instances.length > 1 ? (
+        <InstanceChips
+          label={t('ui.hunting.instances')}
+          items={instances.map((i) => ({
+            id: i.instanceId,
+            name: i.instanceName,
+            adapter: i.adapter,
+            tone: huntTone(i),
+          }))}
+          current={current?.instanceId}
+          onPick={(id) => void navigate({ search: { instance: id } })}
+        />
+      ) : null}
       {data.isError ? (
         <InlineError message={t('ui.errors.loadFailed')} onRetry={() => void data.refetch()} />
       ) : null}
@@ -153,42 +153,87 @@ function useHuntingAction<T>(instanceId: string, path: string, method: 'POST' | 
   });
 }
 
+function huntTone(i: HuntInstance): ChartTone {
+  if (i.error) return 'critical';
+  if (i.pause) return i.pause.kind === 'off' ? 'neutral' : 'warning';
+  return 'ok';
+}
+
 function InstanceView({ inst }: { inst: HuntInstance }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const pace = useHuntingAction<{ pace: Pace }>(inst.instanceId, '/settings', 'PUT');
   const run = useHuntingAction<Record<string, never>>(inst.instanceId, '/run');
-  const rate = inst.stats.rate;
+  const { left, limit } = inst.budget;
+  const s = inst.stats;
 
   return (
     <>
-      <Card className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="font-semibold">{inst.instanceName}</span>
-          <span className="text-sm text-muted">{inst.adapterName}</span>
-          <Button
-            className="ml-auto"
-            onClick={() => run.mutate({})}
-            busy={run.isPending}
-            disabled={!!inst.pause}
-          >
-            {t('ui.hunting.runNow')}
-          </Button>
+      <Card className="flex flex-col gap-6">
+        <div className="grid gap-8 lg:grid-cols-[auto_1.2fr_1fr] lg:items-center">
+          <div className="flex justify-center">
+            <Gauge
+              value={left}
+              max={limit}
+              tone={left < limit / 5 ? 'warning' : 'accent'}
+              label={t('ui.hunting.budget')}
+            >
+              <span className="flex flex-col items-center leading-tight">
+                <span className="text-4xl font-bold tracking-tight tabular-nums">
+                  <CountUp value={left} />
+                </span>
+                <span className="text-xs text-muted">{t('ui.hunting.callsLeft')}</span>
+                <span className="text-xs text-muted">{t('ui.hunting.ofLimit', { count: limit })}</span>
+              </span>
+            </Gauge>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Choice
+              label={t('ui.hunting.pace')}
+              value={inst.config.pace === 'custom' ? 'custom' : inst.config.pace}
+              options={[...PACES, ...(inst.config.pace === 'custom' ? (['custom'] as Pace[]) : [])].map(
+                (p) => [p, t(`hunting.pace.${p}`)],
+              )}
+              onChange={(p) => p !== 'custom' && pace.mutate({ pace: p })}
+            />
+            <p className="text-sm text-muted">
+              {t('ui.hunting.paceSummary', {
+                missing: rateText(t, inst.config.missing),
+                cutoff: rateText(t, inst.config.cutoff),
+              })}
+            </p>
+            <div>
+              <Button onClick={() => run.mutate({})} busy={run.isPending} disabled={!!inst.pause}>
+                {t('ui.hunting.runNow')}
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+              {t('ui.hunting.funnelTitle')}
+            </span>
+            <Funnel
+              label={t('ui.hunting.successRate')}
+              stages={[
+                {
+                  key: 'searched',
+                  label: t('ui.hunting.funnel.searched'),
+                  value: s.finished,
+                  tone: 'accent',
+                },
+                { key: 'found', label: t('ui.hunting.funnel.found'), value: s.found, tone: 'info' },
+                { key: 'imported', label: t('ui.hunting.funnel.imported'), value: s.imported, tone: 'ok' },
+              ]}
+            />
+            <p className="text-sm">
+              {s.rate === null
+                ? t('ui.hunting.funnelNone')
+                : t('ui.hunting.funnelRate', { percent: Math.round(s.rate * 100) })}
+            </p>
+          </div>
         </div>
-        <Choice
-          label={t('ui.hunting.pace')}
-          value={inst.config.pace === 'custom' ? 'custom' : inst.config.pace}
-          options={[...PACES, ...(inst.config.pace === 'custom' ? (['custom'] as Pace[]) : [])].map((p) => [
-            p,
-            t(`hunting.pace.${p}`),
-          ])}
-          onChange={(p) => p !== 'custom' && pace.mutate({ pace: p })}
-        />
-        <p className="text-sm text-muted">
-          {t('ui.hunting.paceSummary', {
-            missing: rateText(t, inst.config.missing),
-            cutoff: rateText(t, inst.config.cutoff),
-          })}
-        </p>
+
         {inst.pause ? (
           <div
             role="status"
@@ -204,43 +249,8 @@ function InstanceView({ inst }: { inst: HuntInstance }) {
             })}
           />
         ) : null}
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-muted">{t('ui.hunting.budget')}</span>
-            <span className="text-lg font-semibold tabular-nums">
-              <CountUp value={inst.budget.left} /> / {inst.budget.limit}
-            </span>
-            <ProgressBar
-              value={inst.budget.left / inst.budget.limit}
-              tone={inst.budget.left < inst.budget.limit / 5 ? 'warning' : 'accent'}
-              label={t('ui.hunting.budget')}
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-muted">{t('ui.hunting.successRate')}</span>
-            <span className="text-lg font-semibold tabular-nums">
-              {rate === null ? '–' : <CountUp value={rate * 100} format={(n) => `${Math.round(n)} %`} />}
-            </span>
-            <span className="text-xs text-muted">
-              {t('ui.hunting.successDetail', {
-                found: inst.stats.found,
-                finished: inst.stats.finished,
-                imported: inst.stats.imported,
-              })}
-            </span>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-muted">{t('ui.hunting.nextRun')}</span>
-            <span className="text-sm">
-              {(['missing', 'cutoff'] as List[]).map((l) => (
-                <span key={l} className="block">
-                  {t(`hunting.list.${l}`)}:{' '}
-                  {inst.lists[l].nextRunAt ? formatRelative(inst.lists[l].nextRunAt, i18n.language) : '–'}
-                </span>
-              ))}
-            </span>
-          </div>
-        </div>
+
+        <PlanStrip inst={inst} />
       </Card>
 
       <UpNext inst={inst} />
@@ -248,6 +258,158 @@ function InstanceView({ inst }: { inst: HuntInstance }) {
       <Exclusions inst={inst} />
       <Advanced inst={inst} />
     </>
+  );
+}
+
+interface PlannedRun {
+  at: number;
+  list: List;
+  count: number;
+}
+
+const DAY_MS = 86_400_000;
+
+/** When the next searches happen over the next 24 hours, from each list's pace and next run. */
+function plannedRuns(inst: HuntInstance, now: number): PlannedRun[] {
+  if (inst.pause) return [];
+  const out: PlannedRun[] = [];
+  for (const list of ['missing', 'cutoff'] as List[]) {
+    const { rate, nextRunAt } = inst.lists[list];
+    if (rate.count <= 0 || rate.everyMinutes <= 0) continue;
+    let at = nextRunAt ? Math.max(now, Date.parse(nextRunAt)) : now;
+    for (let i = 0; at <= now + DAY_MS && i < 300; i++, at += rate.everyMinutes * 60_000) {
+      out.push({ at, list, count: rate.count });
+    }
+  }
+  return out;
+}
+
+function PlanStrip({ inst }: { inst: HuntInstance }) {
+  const { t, i18n } = useTranslation();
+  const calm = useCalm();
+  const [now] = useState(() => Date.now());
+  const [ref, width] = useWidth<HTMLDivElement>();
+  const [hover, setHover] = useState<number | null>(null);
+  const runs = plannedRuns(inst, now);
+  const total = runs.reduce((sum, r) => sum + r.count, 0);
+  const pad = 10;
+  const height = 64;
+  const lane: Record<List, number> = { missing: 18, cutoff: 40 };
+  const x = (at: number) => pad + ((at - now) / DAY_MS) * Math.max(0, width - pad * 2);
+  const time = (at: number) =>
+    new Date(at).toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' });
+  const hovered = hover === null ? null : runs[hover];
+
+  return (
+    <div className="flex flex-col gap-2 border-t border-border pt-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+          {t('ui.hunting.plan')}
+        </span>
+        <span className="text-xs text-muted" aria-live="polite">
+          {hovered
+            ? t('ui.hunting.planTip', {
+                time: time(hovered.at),
+                count: hovered.count,
+                list: t(`hunting.list.${hovered.list}`),
+              })
+            : inst.pause
+              ? t('ui.hunting.planPaused')
+              : t('ui.hunting.planTotal', { count: total })}
+        </span>
+      </div>
+      <div
+        ref={ref}
+        className="relative w-full"
+        style={{ height: height + 16 }}
+        onPointerLeave={() => setHover(null)}
+      >
+        {width > 0 ? (
+          <svg
+            width={width}
+            height={height + 16}
+            role="img"
+            aria-label={`${t('ui.hunting.planLabel')}: ${total}`}
+          >
+            {(['missing', 'cutoff'] as List[]).map((l) => (
+              <line
+                key={l}
+                x1={pad}
+                x2={width - pad}
+                y1={lane[l]}
+                y2={lane[l]}
+                stroke="var(--surface-2)"
+                strokeWidth={6}
+                strokeLinecap="round"
+              />
+            ))}
+            {[0, 6, 12, 18, 24].map((h) => {
+              const tx = x(now + h * 3_600_000);
+              return (
+                <g key={h}>
+                  <line x1={tx} x2={tx} y1={6} y2={height - 10} stroke="var(--border)" strokeWidth={1} />
+                  <text
+                    x={tx}
+                    y={height + 10}
+                    fontSize={10}
+                    textAnchor={h === 0 ? 'start' : h === 24 ? 'end' : 'middle'}
+                    fill="var(--muted)"
+                  >
+                    {h === 0 ? t('ui.hunting.planNow') : time(now + h * 3_600_000)}
+                  </text>
+                </g>
+              );
+            })}
+            {runs.map((r, i) => {
+              const cx = x(r.at);
+              const cy = lane[r.list];
+              const radius = Math.min(7, 3 + r.count);
+              const filled = r.list === 'missing';
+              return (
+                <g
+                  key={`${r.list}-${r.at}`}
+                  tabIndex={0}
+                  role="img"
+                  aria-label={t('ui.hunting.planTip', {
+                    time: time(r.at),
+                    count: r.count,
+                    list: t(`hunting.list.${r.list}`),
+                  })}
+                  onPointerEnter={() => setHover(i)}
+                  onFocus={() => setHover(i)}
+                  onBlur={() => setHover(null)}
+                  className="outline-none"
+                >
+                  <circle cx={cx} cy={cy} r={11} fill="transparent" />
+                  <motion.circle
+                    cx={cx}
+                    cy={cy}
+                    r={hover === i ? radius + 2 : radius}
+                    fill={filled ? 'var(--accent)' : 'var(--surface)'}
+                    stroke="var(--accent)"
+                    strokeWidth={2}
+                    initial={calm ? false : { scale: 0 }}
+                    animate={{ scale: 1 }}
+                    style={{ transformBox: 'fill-box', originX: 0.5, originY: 0.5 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 22, delay: 0.2 + i * 0.02 }}
+                  />
+                </g>
+              );
+            })}
+          </svg>
+        ) : null}
+      </div>
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+        <li className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-accent" aria-hidden />
+          {t('hunting.list.missing')}
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full border-2 border-accent" aria-hidden />
+          {t('hunting.list.cutoff')}
+        </li>
+      </ul>
+    </div>
   );
 }
 
@@ -314,6 +476,22 @@ function Results({ inst }: { inst: HuntInstance }) {
     <Card>
       <SectionTitle>{t('ui.hunting.results')}</SectionTitle>
       {inst.searches.length === 0 ? <EmptyState title={t('ui.hunting.resultsEmpty')} /> : null}
+      {new Set(inst.searches.map((x) => x.result)).size > 1 ? (
+        <div className="mb-2">
+          <SegmentBar
+            tall
+            label={t('ui.hunting.outcomes')}
+            segments={Object.keys(RESULT_TONE)
+              .map((r) => ({
+                key: r,
+                label: t(`hunting.result.${r}`),
+                value: inst.searches.filter((x) => x.result === r).length,
+                tone: RESULT_TONE[r] ?? 'neutral',
+              }))
+              .filter((x) => x.value > 0)}
+          />
+        </div>
+      ) : null}
       <ul className="flex flex-col divide-y divide-border">
         {inst.searches.map((s) => (
           <li key={s.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2.5">

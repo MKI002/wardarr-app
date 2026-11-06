@@ -337,25 +337,36 @@ export function Choice<T extends string>({
   onChange: (v: T) => void;
   hideLabel?: boolean;
 }) {
+  const group = useId();
   return (
     <fieldset className="flex flex-col gap-2">
       <legend className={hideLabel ? 'sr-only' : 'mb-2 text-sm font-medium'}>{label}</legend>
-      <div className="flex flex-wrap gap-2">
-        {options.map(([id, text]) => (
-          <label
-            key={id}
-            className={`cursor-pointer rounded-lg border px-3 py-1.5 text-sm transition-colors focus-within:ring-2 focus-within:ring-accent ${value === id ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2'}`}
-          >
-            <input type="radio" className="sr-only" checked={value === id} onChange={() => onChange(id)} />
-            {text}
-          </label>
-        ))}
+      <div className="flex w-fit max-w-full flex-wrap gap-1 rounded-xl bg-surface-2 p-1">
+        {options.map(([id, text]) => {
+          const active = value === id;
+          return (
+            <label
+              key={id}
+              className={`relative cursor-pointer rounded-lg px-3 py-1.5 text-sm transition-colors focus-within:ring-2 focus-within:ring-accent ${active ? 'text-text' : 'text-muted hover:text-text'}`}
+            >
+              {active ? (
+                <motion.span
+                  layoutId={`choice-${group}`}
+                  className="absolute inset-0 rounded-lg bg-surface shadow-sm ring-1 ring-accent"
+                  transition={spring}
+                  aria-hidden
+                />
+              ) : null}
+              <input type="radio" className="sr-only" checked={active} onChange={() => onChange(id)} />
+              <span className="relative">{text}</span>
+            </label>
+          );
+        })}
       </div>
     </fieldset>
   );
 }
 
-/** An on/off switch with a label and an optional hint. */
 export function Toggle({
   label,
   help,
