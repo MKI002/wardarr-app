@@ -1,7 +1,7 @@
 // Product logos for the services Wardarr connects to. They belong to their
 // projects and are used only to show which service an entry stands for;
-// sources and licenses are listed in NOTICE.md. Products whose logo may not
-// be redistributed get a neutral mark with their initial instead.
+// sources and licenses are listed in NOTICE.md. Products without a logo file
+// get a neutral mark with their initial instead.
 
 const FILES = import.meta.glob<string>('../assets/logos/*.{svg,png}', {
   eager: true,

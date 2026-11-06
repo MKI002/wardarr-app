@@ -17,11 +17,18 @@ The logos refer to the products only. They are never used as Wardarr's own
 mark, and the README and NOTICE say that Wardarr is not affiliated with these
 projects.
 
-## A neutral mark for the rest
+## Plex and Emby
 
-Plex and Emby are not open source and offer no logo under a license that
-allows redistribution from a repository. They get a neutral square with their
-initial until that changes.
+Plex and Emby are not open source today, but both published their logos in
+their own repositories under the GPL in the past (Plex Media Player and the
+last open-source Emby server), and Plex's trademark terms allow the logo for
+showing compatibility with a trademark notice. Both logos come from those
+repositories, and NOTICE.md carries the trademark notices.
+
+## A neutral mark for anything else
+
+A product without a logo file gets a neutral square with its initial, so new
+adapters work before anyone has checked a logo's license.
 
 ## Bundled, not fetched
 
