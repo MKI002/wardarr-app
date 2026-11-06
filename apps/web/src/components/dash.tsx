@@ -1,8 +1,9 @@
 // Layout pieces shared by the dashboards: page header, section rule, rolling
 // numbers, key-figure cards and the "worth a look" rows.
 import { motion } from 'motion/react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useId, useState, type ReactNode } from 'react';
 import { BG_TONE, tint, toneColor, useCalm, type ChartTone } from './charts';
+import { ServiceLogo } from './ServiceLogo';
 import { Card, spring } from './ui';
 
 /** Page title with a small eyebrow above it and actions on the right. */
@@ -192,5 +193,72 @@ export function InsightRow({
       <div className="min-w-0 flex-1 text-sm leading-snug">{children}</div>
       {action}
     </motion.li>
+  );
+}
+
+export interface InstanceChip {
+  id: string;
+  name: string;
+  adapter: string;
+  /** A count worth a look (strikes, waiting titles); replaces the status dot. */
+  count?: number;
+  tone: ChartTone;
+}
+
+/** Picks one instance of a feature: chips with the service logo and a status dot or count. */
+export function InstanceChips({
+  label,
+  items,
+  current,
+  onPick,
+}: {
+  label: string;
+  items: InstanceChip[];
+  current?: string;
+  onPick: (id: string) => void;
+}) {
+  const group = useId();
+  return (
+    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-2">
+      {items.map((i) => {
+        const active = i.id === current;
+        return (
+          <button
+            key={i.id}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            onClick={() => onPick(i.id)}
+            className={`relative flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              active ? 'border-transparent text-text' : 'border-border text-muted hover:text-text'
+            }`}
+          >
+            {active ? (
+              <motion.span
+                layoutId={`chips-${group}`}
+                className="absolute inset-0 rounded-full bg-surface-2 ring-1 ring-accent"
+                transition={spring}
+                aria-hidden
+              />
+            ) : null}
+            <span className="relative flex items-center gap-2">
+              <ServiceLogo adapter={i.adapter} name={i.adapter} size={16} />
+              <span className="font-medium">{i.name}</span>
+              {i.count ? (
+                <span className="rounded-full bg-warning-bg px-1.5 text-xs font-semibold text-warning tabular-nums">
+                  {i.count}
+                </span>
+              ) : (
+                <span
+                  className="size-1.5 rounded-full"
+                  style={{ background: toneColor(i.tone) }}
+                  aria-hidden
+                />
+              )}
+            </span>
+          </button>
+        );
+      })}
+    </div>
   );
 }

@@ -5,13 +5,14 @@ import { useNavigate, useSearch } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useCalm } from '../components/charts';
+import { PageHeader } from '../components/dash';
 import { Dialog } from '../components/Dialog';
 import { Poster } from '../components/Poster';
 import {
   Badge,
   Button,
   Card,
-  Choice,
   EmptyState,
   InlineError,
   Select,
@@ -19,6 +20,7 @@ import {
   Tabs,
   Toggle,
   spring,
+  type Tone,
 } from '../components/ui';
 import { api } from '../lib/api';
 import { errorText } from '../lib/errors';
@@ -26,8 +28,7 @@ import { formatRelative } from '../lib/format';
 import { REQUEST_TONE, type MediaRequest, type RequestOptions } from '../lib/media';
 import { useSession } from '../lib/session';
 
-const FILTERS = ['all', 'pending', 'approved', 'processing', 'available', 'failed', 'declined'] as const;
-type Filter = (typeof FILTERS)[number];
+type Filter = 'all' | 'pending' | 'approved' | 'processing' | 'available' | 'failed' | 'declined';
 type View = 'all' | 'mine' | 'links';
 const PAGE = 20;
 
@@ -48,11 +49,12 @@ export function RequestsPage() {
   const filter: Filter = search.status ?? (isAdmin && view === 'all' ? 'pending' : 'all');
 
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">{t('ui.requests.title')}</h1>
-        <p className="text-sm text-muted">{t(isAdmin ? 'ui.requests.introAdmin' : 'ui.requests.intro')}</p>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        eyebrow={t('ui.requests.eyebrow')}
+        title={t('ui.requests.title')}
+        intro={t(isAdmin ? 'ui.requests.introAdmin' : 'ui.requests.intro')}
+      />
       {isAdmin ? (
         <Tabs
           label={t('ui.requests.views')}
@@ -69,17 +71,176 @@ export function RequestsPage() {
         <LinksView />
       ) : (
         <>
-          <Choice
-            label={t('ui.requests.filter')}
-            hideLabel
+          <Pipeline
+            mine={view === 'mine'}
             value={filter}
             onChange={(v) => void navigate({ search: (s) => ({ ...s, status: v }) })}
-            options={FILTERS.map((f) => [f, t(`ui.requests.filters.${f}`)])}
           />
           <RequestList mine={view === 'mine'} filter={filter} />
         </>
       )}
     </div>
+  );
+}
+
+const PATH: Filter[] = ['pending', 'approved', 'processing', 'available'];
+const OFF: Filter[] = ['failed', 'declined'];
+const FILTER_TONE: Record<Filter, Tone> = {
+  all: 'neutral',
+  pending: 'warning',
+  approved: 'info',
+  processing: 'info',
+  available: 'ok',
+  failed: 'critical',
+  declined: 'neutral',
+};
+
+function useRequestCount(mine: boolean, status: Filter) {
+  return useQuery({
+    queryKey: ['request-count', mine ? 'mine' : 'all', status],
+    queryFn: () => api<RequestPage>(`/api/requests${mine ? '/mine' : ''}?status=${status}&take=20&skip=0`),
+    select: (p) => p.total,
+    staleTime: 30_000,
+  });
+}
+
+/** The way of a request as a row of steps with counts; each step filters the list. */
+function Pipeline({
+  mine,
+  value,
+  onChange,
+}: {
+  mine: boolean;
+  value: Filter;
+  onChange: (f: Filter) => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <div role="radiogroup" aria-label={t('ui.requests.pipeline')} className="flex flex-col gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-[auto_repeat(4,minmax(0,1fr))]">
+        <Step mine={mine} status="all" active={value === 'all'} onPick={onChange} />
+        {PATH.map((f, i) => (
+          <Step key={f} mine={mine} status={f} active={value === f} onPick={onChange} arrow={i > 0} />
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+          {t('ui.requests.offPath')}
+        </span>
+        {OFF.map((f) => (
+          <Step key={f} mine={mine} status={f} active={value === f} onPick={onChange} compact />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Step({
+  mine,
+  status,
+  active,
+  onPick,
+  arrow = false,
+  compact = false,
+}: {
+  mine: boolean;
+  status: Filter;
+  active: boolean;
+  onPick: (f: Filter) => void;
+  arrow?: boolean;
+  compact?: boolean;
+}) {
+  const { t } = useTranslation();
+  const count = useRequestCount(mine, status);
+  const tone = FILTER_TONE[status];
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={active}
+      onClick={() => onPick(status)}
+      className={`relative flex items-center gap-2 text-left transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+        compact ? 'min-h-9 rounded-full px-3 text-sm' : 'min-h-16 rounded-xl px-4 py-2.5'
+      } ${active ? 'text-text' : 'text-muted hover:text-text'} ${compact ? 'border border-border' : 'bg-surface-2'}`}
+    >
+      {active ? (
+        <motion.span
+          layoutId="request-step"
+          className={`absolute inset-0 bg-surface ring-1 ring-accent ${compact ? 'rounded-full' : 'rounded-xl'}`}
+          transition={spring}
+          aria-hidden
+        />
+      ) : null}
+      {arrow ? (
+        <svg
+          viewBox="0 0 8 12"
+          className="absolute top-1/2 -left-2 hidden h-3 w-2 -translate-y-1/2 text-border sm:block"
+          aria-hidden
+        >
+          <path d="M1 1l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      ) : null}
+      <span className="relative flex min-w-0 flex-col">
+        <span className="flex items-center gap-1.5 text-xs">
+          {status !== 'all' ? <StepDot tone={tone} /> : null}
+          <span className="truncate">{t(`ui.requests.filters.${status}`)}</span>
+        </span>
+        {compact ? null : (
+          <span className="text-2xl font-semibold text-text tabular-nums">{count.data ?? '–'}</span>
+        )}
+      </span>
+      {compact ? (
+        <span className="relative font-semibold text-text tabular-nums">{count.data ?? '–'}</span>
+      ) : null}
+    </button>
+  );
+}
+
+const DOT: Record<Tone, string> = {
+  critical: 'bg-critical',
+  warning: 'bg-warning-mark',
+  info: 'bg-info',
+  ok: 'bg-ok',
+  neutral: 'bg-muted',
+};
+
+function StepDot({ tone }: { tone: Tone }) {
+  return <span className={`size-2 shrink-0 rounded-full ${DOT[tone]}`} aria-hidden />;
+}
+
+/** How far one request has come: four segments along the way, or a stop. */
+function RequestSteps({ request: r }: { request: MediaRequest }) {
+  const { t } = useTranslation();
+  const calm = useCalm();
+  const stopped = r.status === 'failed' || r.status === 'declined';
+  const reached =
+    r.status === 'pending'
+      ? 0
+      : r.status === 'completed' || r.mediaStatus === 'available'
+        ? 3
+        : r.mediaStatus === 'processing' || r.mediaStatus === 'partial'
+          ? 2
+          : r.status === 'approved'
+            ? 1
+            : 0;
+  const tone: Tone = stopped ? (r.status === 'failed' ? 'critical' : 'neutral') : FILTER_TONE[PATH[reached]!];
+  return (
+    <span
+      className="flex w-32 gap-1"
+      role="img"
+      aria-label={t('ui.requests.steps', { status: t(`ui.requests.status.${r.status}`) })}
+    >
+      {PATH.map((f, i) => (
+        <motion.span
+          key={f}
+          className={`h-1.5 flex-1 rounded-full ${i <= reached ? DOT[tone] : 'bg-surface-2'}`}
+          style={{ originX: 0 }}
+          initial={calm ? false : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ ...spring, delay: 0.1 + i * 0.06 }}
+        />
+      ))}
+    </span>
   );
 }
 
@@ -187,12 +348,15 @@ function RequestRow({
                   .join(' · ')}
               </p>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {r.is4k ? <Badge tone="neutral">4K</Badge> : null}
-              <Badge tone={REQUEST_TONE[r.status]}>{t(`ui.requests.status.${r.status}`)}</Badge>
-              {r.status === 'approved' && r.mediaStatus !== 'unknown' ? (
-                <Badge tone="info">{t(`ui.discover.status.${r.mediaStatus}`)}</Badge>
-              ) : null}
+            <div className="flex flex-col items-end gap-2">
+              <div className="flex flex-wrap justify-end gap-1.5">
+                {r.is4k ? <Badge tone="neutral">4K</Badge> : null}
+                <Badge tone={REQUEST_TONE[r.status]}>{t(`ui.requests.status.${r.status}`)}</Badge>
+                {r.status === 'approved' && r.mediaStatus !== 'unknown' ? (
+                  <Badge tone="info">{t(`ui.discover.status.${r.mediaStatus}`)}</Badge>
+                ) : null}
+              </div>
+              <RequestSteps request={r} />
             </div>
           </div>
           {act.isError ? <InlineError {...errorText(t, act.error)} /> : null}

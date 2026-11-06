@@ -493,7 +493,28 @@
       "profiles": "Only these quality profiles",
       "minYear": "From year",
       "maxYear": "Until year"
-    }
+    },
+    "eyebrow": "Gentle search",
+    "instances": "Instances",
+    "callsLeft": "calls left",
+    "ofLimit": "of {{count}} this hour",
+    "funnelTitle": "Last 30 days",
+    "funnel": {
+      "searched": "Searched",
+      "found": "Found something",
+      "imported": "Imported"
+    },
+    "funnelNone": "No finished searches yet.",
+    "funnelRate": "{{percent}} % of searches found something.",
+    "plan": "Next 24 hours",
+    "planLabel": "Planned searches over the next 24 hours",
+    "planNow": "now",
+    "planTip_one": "{{time}} · 1 title ({{list}})",
+    "planTip_other": "{{time}} · {{count}} titles ({{list}})",
+    "planTotal_one": "1 search planned",
+    "planTotal_other": "{{count}} searches planned",
+    "planPaused": "Paused, nothing is planned.",
+    "outcomes": "Results by outcome"
   },
   "discover": {
     "title": "Discover",
@@ -578,7 +599,11 @@
       "auto": "Matched by name: {{name}}",
       "manual": "Linked by hand: {{name}}",
       "none": "Not linked"
-    }
+    },
+    "eyebrow": "Wishes on their way",
+    "pipeline": "Requests by status",
+    "offPath": "Stopped",
+    "steps": "Progress: {{status}}"
   },
   "library": {
     "title": "Library",
@@ -625,7 +650,19 @@
     },
     "recent": "Recent plays",
     "live": "Playing now",
-    "transcoded": "Transcoded"
+    "transcoded": "Transcoded",
+    "eyebrow": "Watched and stored",
+    "heroPlays_one": "1 play in the last {{days}} days.",
+    "heroPlays_other": "{{count}} plays in the last {{days}} days.",
+    "watchedLabel": "watched",
+    "whenWatched": "When people watch",
+    "heatLabel": "Plays per weekday and hour",
+    "heatCell": "{{day}}, {{hour}}:00: {{plays}}",
+    "fewer": "Fewer",
+    "more": "More",
+    "resolutions": "Resolutions",
+    "showAll": "Show all {{count}}",
+    "showFewer": "Show fewer"
   },
   "indexers": {
     "title": "Indexers",
