@@ -12,6 +12,10 @@ const TAB_PATHS: Record<string, string> = {
   issues: '/issues',
   cleaner: '/cleaner',
   hunting: '/hunting',
+  discover: '/discover',
+  requests: '/requests',
+  library: '/library',
+  indexers: '/indexers',
   settings: '/settings',
 };
 
@@ -20,6 +24,11 @@ const ICONS: Record<string, string> = {
   issues: 'M12 3 2 20h20zm0 6v5m0 3h.01',
   cleaner: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6',
   hunting: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4M11 8v6M8 11h6',
+  discover: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm3.5 5.5-2 5-5 2 2-5z',
+  requests: 'M8 4h8l1 3H7zM5 7h14v13H5zM9 12h6M9 16h4',
+  library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',
+  indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
+  more: 'M5 12h.01M12 12h.01M19 12h.01',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',
 };
@@ -53,6 +62,9 @@ export function Layout() {
   const { me } = useSession();
   const client = useQueryClient();
   const tabs = useTabs().data?.tabs ?? [];
+  // The bottom bar holds four tabs; the rest go under "More".
+  const primary = tabs.length > 5 ? tabs.slice(0, 4) : tabs;
+  const overflow = tabs.length > 5 ? tabs.slice(4) : [];
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const activeTab = (id: string) =>
     TAB_PATHS[id] === '/' ? pathname === '/' : pathname.startsWith(TAB_PATHS[id] ?? '#');
@@ -64,7 +76,7 @@ export function Layout() {
   };
 
   return (
-    <div className="min-h-dvh pb-20 md:pb-0">
+    <div className="min-h-dvh pb-20 lg:pb-0">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2"
@@ -76,7 +88,7 @@ export function Layout() {
           <Link to="/" aria-label={t('ui.nav.home')}>
             <Logo />
           </Link>
-          <nav aria-label={t('ui.nav.main')} className="hidden md:block">
+          <nav aria-label={t('ui.nav.main')} className="hidden lg:block">
             <ul className="flex items-center gap-1">
               {tabs.map((id) => (
                 <li key={id} className="relative">
@@ -151,14 +163,14 @@ export function Layout() {
 
       <nav
         aria-label={t('ui.nav.main')}
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
       >
         <ul className="flex justify-around">
-          {tabs.map((id) => (
+          {primary.map((id) => (
             <li key={id}>
               <Link
                 to={TAB_PATHS[id] ?? '/'}
-                className={`flex min-w-16 flex-col items-center gap-0.5 px-3 py-2 text-xs ${activeTab(id) ? 'text-accent' : 'text-muted'}`}
+                className={`flex min-w-16 flex-col items-center gap-0.5 px-2 py-2 text-xs ${activeTab(id) ? 'text-accent' : 'text-muted'}`}
                 aria-current={activeTab(id) ? 'page' : undefined}
               >
                 <TabIcon id={id} />
@@ -166,6 +178,39 @@ export function Layout() {
               </Link>
             </li>
           ))}
+          {overflow.length ? (
+            <li>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger
+                  className={`flex min-w-16 flex-col items-center gap-0.5 px-2 py-2 text-xs ${overflow.some(activeTab) ? 'text-accent' : 'text-muted'}`}
+                >
+                  <TabIcon id="more" />
+                  {t('ui.nav.more')}
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Portal>
+                  <DropdownMenu.Content
+                    side="top"
+                    align="end"
+                    sideOffset={8}
+                    className="z-50 min-w-48 rounded-xl border border-border bg-surface p-1 shadow-lg"
+                  >
+                    {overflow.map((id) => (
+                      <DropdownMenu.Item key={id} asChild>
+                        <Link
+                          to={TAB_PATHS[id] ?? '/'}
+                          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm outline-none data-[highlighted]:bg-surface-2 ${activeTab(id) ? 'text-accent' : ''}`}
+                          aria-current={activeTab(id) ? 'page' : undefined}
+                        >
+                          <TabIcon id={id} />
+                          {t(`ui.tabs.${id}`)}
+                        </Link>
+                      </DropdownMenu.Item>
+                    ))}
+                  </DropdownMenu.Content>
+                </DropdownMenu.Portal>
+              </DropdownMenu.Root>
+            </li>
+          ) : null}
         </ul>
       </nav>
     </div>

@@ -6,6 +6,10 @@ import { OverviewPage } from './pages/Overview';
 import { CleanerPage } from './pages/Cleaner';
 import { HuntingPage } from './pages/Hunting';
 import { SettingsPage } from './pages/Settings';
+import { DiscoverPage } from './pages/Discover';
+import { IndexersPage } from './pages/Indexers';
+import { LibraryPage } from './pages/Library';
+import { RequestsPage } from './pages/Requests';
 
 const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({ component: Root });
 
@@ -42,6 +46,44 @@ const huntingRoute = createRoute({
   validateSearch: (s: Record<string, unknown>): { instance?: string } => ({ instance: str(s.instance) }),
   component: HuntingPage,
 });
+const discoverRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/discover',
+  validateSearch: (s: Record<string, unknown>): { list?: 'movies' | 'tv'; q?: string } => ({
+    list: s.list === 'movies' || s.list === 'tv' ? s.list : undefined,
+    q: str(s.q),
+  }),
+  component: DiscoverPage,
+});
+const REQUEST_FILTERS = new Set([
+  'all',
+  'pending',
+  'approved',
+  'processing',
+  'available',
+  'failed',
+  'declined',
+]);
+type RequestFilter = 'all' | 'pending' | 'approved' | 'processing' | 'available' | 'failed' | 'declined';
+const requestsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/requests',
+  validateSearch: (s: Record<string, unknown>): { view?: 'mine' | 'links'; status?: RequestFilter } => ({
+    view: s.view === 'mine' || s.view === 'links' ? s.view : undefined,
+    status: REQUEST_FILTERS.has(String(s.status)) ? (s.status as RequestFilter) : undefined,
+  }),
+  component: RequestsPage,
+});
+const libraryRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/library',
+  component: LibraryPage,
+});
+const indexersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/indexers',
+  component: IndexersPage,
+});
 /** The read-only queue of stage 1 became the Queue Cleaner. */
 const queueRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -75,6 +117,10 @@ const routeTree = rootRoute.addChildren([
   cleanerRoute,
   huntingRoute,
   queueRoute,
+  discoverRoute,
+  requestsRoute,
+  libraryRoute,
+  indexersRoute,
   settingsRoute,
   settingsInstanceRoute,
 ]);
