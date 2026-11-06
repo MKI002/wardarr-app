@@ -6,6 +6,7 @@
 //   POST /__control/reset         restores the initial scenario
 //   POST /__control/stage2        turns on the Queue Cleaner and Hunting scenario
 //   GET  /__control/calls         changing calls the services received
+//   POST /hook/...                webhook receiver for notifications
 import http from 'node:http';
 import { INDEXER_APPS, INDEXER_STATS, createStage3 } from './stage3.mjs';
 
@@ -293,6 +294,18 @@ http
       return notFound(res);
     }
     if (prefix === 'jellyfin') return stage3.jellyfin(path, url, req, res, json);
+    // A webhook receiver for notification tests.
+    if (prefix === 'hook' && req.method === 'POST') {
+      const body = await readBody(req);
+      calls.push({
+        service: 'hook',
+        method: 'POST',
+        path,
+        body,
+        signature: req.headers['x-wardarr-signature'],
+      });
+      return json(res, {});
+    }
     if (req.headers['x-api-key'] !== API_KEY) {
       res.writeHead(401);
       return res.end();
