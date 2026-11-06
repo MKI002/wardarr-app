@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query';
 import { createRootRouteWithContext, createRoute, createRouter, redirect } from '@tanstack/react-router';
 import { Root } from './components/Root';
+import { CalendarPage } from './pages/Calendar';
 import { IssuesPage } from './pages/Issues';
 import { OverviewPage } from './pages/Overview';
 import { CleanerPage } from './pages/Cleaner';
@@ -81,6 +82,11 @@ const libraryRoute = createRoute({
   path: '/library',
   component: LibraryPage,
 });
+const calendarRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/calendar',
+  component: CalendarPage,
+});
 const indexersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/indexers',
@@ -143,6 +149,7 @@ const routeTree = rootRoute.addChildren([
   discoverRoute,
   requestsRoute,
   libraryRoute,
+  calendarRoute,
   indexersRoute,
   trashRoute,
   mapRoute,

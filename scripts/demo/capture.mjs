@@ -406,6 +406,21 @@ try {
     await get(`/api/stats?days=${days}`);
   }
 
+  // The calendar asks for ranges around the visitor's today. The demo cuts
+  // them out of one recording that spans about five weeks.
+  const calendarQuery = new URLSearchParams({
+    start: new Date(Date.now() - 8 * 86_400_000).toISOString(),
+    end: new Date(Date.now() + 29 * 86_400_000).toISOString(),
+  });
+  await get(`/api/calendar?${calendarQuery}`);
+  fixtures['/api/calendar'] = fixtures[`/api/calendar?${calendarQuery}`];
+  delete fixtures[`/api/calendar?${calendarQuery}`];
+  // An iCal link that a calendar app has already fetched. Its token is never recorded.
+  const feed = await must('POST', '/api/calendar/feed');
+  await fetch(`${BASE}${feed.path}`);
+  await get('/api/calendar/feed');
+  await get('/api/calendar/feeds');
+
   // The live trend and the issue timeline only have today's data on a fresh
   // server. The demo shows an invented hour and fortnight around those values.
   const overview = fixtures['/api/overview'].body;

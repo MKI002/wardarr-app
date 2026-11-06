@@ -48,6 +48,8 @@ titles at a gentle pace and lets everyone in the house request something to watc
   click, and a passphrase-protected download that moves everything to a new server.
 - **Library and streams.** Library sizes and counts per media server, what is playing right
   now, plays per day, most watched titles and who watched what.
+- **What's coming.** One calendar for every Sonarr, Radarr, Lidarr and Readarr, with the same
+  release from two instances shown once, and a private iCal link for calendar apps.
 - **Indexer statistics.** Queries, grabs, failures and response times per indexer from
   Prowlarr, and which apps depend on an indexer that is failing.
 - **Notifications** by e-mail, ntfy, Discord, Gotify, Telegram or any webhook. New issues
@@ -191,6 +193,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
+- [Calendar](docs/guide/calendar.md): what the calendar shows and how the iCal link stays private.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
 - [Live demo](docs/demo.md): how the demo is built and why its films are public domain.

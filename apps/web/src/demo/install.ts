@@ -98,6 +98,9 @@ function get(path: string, url: URL): Answer {
     if (answer) return answer;
   }
 
+  // The calendar is recorded once; every range is cut out of that recording.
+  if (path === '/api/calendar') return calendarRange(url);
+
   // Search runs over everything Discover knows.
   if (path === '/api/discover/search') {
     const q = (url.searchParams.get('q') ?? '').toLowerCase();
@@ -121,6 +124,31 @@ function get(path: string, url: URL): Answer {
     if (answer) return ok({ ...obj(answer.body), results: [] });
   }
   return notFound();
+}
+
+/**
+ * The calendar recording, moved by whole days only, so episodes keep their
+ * air time ("20:00") instead of drifting with the time of the visit.
+ */
+const calendar = (() => {
+  const recorded = data.fixtures['/api/calendar'];
+  if (!recorded) return null;
+  const days = Math.round(shift / DAY) * DAY;
+  return shiftTimes(recorded.body, days, capturedAt) as unknown as {
+    sources: Json[];
+    items: Array<{ date: string; allDay: boolean }>;
+  };
+})();
+
+function calendarRange(url: URL): Answer {
+  if (!calendar) return ok({ sources: [], items: [] });
+  const start = Date.parse(url.searchParams.get('start') ?? '') || 0;
+  const end = Date.parse(url.searchParams.get('end') ?? '') || Infinity;
+  const items = calendar.items.filter((i) => {
+    const t = Date.parse(i.allDay ? `${i.date.slice(0, 10)}T00:00:00Z` : i.date);
+    return t + (i.allDay ? DAY : 0) >= start && t <= end;
+  });
+  return ok({ sources: calendar.sources, items: items as unknown as Json });
 }
 
 // ----------------------------------------------------------------- changes
@@ -176,6 +204,16 @@ async function mutate(method: string, path: string, init: RequestInit | undefine
   const input = obj(typeof init?.body === 'string' ? (JSON.parse(init.body) as Json) : null);
 
   if (path === '/api/auth/logout') return ok(null, 204);
+  // A made-up link: the demo has no server that could answer it.
+  if (path === '/api/calendar/feed') {
+    if (method === 'DELETE') {
+      answers.set('/api/calendar/feed', ok({ feed: null }));
+      return ok(null, 204);
+    }
+    const feed = { id: 'demo-feed', createdAt: new Date().toISOString(), lastUsedAt: null };
+    answers.set('/api/calendar/feed', ok({ feed }));
+    return ok({ feed, path: `/api/calendar/ical/${'demo'.repeat(10)}abc.ics`, url: null }, 201);
+  }
   if (path === '/api/auth/me/preferences') {
     const me = obj(body('/api/auth/me'));
     const user = obj(me.user);
