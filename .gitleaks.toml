@@ -1,0 +1,7 @@
+# Gitleaks configuration for Wardarr.
+# Uses the upstream default rules. Test fixtures use deliberately low-entropy,
+# obviously fake keys, so no allowlist for fixture paths is needed.
+title = "Wardarr gitleaks config"
+
+[extend]
+useDefault = true

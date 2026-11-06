@@ -1,0 +1,26 @@
+# Git hooks for Wardarr. Installed automatically by `pnpm install`.
+# Every hook here protects against leaking secrets or personal data.
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      run: scripts/privacy/gitleaks.sh staged
+    denylist:
+      run: node scripts/privacy/denylist-check.mjs --staged
+    artifacts:
+      run: node scripts/privacy/artifact-check.mjs --staged
+
+commit-msg:
+  commands:
+    denylist:
+      run: node scripts/privacy/denylist-check.mjs --commit-msg {1}
+
+pre-push:
+  parallel: true
+  commands:
+    gitleaks:
+      run: scripts/privacy/gitleaks.sh unpushed
+    denylist:
+      run: node scripts/privacy/denylist-check.mjs --unpushed
+    artifacts:
+      run: node scripts/privacy/artifact-check.mjs --unpushed

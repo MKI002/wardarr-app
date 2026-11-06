@@ -1,0 +1,43 @@
+{
+  "name": "wardarr",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted control center for the *arr stack, download clients, media servers and Seerr.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "prepare": "lefthook install || true",
+    "dev": "pnpm --parallel --filter @wardarr/server --filter @wardarr/web dev",
+    "build": "pnpm -r build",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "pnpm --filter @wardarr/e2e test",
+    "privacy:check": "node scripts/privacy/artifact-check.mjs --all && node scripts/privacy/denylist-check.mjs --all && scripts/privacy/gitleaks.sh history"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "lefthook": "^2.2.2",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild",
+      "lefthook"
+    ]
+  }
+}
