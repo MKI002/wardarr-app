@@ -40,7 +40,8 @@
     "library": "Bibliothek",
     "indexers": "Indexer",
     "trash": "TRaSH Guides",
-    "map": "Karte"
+    "map": "Karte",
+    "calendar": "Kalender"
   },
   "errors": {
     "serverUnreachable": "Der Wardarr-Server antwortet nicht.",

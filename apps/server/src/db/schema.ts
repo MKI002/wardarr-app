@@ -314,3 +314,18 @@ export const trashHistory = sqliteTable(
   },
   (t) => [index('trash_history_instance_at').on(t.instanceId, t.at)],
 );
+
+/**
+ * Calendar feed links (iCal). The link carries a random token; the database
+ * holds only its SHA-256. One link per user; a new link replaces the old one.
+ */
+export const calendarFeeds = sqliteTable('calendar_feeds', {
+  id: text('id').primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .unique()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  tokenHash: text('token_hash').notNull().unique(),
+  createdAt: text('created_at').notNull(),
+  lastUsedAt: text('last_used_at'),
+});

@@ -10,6 +10,8 @@ import { authGuard, type RegisteredRoute } from './auth/guard.js';
 import { registerBackupRoutes } from './backups/routes.js';
 import type { BackupService } from './backups/service.js';
 import { LoginLockout } from './auth/lockout.js';
+import { registerCalendarRoutes } from './calendar/routes.js';
+import { CalendarService } from './calendar/service.js';
 import { CleanerService } from './cleaner/service.js';
 import { registerCleanerRoutes } from './cleaner/routes.js';
 import { FeatureStore } from './features/store.js';
@@ -94,6 +96,7 @@ export interface App {
   topology: TopologyService;
   notifications: NotificationService;
   trash: TrashService;
+  calendar: CalendarService;
 }
 
 function isFile(p: string): boolean {
@@ -189,6 +192,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     source: opts.trashSource,
     localDir: opts.trashDir,
   });
+  const calendar = new CalendarService(opts.db, runtime);
   requests.onCreated(
     (req, user) => void notifications.requestPending(req, user.displayName ?? user.username),
   );
@@ -254,6 +258,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     opts.backups.onChange(() => bus.publish({ type: 'backups.updated', audience: 'admin' }));
     registerBackupRoutes(app, { backups: opts.backups, restart: opts.restart });
   }
+  registerCalendarRoutes(app, { calendar, publicUrl: opts.publicUrl });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
@@ -303,5 +308,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     topology,
     notifications,
     trash,
+    calendar,
   };
 }

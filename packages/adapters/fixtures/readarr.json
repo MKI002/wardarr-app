@@ -131,6 +131,29 @@
       }
     },
     {
+      "path": "/api/v1/calendar",
+      "query": {
+        "start": "2026-03-02T00:00:00.000Z",
+        "end": "2026-03-16T00:00:00.000Z",
+        "unmonitored": "false",
+        "includeAuthor": "true"
+      },
+      "json": [
+        {
+          "id": 91,
+          "title": "Example Book",
+          "releaseDate": "2026-03-09T00:00:00Z",
+          "monitored": true,
+          "author": {
+            "authorName": "Example Author"
+          },
+          "statistics": {
+            "bookFileCount": 1
+          }
+        }
+      ]
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -171,6 +194,20 @@
         "matched": true,
         "downloadId": "FIXTURE0003"
       }
-    ]
+    ],
+    "calendar": {
+      "start": "2026-03-02T00:00:00.000Z",
+      "end": "2026-03-16T00:00:00.000Z",
+      "entries": [
+        {
+          "id": "book:91",
+          "kind": "book",
+          "title": "Example Author",
+          "subtitle": "Example Book",
+          "date": "2026-03-09",
+          "hasFile": true
+        }
+      ]
+    }
   }
 }

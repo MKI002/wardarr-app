@@ -32,6 +32,7 @@ export const lidarr = defineAdapter({
     'search',
     'history',
     'settings',
+    'calendar',
   ],
   mediaKind: 'album',
   create: (ctx) => createArrInstance(ctx, 'lidarr', LIDARR_PROFILE),

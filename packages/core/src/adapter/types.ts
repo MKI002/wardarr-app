@@ -24,6 +24,7 @@ export const CAPABILITIES = [
   'downloads',
   'indexers',
   'trashSync',
+  'calendar',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -154,6 +155,41 @@ export interface WantedItem {
   year?: number;
   /** Air or release date. */
   releaseDate?: string;
+}
+
+/** What a calendar entry is about. */
+export type CalendarKind = 'episode' | 'movie' | 'album' | 'book';
+/** Which release a date stands for. Movies have up to three. */
+export type CalendarRelease = 'airing' | 'cinema' | 'digital' | 'physical' | 'release';
+
+/** One upcoming (or recent) release from an *arr calendar. */
+export interface CalendarEntry {
+  /** Stable within the instance, for example `episode:12` or `movie:5:digital`. */
+  id: string;
+  kind: CalendarKind;
+  release: CalendarRelease;
+  /** Series, movie, artist or author. */
+  title: string;
+  /** Episode, album or book title. */
+  subtitle: string | null;
+  seasonNumber?: number;
+  episodeNumber?: number;
+  /** An ISO time for airings, `YYYY-MM-DD` for releases that only have a day. */
+  date: string;
+  allDay: boolean;
+  runtimeMinutes: number | null;
+  hasFile: boolean;
+  monitored: boolean;
+  /** First episode of a series or a season. */
+  premiere?: 'series' | 'season';
+  finale?: 'series' | 'season' | 'midseason';
+  year: number | null;
+  /** TMDB poster path such as `/abc.jpg`, when the service has one. */
+  posterPath: string | null;
+  /** TMDB id of the movie or series, used to merge duplicates across instances. */
+  tmdbId: number | null;
+  network: string | null;
+  overview: string | null;
 }
 
 export interface HistoryEvent {
@@ -439,6 +475,8 @@ export interface AdapterInstance {
   wanted?(list: 'missing' | 'cutoff', opts: { monitoredOnly: boolean; max: number }): Promise<WantedItem[]>;
   search?(target: SearchTarget): Promise<void>;
   historySince?(since: string): Promise<HistoryEvent[]>;
+  /** Releases between two ISO times, monitored titles only (capability `calendar`). */
+  calendar?(start: string, end: string): Promise<CalendarEntry[]>;
   tags?(): Promise<TagInfo[]>;
   qualityProfiles?(): Promise<QualityProfileInfo[]>;
   // Prowlarr (capability `indexers`).

@@ -5,6 +5,7 @@ import { createTestApp } from './helpers.js';
 
 const EXPECTED_PUBLIC = [
   'GET /*',
+  'GET /api/calendar/ical/:file',
   'GET /api/setup/status',
   'GET /healthz',
   'POST /api/auth/login',

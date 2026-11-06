@@ -35,6 +35,8 @@ interface Fixture {
     /** A call that must hit a fixture route (method + path). */
     remove?: { id: string | number; path: string };
     search?: { target: Record<string, unknown>; body: Record<string, unknown> };
+    /** Calendar entries between two times, matched field by field. */
+    calendar?: { start: string; end: string; entries: Array<Record<string, unknown>> };
   };
 }
 
@@ -85,6 +87,7 @@ const METHOD_FOR: Partial<Record<(typeof CAPABILITIES)[number], keyof AdapterIns
   library: 'libraries',
   discover: 'discover',
   requests: 'requests',
+  calendar: 'calendar',
 };
 
 describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDef) => {
@@ -221,6 +224,22 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
       const call = http.calls.find((c) => c.method === 'POST' && c.path.endsWith('/command'));
       expect(call?.json).toMatchObject(fx.expect.search!.body);
     });
+  }
+
+  if (fx.expect.calendar) {
+    it('reads the calendar of monitored titles', async () => {
+      const { adapter, http } = instantiate(def, fx);
+      const c = fx.expect.calendar!;
+      const entries = await adapter.calendar!(c.start, c.end);
+      expect(entries).toHaveLength(c.entries.length);
+      entries.forEach((e, i) => expect(e).toMatchObject(c.entries[i]!));
+      const call = http.calls.find((x) => x.path.endsWith('/calendar'));
+      expect(call?.query).toMatchObject({ start: c.start, end: c.end, unmonitored: false });
+    });
+  }
+
+  if (def.capabilities.includes('calendar')) {
+    it('has calendar fixtures', () => expect(fx.expect.calendar).toBeDefined());
   }
 
   if (def.capabilities.includes('downloads')) {
