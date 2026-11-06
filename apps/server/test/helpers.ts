@@ -2,7 +2,7 @@
 import { randomBytes } from 'node:crypto';
 import { AdapterError, defineAdapter, type Signal } from '@wardarr/core';
 import { z } from 'zod';
-import { buildApp } from '../src/app.js';
+import { buildApp, type AppOptions } from '../src/app.js';
 import { openDatabase } from '../src/db/index.js';
 import { AdapterRegistry } from '../src/instances/registry.js';
 import { createSecretBox } from '../src/security/crypto.js';
@@ -39,7 +39,13 @@ export const fakeAdapter = defineAdapter({
   },
 });
 
-export async function createTestApp(extra: { cookieSecure?: boolean | 'auto'; adapters?: unknown[] } = {}) {
+export async function createTestApp(
+  extra: {
+    cookieSecure?: boolean | 'auto';
+    adapters?: unknown[];
+    imageFetch?: AppOptions['imageFetch'];
+  } = {},
+) {
   const { db, close } = openDatabase(':memory:');
   const box = createSecretBox(randomBytes(32));
   const built = await buildApp({
@@ -48,6 +54,7 @@ export async function createTestApp(extra: { cookieSecure?: boolean | 'auto'; ad
     registry: new AdapterRegistry([fakeAdapter, ...(extra.adapters ?? [])] as never),
     logLevel: 'silent',
     cookieSecure: extra.cookieSecure,
+    imageFetch: extra.imageFetch,
   });
   await built.app.ready();
   return {

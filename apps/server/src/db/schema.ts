@@ -179,3 +179,52 @@ export const huntExclusions = sqliteTable(
   },
   (t) => [uniqueIndex('hunt_exclusions_instance_key').on(t.instanceId, t.key)],
 );
+
+/**
+ * Plays seen on media servers. Wardarr records them from the session polls;
+ * a play ends when its session is gone.
+ */
+export const streamHistory = sqliteTable(
+  'stream_history',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    instanceId: text('instance_id').notNull(),
+    sessionId: text('session_id').notNull(),
+    user: text('user').notNull(),
+    title: text('title').notNull(),
+    subtitle: text('subtitle'),
+    mediaType: text('media_type').notNull(),
+    startedAt: text('started_at').notNull(),
+    lastSeenAt: text('last_seen_at').notNull(),
+    endedAt: text('ended_at'),
+    /** Time seen playing, from the polls. */
+    playedMs: integer('played_ms').notNull().default(0),
+    durationMs: integer('duration_ms'),
+    /** Furthest position seen, in percent. */
+    progress: integer('progress').notNull().default(0),
+    transcoding: integer('transcoding', { mode: 'boolean' }).notNull().default(false),
+    resolution: text('resolution'),
+    client: text('client'),
+  },
+  (t) => [
+    index('stream_history_started').on(t.startedAt),
+    index('stream_history_open').on(t.instanceId, t.endedAt),
+  ],
+);
+
+/** Which Seerr user a Wardarr user requests as. */
+export const requestLinks = sqliteTable(
+  'request_links',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    externalId: integer('external_id').notNull(),
+    externalName: text('external_name').notNull(),
+    updatedAt: text('updated_at').notNull().default(now),
+  },
+  (t) => [uniqueIndex('request_links_user_instance').on(t.userId, t.instanceId)],
+);

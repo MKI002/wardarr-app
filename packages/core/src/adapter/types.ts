@@ -225,6 +225,142 @@ export interface IndexerInfo {
   mostRecentFailure?: string;
 }
 
+/** Query and grab statistics of one indexer (Prowlarr). */
+export interface IndexerStats {
+  indexerId: number;
+  name: string;
+  queries: number;
+  grabs: number;
+  failedQueries: number;
+  failedGrabs: number;
+  averageResponseMs: number | null;
+}
+
+/** An app Prowlarr syncs indexers to, with the indexers it receives. */
+export interface IndexerApp {
+  id: number;
+  name: string;
+  implementation: string;
+  baseUrl: string | null;
+  enabled: boolean;
+  /** Indexer ids synced to this app. */
+  indexerIds: number[];
+}
+
+/** A title on a Discover list (Seerr). Music is never included. */
+export type MediaAvailability = 'unknown' | 'requested' | 'processing' | 'partial' | 'available';
+
+export interface DiscoverItem {
+  /** TMDB id. */
+  tmdbId: number;
+  mediaType: 'movie' | 'tv';
+  title: string;
+  year: number | null;
+  overview: string;
+  posterPath: string | null;
+  backdropPath: string | null;
+  rating: number | null;
+  status: MediaAvailability;
+  status4k: MediaAvailability;
+}
+
+export interface DiscoverPage {
+  page: number;
+  totalPages: number;
+  results: DiscoverItem[];
+}
+
+export interface DiscoverDetails extends DiscoverItem {
+  /** Seasons of a series, without specials. */
+  seasons: Array<{
+    seasonNumber: number;
+    name: string;
+    episodeCount: number;
+    status: MediaAvailability;
+    status4k: MediaAvailability;
+  }>;
+  tvdbId: number | null;
+}
+
+/** An *arr server Seerr can send requests to. */
+export interface RequestServer {
+  id: number;
+  name: string;
+  type: 'radarr' | 'sonarr';
+  is4k: boolean;
+  isDefault: boolean;
+  profiles: Array<{ id: number; name: string }>;
+  rootFolders: string[];
+  defaultProfileId: number | null;
+  defaultRootFolder: string | null;
+}
+
+export type RequestStatus = 'pending' | 'approved' | 'declined' | 'failed' | 'completed';
+
+export interface MediaRequest {
+  id: number;
+  status: RequestStatus;
+  mediaType: 'movie' | 'tv';
+  tmdbId: number;
+  title: string | null;
+  posterPath: string | null;
+  is4k: boolean;
+  seasons: number[];
+  createdAt: string;
+  updatedAt: string | null;
+  requestedBy: { id: number; name: string };
+  serverId: number | null;
+  profileId: number | null;
+  rootFolder: string | null;
+  mediaStatus: MediaAvailability;
+}
+
+export interface RequestFilter {
+  status?: 'all' | 'pending' | 'approved' | 'processing' | 'available' | 'failed' | 'declined';
+  requestedBy?: number;
+  take: number;
+  skip: number;
+}
+
+export interface NewRequest {
+  mediaType: 'movie' | 'tv';
+  tmdbId: number;
+  tvdbId?: number;
+  seasons?: number[] | 'all';
+  is4k: boolean;
+  serverId?: number;
+  profileId?: number;
+  rootFolder?: string;
+}
+
+export interface RequestEdit {
+  seasons?: number[];
+  is4k?: boolean;
+  serverId?: number;
+  profileId?: number;
+  rootFolder?: string;
+}
+
+export interface ExternalUser {
+  id: number;
+  name: string;
+  /** Names to match against Wardarr users, for example the Plex or Jellyfin user name. */
+  aliases: string[];
+}
+
+/** Library statistics of a media server. */
+export interface LibraryStats {
+  id: string;
+  name: string;
+  kind: 'movie' | 'show' | 'music' | 'other';
+  items: number;
+  /** Movies or episodes counted for size, resolution and codec. */
+  files: number;
+  sizeBytes: number | null;
+  resolutions: Record<string, number>;
+  videoCodecs: Record<string, number>;
+}
+
 export interface SettingsEntry {
   key: string;
   value: string | number | boolean | null;
@@ -259,6 +395,23 @@ export interface AdapterInstance {
   historySince?(since: string): Promise<HistoryEvent[]>;
   tags?(): Promise<TagInfo[]>;
   qualityProfiles?(): Promise<QualityProfileInfo[]>;
+  // Prowlarr (capability `indexers`).
+  indexerStats?(): Promise<IndexerStats[]>;
+  indexerApps?(): Promise<IndexerApp[]>;
+  // Seerr (capabilities `discover`, `requests`). `asUser` is the Seerr user id
+  // the request is made for (X-API-User); without it the API key owner acts.
+  discover?(list: 'trending' | 'movies' | 'tv', page: number, asUser?: number): Promise<DiscoverPage>;
+  searchMedia?(query: string, page: number, asUser?: number): Promise<DiscoverPage>;
+  mediaDetails?(mediaType: 'movie' | 'tv', tmdbId: number, asUser?: number): Promise<DiscoverDetails>;
+  requestServers?(): Promise<RequestServer[]>;
+  requests?(filter: RequestFilter): Promise<{ total: number; results: MediaRequest[] }>;
+  createRequest?(req: NewRequest, asUser?: number): Promise<MediaRequest>;
+  setRequestStatus?(id: number, status: 'approve' | 'decline'): Promise<MediaRequest>;
+  editRequest?(id: number, edit: RequestEdit): Promise<MediaRequest>;
+  retryRequest?(id: number): Promise<MediaRequest>;
+  users?(): Promise<ExternalUser[]>;
+  // Media servers (capability `library`).
+  libraries?(): Promise<LibraryStats[]>;
   // Download clients.
   removeDownload?(jobId: string, opts: { deleteFiles: boolean }): Promise<void>;
   /** Read-only settings. Secrets must already be masked. */

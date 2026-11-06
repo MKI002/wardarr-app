@@ -1,7 +1,8 @@
 // Plex Media Server. Uses an X-Plex-Token instead of an API key.
-import { AdapterError, defineAdapter, type StreamSession } from '@wardarr/core';
+import { AdapterError, defineAdapter, type LibraryStats, type StreamSession } from '@wardarr/core';
 import { z } from 'zod';
 import { jsonOf } from '../shared/http.js';
+import { MAX_LIBRARY_PAGES, accumulate, emptyLibrary, normalizeCodec } from './library.js';
 
 interface PlexSession {
   sessionKey?: string;
@@ -21,9 +22,13 @@ interface PlexSession {
 
 function resolution(r: string | undefined): string | undefined {
   if (!r) return undefined;
-  if (r === '4k') return '4K';
-  if (/^\d+$/.test(r)) return `${r}p`;
-  return r.toUpperCase();
+  const v = r.toLowerCase();
+  if (v === '4k') return '4K';
+  if (/^\d+$/.test(v)) {
+    const n = Number(v);
+    return n >= 2000 ? '4K' : n >= 1000 ? '1080p' : n >= 700 ? '720p' : 'SD';
+  }
+  return v === 'sd' ? 'SD' : r.toUpperCase();
 }
 
 export function mapPlexSession(s: PlexSession): StreamSession {
@@ -48,6 +53,24 @@ export function mapPlexSession(s: PlexSession): StreamSession {
   };
 }
 
+interface PlexSection {
+  key?: string;
+  title?: string;
+  type?: string;
+}
+
+interface PlexItem {
+  Media?: Array<{ videoResolution?: string; videoCodec?: string; Part?: Array<{ size?: number }> }>;
+}
+
+/** Plex type numbers: 1 movie, 2 show, 4 episode, 9 album. */
+const PLEX_TYPES: Record<string, { kind: LibraryStats['kind']; titles: number; files: number | null }> = {
+  movie: { kind: 'movie', titles: 1, files: 1 },
+  show: { kind: 'show', titles: 2, files: 4 },
+  artist: { kind: 'music', titles: 9, files: null },
+};
+const PAGE = 500;
+
 export const plex = defineAdapter({
   id: 'plex',
   name: 'Plex',
@@ -64,10 +87,22 @@ export const plex = defineAdapter({
     },
   ],
   credentials: z.object({ token: z.string().trim().min(1).max(256) }),
-  capabilities: ['sessions'],
+  capabilities: ['sessions', 'library'],
   create(ctx) {
     const headers = { 'X-Plex-Token': ctx.credentials.token, accept: 'application/json' };
-    const get = async <T>(path: string) => jsonOf<T>(await ctx.http.request({ path, headers }));
+    const get = async <T>(
+      path: string,
+      query?: Record<string, string | number>,
+      extra?: Record<string, string>,
+    ) => jsonOf<T>(await ctx.http.request({ path, query, headers: { ...headers, ...extra } }));
+    type Container = {
+      MediaContainer?: {
+        totalSize?: number;
+        size?: number;
+        Metadata?: PlexItem[];
+        Directory?: PlexSection[];
+      };
+    };
     return {
       async testConnection() {
         const res = await get<{ MediaContainer?: { version?: string } }>('/');
@@ -78,6 +113,52 @@ export const plex = defineAdapter({
       async sessions() {
         const res = await get<{ MediaContainer?: { Metadata?: PlexSession[] } }>('/status/sessions');
         return (res.MediaContainer?.Metadata ?? []).map(mapPlexSession);
+      },
+      async libraries() {
+        const sections = (await get<Container>('/library/sections')).MediaContainer?.Directory ?? [];
+        const out: LibraryStats[] = [];
+        for (const sec of sections) {
+          if (!sec.key) continue;
+          const t = PLEX_TYPES[sec.type ?? ''];
+          const lib = emptyLibrary(sec.key, sec.title ?? '', t?.kind ?? 'other');
+          if (t) {
+            const count = await get<Container>(
+              `/library/sections/${sec.key}/all`,
+              { type: t.titles },
+              {
+                'X-Plex-Container-Start': '0',
+                'X-Plex-Container-Size': '0',
+              },
+            );
+            lib.items = count.MediaContainer?.totalSize ?? count.MediaContainer?.size ?? 0;
+          }
+          if (t?.files) {
+            for (let page = 0; page < MAX_LIBRARY_PAGES; page++) {
+              const res = await get<Container>(
+                `/library/sections/${sec.key}/all`,
+                { type: t.files },
+                {
+                  'X-Plex-Container-Start': String(page * PAGE),
+                  'X-Plex-Container-Size': String(PAGE),
+                },
+              );
+              const items = res.MediaContainer?.Metadata ?? [];
+              for (const item of items) {
+                const media = item.Media?.[0];
+                const size = media?.Part?.reduce((sum, p) => sum + (p.size ?? 0), 0);
+                accumulate(lib, {
+                  sizeBytes: media?.Part?.length ? (size ?? null) : null,
+                  resolution: resolution(media?.videoResolution),
+                  codec: normalizeCodec(media?.videoCodec),
+                });
+              }
+              const total = res.MediaContainer?.totalSize ?? 0;
+              if (items.length < PAGE || (page + 1) * PAGE >= total) break;
+            }
+          }
+          out.push(lib);
+        }
+        return out;
       },
       webUrl: () => `${ctx.baseUrl}/web/index.html`,
     };

@@ -65,6 +65,10 @@ export function registerIssueRoutes(
         return { ok: false, message: err instanceof AdapterError ? err.kind : 'badResponse' };
       }
     }
+    if (action.kind === 'reloadCache' && action.instanceId) {
+      await deps.runtime.recheck([action.instanceId]);
+      return { ok: true, message: null };
+    }
     throw new HttpError(400, 'unsupported');
   });
 }

@@ -13,6 +13,14 @@ import { registerCleanerRoutes } from './cleaner/routes.js';
 import { FeatureStore } from './features/store.js';
 import { HuntingService } from './hunting/service.js';
 import { registerHuntingRoutes } from './hunting/routes.js';
+import { registerImageRoutes, type ImageFetch } from './images/tmdb.js';
+import { registerIndexerRoutes } from './indexers/routes.js';
+import { IndexerService } from './indexers/service.js';
+import { registerLibraryRoutes } from './library/routes.js';
+import { LibraryService } from './library/service.js';
+import { registerRequestRoutes } from './requests/routes.js';
+import { RequestService } from './requests/service.js';
+import { StreamHistoryService } from './streams/history.js';
 import { registerAuthRoutes, type CookieOptions } from './auth/routes.js';
 import { SessionStore } from './auth/sessions.js';
 import { registerSetupRoutes } from './auth/setup.js';
@@ -42,6 +50,8 @@ export interface AppOptions {
   logLevel?: string;
   webDir?: string;
   httpTimeoutMs?: number;
+  /** Replaces the poster download, for tests. */
+  imageFetch?: ImageFetch;
 }
 
 export interface App {
@@ -55,6 +65,10 @@ export interface App {
   bus: EventBus;
   cleaner: CleanerService;
   hunting: HuntingService;
+  library: LibraryService;
+  history: StreamHistoryService;
+  requests: RequestService;
+  indexers: IndexerService;
 }
 
 function isFile(p: string): boolean {
@@ -134,6 +148,10 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const features = new FeatureStore(opts.db);
   const cleaner = new CleanerService(opts.db, features, runtime, bus, app.log);
   const hunting = new HuntingService(opts.db, features, runtime, cleaner, bus);
+  const history = new StreamHistoryService(opts.db, runtime);
+  const library = new LibraryService(features, runtime, bus, app.log);
+  const requests = new RequestService(opts.db, runtime, users, bus);
+  const indexers = new IndexerService(runtime);
   const cookie: CookieOptions = { secure: opts.cookieSecure ?? 'auto' };
 
   await app.register(fastifyCookie);
@@ -184,6 +202,10 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerEventRoutes(app, { bus });
   registerCleanerRoutes(app, { cleaner });
   registerHuntingRoutes(app, { hunting });
+  registerRequestRoutes(app, { requests });
+  registerLibraryRoutes(app, { library, history });
+  registerIndexerRoutes(app, { indexers });
+  registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
   // Unknown API paths answer 401 to anonymous callers, 404 otherwise.
@@ -214,5 +236,20 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     return reply.sendFile('index.html');
   });
 
-  return { app, routes, runtime, issues, users, sessions, store, bus, cleaner, hunting };
+  return {
+    app,
+    routes,
+    runtime,
+    issues,
+    users,
+    sessions,
+    store,
+    bus,
+    cleaner,
+    hunting,
+    library,
+    history,
+    requests,
+    indexers,
+  };
 }

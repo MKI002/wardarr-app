@@ -18,7 +18,7 @@ export const emby = defineAdapter({
     },
   ],
   credentials: z.object({ apiKey: z.string().trim().min(1).max(256) }),
-  capabilities: ['sessions'],
+  capabilities: ['sessions', 'library'],
   create: (ctx) =>
     createEmbyLike(ctx, {
       prefix: '/emby',
