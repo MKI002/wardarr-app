@@ -13,6 +13,35 @@ import { useTranslation } from 'react-i18next';
 
 export const spring = { type: 'spring', stiffness: 420, damping: 32, mass: 0.8 } as const;
 
+/**
+ * Swaps one view for another, e.g. a page, a tab or a settings section: the new
+ * view fades in and the old one leaves at once. There is deliberately no exit
+ * animation: with AnimatePresence mode="wait", leaving a view and coming back
+ * while its exit was still running left the view stuck at opacity 0. A fresh
+ * element per `view` always plays its entry to the end, however fast you switch.
+ */
+export function ViewTransition({
+  view,
+  from = 'below',
+  children,
+}: {
+  view: string;
+  /** `side` slides in from the right, for steps that move forward. */
+  from?: 'below' | 'side';
+  children: ReactNode;
+}) {
+  return (
+    <motion.div
+      key={view}
+      initial={from === 'side' ? { opacity: 0, x: 16 } : { opacity: 0, y: 6 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      transition={{ duration: 0.18, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
 const VARIANTS: Record<ButtonVariant, string> = {

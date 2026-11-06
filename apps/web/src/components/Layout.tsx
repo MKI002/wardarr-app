@@ -1,11 +1,11 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api';
 import { useSession } from '../lib/session';
-import { Logo } from './ui';
+import { Logo, ViewTransition } from './ui';
 
 const TAB_PATHS: Record<string, string> = {
   overview: '/',
@@ -150,17 +150,9 @@ export function Layout() {
       </header>
 
       <main id="main" className="mx-auto max-w-6xl px-4 py-6">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={pathname.split('/')[1] ?? ''}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.18 }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <ViewTransition view={pathname.split('/')[1] ?? ''}>
+          <Outlet />
+        </ViewTransition>
       </main>
 
       <nav

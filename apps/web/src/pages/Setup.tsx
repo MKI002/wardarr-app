@@ -4,7 +4,15 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InstanceForm, ProductPicker, useAdapters } from '../components/InstanceForm';
-import { Button, Guardian, InlineError, StatusDot, TextField, spring } from '../components/ui';
+import {
+  Button,
+  Guardian,
+  InlineError,
+  StatusDot,
+  TextField,
+  ViewTransition,
+  spring,
+} from '../components/ui';
 import { api, setCsrfToken, type AdapterInfo, type Instance, type Me } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { AuthShell } from './Login';
@@ -140,15 +148,9 @@ function ServicesStep({ onDone }: { onDone: () => void }) {
           </AnimatePresence>
         </ul>
       ) : null}
-      <AnimatePresence mode="wait" initial={false}>
+      <ViewTransition view={picking ? 'form' : showPicker ? 'picker' : 'more'}>
         {picking ? (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18 }}
-          >
+          <>
             <h3 className="mb-3 font-semibold">{t('ui.instance.addTitle', { product: picking.name })}</h3>
             <InstanceForm
               adapter={picking}
@@ -160,23 +162,13 @@ function ServicesStep({ onDone }: { onDone: () => void }) {
               }}
               onCancel={() => setPicking(null)}
             />
-          </motion.div>
+          </>
         ) : showPicker ? (
-          <motion.div
-            key="picker"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18 }}
-          >
-            <ProductPicker instances={added} onPick={setPicking} />
-          </motion.div>
+          <ProductPicker instances={added} onPick={setPicking} />
         ) : (
-          <motion.div key="more" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Button onClick={() => setShowPicker(true)}>+ {t('ui.setup.addService')}</Button>
-          </motion.div>
+          <Button onClick={() => setShowPicker(true)}>+ {t('ui.setup.addService')}</Button>
         )}
-      </AnimatePresence>
+      </ViewTransition>
       {!picking ? (
         <div className="flex items-center justify-between gap-2 border-t border-border pt-4">
           {added.length === 0 ? (
@@ -205,34 +197,26 @@ export function SetupWizard({ onDone }: { onDone: () => void }) {
   return (
     <AuthShell title={t('ui.setup.title')} wide>
       <Steps step={step} />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={step}
-          initial={{ opacity: 0, x: 16 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -16 }}
-          transition={{ duration: 0.2 }}
-        >
-          {step === 'account' ? <AccountStep onDone={() => setStep('services')} /> : null}
-          {step === 'services' ? <ServicesStep onDone={() => setStep('done')} /> : null}
-          {step === 'done' ? (
-            <div className="flex flex-col items-center gap-3 py-4 text-center">
-              <motion.div
-                initial={{ scale: 0.6, rotate: -8 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 14 }}
-              >
-                <Guardian size={72} />
-              </motion.div>
-              <p className="text-lg font-semibold">{t('ui.setup.doneTitle')}</p>
-              <p className="max-w-sm text-sm text-muted">{t('ui.setup.doneBody')}</p>
-              <Button variant="primary" onClick={() => void finish()}>
-                {t('ui.setup.open')}
-              </Button>
-            </div>
-          ) : null}
-        </motion.div>
-      </AnimatePresence>
+      <ViewTransition view={step} from="side">
+        {step === 'account' ? <AccountStep onDone={() => setStep('services')} /> : null}
+        {step === 'services' ? <ServicesStep onDone={() => setStep('done')} /> : null}
+        {step === 'done' ? (
+          <div className="flex flex-col items-center gap-3 py-4 text-center">
+            <motion.div
+              initial={{ scale: 0.6, rotate: -8 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 14 }}
+            >
+              <Guardian size={72} />
+            </motion.div>
+            <p className="text-lg font-semibold">{t('ui.setup.doneTitle')}</p>
+            <p className="max-w-sm text-sm text-muted">{t('ui.setup.doneBody')}</p>
+            <Button variant="primary" onClick={() => void finish()}>
+              {t('ui.setup.open')}
+            </Button>
+          </div>
+        ) : null}
+      </ViewTransition>
     </AuthShell>
   );
 }
