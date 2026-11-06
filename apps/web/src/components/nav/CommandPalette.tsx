@@ -37,6 +37,7 @@ const SYNONYMS: Record<string, string> = {
   calendar: 'ical upcoming releases kalender termine',
   cleaner: 'queue stuck stalled warteschlange hängend',
   hunting: 'search missing upgrade suche fehlend',
+  tdarr: 'transcode transcoding encode hevc x265 nodes workers umwandeln',
   trash: 'trash guides profiles custom formats profile',
   indexers: 'prowlarr jackett indexer',
   indexerInsights: 'indexer analysis analyse insights history verlauf prowlarr',
