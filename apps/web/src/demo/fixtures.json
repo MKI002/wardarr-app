@@ -1,5 +1,5 @@
 {
- "capturedAt": "2026-11-06T22:18:32.831Z",
+ "capturedAt": "2026-11-06T22:38:25.582Z",
  "fixtures": {
   "/api/setup/status": {
    "status": 200,
@@ -74,7 +74,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T22:18:30.718Z",
+      "checkedAt": "2026-11-06T22:38:22.160Z",
       "errorKind": null
      },
      {
@@ -86,7 +86,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T22:18:29.471Z",
+      "checkedAt": "2026-11-06T22:38:22.169Z",
       "errorKind": null
      },
      {
@@ -98,7 +98,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T22:18:29.478Z",
+      "checkedAt": "2026-11-06T22:38:23.543Z",
       "errorKind": null
      },
      {
@@ -110,7 +110,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T22:18:29.484Z",
+      "checkedAt": "2026-11-06T22:38:22.887Z",
       "errorKind": null
      },
      {
@@ -122,7 +122,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T22:18:29.489Z",
+      "checkedAt": "2026-11-06T22:38:22.192Z",
       "errorKind": null
      },
      {
@@ -134,7 +134,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T22:18:29.495Z",
+      "checkedAt": "2026-11-06T22:38:23.350Z",
       "errorKind": null
      },
      {
@@ -146,7 +146,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T22:18:29.500Z",
+      "checkedAt": "2026-11-06T22:38:22.207Z",
       "errorKind": null
      },
      {
@@ -158,7 +158,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T22:18:29.505Z",
+      "checkedAt": "2026-11-06T22:38:23.819Z",
       "errorKind": null
      },
      {
@@ -170,7 +170,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T22:18:29.511Z",
+      "checkedAt": "2026-11-06T22:38:23.467Z",
       "errorKind": null
      },
      {
@@ -182,7 +182,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T22:18:29.517Z",
+      "checkedAt": "2026-11-06T22:38:22.227Z",
       "errorKind": null
      }
     ],
@@ -248,7 +248,7 @@
       "speedBytesPerSecond": 12400000,
       "etaSeconds": 74,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T21:53:25.000Z",
+      "addedAt": "2026-11-06T22:13:18.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -263,7 +263,7 @@
       "speedBytesPerSecond": 6100000,
       "etaSeconds": 190,
       "category": "radarr",
-      "addedAt": "2026-11-06T22:10:25.000Z",
+      "addedAt": "2026-11-06T22:30:18.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -278,7 +278,7 @@
       "speedBytesPerSecond": 0,
       "etaSeconds": null,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T22:15:25.000Z",
+      "addedAt": "2026-11-06T22:35:18.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -932,7 +932,7 @@
      "instanceName": "Sonarr",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T22:18:30.718Z",
+     "checkedAt": "2026-11-06T22:38:22.160Z",
      "items": [
       {
        "id": 51,
@@ -949,7 +949,7 @@
        "sizeLeftBytes": 850000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T21:53:25.636Z",
+       "added": "2026-11-06T22:13:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1102",
@@ -977,7 +977,7 @@
        "sizeLeftBytes": 1900000000,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T22:06:25.636Z",
+       "added": "2026-11-06T22:26:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1103",
@@ -1008,7 +1008,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T20:43:25.636Z",
+       "added": "2026-11-06T21:03:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1200",
@@ -1039,7 +1039,7 @@
        "sizeLeftBytes": 1450000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T13:18:25.636Z",
+       "added": "2026-11-06T13:38:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1306",
@@ -1059,7 +1059,7 @@
      "instanceName": "Sonarr 4K",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T22:18:29.471Z",
+     "checkedAt": "2026-11-06T22:38:22.169Z",
      "items": []
     },
     {
@@ -1067,7 +1067,7 @@
      "instanceName": "Radarr",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T22:18:29.478Z",
+     "checkedAt": "2026-11-06T22:38:23.543Z",
      "items": []
     },
     {
@@ -1075,7 +1075,7 @@
      "instanceName": "Radarr 4K",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T22:18:29.484Z",
+     "checkedAt": "2026-11-06T22:38:22.887Z",
      "items": [
       {
        "id": 41,
@@ -1095,7 +1095,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T17:18:25.636Z",
+       "added": "2026-11-06T17:38:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:204",
@@ -1124,7 +1124,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T19:18:25.636Z",
+       "added": "2026-11-06T19:38:18.249Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:202",
@@ -1142,7 +1142,7 @@
      "instanceName": "Lidarr",
      "adapter": "lidarr",
      "adapterName": "Lidarr",
-     "checkedAt": "2026-11-06T22:18:29.489Z",
+     "checkedAt": "2026-11-06T22:38:22.192Z",
      "items": [
       {
        "id": 61,
@@ -1162,7 +1162,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T12:18:25.636Z",
+       "added": "2026-11-06T12:38:18.249Z",
        "tags": [],
        "titleKey": "album:301",
        "searchTarget": {
@@ -1191,7 +1191,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T11:48:25.636Z",
+       "added": "2026-11-06T12:08:18.249Z",
        "tags": [],
        "titleKey": "album:302",
        "searchTarget": {
@@ -1220,7 +1220,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T11:18:25.636Z",
+       "added": "2026-11-06T11:38:18.249Z",
        "tags": [],
        "titleKey": "album:303",
        "searchTarget": {
@@ -1244,7 +1244,7 @@
      "displayName": "Demo Admin",
      "role": "admin",
      "disabled": false,
-     "createdAt": "2026-11-06T22:18:26.055Z"
+     "createdAt": "2026-11-06T22:38:18.694Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000012",
@@ -1252,7 +1252,7 @@
      "displayName": "Mira",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T22:18:26.079Z"
+     "createdAt": "2026-11-06T22:38:18.720Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000013",
@@ -1260,7 +1260,7 @@
      "displayName": "Jonas",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T22:18:26.091Z"
+     "createdAt": "2026-11-06T22:38:18.734Z"
     }
    ]
   },
@@ -1385,7 +1385,7 @@
       "instanceName": "Prowlarr",
       "adapterName": "Prowlarr",
       "status": "ok",
-      "checkedAt": "2026-11-06T22:18:29.495Z",
+      "checkedAt": "2026-11-06T22:38:23.350Z",
       "error": null,
       "indexers": [
        {
@@ -1419,7 +1419,7 @@
         "protocol": "torrent",
         "failing": true,
         "disabledUntil": "2099-01-01T00:00:00Z",
-        "mostRecentFailure": "2026-11-06T15:38:25.636Z",
+        "mostRecentFailure": "2026-11-06T15:58:18.249Z",
         "stats": {
          "indexerId": 2,
          "name": "Nightjar",
@@ -1555,9 +1555,9 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T22:18:26.202Z",
+      "startedAt": "2026-11-06T22:38:18.860Z",
       "endedAt": null,
-      "playedMs": 3310,
+      "playedMs": 4610,
       "progress": 46,
       "transcoding": false,
       "resolution": "4K",
@@ -1570,7 +1570,7 @@
       "title": "Lanternfall",
       "subtitle": "S01E03 · The Long Watch",
       "mediaType": "episode",
-      "startedAt": "2026-11-06T22:18:26.202Z",
+      "startedAt": "2026-11-06T22:38:18.860Z",
       "endedAt": null,
       "playedMs": 0,
       "progress": 23,
@@ -1585,9 +1585,9 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T22:18:26.202Z",
+      "startedAt": "2026-11-06T22:38:18.860Z",
       "endedAt": null,
-      "playedMs": 3310,
+      "playedMs": 4610,
       "progress": 44,
       "transcoding": false,
       "resolution": "1080p",
@@ -1596,42 +1596,12 @@
      {
       "id": 150,
       "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Jonas",
-      "title": "The Great Train Robbery",
-      "subtitle": null,
-      "mediaType": "movie",
-      "startedAt": "2026-11-05T20:18:26.439Z",
-      "endedAt": "2026-11-05T20:30:26.439Z",
-      "playedMs": 720000,
-      "progress": 100,
-      "transcoding": true,
-      "resolution": "720p",
-      "client": "Jellyfin Android"
-     },
-     {
-      "id": 149,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Demo",
-      "title": "Kestrel Station",
-      "subtitle": "S01E01 · Pressure Drop",
-      "mediaType": "episode",
-      "startedAt": "2026-11-05T20:18:26.439Z",
-      "endedAt": "2026-11-05T21:14:26.439Z",
-      "playedMs": 3360000,
-      "progress": 100,
-      "transcoding": false,
-      "resolution": "4K",
-      "client": "Jellyfin Media Player"
-     },
-     {
-      "id": 148,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Mira",
-      "title": "The Salt Archive",
-      "subtitle": "S01E02 · Water Damage",
+      "title": "Lanternfall",
+      "subtitle": "S01E01 · The Dark Coast",
       "mediaType": "episode",
-      "startedAt": "2026-11-05T20:18:26.439Z",
-      "endedAt": "2026-11-05T21:13:26.439Z",
+      "startedAt": "2026-11-05T21:39:00.000Z",
+      "endedAt": "2026-11-05T22:34:00.000Z",
       "playedMs": 3300000,
       "progress": 100,
       "transcoding": false,
@@ -1639,30 +1609,60 @@
       "client": "Jellyfin Web"
      },
      {
-      "id": 147,
+      "id": 149,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Lanternfall",
+      "subtitle": "S01E04 · Fog Signal",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T20:23:00.000Z",
+      "endedAt": "2026-11-05T21:12:00.000Z",
+      "playedMs": 2940000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin Web"
+     },
+     {
+      "id": 148,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Demo",
-      "title": "The Great Train Robbery",
-      "subtitle": null,
-      "mediaType": "movie",
-      "startedAt": "2026-11-05T14:18:26.439Z",
-      "endedAt": "2026-11-05T14:30:26.439Z",
-      "playedMs": 720000,
+      "title": "Lanternfall",
+      "subtitle": "S01E05 · Keeper’s Log",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T19:12:00.000Z",
+      "endedAt": "2026-11-05T20:07:00.000Z",
+      "playedMs": 3300000,
       "progress": 100,
       "transcoding": false,
       "resolution": "4K",
       "client": "Jellyfin Media Player"
      },
      {
+      "id": 147,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "Kestrel Station",
+      "subtitle": "S01E02 · Isobars",
+      "mediaType": "episode",
+      "startedAt": "2026-11-05T12:14:00.000Z",
+      "endedAt": "2026-11-05T12:56:33.600Z",
+      "playedMs": 2553600,
+      "progress": 76,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
+     },
+     {
       "id": 146,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Jonas",
-      "title": "Nosferatu",
+      "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-05T14:18:26.439Z",
-      "endedAt": "2026-11-05T15:52:26.439Z",
-      "playedMs": 5640000,
+      "startedAt": "2026-11-04T21:00:00.000Z",
+      "endedAt": "2026-11-04T21:13:00.000Z",
+      "playedMs": 780000,
       "progress": 100,
       "transcoding": true,
       "resolution": "720p",
@@ -1671,27 +1671,27 @@
      {
       "id": 145,
       "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Demo",
-      "title": "Kestrel Station",
-      "subtitle": "S01E03 · Night Reading",
+      "user": "Mira",
+      "title": "Lanternfall",
+      "subtitle": "S01E04 · Fog Signal",
       "mediaType": "episode",
-      "startedAt": "2026-11-05T14:18:26.439Z",
-      "endedAt": "2026-11-05T15:08:26.439Z",
-      "playedMs": 3000000,
-      "progress": 100,
+      "startedAt": "2026-11-02T23:50:00.000Z",
+      "endedAt": "2026-11-03T00:08:01.200Z",
+      "playedMs": 1081200,
+      "progress": 34,
       "transcoding": false,
-      "resolution": "4K",
-      "client": "Jellyfin Media Player"
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
      },
      {
       "id": 144,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Demo",
-      "title": "The Salt Archive",
-      "subtitle": "S01E04 · The Ledger",
+      "title": "Kestrel Station",
+      "subtitle": "S01E01 · Pressure Drop",
       "mediaType": "episode",
-      "startedAt": "2026-11-04T17:18:26.439Z",
-      "endedAt": "2026-11-04T18:14:26.439Z",
+      "startedAt": "2026-11-02T21:13:00.000Z",
+      "endedAt": "2026-11-02T22:09:00.000Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": false,
@@ -1701,28 +1701,28 @@
      {
       "id": 143,
       "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Mira",
-      "title": "Intolerance",
+      "user": "Jonas",
+      "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-03T21:18:26.439Z",
-      "endedAt": "2026-11-04T00:01:26.439Z",
-      "playedMs": 9780000,
+      "startedAt": "2026-11-02T07:18:00.000Z",
+      "endedAt": "2026-11-02T07:31:00.000Z",
+      "playedMs": 780000,
       "progress": 100,
-      "transcoding": false,
-      "resolution": "1080p",
-      "client": "Jellyfin Web"
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
      },
      {
       "id": 142,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Demo",
-      "title": "Lanternfall",
-      "subtitle": "S01E01 · The Dark Coast",
-      "mediaType": "episode",
-      "startedAt": "2026-11-02T22:18:26.439Z",
-      "endedAt": "2026-11-02T23:06:26.439Z",
-      "playedMs": 2880000,
+      "title": "A Trip to the Moon",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-11-01T20:52:00.000Z",
+      "endedAt": "2026-11-01T21:05:00.000Z",
+      "playedMs": 780000,
       "progress": 100,
       "transcoding": false,
       "resolution": "4K",
@@ -1731,87 +1731,12 @@
      {
       "id": 141,
       "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Mira",
-      "title": "Lanternfall",
-      "subtitle": "S01E01 · The Dark Coast",
-      "mediaType": "episode",
-      "startedAt": "2026-11-02T19:18:26.439Z",
-      "endedAt": "2026-11-02T19:56:50.439Z",
-      "playedMs": 2304000,
-      "progress": 80,
-      "transcoding": false,
-      "resolution": "1080p",
-      "client": "Jellyfin Web"
-     },
-     {
-      "id": 140,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Demo",
-      "title": "Lanternfall",
-      "subtitle": "S01E01 · The Dark Coast",
-      "mediaType": "episode",
-      "startedAt": "2026-11-01T22:18:26.439Z",
-      "endedAt": "2026-11-01T23:08:26.439Z",
-      "playedMs": 3000000,
-      "progress": 100,
-      "transcoding": false,
-      "resolution": "4K",
-      "client": "Jellyfin Media Player"
-     },
-     {
-      "id": 139,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Mira",
       "title": "Kestrel Station",
       "subtitle": "S01E02 · Isobars",
       "mediaType": "episode",
-      "startedAt": "2026-11-01T20:18:26.439Z",
-      "endedAt": "2026-11-01T21:14:26.439Z",
-      "playedMs": 3360000,
-      "progress": 100,
-      "transcoding": false,
-      "resolution": "1080p",
-      "client": "Jellyfin Web"
-     },
-     {
-      "id": 138,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Mira",
-      "title": "The Salt Archive",
-      "subtitle": "S01E02 · Water Damage",
-      "mediaType": "episode",
-      "startedAt": "2026-11-01T14:18:26.439Z",
-      "endedAt": "2026-11-01T15:11:26.439Z",
-      "playedMs": 3180000,
-      "progress": 100,
-      "transcoding": false,
-      "resolution": "1080p",
-      "client": "Jellyfin for Android TV"
-     },
-     {
-      "id": 137,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Mira",
-      "title": "A Trip to the Moon",
-      "subtitle": null,
-      "mediaType": "movie",
-      "startedAt": "2026-10-31T17:18:26.439Z",
-      "endedAt": "2026-10-31T17:31:26.439Z",
-      "playedMs": 780000,
-      "progress": 100,
-      "transcoding": false,
-      "resolution": "1080p",
-      "client": "Jellyfin for Android TV"
-     },
-     {
-      "id": 136,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Demo",
-      "title": "The Salt Archive",
-      "subtitle": "S01E06 · Return Address",
-      "mediaType": "episode",
-      "startedAt": "2026-10-30T20:18:26.439Z",
-      "endedAt": "2026-10-30T21:06:26.439Z",
+      "startedAt": "2026-10-31T21:38:00.000Z",
+      "endedAt": "2026-10-31T22:26:00.000Z",
       "playedMs": 2880000,
       "progress": 100,
       "transcoding": false,
@@ -1819,14 +1744,44 @@
       "client": "Jellyfin Media Player"
      },
      {
-      "id": 135,
+      "id": 140,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Jonas",
+      "title": "Lanternfall",
+      "subtitle": "S01E06 · Spring Tide",
+      "mediaType": "episode",
+      "startedAt": "2026-10-31T16:02:00.000Z",
+      "endedAt": "2026-10-31T16:58:00.000Z",
+      "playedMs": 3360000,
+      "progress": 100,
+      "transcoding": true,
+      "resolution": "720p",
+      "client": "Jellyfin Android"
+     },
+     {
+      "id": 139,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Mira",
+      "title": "A Trip to the Moon",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-31T11:41:00.000Z",
+      "endedAt": "2026-10-31T11:49:50.400Z",
+      "playedMs": 530400,
+      "progress": 68,
+      "transcoding": false,
+      "resolution": "1080p",
+      "client": "Jellyfin for Android TV"
+     },
+     {
+      "id": 138,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Jonas",
       "title": "Intolerance",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-10-30T18:18:26.439Z",
-      "endedAt": "2026-10-30T21:01:26.439Z",
+      "startedAt": "2026-10-31T11:28:00.000Z",
+      "endedAt": "2026-10-31T14:11:00.000Z",
       "playedMs": 9780000,
       "progress": 100,
       "transcoding": true,
@@ -1834,94 +1789,139 @@
       "client": "Jellyfin Android"
      },
      {
-      "id": 134,
+      "id": 137,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "The Great Train Robbery",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-30T23:13:00.000Z",
+      "endedAt": "2026-10-30T23:25:00.000Z",
+      "playedMs": 720000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 136,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Jonas",
-      "title": "The Salt Archive",
-      "subtitle": "S01E05 · Low Shelves",
-      "mediaType": "episode",
-      "startedAt": "2026-10-30T18:18:26.439Z",
-      "endedAt": "2026-10-30T19:14:26.439Z",
-      "playedMs": 3360000,
+      "title": "A Trip to the Moon",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-30T21:17:00.000Z",
+      "endedAt": "2026-10-30T21:30:00.000Z",
+      "playedMs": 780000,
       "progress": 100,
       "transcoding": true,
       "resolution": "720p",
       "client": "Jellyfin Android"
      },
      {
-      "id": 133,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Jonas",
-      "title": "The Salt Archive",
-      "subtitle": "S01E01 · Index Cards",
-      "mediaType": "episode",
-      "startedAt": "2026-10-30T14:18:26.439Z",
-      "endedAt": "2026-10-30T15:10:26.439Z",
-      "playedMs": 3120000,
-      "progress": 100,
-      "transcoding": true,
-      "resolution": "720p",
-      "client": "Jellyfin Android"
-     },
-     {
-      "id": 132,
+      "id": 135,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Mira",
       "title": "The Salt Archive",
-      "subtitle": "S01E05 · Low Shelves",
+      "subtitle": "S01E04 · The Ledger",
       "mediaType": "episode",
-      "startedAt": "2026-10-29T21:18:26.439Z",
-      "endedAt": "2026-10-29T22:14:26.439Z",
-      "playedMs": 3360000,
+      "startedAt": "2026-10-29T23:58:00.000Z",
+      "endedAt": "2026-10-30T00:52:00.000Z",
+      "playedMs": 3240000,
       "progress": 100,
       "transcoding": false,
       "resolution": "1080p",
       "client": "Jellyfin Web"
      },
      {
-      "id": 131,
-      "instanceId": "00000000-0000-4000-8000-000000000010",
-      "user": "Jonas",
-      "title": "The Salt Archive",
-      "subtitle": "S01E04 · The Ledger",
-      "mediaType": "episode",
-      "startedAt": "2026-10-29T20:18:26.439Z",
-      "endedAt": "2026-10-29T21:06:26.439Z",
-      "playedMs": 2880000,
-      "progress": 100,
-      "transcoding": true,
-      "resolution": "720p",
-      "client": "Jellyfin Android"
-     },
-     {
-      "id": 130,
+      "id": 134,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Mira",
       "title": "Kestrel Station",
-      "subtitle": "S01E02 · Isobars",
+      "subtitle": "S01E01 · Pressure Drop",
       "mediaType": "episode",
-      "startedAt": "2026-10-28T22:18:26.439Z",
-      "endedAt": "2026-10-28T23:06:26.439Z",
-      "playedMs": 2880000,
+      "startedAt": "2026-10-29T21:00:00.000Z",
+      "endedAt": "2026-10-29T21:51:00.000Z",
+      "playedMs": 3060000,
       "progress": 100,
       "transcoding": false,
       "resolution": "1080p",
       "client": "Jellyfin for Android TV"
      },
      {
-      "id": 129,
+      "id": 133,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Lanternfall",
+      "subtitle": "S01E06 · Spring Tide",
+      "mediaType": "episode",
+      "startedAt": "2026-10-29T12:20:00.000Z",
+      "endedAt": "2026-10-29T13:12:00.000Z",
+      "playedMs": 3120000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 132,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Kestrel Station",
+      "subtitle": "S01E01 · Pressure Drop",
+      "mediaType": "episode",
+      "startedAt": "2026-10-28T19:13:00.000Z",
+      "endedAt": "2026-10-28T20:10:00.000Z",
+      "playedMs": 3420000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 131,
       "instanceId": "00000000-0000-4000-8000-000000000010",
       "user": "Mira",
-      "title": "The Salt Archive",
-      "subtitle": "S01E05 · Low Shelves",
-      "mediaType": "episode",
-      "startedAt": "2026-10-27T22:18:26.439Z",
-      "endedAt": "2026-10-27T23:13:26.439Z",
-      "playedMs": 3300000,
+      "title": "The Great Train Robbery",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-28T12:30:00.000Z",
+      "endedAt": "2026-10-28T12:42:00.000Z",
+      "playedMs": 720000,
       "progress": 100,
       "transcoding": false,
       "resolution": "1080p",
-      "client": "Jellyfin Web"
+      "client": "Jellyfin for Android TV"
+     },
+     {
+      "id": 130,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Kestrel Station",
+      "subtitle": "S01E03 · Night Reading",
+      "mediaType": "episode",
+      "startedAt": "2026-10-27T07:05:00.000Z",
+      "endedAt": "2026-10-27T07:58:00.000Z",
+      "playedMs": 3180000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
+     },
+     {
+      "id": 129,
+      "instanceId": "00000000-0000-4000-8000-000000000010",
+      "user": "Demo",
+      "title": "Intolerance",
+      "subtitle": null,
+      "mediaType": "movie",
+      "startedAt": "2026-10-26T18:44:00.000Z",
+      "endedAt": "2026-10-26T21:27:00.000Z",
+      "playedMs": 9780000,
+      "progress": 100,
+      "transcoding": false,
+      "resolution": "4K",
+      "client": "Jellyfin Media Player"
      }
     ]
    }
@@ -2438,8 +2438,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.171Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.819Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2534,8 +2534,8 @@
     {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.188Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.841Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2641,8 +2641,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.197Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.851Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2737,8 +2737,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.211Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.870Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2861,8 +2861,8 @@
     {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.211Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.870Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2955,8 +2955,8 @@
     {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.420Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:19.113Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3049,8 +3049,8 @@
     {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:29.557Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:22.267Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3150,8 +3150,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.171Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.819Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3247,7 +3247,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T22:18:26.171Z"
+      "at": "2026-11-06T22:38:18.819Z"
      }
     ]
    }
@@ -3258,8 +3258,8 @@
     "issue": {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.188Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.841Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3366,7 +3366,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T22:18:26.188Z"
+      "at": "2026-11-06T22:38:18.841Z"
      }
     ]
    }
@@ -3377,8 +3377,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.197Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.851Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3474,7 +3474,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T22:18:26.197Z"
+      "at": "2026-11-06T22:38:18.851Z"
      }
     ]
    }
@@ -3485,8 +3485,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.211Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.870Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3610,7 +3610,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T22:18:26.211Z"
+      "at": "2026-11-06T22:38:18.870Z"
      }
     ]
    }
@@ -3621,8 +3621,8 @@
     "issue": {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.211Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:18.870Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3716,7 +3716,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T22:18:26.211Z"
+      "at": "2026-11-06T22:38:18.870Z"
      }
     ]
    }
@@ -3727,8 +3727,8 @@
     "issue": {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:26.420Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:19.113Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3822,7 +3822,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T22:18:26.420Z"
+      "at": "2026-11-06T22:38:19.113Z"
      }
     ]
    }
@@ -3833,8 +3833,8 @@
     "issue": {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T22:18:29.557Z",
-     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "firstSeenAt": "2026-11-06T22:38:22.267Z",
+     "lastSeenAt": "2026-11-06T22:38:23.824Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3930,7 +3930,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T22:18:29.557Z"
+      "at": "2026-11-06T22:38:22.267Z"
      }
     ]
    }
@@ -3964,8 +3964,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T22:18:29.524Z",
-      "nextRunAt": "2026-11-06T22:23:29.524Z",
+      "lastRunAt": "2026-11-06T22:38:22.233Z",
+      "nextRunAt": "2026-11-06T22:43:22.233Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -4025,7 +4025,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T23:18:29.524Z",
+        "nextStrikeAt": "2026-11-06T23:38:22.233Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4122,8 +4122,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T22:18:29.545Z",
-      "nextRunAt": "2026-11-06T22:23:29.545Z",
+      "lastRunAt": "2026-11-06T22:38:22.254Z",
+      "nextRunAt": "2026-11-06T22:43:22.254Z",
       "error": null,
       "paused": null,
       "downloads": [],
@@ -4155,8 +4155,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T22:18:29.553Z",
-      "nextRunAt": "2026-11-06T22:23:29.553Z",
+      "lastRunAt": "2026-11-06T22:38:22.262Z",
+      "nextRunAt": "2026-11-06T22:43:22.262Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -4172,7 +4172,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T23:18:29.553Z",
+        "nextStrikeAt": "2026-11-06T23:38:22.262Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4198,7 +4198,7 @@
         "strikes": 0,
         "maxStrikes": 4,
         "nextStrikeAt": null,
-        "waitUntil": "2026-11-13T22:18:29.553Z",
+        "waitUntil": "2026-11-13T22:38:22.262Z",
         "action": {
          "type": "none"
         },
@@ -4236,8 +4236,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T22:18:29.568Z",
-      "nextRunAt": "2026-11-06T22:23:29.568Z",
+      "lastRunAt": "2026-11-06T22:38:22.282Z",
+      "nextRunAt": "2026-11-06T22:43:22.282Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -4253,7 +4253,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+        "nextStrikeAt": "2026-11-06T23:38:22.282Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4278,7 +4278,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+        "nextStrikeAt": "2026-11-06T23:38:22.282Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4303,7 +4303,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+        "nextStrikeAt": "2026-11-06T23:38:22.282Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4327,7 +4327,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T22:23:29.524Z",
+    "at": "2026-11-06T22:43:22.233Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4387,7 +4387,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T23:18:29.524Z",
+       "nextStrikeAt": "2026-11-06T23:38:22.233Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4427,48 +4427,48 @@
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
        "title": "Lanternfall.S02E01.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T22:18:29.524Z",
+       "firstSeenAt": "2026-11-06T22:38:22.233Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T22:18:29.524Z",
+       "lastProgressAt": "2026-11-06T22:38:22.233Z",
        "lastSizeLeft": 850000000,
        "ignored": false
       },
       {
        "key": "sabnzbd_nzo_demo0001",
        "title": "Lanternfall.S02E02.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T22:18:29.524Z",
+       "firstSeenAt": "2026-11-06T22:38:22.233Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T22:18:29.524Z",
+       "lastProgressAt": "2026-11-06T22:38:22.233Z",
        "lastSizeLeft": 1900000000,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T22:18:29.524Z",
+       "firstSeenAt": "2026-11-06T22:38:22.233Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T22:18:29.524Z",
+       "problemSince": "2026-11-06T22:38:22.233Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T22:18:29.524Z",
-       "lastProgressAt": "2026-11-06T22:18:29.524Z",
+       "lastStrikeAt": "2026-11-06T22:38:22.233Z",
+       "lastProgressAt": "2026-11-06T22:38:22.233Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T22:18:29.524Z",
+       "firstSeenAt": "2026-11-06T22:38:22.233Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T22:18:29.524Z",
+       "lastProgressAt": "2026-11-06T22:38:22.233Z",
        "lastSizeLeft": 1450000000,
        "ignored": false
       }
@@ -4486,7 +4486,7 @@
      {
       "id": 1,
       "instanceId": "00000000-0000-4000-8000-000000000002",
-      "at": "2026-11-06T22:18:29.528Z",
+      "at": "2026-11-06T22:38:22.237Z",
       "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
       "kind": "strike",
@@ -4522,7 +4522,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T22:23:29.545Z",
+    "at": "2026-11-06T22:43:22.254Z",
     "plan": {
      "paused": null,
      "downloads": [],
@@ -4542,7 +4542,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T22:23:29.553Z",
+    "at": "2026-11-06T22:43:22.262Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4558,7 +4558,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T23:18:29.553Z",
+       "nextStrikeAt": "2026-11-06T23:38:22.262Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4584,7 +4584,7 @@
        "strikes": 0,
        "maxStrikes": 4,
        "nextStrikeAt": null,
-       "waitUntil": "2026-11-13T22:18:29.553Z",
+       "waitUntil": "2026-11-13T22:38:22.262Z",
        "action": {
         "type": "none"
        },
@@ -4598,24 +4598,24 @@
       {
        "key": "demofail0001",
        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
-       "firstSeenAt": "2026-11-06T22:18:29.553Z",
+       "firstSeenAt": "2026-11-06T22:38:22.262Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T22:18:29.553Z",
+       "problemSince": "2026-11-06T22:38:22.262Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T22:18:29.553Z",
-       "lastProgressAt": "2026-11-06T22:18:29.553Z",
+       "lastStrikeAt": "2026-11-06T22:38:22.262Z",
+       "lastProgressAt": "2026-11-06T22:38:22.262Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoimport01",
        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
-       "firstSeenAt": "2026-11-06T22:18:29.553Z",
+       "firstSeenAt": "2026-11-06T22:38:22.262Z",
        "problem": "importReady",
-       "problemSince": "2026-11-06T22:18:29.553Z",
+       "problemSince": "2026-11-06T22:38:22.262Z",
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T22:18:29.553Z",
+       "lastProgressAt": "2026-11-06T22:38:22.262Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -4633,7 +4633,7 @@
      {
       "id": 2,
       "instanceId": "00000000-0000-4000-8000-000000000005",
-      "at": "2026-11-06T22:18:29.556Z",
+      "at": "2026-11-06T22:38:22.265Z",
       "downloadKey": "demofail0001",
       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
       "kind": "strike",
@@ -4656,7 +4656,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T22:23:29.568Z",
+    "at": "2026-11-06T22:43:22.282Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4672,7 +4672,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+       "nextStrikeAt": "2026-11-06T23:38:22.282Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4697,7 +4697,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+       "nextStrikeAt": "2026-11-06T23:38:22.282Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4722,7 +4722,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
+       "nextStrikeAt": "2026-11-06T23:38:22.282Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4740,36 +4740,36 @@
       {
        "key": "demoalbum001",
        "title": "The Lamplighters-Night Shift",
-       "firstSeenAt": "2026-11-06T22:18:29.568Z",
+       "firstSeenAt": "2026-11-06T22:38:22.282Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T22:18:29.568Z",
+       "problemSince": "2026-11-06T22:38:22.282Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
-       "lastProgressAt": "2026-11-06T22:18:29.568Z",
+       "lastStrikeAt": "2026-11-06T22:38:22.282Z",
+       "lastProgressAt": "2026-11-06T22:38:22.282Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum002",
        "title": "The Lamplighters-Harbour Songs",
-       "firstSeenAt": "2026-11-06T22:18:29.568Z",
+       "firstSeenAt": "2026-11-06T22:38:22.282Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T22:18:29.568Z",
+       "problemSince": "2026-11-06T22:38:22.282Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
-       "lastProgressAt": "2026-11-06T22:18:29.568Z",
+       "lastStrikeAt": "2026-11-06T22:38:22.282Z",
+       "lastProgressAt": "2026-11-06T22:38:22.282Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum003",
        "title": "Marrow & Pine-Low Tide",
-       "firstSeenAt": "2026-11-06T22:18:29.568Z",
+       "firstSeenAt": "2026-11-06T22:38:22.282Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T22:18:29.568Z",
+       "problemSince": "2026-11-06T22:38:22.282Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
-       "lastProgressAt": "2026-11-06T22:18:29.568Z",
+       "lastStrikeAt": "2026-11-06T22:38:22.282Z",
+       "lastProgressAt": "2026-11-06T22:38:22.282Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -4787,7 +4787,7 @@
      {
       "id": 5,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T22:18:29.571Z",
+      "at": "2026-11-06T22:38:22.284Z",
       "downloadKey": "demoalbum003",
       "title": "Marrow & Pine-Low Tide",
       "kind": "strike",
@@ -4807,7 +4807,7 @@
      {
       "id": 4,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T22:18:29.571Z",
+      "at": "2026-11-06T22:38:22.284Z",
       "downloadKey": "demoalbum002",
       "title": "The Lamplighters-Harbour Songs",
       "kind": "strike",
@@ -4827,7 +4827,7 @@
      {
       "id": 3,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T22:18:29.570Z",
+      "at": "2026-11-06T22:38:22.284Z",
       "downloadKey": "demoalbum001",
       "title": "The Lamplighters-Night Shift",
       "kind": "strike",
@@ -4889,8 +4889,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T22:18:29.540Z",
-        "nextRunAt": "2026-11-06T23:18:29.540Z",
+        "lastRunAt": "2026-11-06T22:38:22.249Z",
+        "nextRunAt": "2026-11-06T23:38:22.249Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -4899,8 +4899,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T22:18:29.543Z",
-        "nextRunAt": "2026-11-07T00:18:29.543Z",
+        "lastRunAt": "2026-11-06T22:38:22.252Z",
+        "nextRunAt": "2026-11-07T00:38:22.252Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -4924,7 +4924,7 @@
           "count": 3
          }
         },
-        "at": "2026-11-06T22:18:29.539Z",
+        "at": "2026-11-06T22:38:22.249Z",
         "manual": false,
         "result": "pending"
        },
@@ -4936,7 +4936,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T22:18:29.538Z",
+        "at": "2026-11-06T22:38:22.248Z",
         "manual": false,
         "result": "pending"
        }
@@ -4982,7 +4982,7 @@
          "everyMinutes": 60
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T22:18:32.687Z",
+        "nextRunAt": "2026-11-06T22:38:25.411Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -4992,7 +4992,7 @@
          "everyMinutes": 120
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T22:18:32.687Z",
+        "nextRunAt": "2026-11-06T22:38:25.411Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -5117,8 +5117,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T22:18:29.565Z",
-        "nextRunAt": "2026-11-06T23:18:29.565Z",
+        "lastRunAt": "2026-11-06T22:38:22.276Z",
+        "nextRunAt": "2026-11-06T23:38:22.276Z",
         "upcoming": [
          {
           "key": "movie:203",
@@ -5136,7 +5136,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-06T23:18:29.565Z"
+          "at": "2026-11-06T23:38:22.276Z"
          },
          {
           "key": "movie:202",
@@ -5154,7 +5154,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-06T23:18:29.565Z"
+          "at": "2026-11-06T23:38:22.276Z"
          }
         ],
         "waiting": 2
@@ -5164,8 +5164,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T22:18:29.567Z",
-        "nextRunAt": "2026-11-07T00:18:29.567Z",
+        "lastRunAt": "2026-11-06T22:38:22.278Z",
+        "nextRunAt": "2026-11-07T00:38:22.278Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -5186,7 +5186,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T22:18:29.565Z",
+        "at": "2026-11-06T22:38:22.276Z",
         "manual": false,
         "result": "pending"
        },
@@ -5198,7 +5198,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T22:18:29.563Z",
+        "at": "2026-11-06T22:38:22.275Z",
         "manual": false,
         "result": "pending"
        }
@@ -5243,8 +5243,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T22:18:29.576Z",
-        "nextRunAt": "2026-11-06T23:18:29.576Z",
+        "lastRunAt": "2026-11-06T22:38:22.290Z",
+        "nextRunAt": "2026-11-06T23:38:22.290Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -5253,8 +5253,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T22:18:29.578Z",
-        "nextRunAt": "2026-11-07T00:18:29.578Z",
+        "lastRunAt": "2026-11-06T22:38:22.293Z",
+        "nextRunAt": "2026-11-07T00:38:22.293Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -5796,8 +5796,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T21:43:25.636Z",
-      "updatedAt": "2026-11-06T21:43:25.636Z",
+      "createdAt": "2026-11-06T22:03:18.249Z",
+      "updatedAt": "2026-11-06T22:03:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5818,8 +5818,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:38:25.636Z",
-      "updatedAt": "2026-11-06T19:38:25.636Z",
+      "createdAt": "2026-11-06T19:58:18.249Z",
+      "updatedAt": "2026-11-06T19:58:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5838,8 +5838,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5860,8 +5860,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T20:18:25.636Z",
-      "updatedAt": "2026-11-05T20:18:25.636Z",
+      "createdAt": "2026-11-05T20:38:18.249Z",
+      "updatedAt": "2026-11-05T20:38:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5880,8 +5880,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T20:18:25.636Z",
-      "updatedAt": "2026-11-04T20:18:25.636Z",
+      "createdAt": "2026-11-04T20:38:18.249Z",
+      "updatedAt": "2026-11-04T20:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5900,8 +5900,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T22:18:25.636Z",
-      "updatedAt": "2026-11-03T22:18:25.636Z",
+      "createdAt": "2026-11-03T22:38:18.249Z",
+      "updatedAt": "2026-11-03T22:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5923,8 +5923,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T22:18:25.636Z",
-      "updatedAt": "2026-10-31T22:18:25.636Z",
+      "createdAt": "2026-10-31T22:38:18.249Z",
+      "updatedAt": "2026-10-31T22:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5943,8 +5943,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T22:18:25.636Z",
-      "updatedAt": "2026-10-25T22:18:25.636Z",
+      "createdAt": "2026-10-25T22:38:18.249Z",
+      "updatedAt": "2026-10-25T22:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5963,8 +5963,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T22:18:25.636Z",
-      "updatedAt": "2026-10-22T22:18:25.636Z",
+      "createdAt": "2026-10-22T22:38:18.249Z",
+      "updatedAt": "2026-10-22T22:38:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5993,8 +5993,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6013,8 +6013,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T22:18:25.636Z",
-      "updatedAt": "2026-10-25T22:18:25.636Z",
+      "createdAt": "2026-10-25T22:38:18.249Z",
+      "updatedAt": "2026-10-25T22:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6042,8 +6042,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T21:43:25.636Z",
-      "updatedAt": "2026-11-06T21:43:25.636Z",
+      "createdAt": "2026-11-06T22:03:18.249Z",
+      "updatedAt": "2026-11-06T22:03:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6082,8 +6082,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:38:25.636Z",
-      "updatedAt": "2026-11-06T19:38:25.636Z",
+      "createdAt": "2026-11-06T19:58:18.249Z",
+      "updatedAt": "2026-11-06T19:58:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6102,8 +6102,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6124,8 +6124,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T20:18:25.636Z",
-      "updatedAt": "2026-11-05T20:18:25.636Z",
+      "createdAt": "2026-11-05T20:38:18.249Z",
+      "updatedAt": "2026-11-05T20:38:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6144,8 +6144,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T20:18:25.636Z",
-      "updatedAt": "2026-11-04T20:18:25.636Z",
+      "createdAt": "2026-11-04T20:38:18.249Z",
+      "updatedAt": "2026-11-04T20:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6174,8 +6174,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6205,8 +6205,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:38:25.636Z",
-      "updatedAt": "2026-11-06T19:38:25.636Z",
+      "createdAt": "2026-11-06T19:58:18.249Z",
+      "updatedAt": "2026-11-06T19:58:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6225,8 +6225,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6247,8 +6247,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T20:18:25.636Z",
-      "updatedAt": "2026-11-05T20:18:25.636Z",
+      "createdAt": "2026-11-05T20:38:18.249Z",
+      "updatedAt": "2026-11-05T20:38:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6267,8 +6267,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T20:18:25.636Z",
-      "updatedAt": "2026-11-04T20:18:25.636Z",
+      "createdAt": "2026-11-04T20:38:18.249Z",
+      "updatedAt": "2026-11-04T20:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6297,8 +6297,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T17:18:25.636Z",
-      "updatedAt": "2026-11-06T17:18:25.636Z",
+      "createdAt": "2026-11-06T17:38:18.249Z",
+      "updatedAt": "2026-11-06T17:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6329,8 +6329,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T22:18:25.636Z",
-      "updatedAt": "2026-10-31T22:18:25.636Z",
+      "createdAt": "2026-10-31T22:38:18.249Z",
+      "updatedAt": "2026-10-31T22:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6349,8 +6349,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T22:18:25.636Z",
-      "updatedAt": "2026-10-25T22:18:25.636Z",
+      "createdAt": "2026-10-25T22:38:18.249Z",
+      "updatedAt": "2026-10-25T22:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6379,8 +6379,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T22:18:25.636Z",
-      "updatedAt": "2026-10-25T22:18:25.636Z",
+      "createdAt": "2026-10-25T22:38:18.249Z",
+      "updatedAt": "2026-10-25T22:38:18.249Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6408,8 +6408,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T22:18:25.636Z",
-      "updatedAt": "2026-10-22T22:18:25.636Z",
+      "createdAt": "2026-10-22T22:38:18.249Z",
+      "updatedAt": "2026-10-22T22:38:18.249Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6446,8 +6446,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T22:18:25.636Z",
-      "updatedAt": "2026-11-03T22:18:25.636Z",
+      "createdAt": "2026-11-03T22:38:18.249Z",
+      "updatedAt": "2026-11-03T22:38:18.249Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6475,8 +6475,8 @@
     "guide": {
      "version": "cfd2ca038b4a08ed119940df760cca5ca904a528",
      "date": null,
-     "fetchedAt": "2026-11-06T22:18:26.295Z",
-     "checkedAt": "2026-11-06T22:18:26.295Z",
+     "fetchedAt": "2026-11-06T22:38:18.958Z",
+     "checkedAt": "2026-11-06T22:38:18.958Z",
      "error": null,
      "source": "directory",
      "skipped": [
@@ -6512,7 +6512,7 @@
       "lastSyncAt": null,
       "neverSynced": true,
       "state": {
-       "checkedAt": "2026-11-06T22:18:26.423Z",
+       "checkedAt": "2026-11-06T22:38:19.116Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -6546,10 +6546,10 @@
       "templateId": "00000000-0000-4000-8000-000000000017",
       "templateName": "Movies HD",
       "guardMode": "auto",
-      "lastSyncAt": "2026-11-06T22:18:26.373Z",
+      "lastSyncAt": "2026-11-06T22:38:19.055Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T22:18:26.410Z",
+       "checkedAt": "2026-11-06T22:38:19.101Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -6558,7 +6558,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T22:18:26.373Z",
+        "at": "2026-11-06T22:38:19.055Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000018",
         "error": null
@@ -6577,10 +6577,10 @@
       "templateId": "00000000-0000-4000-8000-000000000019",
       "templateName": "Movies 4K",
       "guardMode": "notify",
-      "lastSyncAt": "2026-11-06T22:18:26.395Z",
+      "lastSyncAt": "2026-11-06T22:38:19.085Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T22:18:26.416Z",
+       "checkedAt": "2026-11-06T22:38:19.109Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -6589,7 +6589,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T22:18:26.395Z",
+        "at": "2026-11-06T22:38:19.085Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000020",
         "error": null
@@ -6623,8 +6623,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T22:18:26.329Z",
-      "updatedAt": "2026-11-06T22:18:26.329Z"
+      "createdAt": "2026-11-06T22:38:18.996Z",
+      "updatedAt": "2026-11-06T22:38:18.996Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000017",
@@ -6649,8 +6649,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T22:18:26.324Z",
-      "updatedAt": "2026-11-06T22:18:26.324Z"
+      "createdAt": "2026-11-06T22:38:18.991Z",
+      "updatedAt": "2026-11-06T22:38:18.991Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000016",
@@ -6687,8 +6687,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T22:18:26.333Z",
-      "updatedAt": "2026-11-06T22:18:26.333Z"
+      "createdAt": "2026-11-06T22:38:19.000Z",
+      "updatedAt": "2026-11-06T22:38:19.000Z"
      }
     ],
     "changelog": []
@@ -6702,7 +6702,7 @@
       "id": "00000000-0000-4000-8000-000000000020",
       "instanceId": "00000000-0000-4000-8000-000000000005",
       "templateName": "Movies 4K",
-      "at": "2026-11-06T22:18:26.395Z",
+      "at": "2026-11-06T22:38:19.085Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -6788,7 +6788,7 @@
       "id": "00000000-0000-4000-8000-000000000018",
       "instanceId": "00000000-0000-4000-8000-000000000004",
       "templateName": "Movies HD",
-      "at": "2026-11-06T22:18:26.373Z",
+      "at": "2026-11-06T22:38:19.055Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -8698,7 +8698,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T22:18:26.460Z",
+      "refreshedAt": "2026-11-06T22:38:19.157Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -8743,31 +8743,220 @@
     ],
     "streams": {
      "days": 7,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0
+      ]
+     ],
      "plays": 17,
-     "playedMs": 45390620,
-     "transcodes": 3,
+     "playedMs": 36154420,
+     "transcodes": 5,
      "users": [
       {
        "user": "Mira",
-       "plays": 7,
-       "playedMs": 22707310
+       "plays": 6,
+       "playedMs": 10409810
       },
       {
        "user": "Demo",
-       "plays": 7,
-       "playedMs": 16323310
+       "plays": 6,
+       "playedMs": 11044610
       },
       {
        "user": "Jonas",
-       "plays": 3,
-       "playedMs": 6360000
+       "plays": 5,
+       "playedMs": 14700000
       }
      ],
      "topTitles": [
       {
        "title": "Lanternfall",
        "mediaType": "episode",
-       "plays": 4
+       "plays": 6
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 5
       },
       {
        "title": "Kestrel Station",
@@ -8775,47 +8964,37 @@
        "plays": 3
       },
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 3
-      },
-      {
-       "title": "A Trip to the Moon",
+       "title": "Intolerance",
        "mediaType": "movie",
-       "plays": 2
+       "plays": 1
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 2
+       "plays": 1
       },
       {
        "title": "The Great Train Robbery",
-       "mediaType": "movie",
-       "plays": 2
-      },
-      {
-       "title": "Intolerance",
        "mediaType": "movie",
        "plays": 1
       }
      ],
      "perDay": [
       {
-       "day": "2026-10-31",
+       "day": "2026-10-30",
        "plays": 1
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
       },
       {
        "day": "2026-11-01",
-       "plays": 3
+       "plays": 1
       },
       {
        "day": "2026-11-02",
-       "plays": 2
-      },
-      {
-       "day": "2026-11-03",
-       "plays": 1
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -8823,7 +9002,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -8854,18 +9033,207 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T22:18:26.460Z"
+     "refreshedAt": "2026-11-06T22:38:19.157Z"
     },
     "streams": {
      "days": 7,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0
+      ]
+     ],
      "plays": 17,
-     "playedMs": 45390620,
-     "transcodes": 3,
+     "playedMs": 36154420,
+     "transcodes": 5,
      "topTitles": [
       {
        "title": "Lanternfall",
        "mediaType": "episode",
-       "plays": 4
+       "plays": 6
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 5
       },
       {
        "title": "Kestrel Station",
@@ -8873,47 +9241,37 @@
        "plays": 3
       },
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 3
-      },
-      {
-       "title": "A Trip to the Moon",
+       "title": "Intolerance",
        "mediaType": "movie",
-       "plays": 2
+       "plays": 1
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 2
+       "plays": 1
       },
       {
        "title": "The Great Train Robbery",
-       "mediaType": "movie",
-       "plays": 2
-      },
-      {
-       "title": "Intolerance",
        "mediaType": "movie",
        "plays": 1
       }
      ],
      "perDay": [
       {
-       "day": "2026-10-31",
+       "day": "2026-10-30",
        "plays": 1
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
       },
       {
        "day": "2026-11-01",
-       "plays": 3
+       "plays": 1
       },
       {
        "day": "2026-11-02",
-       "plays": 2
-      },
-      {
-       "day": "2026-11-03",
-       "plays": 1
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -8921,7 +9279,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -8940,7 +9298,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T22:18:26.460Z",
+      "refreshedAt": "2026-11-06T22:38:19.157Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -8985,46 +9343,225 @@
     ],
     "streams": {
      "days": 30,
-     "plays": 82,
-     "playedMs": 286885220,
-     "transcodes": 25,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       1,
+       3,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       2,
+       0,
+       2,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       2,
+       1,
+       4,
+       2,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       2,
+       6,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       1,
+       1,
+       2,
+       0,
+       2,
+       0,
+       1,
+       1,
+       2,
+       0,
+       0
+      ]
+     ],
+     "plays": 71,
+     "playedMs": 238590820,
+     "transcodes": 14,
      "users": [
       {
        "user": "Mira",
        "plays": 38,
-       "playedMs": 131411110
-      },
-      {
-       "user": "Jonas",
-       "plays": 25,
-       "playedMs": 99951000
+       "playedMs": 132039410
       },
       {
        "user": "Demo",
        "plays": 19,
-       "playedMs": 55523110
+       "playedMs": 68175410
+      },
+      {
+       "user": "Jonas",
+       "plays": 14,
+       "playedMs": 38376000
       }
      ],
      "topTitles": [
       {
        "title": "Kestrel Station",
        "mediaType": "episode",
-       "plays": 18
+       "plays": 16
       },
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 18
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 14
       },
       {
        "title": "Lanternfall",
        "mediaType": "episode",
        "plays": 12
-      },
-      {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 10
       },
       {
        "title": "Intolerance",
@@ -9034,63 +9571,72 @@
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 8
+       "plays": 6
       },
       {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 6
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -9098,59 +9644,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -9158,7 +9696,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -9189,33 +9727,212 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T22:18:26.460Z"
+     "refreshedAt": "2026-11-06T22:38:19.157Z"
     },
     "streams": {
      "days": 30,
-     "plays": 82,
-     "playedMs": 286885220,
-     "transcodes": 25,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       1,
+       3,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       2,
+       0,
+       2,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       2,
+       1,
+       4,
+       2,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       2,
+       6,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       1,
+       1,
+       2,
+       0,
+       2,
+       0,
+       1,
+       1,
+       2,
+       0,
+       0
+      ]
+     ],
+     "plays": 71,
+     "playedMs": 238590820,
+     "transcodes": 14,
      "topTitles": [
       {
        "title": "Kestrel Station",
        "mediaType": "episode",
-       "plays": 18
+       "plays": 16
       },
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 18
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 14
       },
       {
        "title": "Lanternfall",
        "mediaType": "episode",
        "plays": 12
-      },
-      {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 10
       },
       {
        "title": "Intolerance",
@@ -9225,63 +9942,72 @@
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 8
+       "plays": 6
       },
       {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 6
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -9289,59 +10015,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -9349,7 +10067,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -9368,7 +10086,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T22:18:26.460Z",
+      "refreshedAt": "2026-11-06T22:38:19.157Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -9413,36 +10131,220 @@
     ],
     "streams": {
      "days": 90,
-     "plays": 112,
-     "playedMs": 415972820,
-     "transcodes": 33,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       4,
+       4,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1,
+       1,
+       2,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       3,
+       0,
+       3,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       3,
+       1,
+       5,
+       4,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       4,
+       6,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       1,
+       2,
+       0,
+       0,
+       1,
+       2,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       1,
+       1,
+       2,
+       0,
+       3,
+       0,
+       1,
+       1,
+       4,
+       1,
+       0
+      ]
+     ],
+     "plays": 99,
+     "playedMs": 339910420,
+     "transcodes": 18,
      "users": [
       {
        "user": "Mira",
-       "plays": 54,
-       "playedMs": 197930110
-      },
-      {
-       "user": "Jonas",
-       "plays": 33,
-       "playedMs": 145779600
+       "plays": 55,
+       "playedMs": 200864810
       },
       {
        "user": "Demo",
-       "plays": 25,
-       "playedMs": 72263110
+       "plays": 26,
+       "playedMs": 88249610
+      },
+      {
+       "user": "Jonas",
+       "plays": 18,
+       "playedMs": 50796000
       }
      ],
      "topTitles": [
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 28
-      },
-      {
        "title": "Kestrel Station",
        "mediaType": "episode",
        "plays": 23
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 19
       },
       {
        "title": "Lanternfall",
@@ -9452,57 +10354,49 @@
       {
        "title": "Intolerance",
        "mediaType": "movie",
-       "plays": 16
+       "plays": 13
       },
       {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 12
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 11
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 10
-      },
-      {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "plays": 9
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
-      {
-       "day": "2026-08-09",
-       "plays": 1
-      },
       {
        "day": "2026-08-11",
        "plays": 1
       },
       {
-       "day": "2026-08-15",
+       "day": "2026-08-24",
        "plays": 1
       },
       {
-       "day": "2026-08-19",
+       "day": "2026-08-26",
        "plays": 1
       },
       {
-       "day": "2026-08-21",
+       "day": "2026-09-17",
        "plays": 1
       },
       {
-       "day": "2026-08-31",
+       "day": "2026-09-21",
        "plays": 2
-      },
-      {
-       "day": "2026-09-23",
-       "plays": 1
       },
       {
        "day": "2026-09-25",
@@ -9510,83 +10404,87 @@
       },
       {
        "day": "2026-09-27",
-       "plays": 1
+       "plays": 2
       },
       {
        "day": "2026-09-28",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-09-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-09-30",
-       "plays": 3
-      },
-      {
-       "day": "2026-10-01",
        "plays": 1
       },
       {
+       "day": "2026-10-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-02",
+       "plays": 3
+      },
+      {
        "day": "2026-10-03",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-04",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-06",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-07",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -9594,59 +10492,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -9654,7 +10544,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -9685,23 +10575,207 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T22:18:26.460Z"
+     "refreshedAt": "2026-11-06T22:38:19.157Z"
     },
     "streams": {
      "days": 90,
-     "plays": 112,
-     "playedMs": 415972820,
-     "transcodes": 33,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       4,
+       4,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1,
+       1,
+       2,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       3,
+       0,
+       3,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       3,
+       1,
+       5,
+       4,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       4,
+       6,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       1,
+       2,
+       0,
+       0,
+       1,
+       2,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       1,
+       1,
+       2,
+       0,
+       3,
+       0,
+       1,
+       1,
+       4,
+       1,
+       0
+      ]
+     ],
+     "plays": 99,
+     "playedMs": 339910420,
+     "transcodes": 18,
      "topTitles": [
-      {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 28
-      },
       {
        "title": "Kestrel Station",
        "mediaType": "episode",
        "plays": 23
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 19
       },
       {
        "title": "Lanternfall",
@@ -9711,57 +10785,49 @@
       {
        "title": "Intolerance",
        "mediaType": "movie",
-       "plays": 16
+       "plays": 13
       },
       {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 12
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 11
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 10
-      },
-      {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "plays": 9
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
-      {
-       "day": "2026-08-09",
-       "plays": 1
-      },
       {
        "day": "2026-08-11",
        "plays": 1
       },
       {
-       "day": "2026-08-15",
+       "day": "2026-08-24",
        "plays": 1
       },
       {
-       "day": "2026-08-19",
+       "day": "2026-08-26",
        "plays": 1
       },
       {
-       "day": "2026-08-21",
+       "day": "2026-09-17",
        "plays": 1
       },
       {
-       "day": "2026-08-31",
+       "day": "2026-09-21",
        "plays": 2
-      },
-      {
-       "day": "2026-09-23",
-       "plays": 1
       },
       {
        "day": "2026-09-25",
@@ -9769,83 +10835,87 @@
       },
       {
        "day": "2026-09-27",
-       "plays": 1
+       "plays": 2
       },
       {
        "day": "2026-09-28",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-09-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-09-30",
-       "plays": 3
-      },
-      {
-       "day": "2026-10-01",
        "plays": 1
       },
       {
+       "day": "2026-10-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-02",
+       "plays": 3
+      },
+      {
        "day": "2026-10-03",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-04",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-06",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-07",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -9853,59 +10923,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -9913,7 +10975,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -9932,7 +10994,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T22:18:26.460Z",
+      "refreshedAt": "2026-11-06T22:38:19.157Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -9977,83 +11039,279 @@
     ],
     "streams": {
      "days": 365,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       2,
+       6,
+       9,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       3,
+       4,
+       3,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       4,
+       3,
+       3,
+       4,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       3,
+       1,
+       6,
+       4,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       2,
+       1,
+       8,
+       7,
+       4
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       0,
+       0,
+       1,
+       2,
+       1,
+       0,
+       1,
+       2,
+       1,
+       4,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       1,
+       2,
+       3,
+       2,
+       3,
+       0,
+       1,
+       2,
+       5,
+       1,
+       0
+      ]
+     ],
      "plays": 153,
-     "playedMs": 572682620,
-     "transcodes": 43,
+     "playedMs": 505919020,
+     "transcodes": 33,
      "users": [
       {
        "user": "Mira",
-       "plays": 78,
-       "playedMs": 279756310
-      },
-      {
-       "user": "Jonas",
-       "plays": 43,
-       "playedMs": 198780000
+       "plays": 83,
+       "playedMs": 280465010
       },
       {
        "user": "Demo",
-       "plays": 32,
-       "playedMs": 94146310
+       "plays": 37,
+       "playedMs": 125509610
+      },
+      {
+       "user": "Jonas",
+       "plays": 33,
+       "playedMs": 99944400
       }
      ],
      "topTitles": [
       {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 34
-      },
-      {
        "title": "Kestrel Station",
        "mediaType": "episode",
-       "plays": 31
-      },
-      {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 22
-      },
-      {
-       "title": "Intolerance",
-       "mediaType": "movie",
-       "plays": 22
+       "plays": 36
       },
       {
        "title": "Lanternfall",
        "mediaType": "episode",
-       "plays": 21
+       "plays": 28
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 26
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 23
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 19
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 17
-      },
-      {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "plays": 14
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
       {
-       "day": "2025-11-19",
+       "day": "2025-11-21",
        "plays": 1
       },
       {
-       "day": "2025-11-22",
+       "day": "2025-11-25",
        "plays": 1
       },
       {
-       "day": "2025-11-24",
+       "day": "2025-11-26",
        "plays": 1
       },
       {
-       "day": "2025-11-27",
+       "day": "2025-11-28",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-01",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-07",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-08",
        "plays": 1
       },
       {
@@ -10061,19 +11319,23 @@
        "plays": 1
       },
       {
-       "day": "2025-12-19",
+       "day": "2025-12-17",
        "plays": 1
       },
       {
-       "day": "2025-12-22",
+       "day": "2025-12-24",
        "plays": 1
-      },
-      {
-       "day": "2025-12-23",
-       "plays": 2
       },
       {
        "day": "2025-12-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-02",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-12",
        "plays": 1
       },
       {
@@ -10081,23 +11343,43 @@
        "plays": 1
       },
       {
-       "day": "2026-02-04",
+       "day": "2026-01-23",
        "plays": 1
       },
       {
-       "day": "2026-02-05",
+       "day": "2026-01-31",
        "plays": 1
       },
       {
-       "day": "2026-02-11",
-       "plays": 3
+       "day": "2026-02-02",
+       "plays": 1
       },
       {
-       "day": "2026-02-12",
+       "day": "2026-02-08",
        "plays": 1
       },
       {
        "day": "2026-02-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-16",
+       "plays": 2
+      },
+      {
+       "day": "2026-02-17",
+       "plays": 2
+      },
+      {
+       "day": "2026-02-18",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-24",
        "plays": 1
       },
       {
@@ -10109,55 +11391,59 @@
        "plays": 1
       },
       {
-       "day": "2026-03-05",
+       "day": "2026-03-02",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-08",
        "plays": 2
       },
       {
-       "day": "2026-03-06",
+       "day": "2026-03-14",
        "plays": 1
       },
       {
-       "day": "2026-03-07",
+       "day": "2026-03-30",
        "plays": 1
       },
       {
-       "day": "2026-03-22",
+       "day": "2026-04-02",
        "plays": 1
       },
       {
-       "day": "2026-03-26",
+       "day": "2026-04-10",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-21",
        "plays": 2
       },
       {
-       "day": "2026-03-29",
+       "day": "2026-04-27",
        "plays": 1
       },
       {
-       "day": "2026-03-31",
+       "day": "2026-05-11",
        "plays": 1
       },
       {
-       "day": "2026-04-13",
+       "day": "2026-05-15",
        "plays": 1
       },
       {
-       "day": "2026-04-16",
-       "plays": 1
-      },
-      {
-       "day": "2026-04-22",
-       "plays": 1
-      },
-      {
-       "day": "2026-04-24",
-       "plays": 1
-      },
-      {
-       "day": "2026-05-04",
-       "plays": 1
-      },
-      {
-       "day": "2026-05-10",
+       "day": "2026-05-23",
        "plays": 1
       },
       {
@@ -10165,7 +11451,11 @@
        "plays": 1
       },
       {
-       "day": "2026-06-13",
+       "day": "2026-05-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-19",
        "plays": 1
       },
       {
@@ -10173,19 +11463,23 @@
        "plays": 1
       },
       {
-       "day": "2026-06-25",
-       "plays": 1
-      },
-      {
        "day": "2026-07-05",
        "plays": 1
       },
       {
-       "day": "2026-07-16",
+       "day": "2026-07-08",
+       "plays": 2
+      },
+      {
+       "day": "2026-07-11",
        "plays": 1
       },
       {
-       "day": "2026-08-09",
+       "day": "2026-07-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-31",
        "plays": 1
       },
       {
@@ -10193,24 +11487,20 @@
        "plays": 1
       },
       {
-       "day": "2026-08-15",
+       "day": "2026-08-24",
        "plays": 1
       },
       {
-       "day": "2026-08-19",
+       "day": "2026-08-26",
        "plays": 1
       },
       {
-       "day": "2026-08-21",
+       "day": "2026-09-17",
        "plays": 1
       },
       {
-       "day": "2026-08-31",
+       "day": "2026-09-21",
        "plays": 2
-      },
-      {
-       "day": "2026-09-23",
-       "plays": 1
       },
       {
        "day": "2026-09-25",
@@ -10218,83 +11508,87 @@
       },
       {
        "day": "2026-09-27",
-       "plays": 1
+       "plays": 2
       },
       {
        "day": "2026-09-28",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-09-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-09-30",
-       "plays": 3
-      },
-      {
-       "day": "2026-10-01",
        "plays": 1
       },
       {
+       "day": "2026-10-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-02",
+       "plays": 3
+      },
+      {
        "day": "2026-10-03",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-04",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-06",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-07",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -10302,59 +11596,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -10362,7 +11648,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -10393,70 +11679,266 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T22:18:26.460Z"
+     "refreshedAt": "2026-11-06T22:38:19.157Z"
     },
     "streams": {
      "days": 365,
+     "perHour": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       2,
+       6,
+       9,
+       3
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       1,
+       3,
+       4,
+       3,
+       1
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       4,
+       3,
+       3,
+       4,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       0,
+       0,
+       3,
+       3,
+       1,
+       6,
+       4,
+       2
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       0,
+       2,
+       2,
+       1,
+       8,
+       7,
+       4
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       0,
+       0,
+       1,
+       2,
+       1,
+       0,
+       1,
+       2,
+       1,
+       4,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       4,
+       0,
+       1,
+       2,
+       3,
+       2,
+       3,
+       0,
+       1,
+       2,
+       5,
+       1,
+       0
+      ]
+     ],
      "plays": 153,
-     "playedMs": 572682620,
-     "transcodes": 43,
+     "playedMs": 505919020,
+     "transcodes": 33,
      "topTitles": [
-      {
-       "title": "The Salt Archive",
-       "mediaType": "episode",
-       "plays": 34
-      },
       {
        "title": "Kestrel Station",
        "mediaType": "episode",
-       "plays": 31
-      },
-      {
-       "title": "A Trip to the Moon",
-       "mediaType": "movie",
-       "plays": 22
-      },
-      {
-       "title": "Intolerance",
-       "mediaType": "movie",
-       "plays": 22
+       "plays": 36
       },
       {
        "title": "Lanternfall",
        "mediaType": "episode",
-       "plays": 21
+       "plays": 28
+      },
+      {
+       "title": "A Trip to the Moon",
+       "mediaType": "movie",
+       "plays": 26
+      },
+      {
+       "title": "The Salt Archive",
+       "mediaType": "episode",
+       "plays": 23
+      },
+      {
+       "title": "Intolerance",
+       "mediaType": "movie",
+       "plays": 19
       },
       {
        "title": "Nosferatu",
        "mediaType": "movie",
-       "plays": 17
-      },
-      {
-       "title": "Nanook of the North",
-       "mediaType": "movie",
-       "plays": 3
+       "plays": 14
       },
       {
        "title": "The Great Train Robbery",
        "mediaType": "movie",
-       "plays": 3
+       "plays": 5
+      },
+      {
+       "title": "Nanook of the North",
+       "mediaType": "movie",
+       "plays": 2
       }
      ],
      "perDay": [
       {
-       "day": "2025-11-19",
+       "day": "2025-11-21",
        "plays": 1
       },
       {
-       "day": "2025-11-22",
+       "day": "2025-11-25",
        "plays": 1
       },
       {
-       "day": "2025-11-24",
+       "day": "2025-11-26",
        "plays": 1
       },
       {
-       "day": "2025-11-27",
+       "day": "2025-11-28",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-01",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-07",
+       "plays": 1
+      },
+      {
+       "day": "2025-12-08",
        "plays": 1
       },
       {
@@ -10464,19 +11946,23 @@
        "plays": 1
       },
       {
-       "day": "2025-12-19",
+       "day": "2025-12-17",
        "plays": 1
       },
       {
-       "day": "2025-12-22",
+       "day": "2025-12-24",
        "plays": 1
-      },
-      {
-       "day": "2025-12-23",
-       "plays": 2
       },
       {
        "day": "2025-12-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-02",
+       "plays": 1
+      },
+      {
+       "day": "2026-01-12",
        "plays": 1
       },
       {
@@ -10484,23 +11970,43 @@
        "plays": 1
       },
       {
-       "day": "2026-02-04",
+       "day": "2026-01-23",
        "plays": 1
       },
       {
-       "day": "2026-02-05",
+       "day": "2026-01-31",
        "plays": 1
       },
       {
-       "day": "2026-02-11",
-       "plays": 3
+       "day": "2026-02-02",
+       "plays": 1
       },
       {
-       "day": "2026-02-12",
+       "day": "2026-02-08",
        "plays": 1
       },
       {
        "day": "2026-02-13",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-16",
+       "plays": 2
+      },
+      {
+       "day": "2026-02-17",
+       "plays": 2
+      },
+      {
+       "day": "2026-02-18",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-23",
+       "plays": 1
+      },
+      {
+       "day": "2026-02-24",
        "plays": 1
       },
       {
@@ -10512,55 +12018,59 @@
        "plays": 1
       },
       {
-       "day": "2026-03-05",
+       "day": "2026-03-02",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-03",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-04",
+       "plays": 1
+      },
+      {
+       "day": "2026-03-08",
        "plays": 2
       },
       {
-       "day": "2026-03-06",
+       "day": "2026-03-14",
        "plays": 1
       },
       {
-       "day": "2026-03-07",
+       "day": "2026-03-30",
        "plays": 1
       },
       {
-       "day": "2026-03-22",
+       "day": "2026-04-02",
        "plays": 1
       },
       {
-       "day": "2026-03-26",
+       "day": "2026-04-10",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-04-21",
        "plays": 2
       },
       {
-       "day": "2026-03-29",
+       "day": "2026-04-27",
        "plays": 1
       },
       {
-       "day": "2026-03-31",
+       "day": "2026-05-11",
        "plays": 1
       },
       {
-       "day": "2026-04-13",
+       "day": "2026-05-15",
        "plays": 1
       },
       {
-       "day": "2026-04-16",
-       "plays": 1
-      },
-      {
-       "day": "2026-04-22",
-       "plays": 1
-      },
-      {
-       "day": "2026-04-24",
-       "plays": 1
-      },
-      {
-       "day": "2026-05-04",
-       "plays": 1
-      },
-      {
-       "day": "2026-05-10",
+       "day": "2026-05-23",
        "plays": 1
       },
       {
@@ -10568,7 +12078,11 @@
        "plays": 1
       },
       {
-       "day": "2026-06-13",
+       "day": "2026-05-30",
+       "plays": 1
+      },
+      {
+       "day": "2026-06-19",
        "plays": 1
       },
       {
@@ -10576,19 +12090,23 @@
        "plays": 1
       },
       {
-       "day": "2026-06-25",
-       "plays": 1
-      },
-      {
        "day": "2026-07-05",
        "plays": 1
       },
       {
-       "day": "2026-07-16",
+       "day": "2026-07-08",
+       "plays": 2
+      },
+      {
+       "day": "2026-07-11",
        "plays": 1
       },
       {
-       "day": "2026-08-09",
+       "day": "2026-07-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-07-31",
        "plays": 1
       },
       {
@@ -10596,24 +12114,20 @@
        "plays": 1
       },
       {
-       "day": "2026-08-15",
+       "day": "2026-08-24",
        "plays": 1
       },
       {
-       "day": "2026-08-19",
+       "day": "2026-08-26",
        "plays": 1
       },
       {
-       "day": "2026-08-21",
+       "day": "2026-09-17",
        "plays": 1
       },
       {
-       "day": "2026-08-31",
+       "day": "2026-09-21",
        "plays": 2
-      },
-      {
-       "day": "2026-09-23",
-       "plays": 1
       },
       {
        "day": "2026-09-25",
@@ -10621,83 +12135,87 @@
       },
       {
        "day": "2026-09-27",
-       "plays": 1
+       "plays": 2
       },
       {
        "day": "2026-09-28",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-09-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-09-30",
-       "plays": 3
-      },
-      {
-       "day": "2026-10-01",
        "plays": 1
       },
       {
+       "day": "2026-10-01",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-02",
+       "plays": 3
+      },
+      {
        "day": "2026-10-03",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-04",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-06",
-       "plays": 2
+       "plays": 3
       },
       {
        "day": "2026-10-07",
-       "plays": 3
+       "plays": 2
       },
       {
        "day": "2026-10-08",
-       "plays": 3
+       "plays": 4
       },
       {
        "day": "2026-10-09",
-       "plays": 3
+       "plays": 4
+      },
+      {
+       "day": "2026-10-10",
+       "plays": 2
       },
       {
        "day": "2026-10-11",
-       "plays": 4
+       "plays": 5
       },
       {
        "day": "2026-10-12",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-13",
-       "plays": 5
-      },
-      {
-       "day": "2026-10-14",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-15",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-16",
        "plays": 3
       },
       {
+       "day": "2026-10-13",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-14",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-15",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-16",
+       "plays": 1
+      },
+      {
        "day": "2026-10-17",
-       "plays": 4
+       "plays": 2
       },
       {
        "day": "2026-10-18",
-       "plays": 5
+       "plays": 4
       },
       {
        "day": "2026-10-19",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-20",
@@ -10705,59 +12223,51 @@
       },
       {
        "day": "2026-10-21",
-       "plays": 5
+       "plays": 2
       },
       {
        "day": "2026-10-22",
-       "plays": 4
+       "plays": 6
       },
       {
        "day": "2026-10-23",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-24",
-       "plays": 2
+       "plays": 1
       },
       {
        "day": "2026-10-25",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-26",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-27",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-28",
-       "plays": 1
-      },
-      {
-       "day": "2026-10-29",
-       "plays": 2
-      },
-      {
-       "day": "2026-10-30",
-       "plays": 4
-      },
-      {
-       "day": "2026-10-31",
-       "plays": 1
-      },
-      {
-       "day": "2026-11-01",
        "plays": 3
       },
       {
-       "day": "2026-11-02",
+       "day": "2026-10-26",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-27",
+       "plays": 1
+      },
+      {
+       "day": "2026-10-28",
        "plays": 2
       },
       {
-       "day": "2026-11-03",
+       "day": "2026-10-29",
+       "plays": 3
+      },
+      {
+       "day": "2026-10-30",
+       "plays": 2
+      },
+      {
+       "day": "2026-10-31",
+       "plays": 4
+      },
+      {
+       "day": "2026-11-01",
        "plays": 1
+      },
+      {
+       "day": "2026-11-02",
+       "plays": 3
       },
       {
        "day": "2026-11-04",
@@ -10765,7 +12275,7 @@
       },
       {
        "day": "2026-11-05",
-       "plays": 6
+       "plays": 4
       },
       {
        "day": "2026-11-06",
@@ -10773,6 +12283,464 @@
       }
      ]
     }
+   }
+  },
+  "/api/overview/trend": {
+   "status": 200,
+   "body": {
+    "points": [
+     {
+      "at": "2026-11-06T21:39:00.000Z",
+      "speed": 48592000,
+      "downloads": 3,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:40:00.000Z",
+      "speed": 56163283,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:41:00.000Z",
+      "speed": 62248972,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:42:00.000Z",
+      "speed": 65820625,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:43:00.000Z",
+      "speed": 66612115,
+      "downloads": 5,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:44:00.000Z",
+      "speed": 65171834,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:45:00.000Z",
+      "speed": 62645877,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:46:00.000Z",
+      "speed": 60366385,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:47:00.000Z",
+      "speed": 59384477,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:48:00.000Z",
+      "speed": 60105556,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:49:00.000Z",
+      "speed": 62150023,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T21:50:00.000Z",
+      "speed": 64486352,
+      "downloads": 4,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T21:51:00.000Z",
+      "speed": 65791575,
+      "downloads": 4,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T21:52:00.000Z",
+      "speed": 64917433,
+      "downloads": 4,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:53:00.000Z",
+      "speed": 61304661,
+      "downloads": 4,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:54:00.000Z",
+      "speed": 55205002,
+      "downloads": 4,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:55:00.000Z",
+      "speed": 47634958,
+      "downloads": 3,
+      "streams": 4
+     },
+     {
+      "at": "2026-11-06T21:56:00.000Z",
+      "speed": 40075308,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:57:00.000Z",
+      "speed": 34015748,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:58:00.000Z",
+      "speed": 30496042,
+      "downloads": 1,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T21:59:00.000Z",
+      "speed": 29796248,
+      "downloads": 1,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:00:00.000Z",
+      "speed": 31378584,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:01:00.000Z",
+      "speed": 34099024,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:02:00.000Z",
+      "speed": 36616272,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:03:00.000Z",
+      "speed": 37859665,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:04:00.000Z",
+      "speed": 37398036,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:05:00.000Z",
+      "speed": 35585176,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:06:00.000Z",
+      "speed": 33432988,
+      "downloads": 2,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T22:07:00.000Z",
+      "speed": 32255284,
+      "downloads": 2,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T22:08:00.000Z",
+      "speed": 33202599,
+      "downloads": 2,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:09:00.000Z",
+      "speed": 36845346,
+      "downloads": 2,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:10:00.000Z",
+      "speed": 42946632,
+      "downloads": 3,
+      "streams": 0
+     },
+     {
+      "at": "2026-11-06T22:11:00.000Z",
+      "speed": 50502516,
+      "downloads": 3,
+      "streams": 0
+     },
+     {
+      "at": "2026-11-06T22:12:00.000Z",
+      "speed": 58037750,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:13:00.000Z",
+      "speed": 64059246,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:14:00.000Z",
+      "speed": 67516532,
+      "downloads": 5,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:15:00.000Z",
+      "speed": 68116055,
+      "downloads": 5,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:16:00.000Z",
+      "speed": 66385235,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:17:00.000Z",
+      "speed": 63466104,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:18:00.000Z",
+      "speed": 60709072,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:19:00.000Z",
+      "speed": 59204258,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:20:00.000Z",
+      "speed": 59408532,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:21:00.000Z",
+      "speed": 60993883,
+      "downloads": 4,
+      "streams": 1
+     },
+     {
+      "at": "2026-11-06T22:22:00.000Z",
+      "speed": 62968021,
+      "downloads": 4,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T22:23:00.000Z",
+      "speed": 64026263,
+      "downloads": 4,
+      "streams": 2
+     },
+     {
+      "at": "2026-11-06T22:24:00.000Z",
+      "speed": 63015659,
+      "downloads": 4,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:25:00.000Z",
+      "speed": 59354357,
+      "downloads": 4,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:26:00.000Z",
+      "speed": 53263931,
+      "downloads": 3,
+      "streams": 4
+     },
+     {
+      "at": "2026-11-06T22:27:00.000Z",
+      "speed": 45735133,
+      "downloads": 3,
+      "streams": 4
+     },
+     {
+      "at": "2026-11-06T22:28:00.000Z",
+      "speed": 38236967,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:29:00.000Z",
+      "speed": 32265205,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:30:00.000Z",
+      "speed": 28880428,
+      "downloads": 1,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:31:00.000Z",
+      "speed": 28389250,
+      "downloads": 1,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:32:00.000Z",
+      "speed": 30274389,
+      "downloads": 1,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:33:00.000Z",
+      "speed": 33395754,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:34:00.000Z",
+      "speed": 36393891,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:35:00.000Z",
+      "speed": 38159334,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:36:00.000Z",
+      "speed": 38209613,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:37:00.000Z",
+      "speed": 36847016,
+      "downloads": 2,
+      "streams": 3
+     },
+     {
+      "at": "2026-11-06T22:38:00.000Z",
+      "speed": 60740000,
+      "downloads": 3,
+      "streams": 3
+     }
+    ]
+   }
+  },
+  "/api/issues/timeline?days=14": {
+   "status": 200,
+   "body": {
+    "days": [
+     {
+      "day": "2026-10-24",
+      "critical": 0,
+      "warning": 0,
+      "info": 0
+     },
+     {
+      "day": "2026-10-25",
+      "critical": 0,
+      "warning": 1,
+      "info": 1
+     },
+     {
+      "day": "2026-10-26",
+      "critical": 0,
+      "warning": 0,
+      "info": 0
+     },
+     {
+      "day": "2026-10-27",
+      "critical": 0,
+      "warning": 2,
+      "info": 0
+     },
+     {
+      "day": "2026-10-28",
+      "critical": 0,
+      "warning": 1,
+      "info": 0
+     },
+     {
+      "day": "2026-10-29",
+      "critical": 0,
+      "warning": 0,
+      "info": 1
+     },
+     {
+      "day": "2026-10-30",
+      "critical": 0,
+      "warning": 0,
+      "info": 0
+     },
+     {
+      "day": "2026-10-31",
+      "critical": 1,
+      "warning": 3,
+      "info": 0
+     },
+     {
+      "day": "2026-11-01",
+      "critical": 0,
+      "warning": 1,
+      "info": 0
+     },
+     {
+      "day": "2026-11-02",
+      "critical": 0,
+      "warning": 0,
+      "info": 1
+     },
+     {
+      "day": "2026-11-03",
+      "critical": 0,
+      "warning": 2,
+      "info": 0
+     },
+     {
+      "day": "2026-11-04",
+      "critical": 0,
+      "warning": 1,
+      "info": 0
+     },
+     {
+      "day": "2026-11-05",
+      "critical": 0,
+      "warning": 0,
+      "info": 0
+     },
+     {
+      "day": "2026-11-06",
+      "critical": 0,
+      "warning": 4,
+      "info": 3
+     }
+    ]
    }
   }
  },
