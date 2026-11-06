@@ -11,7 +11,17 @@ import {
   useAdapters,
   useInstances,
 } from '../components/InstanceForm';
-import { Badge, Button, Card, InlineError, Skeleton, StatusDot, TextField, spring } from '../components/ui';
+import {
+  Badge,
+  Button,
+  Card,
+  Choice,
+  InlineError,
+  Skeleton,
+  StatusDot,
+  TextField,
+  spring,
+} from '../components/ui';
 import { api, type AdapterInfo, type Instance, type Preferences } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { AVAILABLE_LANGUAGES } from '../lib/i18n';
@@ -356,35 +366,6 @@ function UsersSection() {
 }
 
 // --------------------------------------------------------------- appearance
-
-function Choice<T extends string>({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: T;
-  options: Array<[T, string]>;
-  onChange: (v: T) => void;
-}) {
-  return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="mb-2 text-sm font-medium">{label}</legend>
-      <div className="flex flex-wrap gap-2">
-        {options.map(([id, text]) => (
-          <label
-            key={id}
-            className={`cursor-pointer rounded-lg border px-3 py-1.5 text-sm ${value === id ? 'border-accent bg-surface-2' : 'border-border'}`}
-          >
-            <input type="radio" className="sr-only" checked={value === id} onChange={() => onChange(id)} />
-            {text}
-          </label>
-        ))}
-      </div>
-    </fieldset>
-  );
-}
 
 function AppearanceSection() {
   const { t } = useTranslation();

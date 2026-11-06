@@ -292,6 +292,17 @@ export class HuntingService {
     this.bus.publish({ type: 'hunting.updated', audience: 'admin' });
   }
 
+  async filters(instanceId: string) {
+    const { entry } = this.known(instanceId);
+    const [tags, profiles] = await Promise.all([
+      entry.adapter.tags ? entry.gate.run(() => entry.adapter.tags!()).catch(() => []) : [],
+      entry.adapter.qualityProfiles
+        ? entry.gate.run(() => entry.adapter.qualityProfiles!()).catch(() => [])
+        : [],
+    ]);
+    return { tags, qualityProfiles: profiles };
+  }
+
   exclude(instanceId: string, key: string, title: string): void {
     this.known(instanceId);
     this.db.insert(huntExclusions).values({ instanceId, key, title }).onConflictDoNothing().run();

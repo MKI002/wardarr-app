@@ -37,6 +37,11 @@ export function registerHuntingRoutes(app: FastifyInstance, deps: { hunting: Hun
 
   app.get('/api/hunting', async () => ({ instances: hunting.summary() }));
 
+  /** Tags and quality profiles of the instance, for the filters under "Advanced". */
+  app.get<{ Params: { id: string } }>('/api/hunting/:id/filters', async (req) =>
+    hunting.filters(req.params.id),
+  );
+
   app.put<{ Params: { id: string } }>('/api/hunting/:id/settings', async (req) => {
     return { config: hunting.saveConfig(req.params.id, parse(settingsSchema, req.body ?? {})) };
   });

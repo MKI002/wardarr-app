@@ -4,14 +4,77 @@
 //   GET  /__control/state         current scenario
 //   POST /__control/fix?what=...  fixes a problem (indexer, update, queue)
 //   POST /__control/reset         restores the initial scenario
+//   POST /__control/stage2        turns on the Queue Cleaner and Hunting scenario
+//   GET  /__control/calls         changing calls the services received
 import http from 'node:http';
 
 export const API_KEY = '00000000000000000000000000000001';
 const PORT = Number(process.env.MOCK_PORT ?? 19000);
 const HOST = process.env.MOCK_HOST ?? '127.0.0.1';
 
-const initial = () => ({ indexerBroken: true, updateAvailable: true, queueFailed: true });
+const initial = () => ({ indexerBroken: true, updateAvailable: true, queueFailed: true, stage2: false });
 let state = initial();
+/** POST and DELETE calls, so tests can check that a dry run changed nothing. */
+let calls = [];
+
+const FILM = (id, title, year, hasFile) => ({
+  id,
+  title,
+  year,
+  hasFile,
+  monitored: true,
+  isAvailable: true,
+  tags: [],
+  qualityProfileId: 1,
+  digitalRelease: `${year}-03-01T00:00:00Z`,
+});
+const FILMS = [
+  FILM(31, 'Example Film', 2021, false),
+  FILM(32, 'Second Example', 2022, false),
+  FILM(33, 'Third Example', 2023, false),
+  FILM(34, 'Fourth Example', 2024, false),
+];
+
+const stage2Queue = () =>
+  state.stage2
+    ? [
+        {
+          id: 21,
+          title: 'Example.Film.2021.2160p',
+          status: 'completed',
+          trackedDownloadStatus: 'warning',
+          trackedDownloadState: 'failed',
+          downloadId: 'E2EFAIL1',
+          movieId: 31,
+          movie: FILMS[0],
+          size: 100,
+          sizeleft: 0,
+          protocol: 'torrent',
+          downloadClient: 'Example Client',
+          statusMessages: [{ title: 'Example.Film.2021.2160p', messages: ['Download failed'] }],
+        },
+        {
+          id: 22,
+          title: 'Second.Example.2022.2160p',
+          status: 'completed',
+          trackedDownloadStatus: 'warning',
+          trackedDownloadState: 'importBlocked',
+          downloadId: 'E2EIMPORT1',
+          movieId: 32,
+          movie: FILMS[1],
+          size: 100,
+          sizeleft: 0,
+          protocol: 'torrent',
+          downloadClient: 'Example Client',
+          statusMessages: [
+            {
+              title: 'Second.Example.2022.2160p',
+              messages: ['Found matching movie via grab history, but release was matched to movie by ID'],
+            },
+          ],
+        },
+      ]
+    : [];
 
 const indexerHealth = (app) =>
   state.indexerBroken
@@ -52,7 +115,8 @@ const SERVICES = {
     appName: 'Radarr',
     version: '5.26.2.10099',
     health: () => indexerHealth('radarr'),
-    queue: () => [],
+    queue: stage2Queue,
+    stage2: true,
   },
   lidarr: {
     api: '/api/v1',
@@ -140,6 +204,50 @@ function prowlarr(path, res, method) {
   return notFound(res);
 }
 
+function readBody(req) {
+  return new Promise((resolve) => {
+    let data = '';
+    req.on('data', (c) => (data += c));
+    req.on('end', () => {
+      try {
+        resolve(data ? JSON.parse(data) : null);
+      } catch {
+        resolve(null);
+      }
+    });
+  });
+}
+
+/** The parts of a Radarr API the Queue Cleaner and Hunting use. */
+async function stage2(prefix, p, url, req, res) {
+  if (req.method === 'POST' || req.method === 'DELETE') {
+    calls.push({ service: prefix, method: req.method, path: p, body: await readBody(req) });
+  }
+  if (p === '/tag') return json(res, [{ id: 1, label: 'wardarr-keep' }]);
+  if (p === '/qualityprofile') return json(res, [{ id: 1, name: 'Ultra HD' }]);
+  if (p === '/movie') return json(res, state.stage2 ? FILMS : []);
+  if (p === '/wanted/cutoff') return json(res, { page: 1, pageSize: 250, totalRecords: 0, records: [] });
+  if (p === '/history/since') return json(res, []);
+  if (p === '/manualimport' && req.method === 'GET') {
+    if (url.searchParams.get('downloadId') !== 'E2EIMPORT1') return json(res, []);
+    return json(res, [
+      {
+        path: '/downloads/Second.Example.2022.2160p/second.example.2022.mkv',
+        name: 'second.example.2022',
+        folderName: 'Second.Example.2022.2160p',
+        movie: { id: 32, title: 'Second Example', year: 2022 },
+        quality: { quality: { id: 19, name: 'Bluray-2160p' } },
+        languages: [{ id: 1, name: 'English' }],
+        rejections: [],
+      },
+    ]);
+  }
+  if (p === '/command' && req.method === 'POST')
+    return json(res, { id: 1, name: 'Command', status: 'queued' }, 201);
+  if (p.startsWith('/queue/') && req.method === 'DELETE') return json(res, {});
+  return notFound(res);
+}
+
 function json(res, body, status = 200) {
   res.writeHead(status, { 'content-type': 'application/json' });
   res.end(JSON.stringify(body));
@@ -156,8 +264,15 @@ http
     const path = `/${rest.join('/')}`;
     if (prefix === '__control') {
       if (path === '/state') return json(res, state);
+      if (path === '/calls') return json(res, calls);
       if (path === '/reset' && req.method === 'POST') {
         state = initial();
+        calls = [];
+        return json(res, state);
+      }
+      if (path === '/stage2' && req.method === 'POST') {
+        state.stage2 = true;
+        state.indexerBroken = false;
         return json(res, state);
       }
       if (path === '/fix' && req.method === 'POST') {
@@ -184,6 +299,7 @@ http
       return json(res, { page: 1, pageSize: 250, totalRecords: records.length, records });
     }
     if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: API_KEY });
+    if (svc.stage2) return stage2(prefix, p, url, req, res);
     return notFound(res);
   })
   .listen(PORT, HOST);
