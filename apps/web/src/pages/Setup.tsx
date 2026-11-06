@@ -8,6 +8,7 @@ import { Button, Guardian, InlineError, StatusDot, TextField, spring } from '../
 import { api, setCsrfToken, type AdapterInfo, type Instance, type Me } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { AuthShell } from './Login';
+import { ServiceLogo } from '../components/ServiceLogo';
 
 const PASSWORD_MIN = 10;
 const USERNAME = /^[a-zA-Z0-9._-]{3,64}$/;
@@ -131,6 +132,7 @@ function ServicesStep({ onDone }: { onDone: () => void }) {
                 className="flex items-center gap-2 rounded-lg bg-surface-2 px-3 py-2 text-sm"
               >
                 <StatusDot tone="ok" label={t('ui.setup.added')} />
+                <ServiceLogo adapter={i.adapter} name={adapterName(i.adapter)} size={18} />
                 <span className="font-medium">{i.name}</span>
                 <span className="text-muted">{adapterName(i.adapter)}</span>
               </motion.li>

@@ -24,6 +24,7 @@ import { tm } from '../lib/i18n';
 import { STATUS_TONE, groupByProduct } from '../lib/instances';
 import { useSession } from '../lib/session';
 import { useTabs } from '../components/Layout';
+import { ServiceLogo } from '../components/ServiceLogo';
 
 const SEVERITY_TONE: Record<string, Tone> = { critical: 'critical', warning: 'warning', info: 'info' };
 
@@ -219,8 +220,11 @@ function AdminOverview() {
               <div className="flex flex-col gap-3">
                 {groups.map((g) => (
                   <div key={g.adapter} className="rounded-xl border border-border bg-bg p-3">
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="font-medium">{g.items[0]?.adapterName}</span>
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <span className="flex min-w-0 items-center gap-2 font-medium">
+                        <ServiceLogo adapter={g.adapter} name={g.items[0]?.adapterName ?? g.adapter} />
+                        <span className="truncate">{g.items[0]?.adapterName}</span>
+                      </span>
                       {g.items.length > 1 ? (
                         <Badge tone="neutral">{t('ui.instance.instances', { count: g.items.length })}</Badge>
                       ) : null}

@@ -198,4 +198,5 @@ repository.
 [MIT](LICENSE). Copyright The Wardarr Authors.
 
 Wardarr is not affiliated with Sonarr, Radarr, Prowlarr, Seerr, Jellyfin, Plex, Emby or any
-other project it connects to.
+other project it connects to. Their logos belong to those projects and are used under their own
+licenses, listed in [NOTICE.md](NOTICE.md).

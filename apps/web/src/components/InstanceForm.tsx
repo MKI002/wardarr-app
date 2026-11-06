@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { api, type AdapterInfo, type Instance } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { Badge, Button, InlineError, TextField, spring } from './ui';
+import { ServiceLogo } from './ServiceLogo';
 
 export const CATEGORY_ORDER: AdapterInfo['category'][] = [
   'arr',
@@ -69,7 +70,10 @@ export function ProductPicker({
                       onClick={() => onPick(a)}
                       className="flex w-full flex-col items-start gap-1 rounded-xl border border-border bg-bg px-3 py-2.5 text-left hover:border-accent"
                     >
-                      <span className="font-medium">{a.name}</span>
+                      <span className="flex items-center gap-2 font-medium">
+                        <ServiceLogo adapter={a.id} name={a.name} />
+                        {a.name}
+                      </span>
                       <span className="text-xs text-muted">
                         {count > 0
                           ? t('ui.instance.instances', { count })
