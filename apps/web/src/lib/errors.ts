@@ -20,6 +20,14 @@ export function errorText(t: T, err: unknown): { message: string; next?: string 
       const reason = (err.details as { reason?: string } | undefined)?.reason ?? 'invalidUrl';
       return { message: t(`ui.instance.urlError.${reason}`) };
     }
+    if (err.code === 'serviceError') {
+      const kind = (err.details as { kind?: string } | undefined)?.kind ?? 'badResponse';
+      return { message: t('ui.errors.serviceError', { reason: t(`ui.instance.testFailed.${kind}`) }) };
+    }
+    if (err.code === 'budget') return { message: t('ui.errors.budget') };
+    if (err.code === 'nothingToImport') return { message: t('ui.errors.nothingToImport') };
+    if (err.code === 'notFound')
+      return { message: t('ui.errors.notFound'), next: t('ui.errors.notFoundNext') };
     if (err.code === 'tooManyRequests') return { message: t('ui.errors.tooManyAttempts') };
     // The same code means "wrong login" (401) or "credential fields invalid" (400).
     if (err.code === 'invalidCredentials' && err.status === 400)

@@ -277,3 +277,205 @@ export function TextField({
     </div>
   );
 }
+
+/** A row of radio choices that look like buttons. */
+export function Choice<T extends string>({
+  label,
+  value,
+  options,
+  onChange,
+  hideLabel,
+}: {
+  label: string;
+  value: T;
+  options: Array<[T, string]>;
+  onChange: (v: T) => void;
+  hideLabel?: boolean;
+}) {
+  return (
+    <fieldset className="flex flex-col gap-2">
+      <legend className={hideLabel ? 'sr-only' : 'mb-2 text-sm font-medium'}>{label}</legend>
+      <div className="flex flex-wrap gap-2">
+        {options.map(([id, text]) => (
+          <label
+            key={id}
+            className={`cursor-pointer rounded-lg border px-3 py-1.5 text-sm transition-colors focus-within:ring-2 focus-within:ring-accent ${value === id ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2'}`}
+          >
+            <input type="radio" className="sr-only" checked={value === id} onChange={() => onChange(id)} />
+            {text}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+/** An on/off switch with a label and an optional hint. */
+export function Toggle({
+  label,
+  help,
+  checked,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  help?: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  disabled?: boolean;
+}) {
+  const id = useId();
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-0.5">
+        <label htmlFor={id} className="text-sm font-medium">
+          {label}
+        </label>
+        {help ? <p className="text-xs text-muted">{help}</p> : null}
+      </div>
+      <button
+        id={id}
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        disabled={disabled}
+        onClick={() => onChange(!checked)}
+        className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors disabled:opacity-50 ${checked ? 'bg-accent' : 'bg-border'}`}
+      >
+        <motion.span
+          className="inline-block size-5 rounded-full bg-surface shadow"
+          initial={false}
+          animate={{ x: checked ? 22 : 2 }}
+          transition={spring}
+        />
+      </button>
+    </div>
+  );
+}
+
+/** A number input with a unit. */
+export function NumberField({
+  label,
+  help,
+  value,
+  onChange,
+  min,
+  max,
+  unit,
+}: {
+  label: string;
+  help?: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  unit?: string;
+}) {
+  const id = useId();
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium">
+        {label}
+      </label>
+      <div className="flex items-center gap-2">
+        <input
+          id={id}
+          type="number"
+          inputMode="numeric"
+          min={min}
+          max={max}
+          value={Number.isFinite(value) ? value : ''}
+          onChange={(e) => onChange(e.target.value === '' ? NaN : Number(e.target.value))}
+          aria-describedby={help ? `${id}-hint` : undefined}
+          className="min-h-10 w-28 rounded-lg border border-border bg-bg px-3 text-sm tabular-nums outline-none focus:border-accent"
+        />
+        {unit ? <span className="text-sm text-muted">{unit}</span> : null}
+      </div>
+      {help ? (
+        <p id={`${id}-hint`} className="text-xs text-muted">
+          {help}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+/** Folds less important settings away under "Advanced". */
+export function Disclosure({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <details className="group rounded-lg border border-border">
+      <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium">
+        {title}
+        <svg
+          viewBox="0 0 24 24"
+          className="size-4 text-muted transition-transform group-open:rotate-180"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          aria-hidden
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <div className="flex flex-col gap-4 border-t border-border px-4 py-4">{children}</div>
+    </details>
+  );
+}
+
+/** Strikes as a row of dots. */
+export function StrikeMeter({ strikes, max, label }: { strikes: number; max: number; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1" role="img" aria-label={label}>
+      {Array.from({ length: Math.min(max, 12) }, (_, i) => (
+        <motion.span
+          key={i}
+          className={`size-2 rounded-full ${i < strikes ? 'bg-critical' : 'bg-border'}`}
+          initial={false}
+          animate={{ scale: i === strikes - 1 ? [1, 1.4, 1] : 1 }}
+          transition={{ duration: 0.25 }}
+        />
+      ))}
+    </span>
+  );
+}
+
+/** Sub-navigation inside a page. */
+export function Tabs<T extends string>({
+  value,
+  options,
+  onChange,
+  label,
+}: {
+  value: T;
+  options: Array<[T, string, number?]>;
+  onChange: (v: T) => void;
+  label: string;
+}) {
+  const layoutId = useId();
+  return (
+    <div role="tablist" aria-label={label} className="flex gap-1 overflow-x-auto border-b border-border">
+      {options.map(([id, text, count]) => (
+        <button
+          key={id}
+          type="button"
+          role="tab"
+          aria-selected={value === id}
+          onClick={() => onChange(id)}
+          className={`relative min-h-10 shrink-0 px-3 text-sm font-medium ${value === id ? 'text-text' : 'text-muted hover:text-text'}`}
+        >
+          {text}
+          {count ? (
+            <span className="ml-1.5 rounded-full bg-surface-2 px-1.5 text-xs tabular-nums">{count}</span>
+          ) : null}
+          {value === id ? (
+            <motion.span
+              layoutId={layoutId}
+              className="absolute inset-x-2 -bottom-px h-0.5 rounded bg-accent"
+              transition={spring}
+            />
+          ) : null}
+        </button>
+      ))}
+    </div>
+  );
+}

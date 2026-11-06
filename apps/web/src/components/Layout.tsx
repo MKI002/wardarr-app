@@ -7,11 +7,19 @@ import { api } from '../lib/api';
 import { useSession } from '../lib/session';
 import { Logo } from './ui';
 
-const TAB_PATHS: Record<string, string> = { overview: '/', issues: '/issues', settings: '/settings' };
+const TAB_PATHS: Record<string, string> = {
+  overview: '/',
+  issues: '/issues',
+  cleaner: '/cleaner',
+  hunting: '/hunting',
+  settings: '/settings',
+};
 
 const ICONS: Record<string, string> = {
   overview: 'M3 12h7V3H3zm0 9h7v-7H3zm11 0h7v-9h-7zm0-18v7h7V3z',
   issues: 'M12 3 2 20h20zm0 6v5m0 3h.01',
+  cleaner: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6',
+  hunting: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4M11 8v6M8 11h6',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',
 };

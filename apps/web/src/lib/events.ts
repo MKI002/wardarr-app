@@ -4,6 +4,8 @@ import type { QueryClient } from '@tanstack/react-query';
 const INVALIDATES: Record<string, string[][]> = {
   'issues.updated': [['issues'], ['overview']],
   'overview.updated': [['overview'], ['queue']],
+  'cleaner.updated': [['cleaner'], ['cleaner-history'], ['cleaner-preview']],
+  'hunting.updated': [['hunting']],
   'instances.updated': [['instances'], ['overview'], ['capabilities']],
 };
 

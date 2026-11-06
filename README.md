@@ -6,6 +6,12 @@ and statistics in one place and keeps the download queue clean.
 
 Wardarr is under active development and not ready for use yet.
 
+## Guides
+
+- [Queue Cleaner](docs/guide/queue-cleaner.md): rules, defaults and why to
+  switch off other queue cleaners before arming it.
+- [Hunting](docs/guide/hunting.md): pace, limits and results.
+
 ## Development
 
 Requirements: Node.js 24, pnpm 10, gitleaks and exiftool (see [docs/privacy-guard.md](docs/privacy-guard.md)).

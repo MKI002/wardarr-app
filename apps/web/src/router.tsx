@@ -1,9 +1,10 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { createRootRouteWithContext, createRoute, createRouter } from '@tanstack/react-router';
+import { createRootRouteWithContext, createRoute, createRouter, redirect } from '@tanstack/react-router';
 import { Root } from './components/Root';
 import { IssuesPage } from './pages/Issues';
 import { OverviewPage } from './pages/Overview';
-import { QueuePage } from './pages/Queue';
+import { CleanerPage } from './pages/Cleaner';
+import { HuntingPage } from './pages/Hunting';
 import { SettingsPage } from './pages/Settings';
 
 const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({ component: Root });
@@ -18,13 +19,37 @@ const issuesRoute = createRoute({
   }),
   component: IssuesPage,
 });
+type CleanerTab = 'preview' | 'history' | 'attempts' | 'orphans' | 'settings';
+const CLEANER_TABS = new Set(['preview', 'history', 'attempts', 'orphans', 'settings']);
+const str = (v: unknown) => (typeof v === 'string' && v ? v : undefined);
+
+const cleanerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/cleaner',
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { instance?: string; tab?: CleanerTab; review?: string; client?: string } => ({
+    instance: str(s.instance),
+    tab: CLEANER_TABS.has(String(s.tab)) ? (s.tab as CleanerTab) : undefined,
+    review: str(s.review),
+    client: str(s.client),
+  }),
+  component: CleanerPage,
+});
+const huntingRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/hunting',
+  validateSearch: (s: Record<string, unknown>): { instance?: string } => ({ instance: str(s.instance) }),
+  component: HuntingPage,
+});
+/** The read-only queue of stage 1 became the Queue Cleaner. */
 const queueRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/queue',
-  validateSearch: (s: Record<string, unknown>): { instance?: string } => ({
-    instance: typeof s.instance === 'string' ? s.instance : undefined,
-  }),
-  component: QueuePage,
+  beforeLoad: ({ search }) => {
+    const instance = str((search as Record<string, unknown>).instance);
+    throw redirect({ to: '/cleaner', search: { instance } });
+  },
 });
 const settingsRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -47,6 +72,8 @@ const settingsInstanceRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   overviewRoute,
   issuesRoute,
+  cleanerRoute,
+  huntingRoute,
   queueRoute,
   settingsRoute,
   settingsInstanceRoute,
