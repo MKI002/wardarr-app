@@ -468,13 +468,26 @@ export function Disclosure({ title, children }: { title: string; children: React
 }
 
 /** Strikes as a row of dots. */
-export function StrikeMeter({ strikes, max, label }: { strikes: number; max: number; label: string }) {
+export function StrikeMeter({
+  strikes,
+  max,
+  label,
+  size = 'sm',
+}: {
+  strikes: number;
+  max: number;
+  label: string;
+  size?: 'sm' | 'lg';
+}) {
+  const lg = size === 'lg';
   return (
-    <span className="inline-flex items-center gap-1" role="img" aria-label={label}>
+    <span className={`inline-flex items-center ${lg ? 'gap-1.5' : 'gap-1'}`} role="img" aria-label={label}>
       {Array.from({ length: Math.min(max, 12) }, (_, i) => (
         <motion.span
           key={i}
-          className={`size-2 rounded-full ${i < strikes ? 'bg-critical' : 'bg-border'}`}
+          className={`${lg ? 'h-3 w-3 rounded-[4px]' : 'size-2 rounded-full'} ${
+            i < strikes ? (lg && strikes < max ? 'bg-warning-mark' : 'bg-critical') : 'bg-border'
+          }`}
           initial={false}
           animate={{ scale: i === strikes - 1 ? [1, 1.4, 1] : 1 }}
           transition={{ duration: 0.25 }}

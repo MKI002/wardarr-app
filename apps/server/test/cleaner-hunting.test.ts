@@ -112,6 +112,13 @@ describe('Queue Cleaner API', () => {
     );
   });
 
+  it('counts what the cleaner did per day', async () => {
+    const res = (await api('GET', `/api/cleaner/activity?instance=${id}&days=7`)).json();
+    expect(res.days).toHaveLength(7);
+    const today = res.days.at(-1);
+    expect(today.removed).toBeGreaterThanOrEqual(1);
+  });
+
   it('shows a preview of the next run', async () => {
     const res = (await api('GET', `/api/cleaner/${id}/preview`)).json();
     expect(res.plan.downloads[0].action.type).toBe('remove');

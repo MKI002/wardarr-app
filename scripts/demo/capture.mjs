@@ -341,6 +341,7 @@ try {
     const id = encodeURIComponent(inst.instanceId);
     await get(`/api/cleaner/${id}/preview`);
     await get(`/api/cleaner/history?instance=${id}&limit=100`);
+    await get(`/api/cleaner/activity?instance=${id}&days=14`);
   }
 
   const hunting = await get('/api/hunting');
@@ -385,6 +386,23 @@ try {
   timeline.days = timeline.days.map((d, i) =>
     i < past.length ? { ...d, warning: past[i], info: i % 4 === 1 ? 1 : 0, critical: i === 7 ? 1 : 0 } : d,
   );
+
+  // The same for the cleaner's fortnight: a few strikes, removals and imports.
+  for (const [n, inst] of (cleaner?.instances ?? []).entries()) {
+    const activity =
+      fixtures[`/api/cleaner/activity?instance=${encodeURIComponent(inst.instanceId)}&days=14`];
+    if (!activity?.body?.days) continue;
+    activity.body.days = activity.body.days.map((d, i) =>
+      i === 13
+        ? d
+        : {
+            ...d,
+            strikes: (i * 7 + n * 3) % 5,
+            removed: (i + n) % 4 === 0 ? 1 : 0,
+            imported: (i * 3 + n) % 6 === 0 ? 1 : 0,
+          },
+    );
+  }
 
   // Answers to a few actions, so buttons in the demo show real results.
   const mutations = {};

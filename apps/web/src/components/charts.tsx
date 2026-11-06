@@ -327,9 +327,45 @@ export function Columns({
   height = 120,
   label,
   emptyLabel,
+  legend = false,
 }: {
   data: ColumnDatum[];
   height?: number;
+  label: string;
+  emptyLabel?: string;
+  /** Lists each series with its total below the chart (for two or more series). */
+  legend?: boolean;
+}) {
+  const chart = <ColumnsChart data={data} height={height} label={label} emptyLabel={emptyLabel} />;
+  if (!legend) return chart;
+  const series = (data[0]?.parts ?? []).map((p, j) => ({
+    ...p,
+    total: data.reduce((sum, d) => sum + (d.parts[j]?.value ?? 0), 0),
+  }));
+  return (
+    <div className="flex flex-col gap-2">
+      {chart}
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+        {series.map((s) => (
+          <li key={s.label} className="flex items-center gap-1.5">
+            <span className={`size-2.5 rounded-sm ${BG_TONE[s.tone]}`} aria-hidden />
+            {s.label}
+            <span className="text-text tabular-nums">{s.total}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ColumnsChart({
+  data,
+  height,
+  label,
+  emptyLabel,
+}: {
+  data: ColumnDatum[];
+  height: number;
   label: string;
   emptyLabel?: string;
 }) {
@@ -641,17 +677,18 @@ export function LiveDot({ tone = 'ok', label }: { tone?: ChartTone; label: strin
 export function ProgressRing({
   value,
   size = 36,
+  stroke = 4,
   tone = 'accent',
   label,
   children,
 }: {
   value: number;
   size?: number;
+  stroke?: number;
   tone?: ChartTone;
   label: string;
   children?: ReactNode;
 }) {
-  const stroke = 4;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const share = Math.max(0, Math.min(1, value));

@@ -23,7 +23,7 @@ import {
   type Signal,
   type TitleAttempts,
 } from '@wardarr/core';
-import { and, desc, eq, lt } from 'drizzle-orm';
+import { and, desc, eq, gte, lt } from 'drizzle-orm';
 import type { FastifyBaseLogger } from 'fastify';
 import type { Db } from '../db/index.js';
 import { cleanerHistory } from '../db/schema.js';
@@ -31,6 +31,14 @@ import type { EventBus } from '../events/bus.js';
 import type { FeatureStore } from '../features/store.js';
 import { HttpError } from '../http/validate.js';
 import type { InstanceRuntime } from '../instances/runtime.js';
+
+export interface CleanerActivityDay {
+  /** Local date, YYYY-MM-DD. */
+  day: string;
+  strikes: number;
+  removed: number;
+  imported: number;
+}
 
 const FEATURE = 'cleaner';
 const PREVIEW_TTL_MS = 10 * 60_000;
@@ -380,6 +388,41 @@ export class CleanerService {
       .orderBy(desc(cleanerHistory.id))
       .limit(opts.limit)
       .all();
+  }
+
+  /**
+   * What the cleaner did per local day: strikes, removals and imports, for
+   * the activity chart. Dry-run entries count too; they show what it would do.
+   */
+  activity(opts: { instanceId?: string; days: number; tzMinutes?: number }): CleanerActivityDay[] {
+    const now = this.now().getTime();
+    const shift = (opts.tzMinutes ?? 0) * 60_000;
+    const localDay = (ms: number) => new Date(ms + shift).toISOString().slice(0, 10);
+    const out = new Map<string, CleanerActivityDay>();
+    for (let i = opts.days - 1; i >= 0; i--) {
+      const day = localDay(now - i * 86_400_000);
+      out.set(day, { day, strikes: 0, removed: 0, imported: 0 });
+    }
+    const since = new Date(now - (opts.days + 1) * 86_400_000).toISOString();
+    const rows = this.db
+      .select({ kind: cleanerHistory.kind, at: cleanerHistory.at })
+      .from(cleanerHistory)
+      .where(
+        and(
+          gte(cleanerHistory.at, since),
+          eq(cleanerHistory.ok, true),
+          opts.instanceId ? eq(cleanerHistory.instanceId, opts.instanceId) : undefined,
+        ),
+      )
+      .all();
+    for (const r of rows) {
+      const entry = out.get(localDay(Date.parse(r.at)));
+      if (!entry) continue;
+      if (r.kind === 'strike') entry.strikes++;
+      else if (r.kind === 'remove' || r.kind === 'removeBlocklist') entry.removed++;
+      else if (r.kind === 'import') entry.imported++;
+    }
+    return [...out.values()];
   }
 
   private record(

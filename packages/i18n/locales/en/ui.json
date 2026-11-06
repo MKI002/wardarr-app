@@ -18,7 +18,8 @@
     "isSet": "Saved. Leave empty to keep it.",
     "optional": "optional",
     "advanced": "Advanced",
-    "saved": "Saved"
+    "saved": "Saved",
+    "moreActions": "More actions"
   },
   "nav": {
     "main": "Main navigation",
@@ -243,7 +244,7 @@
     "collapse": "Hide details",
     "bySeverity": "Open issues by severity",
     "eyebrow": "Issue center",
-    "heroClear": "All clear. Wardarr keeps watching.",
+    "heroClear": "Nothing open. Wardarr keeps watching.",
     "heroCritical_one": "{{count}} critical issue needs you now.",
     "heroCritical_other": "{{count}} critical issues need you now.",
     "heroCalm": "Nothing critical. Have a look when you have time.",
@@ -251,7 +252,8 @@
     "resolvedRecently_one": "{{count}} resolved",
     "resolvedRecently_other": "{{count}} resolved",
     "noneNew": "No new issues",
-    "byService": "Most affected"
+    "byService": "Most affected",
+    "noneAffected": "No service affected"
   },
   "queue": {
     "unmatched": "Not matched to the library",
@@ -415,7 +417,36 @@
       "protectedTagsHelp": "Downloads with one of these tags (comma separated) are never touched.",
       "whitelist": "Whitelist",
       "whitelistHelp": "Titles or download ids containing one of these words (comma separated) are never touched."
-    }
+    },
+    "eyebrow": "Downloads on watch",
+    "modeShort": {
+      "off": "Switched off for this instance.",
+      "dryRun": "Watches and notes what it would do. Changes nothing yet.",
+      "armed": "Removes stuck downloads and searches again."
+    },
+    "queueNow": "Queue right now",
+    "funnel": {
+      "downloads": "Downloads",
+      "strikes": "With strikes",
+      "remove": "Removed next run"
+    },
+    "funnelClear": "Everything is moving.",
+    "funnelStuck_one": "1 download is stuck and collecting strikes.",
+    "funnelStuck_other": "{{count}} downloads are stuck and collecting strikes.",
+    "untilNext": "until the next run",
+    "notScheduled": "not scheduled",
+    "lastRunWhen": "Last run {{when}}",
+    "countdown": "Time until the next run",
+    "activity": "Last 14 days",
+    "activityLabel": "What the Queue Cleaner did per day",
+    "activityNone": "Nothing to do in the last 14 days",
+    "activityDryRun": "Dry-run decisions count too.",
+    "series": {
+      "strikes": "Strikes",
+      "removed": "Removed",
+      "imported": "Imported"
+    },
+    "instances": "Instances"
   },
   "hunting": {
     "title": "Hunting",
@@ -638,7 +669,24 @@
     "testFailed": "Test failed. Check the indexer in Prowlarr.",
     "open": "Open in Prowlarr",
     "stranded_one": "{{list}} has no working indexer left while this one fails.",
-    "stranded_other": "{{list}} have no working indexer left while this one fails."
+    "stranded_other": "{{list}} have no working indexer left while this one fails.",
+    "eyebrow": "Search coverage",
+    "working": "working",
+    "ofTotal": "of {{count}}",
+    "heroAllGood": "Every indexer answers.",
+    "heroFailing_one": "{{count}} indexer is failing.",
+    "heroFailing_other": "{{count}} indexers are failing.",
+    "heroCovered": "Every app still has a working indexer.",
+    "heroStranded_one": "{{count}} app has no working indexer left.",
+    "heroStranded_other": "{{count}} apps have no working indexer left.",
+    "ring": "Indexers by state",
+    "coverage": "Coverage per app",
+    "cell": "{{name}}: {{state}}",
+    "successRate": "{{percent}}% of queries succeeded",
+    "avgResponse": "Avg. response",
+    "list": "All indexers",
+    "checked": "checked {{when}}",
+    "perIndexer": "{{queries}} queries · {{grabs}} grabs · {{ms}} ms"
   },
   "notifications": {
     "intro": "Wardarr tells you about new problems, when they are fixed and when a request waits for approval. A problem that fixes itself within a minute stays quiet.",

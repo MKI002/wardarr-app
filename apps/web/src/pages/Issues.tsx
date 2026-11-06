@@ -518,7 +518,7 @@ function IssuesHero({ issues }: { issues: IssueView[] }) {
             {t('ui.issues.byService')}
           </span>
           {top.length === 0 ? (
-            <p className="text-sm text-muted">{t('ui.issues.allClear')}</p>
+            <p className="text-sm text-muted">{t('ui.issues.noneAffected')}</p>
           ) : (
             <div className="flex flex-col gap-3">
               {top.map((e, i) => (
