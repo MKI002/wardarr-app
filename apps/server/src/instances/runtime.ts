@@ -67,11 +67,15 @@ function errorKind(err: unknown): AdapterError['kind'] {
   return err instanceof AdapterError ? err.kind : 'badResponse';
 }
 
+/** `fresh` names the parts (queue, sessions, ...) this poll read successfully. */
+export type PollListener = (row: InstanceRow, snapshot: InstanceSnapshot, fresh: ReadonlySet<string>) => void;
+
 export class InstanceRuntime {
   private readonly entries = new Map<string, Entry>();
   private scheduler: Scheduler | null = null;
   private readonly signalSources = new Map<string, () => { signals: Signal[]; checked: string[] }>();
   private readonly reloadListeners: Array<() => void> = [];
+  private readonly pollListeners: Array<PollListener> = [];
 
   constructor(
     private readonly store: InstanceStore,
@@ -138,6 +142,11 @@ export class InstanceRuntime {
     for (const listener of this.reloadListeners) listener();
     this.publishIssues();
     this.bus.publish({ type: 'instances.updated', audience: 'admin' });
+  }
+
+  /** Called after each successful poll, for example to record stream history. */
+  onPolled(listener: PollListener): void {
+    this.pollListeners.push(listener);
   }
 
   /** Called after instances were added, changed or removed. */
@@ -257,10 +266,13 @@ export class InstanceRuntime {
       return;
     }
 
+    const fresh = new Set<string>();
     const step = async <T>(name: string, fn: (() => Promise<T>) | undefined): Promise<T | null> => {
       if (!fn) return null;
       try {
-        return await gate.run(fn);
+        const out = await gate.run(fn);
+        fresh.add(name);
+        return out;
       } catch (err) {
         complete = false;
         signals.push({
@@ -313,6 +325,13 @@ export class InstanceRuntime {
     snap.status = complete && !hasProblems ? 'ok' : 'degraded';
     entry.snapshot = snap;
     entry.current = complete;
+    for (const listener of this.pollListeners) {
+      try {
+        listener(entry.row, snap, fresh);
+      } catch (err) {
+        this.log.warn({ instance: ref.id, err: errorKind(err) }, 'poll listener failed');
+      }
+    }
     this.publishIssues();
     this.bus.publish({ type: 'overview.updated', audience: 'all' });
   }

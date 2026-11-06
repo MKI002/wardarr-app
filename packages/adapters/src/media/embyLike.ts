@@ -1,6 +1,13 @@
 // Jellyfin and Emby share the session API inherited from Emby.
-import { AdapterError, type AdapterContext, type AdapterInstance, type StreamSession } from '@wardarr/core';
+import {
+  AdapterError,
+  type AdapterContext,
+  type AdapterInstance,
+  type LibraryStats,
+  type StreamSession,
+} from '@wardarr/core';
 import { jsonOf } from '../shared/http.js';
+import { MAX_LIBRARY_PAGES, accumulate, emptyLibrary, normalizeCodec } from './library.js';
 
 const TICKS_PER_MS = 10_000;
 
@@ -61,6 +68,28 @@ export function mapSession(s: SessionInfo): StreamSession | null {
   };
 }
 
+interface VirtualFolder {
+  Name?: string;
+  CollectionType?: string;
+  ItemId?: string;
+}
+
+interface LibraryItem {
+  MediaSources?: Array<{
+    Size?: number;
+    MediaStreams?: Array<{ Type?: string; Height?: number; Codec?: string }>;
+  }>;
+}
+
+const PAGE = 500;
+
+function libraryKind(type: string | undefined): LibraryStats['kind'] {
+  if (type === 'movies') return 'movie';
+  if (type === 'tvshows') return 'show';
+  if (type === 'music') return 'music';
+  return 'other';
+}
+
 export function createEmbyLike(
   ctx: AdapterContext<{ apiKey: string }>,
   opts: {
@@ -85,6 +114,51 @@ export function createEmbyLike(
     async sessions() {
       const list = await get<SessionInfo[]>('/Sessions', { ActiveWithinSeconds: 960 });
       return list.map(mapSession).filter((s): s is StreamSession => s !== null);
+    },
+    async libraries() {
+      const folders = await get<VirtualFolder[]>('/Library/VirtualFolders');
+      const out: LibraryStats[] = [];
+      for (const f of folders) {
+        if (!f.ItemId) continue;
+        const lib = emptyLibrary(f.ItemId, f.Name ?? '', libraryKind(f.CollectionType));
+        const fileType = lib.kind === 'movie' ? 'Movie' : lib.kind === 'show' ? 'Episode' : null;
+        const titleType = lib.kind === 'show' ? 'Series' : lib.kind === 'music' ? 'MusicAlbum' : fileType;
+        if (titleType) {
+          const count = await get<{ TotalRecordCount?: number }>('/Items', {
+            ParentId: f.ItemId,
+            Recursive: 'true',
+            IncludeItemTypes: titleType,
+            Limit: 0,
+          });
+          lib.items = count.TotalRecordCount ?? 0;
+        }
+        if (fileType) {
+          for (let page = 0; page < MAX_LIBRARY_PAGES; page++) {
+            const res = await get<{ Items?: LibraryItem[]; TotalRecordCount?: number }>('/Items', {
+              ParentId: f.ItemId,
+              Recursive: 'true',
+              IncludeItemTypes: fileType,
+              Fields: 'MediaSources',
+              EnableImages: 'false',
+              EnableUserData: 'false',
+              StartIndex: page * PAGE,
+              Limit: PAGE,
+            });
+            for (const item of res.Items ?? []) {
+              const src = item.MediaSources?.[0];
+              const video = src?.MediaStreams?.find((m) => m.Type === 'Video');
+              accumulate(lib, {
+                sizeBytes: typeof src?.Size === 'number' ? src.Size : null,
+                resolution: resolutionLabel(video?.Height),
+                codec: normalizeCodec(video?.Codec),
+              });
+            }
+            if ((res.Items ?? []).length < PAGE || (page + 1) * PAGE >= (res.TotalRecordCount ?? 0)) break;
+          }
+        }
+        out.push(lib);
+      }
+      return out;
     },
     webUrl(target) {
       return `${ctx.baseUrl}${target?.kind === 'settings' || target?.kind === 'system' ? '/web/#/dashboard' : '/web/'}`;

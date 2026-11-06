@@ -13,7 +13,7 @@ const webDir = config.webDir ?? path.resolve(here, '../../web/dist');
 
 const { db, close } = openDatabase(path.join(config.dataDir, 'wardarr.db'));
 const box = createSecretBox(loadOrCreateKey(config.dataDir, config.secretKey));
-const { app, runtime, sessions } = await buildApp({
+const { app, runtime, sessions, history } = await buildApp({
   db,
   box,
   trustProxy: config.trustProxy,
@@ -26,6 +26,7 @@ const { app, runtime, sessions } = await buildApp({
 const scheduler = new Scheduler(app.log);
 runtime.start(scheduler);
 scheduler.schedule('sessions:purge', 3600_000, async () => sessions.purgeExpired(), 60_000);
+scheduler.schedule('streams:prune', 24 * 3600_000, async () => history.prune(), 120_000);
 
 const shutdown = async (signal: string) => {
   app.log.info({ signal }, 'shutting down');

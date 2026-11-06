@@ -10,6 +10,10 @@ const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user'
   { id: 'issues', needs: null, role: 'admin' },
   { id: 'cleaner', needs: 'queueActions', role: 'admin' },
   { id: 'hunting', needs: 'search', role: 'admin' },
+  { id: 'discover', needs: 'discover', role: 'user' },
+  { id: 'requests', needs: 'requests', role: 'user' },
+  { id: 'library', needs: 'library', role: 'user' },
+  { id: 'indexers', needs: 'indexers', role: 'admin' },
   { id: 'settings', needs: null, role: 'user' },
 ];
 

@@ -3,7 +3,7 @@ import { and, eq } from 'drizzle-orm';
 import type { Db } from '../db/index.js';
 import { featureSettings } from '../db/schema.js';
 
-export type Feature = 'cleaner' | 'hunting';
+export type Feature = 'cleaner' | 'hunting' | 'library';
 
 export class FeatureStore {
   constructor(private readonly db: Db) {}

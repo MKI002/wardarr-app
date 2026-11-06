@@ -1,4 +1,11 @@
-import { AdapterError, defineAdapter, type IndexerInfo, type Signal } from '@wardarr/core';
+import {
+  AdapterError,
+  defineAdapter,
+  type IndexerApp,
+  type IndexerInfo,
+  type IndexerStats,
+  type Signal,
+} from '@wardarr/core';
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
 import { compatSignal, detectApi, detectionCache, type VersionProfile } from '../shared/apiVersion.js';
 import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
@@ -12,6 +19,25 @@ interface IndexerResource {
   enable: boolean;
   protocol?: string;
   [key: string]: unknown;
+}
+
+interface ApplicationResource {
+  id: number;
+  name?: string;
+  implementation?: string;
+  syncLevel?: string;
+  tags?: number[];
+  fields?: Array<{ name?: string; value?: unknown }>;
+}
+
+interface IndexerStatsResource {
+  indexerId?: number;
+  indexerName?: string;
+  averageResponseTime?: number;
+  numberOfQueries?: number;
+  numberOfGrabs?: number;
+  numberOfFailedQueries?: number;
+  numberOfFailedGrabs?: number;
 }
 
 interface IndexerStatusResource {
@@ -87,6 +113,47 @@ export const prowlarr = defineAdapter({
             failing,
             disabledUntil: st?.disabledTill,
             mostRecentFailure: st?.mostRecentFailure,
+          };
+        });
+      },
+      async indexerStats() {
+        const res = await get<{ indexers?: IndexerStatsResource[] }>('/indexerstats');
+        return (res.indexers ?? []).map((i): IndexerStats => ({
+          indexerId: i.indexerId ?? 0,
+          name: i.indexerName ?? '',
+          queries: i.numberOfQueries ?? 0,
+          grabs: i.numberOfGrabs ?? 0,
+          failedQueries: i.numberOfFailedQueries ?? 0,
+          failedGrabs: i.numberOfFailedGrabs ?? 0,
+          averageResponseMs: typeof i.averageResponseTime === 'number' ? i.averageResponseTime : null,
+        }));
+      },
+      /**
+       * Apps Prowlarr syncs to. An app with tags only receives indexers that
+       * share a tag; an app without tags receives every enabled indexer.
+       */
+      async indexerApps() {
+        const [apps, indexers] = await Promise.all([
+          get<ApplicationResource[]>('/applications'),
+          get<Array<IndexerResource & { tags?: number[] }>>('/indexer'),
+        ]);
+        return apps.map((a): IndexerApp => {
+          const tags = a.tags ?? [];
+          const baseUrl = a.fields?.find((f) => f.name === 'baseUrl')?.value;
+          const enabled = a.syncLevel !== 'disabled';
+          return {
+            id: a.id,
+            name: a.name ?? '',
+            implementation: a.implementation ?? '',
+            baseUrl: typeof baseUrl === 'string' && baseUrl ? baseUrl : null,
+            enabled,
+            indexerIds: enabled
+              ? indexers
+                  .filter(
+                    (i) => i.enable && (tags.length === 0 || (i.tags ?? []).some((t) => tags.includes(t))),
+                  )
+                  .map((i) => i.id)
+              : [],
           };
         });
       },
