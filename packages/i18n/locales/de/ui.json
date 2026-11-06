@@ -241,7 +241,17 @@
     },
     "expand": "Details zeigen",
     "collapse": "Details ausblenden",
-    "bySeverity": "Offene Probleme nach Schweregrad"
+    "bySeverity": "Offene Probleme nach Schweregrad",
+    "eyebrow": "Problemzentrale",
+    "heroClear": "Alles in Ordnung. Wardarr hält weiter Wache.",
+    "heroCritical_one": "{{count}} kritisches Problem braucht dich jetzt.",
+    "heroCritical_other": "{{count}} kritische Probleme brauchen dich jetzt.",
+    "heroCalm": "Nichts Kritisches. Schau rein, wenn du Zeit hast.",
+    "newPerDay": "Neu in den letzten 14 Tagen",
+    "resolvedRecently_one": "{{count}} gelöst",
+    "resolvedRecently_other": "{{count}} gelöst",
+    "noneNew": "Keine neuen Probleme",
+    "byService": "Am stärksten betroffen"
   },
   "queue": {
     "unmatched": "Keiner Bibliothek zugeordnet",

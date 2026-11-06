@@ -6,7 +6,11 @@ import type { IssueAction } from '@wardarr/core';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Columns, SegmentBar, BarRow } from '../components/charts';
+import { Odometer, PageHeader, SectionRule } from '../components/dash';
 import { ConfirmDialog } from '../components/Dialog';
+import { IssueIcon } from '../components/IssueIcon';
+import { ServiceLogo } from '../components/ServiceLogo';
 import { Badge, Button, Card, EmptyState, InlineError, Skeleton, spring, type Tone } from '../components/ui';
 import { api, type IssueView } from '../lib/api';
 import { errorText } from '../lib/errors';
@@ -18,7 +22,7 @@ type View = 'open' | 'muted' | 'resolved';
 const SEVERITY_TONE: Record<string, Tone> = { critical: 'critical', warning: 'warning', info: 'info' };
 const SEVERITY_BAR: Record<string, string> = {
   critical: 'bg-critical',
-  warning: 'bg-warning',
+  warning: 'bg-warning-mark',
   info: 'bg-info',
 };
 
@@ -273,7 +277,6 @@ function IssueCard({ issue, focused }: { issue: IssueView; focused: boolean }) {
   }, [focused]);
 
   const affected = tm(t, g.affected);
-  const reporters = g.instances.map((i) => i.name).join(', ');
   const when =
     issue.status === 'resolved'
       ? t('ui.issues.resolvedAt', { when: formatRelative(issue.resolvedAt, i18n.language) })
@@ -304,22 +307,33 @@ function IssueCard({ issue, focused }: { issue: IssueView; focused: boolean }) {
         aria-expanded={open}
         aria-controls={bodyId}
       >
+        <IssueIcon
+          fingerprint={g.fingerprint}
+          tone={
+            issue.status === 'open' && !issue.muted ? (SEVERITY_TONE[g.severity] ?? 'neutral') : 'neutral'
+          }
+          label={t(`ui.issues.severity.${g.severity}`)}
+        />
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge tone={SEVERITY_TONE[g.severity] ?? 'neutral'}>
-              {t(`ui.issues.severity.${g.severity}`)}
-            </Badge>
-            <h3 className="font-semibold">{tm(t, g.title)}</h3>
-          </div>
+          <h3 className="font-semibold">{tm(t, g.title)}</h3>
           <p className="text-sm text-muted">
             <span className="sr-only">{t('ui.issues.affected')}: </span>
             {affected}
           </p>
-          <p className="text-xs text-muted">
-            {reporters !== affected ? `${reporters} · ` : ''}
-            {when}
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+            {g.instances.map((i) => (
+              <span
+                key={i.id}
+                className="inline-flex items-center gap-1 rounded-md bg-surface-2 px-1.5 py-0.5"
+              >
+                <ServiceLogo adapter={i.adapter} name={i.name} size={12} />
+                {i.name}
+              </span>
+            ))}
+            <span>{when}</span>
           </p>
         </div>
+        <Badge tone={SEVERITY_TONE[g.severity] ?? 'neutral'}>{t(`ui.issues.severity.${g.severity}`)}</Badge>
         <motion.svg
           animate={{ rotate: open ? 180 : 0 }}
           transition={spring}
@@ -413,6 +427,122 @@ function IssueList({ issues, focus }: { issues: IssueView[]; focus?: string }) {
 }
 
 const SEVERITY_RANK: Record<string, number> = { critical: 0, warning: 1, info: 2 };
+const SEVERITIES = ['critical', 'warning', 'info'] as const;
+
+interface TimelineDay {
+  day: string;
+  critical: number;
+  warning: number;
+  info: number;
+}
+
+const tzOffset = () => -new Date().getTimezoneOffset();
+
+/** Open issues at a glance: how many, how bad, since when and where. */
+function IssuesHero({ issues }: { issues: IssueView[] }) {
+  const { t, i18n } = useTranslation();
+  const timeline = useQuery({
+    queryKey: ['issues', 'timeline'],
+    queryFn: () => api<{ days: TimelineDay[] }>(`/api/issues/timeline?days=14&tz=${tzOffset()}`),
+  });
+  const open = issues.filter((i) => viewOf(i) === 'open');
+  const counts = { critical: 0, warning: 0, info: 0 };
+  for (const i of open) counts[i.group.severity]++;
+  const [fortnight] = useState(() => Date.now() - 14 * 86_400_000);
+  const resolved = issues.filter((i) => i.resolvedAt && Date.parse(i.resolvedAt) >= fortnight).length;
+  const sentence =
+    open.length === 0
+      ? t('ui.issues.heroClear')
+      : counts.critical > 0
+        ? t('ui.issues.heroCritical', { count: counts.critical })
+        : t('ui.issues.heroCalm');
+
+  // Which services report the most open issues.
+  const perInstance = new Map<string, { name: string; adapter: string; count: number }>();
+  for (const i of open)
+    for (const inst of i.group.instances) {
+      const e = perInstance.get(inst.id) ?? { name: inst.name, adapter: inst.adapter, count: 0 };
+      e.count++;
+      perInstance.set(inst.id, e);
+    }
+  const top = [...perInstance.values()].sort((a, b) => b.count - a.count).slice(0, 4);
+  const dayLabel = (day: string) =>
+    new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(
+      new Date(`${day}T12:00:00`),
+    );
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
+      <Card className="grid gap-8 lg:grid-cols-[1fr_1.6fr_1fr] lg:p-7">
+        <div className="flex flex-col gap-3">
+          <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+            {t('ui.issues.open')}
+          </span>
+          <span className="text-6xl leading-none font-bold tracking-tight">
+            <Odometer text={String(open.length)} />
+          </span>
+          <p className="font-medium text-balance">{sentence}</p>
+          <div className="mt-auto pt-2">
+            <SegmentBar
+              tall
+              label={t('ui.issues.bySeverity')}
+              segments={SEVERITIES.map((s) => ({
+                key: s,
+                label: t(`ui.issues.severity.${s}`),
+                value: counts[s],
+                tone: s,
+              }))}
+            />
+          </div>
+        </div>
+        <div className="flex min-w-0 flex-col gap-3">
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+              {t('ui.issues.newPerDay')}
+            </span>
+            <span className="text-xs text-muted">{t('ui.issues.resolvedRecently', { count: resolved })}</span>
+          </div>
+          <Columns
+            height={150}
+            label={t('ui.issues.newPerDay')}
+            emptyLabel={t('ui.issues.noneNew')}
+            data={(timeline.data?.days ?? []).map((d) => ({
+              key: d.day,
+              label: dayLabel(d.day),
+              parts: SEVERITIES.map((s) => ({ tone: s, value: d[s], label: t(`ui.issues.severity.${s}`) })),
+            }))}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+            {t('ui.issues.byService')}
+          </span>
+          {top.length === 0 ? (
+            <p className="text-sm text-muted">{t('ui.issues.allClear')}</p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {top.map((e, i) => (
+                <BarRow
+                  key={e.name}
+                  delay={0.1 + i * 0.05}
+                  label={
+                    <span className="inline-flex items-center gap-1.5">
+                      <ServiceLogo adapter={e.adapter} name={e.name} size={14} />
+                      {e.name}
+                    </span>
+                  }
+                  value={e.count}
+                  max={top[0]?.count ?? 1}
+                  display={e.count}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </Card>
+    </motion.div>
+  );
+}
 
 export function IssuesPage() {
   const { t } = useTranslation();
@@ -437,33 +567,38 @@ export function IssuesPage() {
   const tabs: View[] = ['open', 'muted', 'resolved'];
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-semibold">{t('ui.issues.title')}</h1>
-        <div role="tablist" aria-label={t('ui.issues.title')} className="flex rounded-xl bg-surface-2 p-1">
-          {tabs.map((id) => (
-            <button
-              key={id}
-              type="button"
-              role="tab"
-              aria-selected={view === id}
-              onClick={() => void navigate({ search: { view: id === 'open' ? undefined : id } })}
-              className={`relative rounded-lg px-3 py-1.5 text-sm font-medium ${view === id ? 'text-text' : 'text-muted hover:text-text'}`}
-            >
-              {view === id ? (
-                <motion.span
-                  layoutId="issues-tab"
-                  className="absolute inset-0 rounded-lg bg-surface shadow-sm"
-                  transition={spring}
-                />
-              ) : null}
-              <span className="relative">
-                {t(`ui.issues.${id}`)} <span className="text-muted tabular-nums">{counts[id]}</span>
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        eyebrow={t('ui.issues.eyebrow')}
+        title={t('ui.issues.title')}
+        actions={
+          <div role="tablist" aria-label={t('ui.issues.title')} className="flex rounded-xl bg-surface-2 p-1">
+            {tabs.map((id) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={view === id}
+                onClick={() => void navigate({ search: { view: id === 'open' ? undefined : id } })}
+                className={`relative rounded-lg px-3 py-1.5 text-sm font-medium ${view === id ? 'text-text' : 'text-muted hover:text-text'}`}
+              >
+                {view === id ? (
+                  <motion.span
+                    layoutId="issues-tab"
+                    className="absolute inset-0 rounded-lg bg-surface shadow-sm"
+                    transition={spring}
+                  />
+                ) : null}
+                <span className="relative">
+                  {t(`ui.issues.${id}`)} <span className="text-muted tabular-nums">{counts[id]}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        }
+      />
+
+      {issues.data ? <IssuesHero issues={all} /> : null}
 
       {issues.isError ? (
         <InlineError
@@ -494,20 +629,14 @@ export function IssuesPage() {
 
       {services.length > 0 ? (
         <section aria-label={t('ui.issues.servicesSection')} className="flex flex-col gap-3">
-          {wardarr.length > 0 ? (
-            <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
-              {t('ui.issues.servicesSection')}
-            </h2>
-          ) : null}
+          {wardarr.length > 0 ? <SectionRule>{t('ui.issues.servicesSection')}</SectionRule> : null}
           <IssueList issues={services} focus={search.focus} />
         </section>
       ) : null}
       {wardarr.length > 0 ? (
         <section aria-label={t('ui.issues.wardarrSection')} className="flex flex-col gap-3">
-          <div>
-            <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
-              {t('ui.issues.wardarrSection')}
-            </h2>
+          <div className="flex flex-col gap-1">
+            <SectionRule>{t('ui.issues.wardarrSection')}</SectionRule>
             <p className="text-xs text-muted">{t('ui.issues.wardarrSectionHint')}</p>
           </div>
           <IssueList issues={wardarr} focus={search.focus} />
