@@ -1,0 +1,90 @@
+# Local test setup for Wardarr. Everything here is invented: names, keys and
+# media. Never point this at real instances.
+#
+#   docker compose -f testbed/compose.yaml up -d --build
+#   node testbed/seed.mjs                # creates the admin and the instances
+#
+# The "real" profile adds public images of the actual services, pre-seeded
+# with the invented API key, for manual testing against real APIs:
+#
+#   docker compose -f testbed/compose.yaml --profile real up -d
+
+name: wardarr-testbed
+
+services:
+  wardarr:
+    build: ..
+    ports: ['127.0.0.1:8484:8484']
+    environment:
+      WARDARR_COOKIE_SECURE: 'false'
+    volumes: [wardarr-data:/data]
+
+  mocks:
+    image: node:24-bookworm-slim
+    working_dir: /mocks
+    command: ['node', 'services.mjs']
+    environment:
+      MOCK_PORT: '19000'
+      MOCK_HOST: 0.0.0.0
+    volumes: ['../apps/e2e/mocks:/mocks:ro']
+    ports: ['127.0.0.1:19000:19000']
+
+  sonarr:
+    profiles: [real]
+    image: lscr.io/linuxserver/sonarr:latest
+    environment: { PUID: '1000', PGID: '1000', TZ: Etc/UTC }
+    volumes:
+      - ./config/sonarr.xml:/seed/config.xml:ro
+      - ./config/seed-config.sh:/custom-cont-init.d/10-seed.sh:ro
+      - sonarr-config:/config
+    ports: ['127.0.0.1:8989:8989']
+
+  sonarr-4k:
+    profiles: [real]
+    image: lscr.io/linuxserver/sonarr:latest
+    environment: { PUID: '1000', PGID: '1000', TZ: Etc/UTC }
+    volumes:
+      - ./config/sonarr.xml:/seed/config.xml:ro
+      - ./config/seed-config.sh:/custom-cont-init.d/10-seed.sh:ro
+      - sonarr-4k-config:/config
+    ports: ['127.0.0.1:8990:8989']
+
+  radarr:
+    profiles: [real]
+    image: lscr.io/linuxserver/radarr:latest
+    environment: { PUID: '1000', PGID: '1000', TZ: Etc/UTC }
+    volumes:
+      - ./config/radarr.xml:/seed/config.xml:ro
+      - ./config/seed-config.sh:/custom-cont-init.d/10-seed.sh:ro
+      - radarr-config:/config
+    ports: ['127.0.0.1:7878:7878']
+
+  prowlarr:
+    profiles: [real]
+    image: lscr.io/linuxserver/prowlarr:latest
+    environment: { PUID: '1000', PGID: '1000', TZ: Etc/UTC }
+    volumes:
+      - ./config/prowlarr.xml:/seed/config.xml:ro
+      - ./config/seed-config.sh:/custom-cont-init.d/10-seed.sh:ro
+      - prowlarr-config:/config
+    ports: ['127.0.0.1:9696:9696']
+
+  qbittorrent:
+    profiles: [real]
+    image: lscr.io/linuxserver/qbittorrent:latest
+    environment: { PUID: '1000', PGID: '1000', TZ: Etc/UTC, WEBUI_PORT: '8080' }
+    ports: ['127.0.0.1:8080:8080']
+
+  jellyfin:
+    profiles: [real]
+    image: jellyfin/jellyfin:latest
+    volumes: ['jellyfin-config:/config']
+    ports: ['127.0.0.1:8096:8096']
+
+volumes:
+  wardarr-data:
+  jellyfin-config:
+  sonarr-config:
+  sonarr-4k-config:
+  radarr-config:
+  prowlarr-config:

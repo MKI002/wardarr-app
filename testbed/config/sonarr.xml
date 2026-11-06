@@ -1,0 +1,10 @@
+<Config>
+  <BindAddress>*</BindAddress>
+  <Port>8989</Port>
+  <ApiKey>00000000000000000000000000000001</ApiKey>
+  <AuthenticationMethod>External</AuthenticationMethod>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+  <AnalyticsEnabled>False</AnalyticsEnabled>
+  <LogLevel>info</LogLevel>
+  <UpdateMechanism>Docker</UpdateMechanism>
+</Config>
