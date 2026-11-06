@@ -1,5 +1,6 @@
 // Switching tabs faster than the view transition must never leave a blank or
-// half-faded view. Runs after stages 1 to 4, against the setup they created.
+// half-faded view, and the navigation (sidebar, rail, palette, phone menu)
+// works. Runs after stages 1 to 4, against the setup they created.
 import { expect, test, type Page } from '@playwright/test';
 
 const ADMIN = { username: 'admin', password: 'example-password-1' };
@@ -116,4 +117,91 @@ test('the storage page shows each disk once, with the apps that use it, and sett
     page.getByText('Wardarr is still learning how fast /data fills', { exact: false }),
   ).toBeVisible();
   await settled(page);
+});
+
+// ------------------------------------------------------------- navigation
+
+const sidebar = () => page.getByRole('navigation', { name: 'Main navigation' }).first();
+
+test('the sidebar groups pages into sections and marks the current one', async () => {
+  await page.goto('/');
+  for (const section of ['Status', 'Media', 'Automation', 'System']) {
+    await expect(sidebar().getByRole('button', { name: section })).toBeVisible();
+  }
+  await sidebar().getByRole('link', { name: 'Queue Cleaner', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Queue Cleaner' })).toBeVisible();
+  await expect(sidebar().getByRole('link', { name: 'Queue Cleaner', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+});
+
+test('a folded section keeps the current page and stays folded after a reload', async () => {
+  await page.goto('/cleaner');
+  const automation = sidebar().getByRole('button', { name: 'Automation' });
+  await automation.click();
+  await expect(automation).toHaveAttribute('aria-expanded', 'false');
+  await expect(sidebar().getByRole('link', { name: 'Hunting', exact: true })).toHaveCount(0);
+  await expect(sidebar().getByRole('link', { name: 'Queue Cleaner', exact: true })).toBeVisible();
+  await page.reload();
+  await expect(sidebar().getByRole('button', { name: 'Automation' })).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  );
+  await sidebar().getByRole('button', { name: 'Automation' }).click();
+  await expect(sidebar().getByRole('link', { name: 'Hunting', exact: true })).toBeVisible();
+});
+
+test('the sidebar folds to an icon rail and back, remembered across reloads', async () => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Collapse sidebar' }).click();
+  // Labels stay as accessible names in the rail.
+  await expect(sidebar().getByRole('link', { name: 'Library', exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Expand sidebar' })).toBeVisible();
+  await sidebar().getByRole('link', { name: 'Library', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Library' })).toBeVisible();
+  await page.getByRole('button', { name: 'Expand sidebar' }).click();
+  await expect(page.getByRole('button', { name: 'Collapse sidebar' })).toBeVisible();
+});
+
+test('the command palette jumps to pages, settings and services', async () => {
+  await page.goto('/');
+  // The shortcut listens once the app shell is up.
+  await expect(sidebar()).toBeVisible();
+  await page.keyboard.press('Control+k');
+  const input = page.getByRole('combobox', { name: 'Go to' });
+  await expect(input).toBeFocused();
+  await input.fill('hunt');
+  await expect(page.getByRole('option').first()).toContainText('Hunting');
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('heading', { level: 1, name: 'Hunting' })).toBeVisible();
+
+  // "/" opens it too; a German synonym finds the notifications settings.
+  await page.locator('body').press('/');
+  await input.fill('benachrichtigungen');
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/section=notifications/);
+
+  // Connected services are listed by name and open their settings.
+  await page.keyboard.press('Control+k');
+  await input.fill('sonarr');
+  await expect(page.getByRole('option', { name: /Sonarr/ }).first()).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(input).toHaveCount(0);
+});
+
+test('on a phone the bottom bar opens a menu with every page', async () => {
+  await page.setViewportSize({ width: 400, height: 860 });
+  await page.goto('/');
+  const bar = page.getByRole('navigation', { name: 'Main navigation' });
+  await expect(bar).toBeVisible();
+  await bar.getByRole('button', { name: 'Menu' }).click();
+  const menu = page.getByRole('dialog', { name: 'Menu' });
+  await menu.getByRole('link', { name: 'TRaSH Guides' }).click();
+  await expect(menu).toHaveCount(0);
+  await expect(page.getByRole('heading', { level: 1, name: 'TRaSH Guides' })).toBeVisible();
+  // The page is behind "Menu", so Menu is the highlighted entry.
+  await expect(bar.getByRole('button', { name: 'Menu' })).toHaveClass(/text-accent/);
+  await page.setViewportSize({ width: 1280, height: 720 });
 });
