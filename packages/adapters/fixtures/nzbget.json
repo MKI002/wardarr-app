@@ -1,0 +1,88 @@
+{
+  "adapter": "nzbget",
+  "baseUrl": "http://nzbget.example.test",
+  "credentials": {
+    "username": "example-user",
+    "password": "example-password"
+  },
+  "wrongCredentials": {
+    "username": "example-user",
+    "password": "wrong-password"
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/jsonrpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ="
+      },
+      "body": {
+        "method": "version"
+      },
+      "json": {
+        "version": "1.1",
+        "result": "25.3"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/jsonrpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ="
+      },
+      "body": {
+        "method": "listgroups"
+      },
+      "json": {
+        "result": [
+          {
+            "NZBID": 1,
+            "NZBName": "Example.Show.S01E03.1080p",
+            "Status": "DOWNLOADING",
+            "FileSizeMB": 1200,
+            "RemainingSizeMB": 600,
+            "Category": "tv"
+          },
+          {
+            "NZBID": 2,
+            "NZBName": "Sample.Movie.2023.2160p",
+            "Status": "PAUSED",
+            "FileSizeMB": 8000,
+            "RemainingSizeMB": 8000,
+            "Category": "movies"
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/jsonrpc",
+      "headers": {
+        "authorization": "Basic ZXhhbXBsZS11c2VyOmV4YW1wbGUtcGFzc3dvcmQ="
+      },
+      "body": {
+        "method": "status"
+      },
+      "json": {
+        "result": {
+          "DownloadRate": 1048576
+        }
+      }
+    },
+    {
+      "path": "*",
+      "status": 401
+    }
+  ],
+  "expect": {
+    "version": "25.3",
+    "downloads": [
+      {
+        "state": "downloading"
+      },
+      {
+        "state": "paused"
+      }
+    ]
+  }
+}

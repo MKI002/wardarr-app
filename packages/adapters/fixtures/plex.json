@@ -1,0 +1,108 @@
+{
+  "adapter": "plex",
+  "baseUrl": "http://plex.example.test:32400",
+  "credentials": {
+    "token": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "token": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "headers": {
+        "X-Plex-Token": "00000000000000000000000000000001"
+      },
+      "json": {
+        "MediaContainer": {
+          "version": "1.42.2.10156",
+          "friendlyName": "Example Server"
+        }
+      }
+    },
+    {
+      "path": "/status/sessions",
+      "headers": {
+        "X-Plex-Token": "00000000000000000000000000000001"
+      },
+      "json": {
+        "MediaContainer": {
+          "size": 2,
+          "Metadata": [
+            {
+              "sessionKey": "1",
+              "type": "episode",
+              "title": "Pilot",
+              "grandparentTitle": "Example Show",
+              "parentIndex": 1,
+              "index": 1,
+              "duration": 2600000,
+              "viewOffset": 1300000,
+              "User": {
+                "title": "demo-viewer"
+              },
+              "Player": {
+                "title": "Living Room",
+                "product": "Example Player",
+                "state": "playing"
+              },
+              "Session": {
+                "id": "plex-session-1"
+              },
+              "Media": [
+                {
+                  "videoResolution": "1080"
+                }
+              ]
+            },
+            {
+              "sessionKey": "2",
+              "type": "movie",
+              "title": "Sample Movie",
+              "duration": 6000000,
+              "viewOffset": 600000,
+              "User": {
+                "title": "demo-guest"
+              },
+              "Player": {
+                "title": "Bedroom",
+                "product": "Example TV",
+                "state": "buffering"
+              },
+              "Session": {
+                "id": "plex-session-2"
+              },
+              "TranscodeSession": {
+                "videoDecision": "transcode"
+              },
+              "Media": [
+                {
+                  "videoResolution": "4k"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "*",
+      "status": 401
+    }
+  ],
+  "expect": {
+    "version": "1.42.2.10156",
+    "sessions": [
+      {
+        "title": "Example Show",
+        "state": "playing",
+        "transcoding": false
+      },
+      {
+        "title": "Sample Movie",
+        "state": "buffering",
+        "transcoding": true
+      }
+    ]
+  }
+}

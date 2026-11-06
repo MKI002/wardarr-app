@@ -15,6 +15,10 @@ pnpm install
 pnpm dev
 ```
 
+Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm test:e2e`
+(after `pnpm build`). A local setup with invented services lives in
+[testbed/](testbed/README.md).
+
 ## License
 
 MIT. Copyright The Wardarr Authors.

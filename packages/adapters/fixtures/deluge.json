@@ -1,0 +1,131 @@
+{
+  "adapter": "deluge",
+  "baseUrl": "http://deluge.example.test",
+  "credentials": {
+    "password": "example-password"
+  },
+  "wrongCredentials": {
+    "password": "wrong-password"
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/json",
+      "body": {
+        "method": "auth.login",
+        "params": ["example-password"]
+      },
+      "json": {
+        "result": true,
+        "error": null,
+        "id": 1
+      },
+      "responseHeaders": {
+        "set-cookie": "_session_id=fixture-session; Path=/json"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/json",
+      "body": {
+        "method": "auth.login"
+      },
+      "json": {
+        "result": false,
+        "error": null,
+        "id": 1
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/json",
+      "headers": {
+        "cookie": "_session_id=fixture-session"
+      },
+      "body": {
+        "method": "web.connected"
+      },
+      "json": {
+        "result": true,
+        "error": null,
+        "id": 2
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/json",
+      "headers": {
+        "cookie": "_session_id=fixture-session"
+      },
+      "body": {
+        "method": "daemon.info"
+      },
+      "json": {
+        "result": "2.2.0",
+        "error": null,
+        "id": 3
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/json",
+      "headers": {
+        "cookie": "_session_id=fixture-session"
+      },
+      "body": {
+        "method": "core.get_torrents_status"
+      },
+      "json": {
+        "result": {
+          "0000000000000000000000000000000000000021": {
+            "name": "Example.Show.S04E01.1080p",
+            "state": "Downloading",
+            "progress": 60.0,
+            "total_size": 1000,
+            "total_done": 600,
+            "download_payload_rate": 1024,
+            "eta": 400,
+            "label": "tv",
+            "time_added": 1700000000
+          },
+          "0000000000000000000000000000000000000022": {
+            "name": "Sample.Movie.2019.720p",
+            "state": "Paused",
+            "progress": 5.0,
+            "total_size": 2000,
+            "total_done": 100,
+            "download_payload_rate": 0,
+            "eta": 0,
+            "label": "",
+            "time_added": 1700000100
+          }
+        },
+        "error": null,
+        "id": 4
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/json",
+      "json": {
+        "result": null,
+        "error": {
+          "message": "Not authenticated",
+          "code": 1
+        },
+        "id": 9
+      }
+    }
+  ],
+  "expect": {
+    "version": "2.2.0",
+    "downloads": [
+      {
+        "state": "downloading"
+      },
+      {
+        "state": "paused"
+      }
+    ]
+  }
+}

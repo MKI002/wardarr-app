@@ -101,14 +101,18 @@ function checkText(file, text) {
       for (const m of line.matchAll(EMAIL)) {
         if (!emailAllowed(m[0])) add(file, n, 'e-mail address outside example domains');
       }
-      for (const m of line.matchAll(IPV4)) {
+      // Four-part version numbers (for example 4.9.1.80) look like addresses.
+      const isVersion = /version/i.test(line);
+      for (const m of isVersion ? [] : line.matchAll(IPV4)) {
         if (!ipAllowed(m[1], m[2], m[3], m[4])) add(file, n, 'IPv4 address outside documentation ranges');
       }
     }
     if (isLock) {
       if (/\b(?:file|link):(?:\/|[A-Za-z]:)/.test(line)) add(file, n, 'absolute local path in lockfile');
       if (/git\+ssh:\/\//.test(line)) add(file, n, 'git+ssh URL in lockfile');
-      for (const m of line.matchAll(/https?:\/\/([^/\s"']+)/g)) {
+      // Only download locations matter; deprecation notes may link anywhere.
+      const isLocation = /\b(?:tarball|resolved|resolution)\b/.test(line);
+      for (const m of isLocation ? line.matchAll(/https?:\/\/([^/\s"']+)/g) : []) {
         if (!ALLOWED_REGISTRY_HOSTS.has(m[1].toLowerCase()))
           add(file, n, 'non-public registry host in lockfile');
       }

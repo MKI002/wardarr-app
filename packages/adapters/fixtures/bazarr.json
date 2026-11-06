@@ -1,0 +1,51 @@
+{
+  "adapter": "bazarr",
+  "baseUrl": "http://bazarr.example.test",
+  "credentials": {
+    "apiKey": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/api/system/status",
+      "headers": {
+        "X-API-KEY": "00000000000000000000000000000001"
+      },
+      "json": {
+        "data": {
+          "bazarr_version": "1.5.3",
+          "python_version": "3.12.0"
+        }
+      }
+    },
+    {
+      "path": "/api/system/health",
+      "headers": {
+        "X-API-KEY": "00000000000000000000000000000001"
+      },
+      "json": {
+        "data": [
+          {
+            "object": "Sonarr",
+            "issue": "Example health message from the subtitle service."
+          }
+        ]
+      }
+    },
+    {
+      "path": "*",
+      "status": 401
+    }
+  ],
+  "expect": {
+    "version": "1.5.3",
+    "health": [
+      {
+        "source": "Sonarr",
+        "level": "warning"
+      }
+    ]
+  }
+}

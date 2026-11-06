@@ -1,0 +1,176 @@
+{
+  "adapter": "sonarr",
+  "baseUrl": "http://sonarr.example.test",
+  "credentials": {
+    "apiKey": "00000000000000000000000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "00000000000000000000000000000009"
+  },
+  "routes": [
+    {
+      "path": "/api/v3/system/status",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "appName": "Sonarr",
+        "version": "4.0.15.2941"
+      }
+    },
+    {
+      "path": "/api/v3/health",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "source": "IndexerLongTermStatusCheck",
+          "type": "warning",
+          "message": "Indexers unavailable due to failures for more than 6 hours: ExampleIndexer (Prowlarr)",
+          "wikiUrl": "https://wiki.example.test/system#indexers"
+        },
+        {
+          "source": "UpdateCheck",
+          "type": "notice",
+          "message": "New update is available: v9.9.9",
+          "wikiUrl": "https://wiki.example.test/system#new-update-is-available"
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/queue",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "query": {
+        "includeUnknownSeriesItems": "true",
+        "page": "1"
+      },
+      "json": {
+        "page": 1,
+        "pageSize": 250,
+        "totalRecords": 4,
+        "records": [
+          {
+            "id": 1,
+            "seriesId": 11,
+            "title": "Example.Show.S01E01.1080p",
+            "status": "downloading",
+            "trackedDownloadStatus": "ok",
+            "trackedDownloadState": "downloading",
+            "statusMessages": [],
+            "downloadId": "FIXTURE0001",
+            "protocol": "torrent",
+            "downloadClient": "Example Client",
+            "size": 1000,
+            "sizeleft": 400
+          },
+          {
+            "id": 2,
+            "title": "Unmatched.Show.S02E03.720p",
+            "status": "completed",
+            "trackedDownloadStatus": "warning",
+            "trackedDownloadState": "importBlocked",
+            "statusMessages": [
+              {
+                "title": "Unmatched.Show.S02E03.720p",
+                "messages": ["Unknown item. Unable to match to an existing item"]
+              }
+            ],
+            "downloadId": "FIXTURE0002",
+            "protocol": "usenet",
+            "size": 2000,
+            "sizeleft": 0
+          },
+          {
+            "id": 3,
+            "seriesId": 12,
+            "title": "Example.Show.S01.Pack",
+            "status": "failed",
+            "trackedDownloadStatus": "error",
+            "trackedDownloadState": "failed",
+            "statusMessages": [],
+            "errorMessage": "Download failed",
+            "downloadId": "FIXTURE0003",
+            "protocol": "usenet",
+            "size": 3000,
+            "sizeleft": 3000
+          },
+          {
+            "id": 4,
+            "seriesId": 12,
+            "title": "Example.Show.S01.Pack",
+            "status": "failed",
+            "trackedDownloadStatus": "error",
+            "trackedDownloadState": "failed",
+            "statusMessages": [],
+            "errorMessage": "Download failed",
+            "downloadId": "FIXTURE0003",
+            "protocol": "usenet",
+            "size": 3000,
+            "sizeleft": 3000
+          }
+        ]
+      }
+    },
+    {
+      "path": "/api/v3/config/host",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "port": 8989,
+        "urlBase": "",
+        "apiKey": "00000000000000000000000000000001",
+        "authenticationMethod": "forms",
+        "username": "example-admin",
+        "password": "example-password",
+        "enableSsl": false,
+        "launchBrowser": false
+      }
+    },
+    {
+      "path": "*",
+      "status": 401,
+      "json": {
+        "error": "Unauthorized"
+      }
+    }
+  ],
+  "expect": {
+    "version": "4.0.15.2941",
+    "health": [
+      {
+        "source": "IndexerLongTermStatusCheck",
+        "level": "warning"
+      },
+      {
+        "source": "UpdateCheck",
+        "level": "notice"
+      }
+    ],
+    "queue": [
+      {
+        "state": "downloading",
+        "matched": true,
+        "downloadId": "FIXTURE0001"
+      },
+      {
+        "state": "importBlocked",
+        "matched": false,
+        "downloadId": "FIXTURE0002"
+      },
+      {
+        "state": "failed",
+        "matched": true,
+        "downloadId": "FIXTURE0003"
+      },
+      {
+        "state": "failed",
+        "matched": true,
+        "downloadId": "FIXTURE0003"
+      }
+    ]
+  }
+}

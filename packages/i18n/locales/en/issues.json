@@ -1,0 +1,112 @@
+{
+  "common": {
+    "instances": "{{instances}}"
+  },
+  "action": {
+    "recheck": "Recheck",
+    "mute": "Mute",
+    "testIndexer": "Test indexer",
+    "openInProwlarr": "Open in Prowlarr",
+    "openInstance": "Open {{name}}",
+    "openSettings": "Open settings",
+    "openQueue": "Go to queue",
+    "openWiki": "Open documentation",
+    "reload": "Reload",
+    "releaseNotes": "Open release notes",
+    "showSteps": "Show steps"
+  },
+  "indexerUnavailable": {
+    "title": "{{indexer}} is unreachable",
+    "titleLongTerm": "{{indexer}} unreachable for more than 6 hours",
+    "explanation_one": "One app reports that {{indexer}} keeps failing. Searches through it return nothing until it works again.",
+    "explanation_other": "{{count}} apps report that {{indexer}} keeps failing. Searches through it return nothing until it works again.",
+    "fix": "Test the indexer in Prowlarr and check the provider's status"
+  },
+  "allIndexersUnavailable": {
+    "title": "All indexers of {{instance}} are failing",
+    "explanation": "{{instance}} cannot search or grab anything right now.",
+    "fix": "Check the network connection of {{instance}}, then test the indexers"
+  },
+  "indexerSearch": {
+    "titleRss": "{{instance}} has no indexer for RSS sync",
+    "titleSearch": "{{instance}} has no indexer for searches",
+    "explanationRss": "New releases are not grabbed automatically.",
+    "explanationSearch": "Automatic and manual searches return no results.",
+    "fix": "Enable RSS and search on at least one indexer in {{instance}}"
+  },
+  "downloadClient": {
+    "title": "{{client}} is unavailable",
+    "titleNone": "No download client available in {{instance}}",
+    "explanation": "Apps cannot send downloads to {{client}} or read its status.",
+    "explanationNone": "Nothing can be downloaded until a download client works.",
+    "fix": "Check that {{client}} is running and reachable from the apps, then recheck",
+    "fixNone": "Add or enable a download client, then recheck"
+  },
+  "rootFolder": {
+    "title": "Root folder missing in {{instance}}",
+    "affected_one": "1 folder: {{folders}}",
+    "affected_other": "{{count}} folders: {{folders}}",
+    "explanation": "New files cannot be imported into a missing folder.",
+    "fix": "Check the volume mount and the permissions of the folder, then recheck"
+  },
+  "remotePath": {
+    "title": "Download paths do not match in {{instance}}",
+    "explanation": "The download client reports paths that the app cannot see, so imports fail.",
+    "fix": "Align the download paths of the app and the download client",
+    "step1": "Compare the download folder of the client with the path the app sees inside its container.",
+    "step2": "Mount the same folder at the same path in both containers, or add a remote path mapping.",
+    "step3": "Recheck this issue."
+  },
+  "update": {
+    "title": "Update available for {{instances}}",
+    "explanation": "Version {{version}} is available.",
+    "explanationNoVersion": "A new version is available.",
+    "fix": "Install the update when it suits you"
+  },
+  "downloadsFailed": {
+    "title_one": "1 download failed in {{instance}}",
+    "title_other": "{{count}} downloads failed in {{instance}}",
+    "explanation": "The download client reported these downloads as failed.",
+    "fix": "The Queue Cleaner takes care of this, or you act now"
+  },
+  "mediaKind": {
+    "episode_one": "1 episode",
+    "episode_other": "{{count}} episodes",
+    "movie_one": "1 movie",
+    "movie_other": "{{count}} movies",
+    "album_one": "1 album",
+    "album_other": "{{count}} albums",
+    "book_one": "1 book",
+    "book_other": "{{count}} books",
+    "scene_one": "1 scene",
+    "scene_other": "{{count}} scenes",
+    "item_one": "1 item",
+    "item_other": "{{count}} items"
+  },
+  "unreachable": {
+    "title": "{{instance}} is unreachable",
+    "explanation": "Wardarr cannot connect to this instance.",
+    "explanationTimeout": "The instance did not answer in time.",
+    "fix": "Check that {{instance}} is running and that its URL in Wardarr is correct"
+  },
+  "unauthorized": {
+    "title": "{{instance}} rejects the credentials",
+    "explanation": "The API key or login stored in Wardarr is not accepted.",
+    "fix": "Enter the current API key or login in the instance settings"
+  },
+  "mediaCache": {
+    "title": "Wardarr cannot refresh the {{instance}} cache",
+    "affectedBoth_one": "1 library, cache stale for {{days}} days",
+    "affectedBoth_other": "{{count}} libraries, cache stale for {{days}} days",
+    "affectedLibraries_one": "1 library",
+    "affectedLibraries_other": "{{count}} libraries",
+    "affectedStale": "Cache stale for {{days}} days",
+    "explanation": "Library statistics for {{instance}} are out of date.",
+    "fix": "Check the reachability and response time of {{instance}}, then reload"
+  },
+  "unknown": {
+    "title": "Unrecognized message from {{instances}}",
+    "explanation": "Wardarr has no rule for this message yet. The original text is shown in the details.",
+    "fix": "Open the instance and follow its documentation for this message"
+  }
+}

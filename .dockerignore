@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/.env*
+**/*.map
+.git
+data
+testbed/.state
+test-results
+playwright-report
+*.db
+*.key
