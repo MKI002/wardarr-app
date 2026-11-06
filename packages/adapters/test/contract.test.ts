@@ -204,7 +204,8 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
     it('removes a queue entry or download job', async () => {
       const { adapter, http } = instantiate(def, fx);
       const r = fx.expect.remove!;
-      if (adapter.removeQueueItem) await adapter.removeQueueItem(Number(r.id), { removeFromClient: true, blocklist: true });
+      if (adapter.removeQueueItem)
+        await adapter.removeQueueItem(Number(r.id), { removeFromClient: true, blocklist: true });
       else await adapter.removeDownload!(String(r.id), { deleteFiles: true });
       expect(http.calls.some((c) => c.path === r.path && c.method && c.method !== 'GET')).toBe(true);
     });

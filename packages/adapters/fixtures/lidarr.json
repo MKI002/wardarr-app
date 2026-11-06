@@ -75,9 +75,7 @@
             "statusMessages": [
               {
                 "title": "Unknown Band - Album Two",
-                "messages": [
-                  "Unknown item. Unable to match to an existing item"
-                ]
+                "messages": ["Unknown item. Unable to match to an existing item"]
               }
             ],
             "downloadId": "FIXTURE0002",
@@ -219,15 +217,11 @@
     "search": {
       "target": {
         "kind": "albums",
-        "ids": [
-          41
-        ]
+        "ids": [41]
       },
       "body": {
         "name": "AlbumSearch",
-        "albumIds": [
-          41
-        ]
+        "albumIds": [41]
       }
     }
   }

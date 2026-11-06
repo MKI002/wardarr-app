@@ -13,9 +13,7 @@
       "path": "/json",
       "body": {
         "method": "auth.login",
-        "params": [
-          "example-password"
-        ]
+        "params": ["example-password"]
       },
       "json": {
         "result": true,

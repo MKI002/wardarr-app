@@ -14,10 +14,13 @@ export function downloadKey(item: Pick<QueueItem, 'downloadId' | 'id'>): string 
 function mergeTargets(items: QueueItem[]): { target: SearchTarget | null; titleKey: string | null } {
   const targets = items.map((i) => i.searchTarget).filter((t): t is SearchTarget => !!t);
   if (targets.length === 0) return { target: null, titleKey: items[0]?.titleKey ?? null };
-  if (targets.length === 1) return { target: targets[0]!, titleKey: items.find((i) => i.titleKey)?.titleKey ?? null };
+  if (targets.length === 1)
+    return { target: targets[0]!, titleKey: items.find((i) => i.titleKey)?.titleKey ?? null };
   const first = items[0]!;
   const allEpisodes = targets.every((t) => t.kind === 'episodes');
-  const sameSeason = items.every((i) => i.parentId === first.parentId && i.seasonNumber === first.seasonNumber);
+  const sameSeason = items.every(
+    (i) => i.parentId === first.parentId && i.seasonNumber === first.seasonNumber,
+  );
   if (allEpisodes && sameSeason && first.parentId !== undefined && first.seasonNumber !== undefined) {
     const episodeIds = targets.flatMap((t) => (t.kind === 'episodes' ? t.ids : []));
     return {
@@ -28,7 +31,10 @@ function mergeTargets(items: QueueItem[]): { target: SearchTarget | null; titleK
   const kind = targets[0]!.kind;
   if (kind !== 'season' && targets.every((t) => t.kind === kind)) {
     const ids = [...new Set(targets.flatMap((t) => ('ids' in t ? t.ids : [])))];
-    return { target: { kind, ids } as SearchTarget, titleKey: items.find((i) => i.titleKey)?.titleKey ?? null };
+    return {
+      target: { kind, ids } as SearchTarget,
+      titleKey: items.find((i) => i.titleKey)?.titleKey ?? null,
+    };
   }
   return { target: targets[0]!, titleKey: items.find((i) => i.titleKey)?.titleKey ?? null };
 }
@@ -50,7 +56,9 @@ export function buildDownloads(queue: QueueItem[], jobs: DownloadJob[] = []): Cl
     const first = items[0]!;
     const job = first.downloadId ? jobById.get(lower(first.downloadId)) : undefined;
     const { target, titleKey } = mergeTargets(items);
-    const messages = [...new Set(items.flatMap((i) => [...i.statusMessages, ...(i.errorMessage ? [i.errorMessage] : [])]))];
+    const messages = [
+      ...new Set(items.flatMap((i) => [...i.statusMessages, ...(i.errorMessage ? [i.errorMessage] : [])])),
+    ];
     return {
       key,
       downloadId: first.downloadId,
@@ -59,7 +67,11 @@ export function buildDownloads(queue: QueueItem[], jobs: DownloadJob[] = []): Cl
       state: worstState(items),
       matched: items.some((i) => i.matched),
       messages,
-      inLibrary: items.every((i) => i.inLibrary === true) ? true : items.some((i) => i.inLibrary === false) ? false : undefined,
+      inLibrary: items.every((i) => i.inLibrary === true)
+        ? true
+        : items.some((i) => i.inLibrary === false)
+          ? false
+          : undefined,
       tags: [...new Set([...items.flatMap((i) => i.tags ?? []), ...(job?.tags ?? [])])],
       titleKey,
       searchTarget: target,
@@ -87,11 +99,23 @@ function worstState(items: QueueItem[]): QueueItem['state'] {
 }
 
 const INFRA_MESSAGES: Array<[InfraProblem['kind'], RegExp]> = [
-  ['diskFull', /not enough (free )?(disk )?space|disk (is )?full|no space left|insufficient (free )?(disk )?space/i],
-  ['permissions', /access to the path .* is denied|permission denied|unauthorizedaccess|read-only file system/i],
+  [
+    'diskFull',
+    /not enough (free )?(disk )?space|disk (is )?full|no space left|insufficient (free )?(disk )?space/i,
+  ],
+  [
+    'permissions',
+    /access to the path .* is denied|permission denied|unauthorizedaccess|read-only file system/i,
+  ],
   ['rootFolderMissing', /root folder .*(missing|does not exist|is not available|not found)/i],
-  ['clientUnreachable', /download client .*(unavailable|unreachable)|unable to communicate with|unable to connect to (the )?download client/i],
-  ['pathMissing', /(path|folder|directory) .*(does not exist|not found|is missing|was not found)|could not find (the )?(file|path|folder)/i],
+  [
+    'clientUnreachable',
+    /download client .*(unavailable|unreachable)|unable to communicate with|unable to connect to (the )?download client/i,
+  ],
+  [
+    'pathMissing',
+    /(path|folder|directory) .*(does not exist|not found|is missing|was not found)|could not find (the )?(file|path|folder)/i,
+  ],
 ];
 
 const INFRA_HEALTH: Record<string, InfraProblem['kind']> = {
@@ -103,7 +127,10 @@ const INFRA_HEALTH: Record<string, InfraProblem['kind']> = {
 };
 
 /** Finds a problem of the setup that makes every decision unreliable. */
-export function detectInfrastructure(downloads: CleanerDownload[], health: Signal[] = []): InfraProblem | null {
+export function detectInfrastructure(
+  downloads: CleanerDownload[],
+  health: Signal[] = [],
+): InfraProblem | null {
   for (const s of health) {
     const kind = s.source ? INFRA_HEALTH[s.source] : undefined;
     if (kind && (s.level === 'error' || s.level === 'warning')) return { kind, message: s.message };

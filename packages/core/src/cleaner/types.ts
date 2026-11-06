@@ -1,11 +1,6 @@
 // Types of the Queue Cleaner. The decision logic is pure: it takes the
 // queue, the previous state and the settings, and returns a plan.
-import type {
-  DownloadJob,
-  ImportPreviewFile,
-  QueueItemState,
-  SearchTarget,
-} from '../adapter/types.js';
+import type { DownloadJob, ImportPreviewFile, QueueItemState, SearchTarget } from '../adapter/types.js';
 import type { Msg, Signal } from '../issues/types.js';
 
 export interface CleanerConfig {
@@ -73,7 +68,8 @@ export interface CleanerDownload {
   clientState: DownloadJob['state'] | null;
 }
 
-export type InfraKind = 'diskFull' | 'pathMissing' | 'permissions' | 'rootFolderMissing' | 'clientUnreachable';
+export type InfraKind =
+  'diskFull' | 'pathMissing' | 'permissions' | 'rootFolderMissing' | 'clientUnreachable';
 
 export interface InfraProblem {
   kind: InfraKind;
@@ -169,6 +165,8 @@ export interface CleanerInput {
   state: ReadonlyMap<string, DownloadState>;
   attempts: ReadonlyMap<string, TitleAttempts>;
   now: Date;
+  /** In a dry run, removals keep their state and use up no attempts. */
+  dryRun?: boolean;
 }
 
 export interface CleanerPlan {

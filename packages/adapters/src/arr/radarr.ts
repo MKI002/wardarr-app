@@ -1,13 +1,18 @@
 import { defineAdapter } from '@wardarr/core';
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
-import { createArrInstance, type ArrFlavor } from './base.js';
+import { createArrInstance, type ArrProfile } from './base.js';
 
-export const RADARR_FLAVOR: ArrFlavor = {
-  apiBase: '/api/v3',
-  includeUnknownParam: 'includeUnknownMovieItems',
-  mediaIdField: 'movieId',
-  mediaKind: 'movie',
-  family: 'movie',
+/** Radarr v3 to v6 speak API v3. */
+export const RADARR_PROFILE: ArrProfile = {
+  product: 'Radarr',
+  apis: ['v3'],
+  testedMajors: { min: 3, max: 6 },
+  flavor: () => ({
+    includeUnknownParam: 'includeUnknownMovieItems',
+    mediaIdField: 'movieId',
+    mediaKind: 'movie',
+    family: 'movie',
+  }),
 };
 
 export const radarr = defineAdapter({
@@ -18,7 +23,16 @@ export const radarr = defineAdapter({
   homepage: 'https://radarr.video',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
+  capabilities: [
+    'health',
+    'queue',
+    'queueActions',
+    'manualImport',
+    'wanted',
+    'search',
+    'history',
+    'settings',
+  ],
   mediaKind: 'movie',
-  create: (ctx) => createArrInstance(ctx, 'radarr', () => RADARR_FLAVOR),
+  create: (ctx) => createArrInstance(ctx, 'radarr', RADARR_PROFILE),
 });

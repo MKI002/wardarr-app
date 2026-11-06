@@ -35,7 +35,8 @@ export interface FamilyImpl {
 const obj = (v: unknown): Rec => (v && typeof v === 'object' ? (v as Rec) : {});
 const num = (v: unknown): number | undefined => (typeof v === 'number' ? v : undefined);
 const str = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
-const ids = (v: unknown): number[] => (Array.isArray(v) ? v.filter((x): x is number => typeof x === 'number') : []);
+const ids = (v: unknown): number[] =>
+  Array.isArray(v) ? v.filter((x): x is number => typeof x === 'number') : [];
 const pad = (n: unknown) => String(num(n) ?? 0).padStart(2, '0');
 
 function labels(tagIds: unknown, tags: Map<number, string>): string[] {
@@ -97,7 +98,12 @@ const series: FamilyImpl = {
     const records = await paged(
       get,
       `/wanted/${list}`,
-      { includeSeries: true, monitored: opts.monitoredOnly, sortKey: 'episodes.airDateUtc', sortDirection: 'descending' },
+      {
+        includeSeries: true,
+        monitored: opts.monitoredOnly,
+        sortKey: 'episodes.airDateUtc',
+        sortDirection: 'descending',
+      },
       opts.max,
     );
     return records.map((e): WantedItem => {
@@ -130,7 +136,13 @@ const series: FamilyImpl = {
       s.title && episodes.length > 0
         ? `${String(s.title)} ${episodes.map((e) => `S${pad(file.seasonNumber ?? e.seasonNumber)}E${pad(e.episodeNumber)}`).join(' ')}`
         : null;
-    return { path: str(file.path) ?? '', name: str(file.name) ?? '', target, rejections: rejections(file), raw: file };
+    return {
+      path: str(file.path) ?? '',
+      name: str(file.name) ?? '',
+      target,
+      rejections: rejections(file),
+      raw: file,
+    };
   },
   importFile(raw, downloadId) {
     return {
@@ -191,7 +203,13 @@ const movie: FamilyImpl = {
   previewFile(file) {
     const m = obj(file.movie);
     const target = m.title ? `${String(m.title)}${m.year ? ` (${String(m.year)})` : ''}` : null;
-    return { path: str(file.path) ?? '', name: str(file.name) ?? '', target, rejections: rejections(file), raw: file };
+    return {
+      path: str(file.path) ?? '',
+      name: str(file.name) ?? '',
+      target,
+      rejections: rejections(file),
+      raw: file,
+    };
   },
   importFile(raw, downloadId) {
     return {
@@ -223,7 +241,12 @@ const music: FamilyImpl = {
     };
   },
   async wanted(list, opts, get) {
-    const records = await paged(get, `/wanted/${list}`, { includeArtist: true, monitored: opts.monitoredOnly }, opts.max);
+    const records = await paged(
+      get,
+      `/wanted/${list}`,
+      { includeArtist: true, monitored: opts.monitoredOnly },
+      opts.max,
+    );
     return records.map((a): WantedItem => {
       const artist = obj(a.artist);
       return {
@@ -252,7 +275,13 @@ const music: FamilyImpl = {
       album.title && tracks.length > 0
         ? `${str(artist.artistName) ?? ''} – ${String(album.title)} · ${tracks.map((t) => String(t.trackNumber ?? t.absoluteTrackNumber ?? '?')).join(', ')}`
         : null;
-    return { path: str(file.path) ?? '', name: str(file.name) ?? '', target, rejections: rejections(file), raw: file };
+    return {
+      path: str(file.path) ?? '',
+      name: str(file.name) ?? '',
+      target,
+      rejections: rejections(file),
+      raw: file,
+    };
   },
   importFile(raw, downloadId) {
     return {
@@ -285,7 +314,12 @@ const book: FamilyImpl = {
     };
   },
   async wanted(list, opts, get) {
-    const records = await paged(get, `/wanted/${list}`, { includeAuthor: true, monitored: opts.monitoredOnly }, opts.max);
+    const records = await paged(
+      get,
+      `/wanted/${list}`,
+      { includeAuthor: true, monitored: opts.monitoredOnly },
+      opts.max,
+    );
     return records.map((b): WantedItem => {
       const author = obj(b.author);
       return {
@@ -310,7 +344,13 @@ const book: FamilyImpl = {
     const author = obj(file.author);
     const b = obj(file.book);
     const target = b.title ? `${str(author.authorName) ?? ''} – ${String(b.title)}` : null;
-    return { path: str(file.path) ?? '', name: str(file.name) ?? '', target, rejections: rejections(file), raw: file };
+    return {
+      path: str(file.path) ?? '',
+      name: str(file.name) ?? '',
+      target,
+      rejections: rejections(file),
+      raw: file,
+    };
   },
   importFile(raw, downloadId) {
     return {

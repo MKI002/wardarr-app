@@ -33,7 +33,7 @@ export function registerIssueRoutes(
   /** Polls only the sources of this issue and returns its new state. */
   app.post<{ Params: { fp: string } }>('/api/issues/:fp/recheck', async (req) => {
     const issue = deps.issues.get(req.params.fp);
-    await deps.runtime.pollMany(issue.group.instances.map((i) => i.id));
+    await deps.runtime.recheck(issue.group.instances.map((i) => i.id));
     return deps.issues.get(req.params.fp);
   });
 

@@ -11,8 +11,24 @@ import {
   type Signal,
   type TagInfo,
 } from '@wardarr/core';
+import {
+  compatSignal,
+  detectApi,
+  detectionCache,
+  type ApiDetection,
+  type VersionProfile,
+} from '../shared/apiVersion.js';
 import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
 import { FAMILIES, type ArrFamily } from './families.js';
+
+/**
+ * How Wardarr talks to one *arr product. The flavor is chosen per detected
+ * API and product version, so a product update switches it automatically.
+ */
+export interface ArrProfile extends VersionProfile {
+  product: string;
+  flavor(d: ApiDetection): Omit<ArrFlavor, 'apiBase'>;
+}
 
 export interface ArrFlavor {
   /** API prefix, for example `/api/v3`. */
@@ -117,16 +133,31 @@ export function normalizeQueueRecord(
 export function createArrInstance(
   ctx: AdapterContext<{ apiKey: string }>,
   adapterId: string,
-  resolveFlavor: () => Promise<ArrFlavor> | ArrFlavor,
+  profile: ArrProfile,
   extra: { webPaths?: Partial<Record<'indexer' | 'queue' | 'settings' | 'system', string>> } = {},
-): AdapterInstance & { flavor(): Promise<ArrFlavor> } {
+): AdapterInstance & { flavor(): Promise<ArrFlavor>; detection(): Promise<ApiDetection> } {
   const headers = { 'X-Api-Key': ctx.credentials.apiKey };
-  let flavorCache: ArrFlavor | null = null;
-  const flavor = async () => (flavorCache ??= await resolveFlavor());
+  const detection = detectionCache(() => detectApi(ctx, profile));
+  const flavor = async (): Promise<ArrFlavor> => {
+    const d = await detection.get();
+    return { ...profile.flavor(d), apiBase: d.apiBase };
+  };
+  const instanceRef = { id: ctx.instanceId, name: ctx.instanceName, adapter: adapterId };
+
+  // A 404 on a known endpoint usually means the product changed its API:
+  // detect again on the next call.
+  const onError = (err: unknown): never => {
+    if (err instanceof AdapterError && err.kind === 'notFound') detection.reset();
+    throw err;
+  };
 
   const get = async <T>(path: string, query?: Record<string, string | number | boolean>) => {
     const f = await flavor();
-    return jsonOf<T>(await ctx.http.request({ path: `${f.apiBase}${path}`, query, headers }));
+    try {
+      return jsonOf<T>(await ctx.http.request({ path: `${f.apiBase}${path}`, query, headers }));
+    } catch (err) {
+      return onError(err);
+    }
   };
 
   const send = async (
@@ -136,9 +167,13 @@ export function createArrInstance(
     query?: Record<string, string | number | boolean>,
   ) => {
     const f = await flavor();
-    const res = await ctx.http.request({ method, path: `${f.apiBase}${path}`, query, headers, json });
-    ensureOk(res);
-    return res;
+    try {
+      const res = await ctx.http.request({ method, path: `${f.apiBase}${path}`, query, headers, json });
+      ensureOk(res);
+      return res;
+    } catch (err) {
+      return onError(err);
+    }
   };
 
   const tags = async (): Promise<TagInfo[]> => {
@@ -156,16 +191,26 @@ export function createArrInstance(
 
   return {
     flavor,
+    detection: () => detection.get(),
     async testConnection() {
+      let d = await detection.get();
       const status = await get<StatusResource>('/system/status');
       if (!status || typeof status.version !== 'string')
         throw new AdapterError('badResponse', 'not an *arr API');
-      return { version: status.version, product: status.appName };
+      // The product was updated since the last detection: detect again.
+      if (await detection.noteVersion(status.version)) d = await detection.get();
+      return {
+        version: status.version,
+        product: status.appName,
+        apiVersion: d.api,
+        compatibility: d.compat ? d.compat.reason : undefined,
+      };
     },
 
     async health() {
       const items = await get<HealthResource[]>('/health');
-      return items.map((h): Signal => ({
+      const compat = compatSignal(await detection.get(), instanceRef, profile.product);
+      const signals = items.map((h): Signal => ({
         origin: 'service',
         instance: { id: ctx.instanceId, name: ctx.instanceName, adapter: adapterId },
         kind: 'health',
@@ -174,6 +219,7 @@ export function createArrInstance(
         message: h.message ?? '',
         wikiUrl: h.wikiUrl,
       }));
+      return compat ? [...signals, compat] : signals;
     },
 
     async queue() {

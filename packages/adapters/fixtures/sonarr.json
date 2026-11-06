@@ -70,9 +70,7 @@
             "series": {
               "id": 11,
               "title": "Example Show",
-              "tags": [
-                1
-              ]
+              "tags": [1]
             },
             "episode": {
               "id": 101,
@@ -90,9 +88,7 @@
             "statusMessages": [
               {
                 "title": "Unmatched.Show.S02E03.720p",
-                "messages": [
-                  "Unknown item. Unable to match to an existing item"
-                ]
+                "messages": ["Unknown item. Unable to match to an existing item"]
               }
             ],
             "downloadId": "FIXTURE0002",
@@ -337,9 +333,7 @@
     ],
     "queueExtras": {
       "inLibrary": false,
-      "tags": [
-        "keep"
-      ],
+      "tags": ["keep"],
       "titleKey": "episode:101"
     },
     "importPreview": {
@@ -351,9 +345,7 @@
         },
         {
           "target": null,
-          "rejections": [
-            "Unknown Series"
-          ]
+          "rejections": ["Unknown Series"]
         }
       ]
     },
@@ -389,10 +381,7 @@
         "kind": "season",
         "seriesId": 11,
         "seasonNumber": 2,
-        "episodeIds": [
-          201,
-          202
-        ]
+        "episodeIds": [201, 202]
       },
       "body": {
         "name": "SeasonSearch",

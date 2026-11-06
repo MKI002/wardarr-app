@@ -75,9 +75,7 @@
             "statusMessages": [
               {
                 "title": "Unknown Writer - Book Two",
-                "messages": [
-                  "Unknown item. Unable to match to an existing item"
-                ]
+                "messages": ["Unknown item. Unable to match to an existing item"]
               }
             ],
             "downloadId": "FIXTURE0002",
