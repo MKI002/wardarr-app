@@ -417,12 +417,18 @@ const folder = (path, disk, withTotal = false) => ({
 });
 const STORAGE = {
   sonarr: { disks: [...SYSTEM_MOUNTS, mount('/data', 'data')], folders: [folder('/data/media/tv', 'data')] },
-  'sonarr-4k': { disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')], folders: [folder('/uhd/tv', 'uhd')] },
+  'sonarr-4k': {
+    disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')],
+    folders: [folder('/uhd/media/tv-4k', 'uhd')],
+  },
   radarr: {
     disks: [...SYSTEM_MOUNTS, mount('/data', 'data')],
     folders: [folder('/data/media/movies', 'data')],
   },
-  'radarr-4k': { disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')], folders: [folder('/uhd/movies', 'uhd')] },
+  'radarr-4k': {
+    disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')],
+    folders: [folder('/uhd/media/movies-4k', 'uhd')],
+  },
   lidarr: {
     disks: [...SYSTEM_MOUNTS, mount('/data', 'data')],
     folders: [folder('/data/media/music', 'data', true)],
@@ -505,8 +511,9 @@ function profileDrift(prefix, res) {
 // disks. Host names are invented container names, so Wardarr has to match
 // them by name and product, as it would behind Docker.
 
-const DATA_TOTAL = 7_999_415_812_096;
-const DATA_FREE = 2_023_406_814_208;
+// The download folder lies on the shared media disk of the demo (disks.mjs).
+const DATA_TOTAL = DEMO_DISKS.data.totalBytes;
+const DATA_FREE = DEMO_DISKS.data.freeBytes;
 const GIB = 1024 ** 3;
 const client = (id, name, implementation, host, port, enable = true) => ({
   id,
@@ -535,15 +542,11 @@ const JELLYFIN_HOOK = {
     { name: 'useSsl', value: false },
   ],
 };
-const DISKS = [
-  { path: '/', label: 'overlay', freeSpace: 41 * GIB, totalSpace: 64 * GIB },
-  { path: '/data', label: 'data', freeSpace: DATA_FREE, totalSpace: DATA_TOTAL },
-];
 const STACK = {
   sonarr: { clients: [QBIT, SAB], hooks: [JELLYFIN_HOOK], root: '/data/media/tv' },
-  'sonarr-4k': { clients: [QBIT], hooks: [], root: '/data/media/tv-4k' },
+  'sonarr-4k': { clients: [QBIT], hooks: [], root: '/uhd/media/tv-4k' },
   radarr: { clients: [QBIT, SAB], hooks: [JELLYFIN_HOOK], root: '/data/media/movies' },
-  'radarr-4k': { clients: [QBIT], hooks: [JELLYFIN_HOOK], root: '/data/media/movies-4k' },
+  'radarr-4k': { clients: [QBIT], hooks: [JELLYFIN_HOOK], root: '/uhd/media/movies-4k' },
   // Lidarr also knows a Deluge client that is not connected to Wardarr.
   lidarr: {
     clients: [SAB, client(3, 'Deluge', 'Deluge', 'deluge', 8112)],
@@ -584,9 +587,6 @@ async function arr(prefix, path, url, req, res) {
   if (p === '/history/since') return json(res, []);
   if (p === '/downloadclient') return json(res, STACK[prefix]?.clients ?? []);
   if (p === '/notification') return json(res, STACK[prefix]?.hooks ?? []);
-  if (p === '/diskspace') return json(res, DISKS);
-  if (p === '/rootfolder')
-    return json(res, [{ id: 1, path: STACK[prefix].root, accessible: true, freeSpace: DATA_FREE }]);
   if (p === '/calendar') return json(res, svc.calendar?.(url) ?? []);
   if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: DEMO_KEY });
   if (p === '/manualimport') {
