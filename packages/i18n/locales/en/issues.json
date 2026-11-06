@@ -51,6 +51,36 @@
     "fix": "Check that {{client}} is running and reachable from the apps, then recheck",
     "fixNone": "Add or enable a download client, then recheck"
   },
+  "downloaderOffline": {
+    "title": "{{instance}} has no network connection",
+    "explanation": "{{instance}} reports that it is disconnected, so nothing downloads or seeds. This usually means the VPN it runs behind is down or the network interface it is bound to is gone.",
+    "fix": "Check the VPN container and the network interface in the client's connection settings, then restart the client"
+  },
+  "downloaderPortClosed": {
+    "title": "Incoming port of {{instance}} is closed",
+    "explanation": "Peers cannot connect to the client, only the client to them. Downloads still run but find fewer peers, and seeding barely works, which costs ratio on private trackers.",
+    "fix": "Forward the listening port in your router or VPN and enter the same port in the client's connection settings"
+  },
+  "trackerErrors": {
+    "title_one": "1 torrent in {{instance}} has a tracker error",
+    "title_other": "{{count}} torrents in {{instance}} have tracker errors",
+    "affected_one": "1 torrent",
+    "affected_other": "{{count}} torrents",
+    "explanation": "The tracker answers these torrents with an error. They get no new peers until the tracker accepts them again.",
+    "explanationUnregistered": "The tracker no longer knows at least one of these torrents. It was usually removed or replaced by a better release, and it will never download or seed again.",
+    "fix": "Check the tracker message in {{instance}}. Remove unregistered torrents; for other errors, check the tracker's status and your passkey",
+    "reason": "{{reason}}"
+  },
+  "downloaderPaused": {
+    "title": "Downloads in {{instance}} are paused",
+    "explanation": "The client is paused with no timer to resume, so new grabs wait in the queue.",
+    "fix": "Resume downloads in {{instance}}. If a schedule pauses it on purpose, mute this issue"
+  },
+  "downloaderQuota": {
+    "title": "Download quota of {{instance}} is used up",
+    "explanation": "The client stops downloading until the next quota period starts.",
+    "fix": "Raise the quota or wait for the next period"
+  },
   "rootFolder": {
     "title": "Root folder missing in {{instance}}",
     "affected_one": "1 folder: {{folders}}",

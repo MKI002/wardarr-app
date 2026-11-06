@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
 import { ensureOk } from '../shared/http.js';
 import { folder, part } from '../shared/topology.js';
+import { downloaderSignal, portWatch } from './health.js';
 
 interface Torrent {
   hash: string;
@@ -67,9 +68,10 @@ export const qbittorrent = defineAdapter({
     username: z.string().max(256).optional(),
     password: z.string().max(1024).optional(),
   }),
-  capabilities: ['downloads'],
+  capabilities: ['health', 'downloads'],
   create(ctx) {
     let sid: string | null = null;
+    const port = portWatch();
 
     const login = async () => {
       const res = await ctx.http.request({
@@ -114,6 +116,29 @@ export const qbittorrent = defineAdapter({
         const version = (await get('/api/v2/app/version')).trim();
         const api = (await get('/api/v2/app/webapiVersion')).trim();
         return { version, variant: `webapi ${api}` };
+      },
+      async health() {
+        const info = JSON.parse(await get('/api/v2/transfer/info')) as { connection_status?: string };
+        const status = info.connection_status;
+        if (status === 'disconnected') {
+          port.update(false);
+          return [
+            downloaderSignal(ctx, 'qbittorrent', 'connection', 'error', 'qBittorrent is disconnected', {
+              status: 'disconnected',
+            }),
+          ];
+        }
+        if (!port.update(status === 'firewalled')) return [];
+        // Without anything transferring, "firewalled" is expected and says nothing.
+        const active = JSON.parse(
+          await get('/api/v2/torrents/info', { filter: 'active', limit: '1' }),
+        ) as unknown[];
+        if (active.length === 0) return [];
+        return [
+          downloaderSignal(ctx, 'qbittorrent', 'connection', 'warning', 'qBittorrent is firewalled', {
+            status: 'firewalled',
+          }),
+        ];
       },
       async downloads() {
         const list = JSON.parse(await get('/api/v2/torrents/info')) as Torrent[];

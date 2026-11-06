@@ -3,6 +3,13 @@
 import type { IssueRule } from '../types.js';
 import { credentialsRejected, instanceUnreachable } from './connection.js';
 import { downloadClientUnavailable } from './downloadClients.js';
+import {
+  downloaderOffline,
+  downloaderPaused,
+  downloaderPortClosed,
+  downloaderQuota,
+  trackerErrors,
+} from './downloaders.js';
 import { allIndexersUnavailable, indexerSearchUnavailable, indexerUnavailable } from './indexers.js';
 import { attemptsExhausted, cleanerPaused, importReady, orphanedDownloads } from './cleaner.js';
 import { downloadsFailed } from './queue.js';
@@ -27,6 +34,11 @@ export const RULE_CATALOG: readonly IssueRule[] = [
   allIndexersUnavailable,
   indexerSearchUnavailable,
   downloadClientUnavailable,
+  downloaderOffline,
+  downloaderPortClosed,
+  trackerErrors,
+  downloaderQuota,
+  downloaderPaused,
   rootFolderMissing,
   remotePathMapping,
   diskFillingUp,
@@ -52,3 +64,4 @@ export const RULE_CATALOG: readonly IssueRule[] = [
 ] as IssueRule[];
 
 export * from './helpers.js';
+export { DOWNLOADER_SOURCES } from './downloaders.js';

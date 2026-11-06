@@ -100,6 +100,12 @@ or writes (`folders`, with disk space when the service reports it). Read each
 part with `part()` from `shared/topology.ts`, so one missing endpoint only
 drops that part.
 
+A download client reports its own problems through `health()` with the helpers
+in `packages/adapters/src/downloaders/health.ts`. They emit the sources the
+catalog already understands (`Downloader.connection`, `Downloader.trackerError`,
+`Downloader.paused`, `Downloader.quota`), so a new client needs no new rule. See
+[download client checks](download-clients.md).
+
 ## Rules
 
 - **Use `ctx.http`, never `fetch`.** It applies the timeout, the SSRF guard,

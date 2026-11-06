@@ -1,7 +1,8 @@
-import { AdapterError, defineAdapter, type DownloadJob } from '@wardarr/core';
+import { AdapterError, defineAdapter, type DownloadJob, type Signal } from '@wardarr/core';
 import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
 import { ensureOk } from '../shared/http.js';
+import { downloaderSignal } from './health.js';
 
 interface Group {
   NZBID: number;
@@ -11,6 +12,15 @@ interface Group {
   RemainingSizeMB: number;
   Category?: string;
   MinPostTime?: number;
+}
+
+interface Status {
+  DownloadRate?: number;
+  DownloadPaused?: boolean;
+  /** Unix time the pause ends at, 0 without a timer (NZBGet 16+). */
+  ResumeTime?: number;
+  /** NZBGet 20+. */
+  QuotaReached?: boolean;
 }
 
 function groupState(status: string): DownloadJob['state'] {
@@ -44,7 +54,7 @@ export const nzbget = defineAdapter({
   homepage: 'https://nzbget.com',
   fields: [usernameField(true), passwordField(true)],
   credentials: z.object({ username: z.string().min(1).max(256), password: z.string().min(1).max(1024) }),
-  capabilities: ['downloads'],
+  capabilities: ['health', 'downloads'],
   create(ctx) {
     const auth = `Basic ${Buffer.from(`${ctx.credentials.username}:${ctx.credentials.password}`).toString('base64')}`;
     let id = 0;
@@ -65,11 +75,17 @@ export const nzbget = defineAdapter({
       async testConnection() {
         return { version: await rpc<string>('version') };
       },
+      async health() {
+        const status = await rpc<Status>('status');
+        const signals: Signal[] = [];
+        if (status.QuotaReached)
+          signals.push(downloaderSignal(ctx, 'nzbget', 'quota', 'warning', 'NZBGet download quota reached'));
+        else if (status.DownloadPaused && !status.ResumeTime)
+          signals.push(downloaderSignal(ctx, 'nzbget', 'paused', 'info', 'NZBGet is paused'));
+        return signals;
+      },
       async downloads() {
-        const [groups, status] = await Promise.all([
-          rpc<Group[]>('listgroups', [0]),
-          rpc<{ DownloadRate?: number }>('status'),
-        ]);
+        const [groups, status] = await Promise.all([rpc<Group[]>('listgroups', [0]), rpc<Status>('status')]);
         return groups.map((g): DownloadJob => {
           const state = groupState(g.Status);
           const total = g.FileSizeMB * 1024 * 1024;

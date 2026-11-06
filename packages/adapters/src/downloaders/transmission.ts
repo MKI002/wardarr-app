@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
 import { folder, part } from '../shared/topology.js';
 import { ensureOk } from '../shared/http.js';
+import { trackerErrorSignals } from './health.js';
 
 type Protocol = 'legacy' | 'jsonrpc';
 
@@ -37,6 +38,9 @@ const FIELDS_SNAKE = [
   'labels',
   'downloaded_ever',
 ];
+
+/** Torrent error 2: the tracker answered with an error (1 is only a warning). */
+const TRACKER_ERROR = 2;
 
 export function transmissionState(status: number, error: number): DownloadJob['state'] {
   // Error 3 is a local error (for example missing files); 1 and 2 are tracker problems.
@@ -81,7 +85,7 @@ export const transmission = defineAdapter({
     username: z.string().max(256).optional(),
     password: z.string().max(1024).optional(),
   }),
-  capabilities: ['downloads'],
+  capabilities: ['health', 'downloads'],
   create(ctx) {
     const path = ctx.credentials.rpcPath ?? '/transmission/rpc';
     const auth = ctx.credentials.username
@@ -124,6 +128,24 @@ export const transmission = defineAdapter({
         });
         const version = String(s.version ?? '').split(' ')[0] || null;
         return { version, variant: protocol ?? undefined };
+      },
+      async health() {
+        if (protocol === null) await call('session-get', 'session_get', { fields: ['version'] });
+        const snake = protocol === 'jsonrpc';
+        const res = await call('torrent-get', 'torrent_get', {
+          fields: ['name', 'error', snake ? 'error_string' : 'errorString'],
+        });
+        const torrents = (res.torrents ?? []) as Array<Record<string, unknown>>;
+        return trackerErrorSignals(
+          ctx,
+          'transmission',
+          torrents
+            .filter((t) => Number(t.error) === TRACKER_ERROR)
+            .map((t) => ({
+              name: String(t.name ?? ''),
+              reason: String((snake ? t.error_string : t.errorString) ?? ''),
+            })),
+        );
       },
       async downloads() {
         const snake = protocol === 'jsonrpc';

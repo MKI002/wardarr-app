@@ -2,6 +2,7 @@ import { AdapterError, defineAdapter, type DownloadJob, type Signal } from '@war
 import { z } from 'zod';
 import { folder, part } from '../shared/topology.js';
 import { jsonOf } from '../shared/http.js';
+import { downloaderSignal } from './health.js';
 
 interface QueueSlot {
   nzo_id: string;
@@ -15,7 +16,7 @@ interface QueueSlot {
 }
 
 interface QueueResponse {
-  queue?: { slots?: QueueSlot[]; kbpersec?: string; paused?: boolean };
+  queue?: { slots?: QueueSlot[]; kbpersec?: string; paused?: boolean; pause_int?: string };
   error?: string;
 }
 
@@ -85,19 +86,32 @@ export const sabnzbd = defineAdapter({
         return { version: v.version ?? null };
       },
       async health() {
-        const res = await call<{ warnings?: Array<{ text?: string; type?: string } | string> }>('warnings');
-        return (res.warnings ?? []).map((w): Signal => {
-          const text = typeof w === 'string' ? w : (w.text ?? '');
-          const type = typeof w === 'string' ? 'WARNING' : (w.type ?? 'WARNING');
-          return {
-            origin: 'service',
-            instance: { id: ctx.instanceId, name: ctx.instanceName, adapter: 'sabnzbd' },
-            kind: 'health',
-            source: 'Warnings',
-            level: type.toUpperCase() === 'ERROR' ? 'error' : 'warning',
-            message: text,
-          };
-        });
+        const [res, queue] = await Promise.all([
+          call<{ warnings?: Array<{ text?: string; type?: string } | string> }>('warnings'),
+          call<QueueResponse>('queue', { limit: '1' }),
+        ]);
+        const signals: Signal[] = [];
+        // A timed pause ends on its own; only an open-ended pause is worth a note.
+        // pause_int is "0" without a timer, otherwise the time left ("4:59").
+        const pauseInt = String(queue.queue?.pause_int ?? '0').trim();
+        const timed = pauseInt !== '' && pauseInt !== '0';
+        if (queue.queue?.paused === true && !timed)
+          signals.push(downloaderSignal(ctx, 'sabnzbd', 'paused', 'info', 'SABnzbd is paused'));
+        return [
+          ...signals,
+          ...(res.warnings ?? []).map((w): Signal => {
+            const text = typeof w === 'string' ? w : (w.text ?? '');
+            const type = typeof w === 'string' ? 'WARNING' : (w.type ?? 'WARNING');
+            return {
+              origin: 'service',
+              instance: { id: ctx.instanceId, name: ctx.instanceName, adapter: 'sabnzbd' },
+              kind: 'health',
+              source: 'Warnings',
+              level: type.toUpperCase() === 'ERROR' ? 'error' : 'warning',
+              message: text,
+            };
+          }),
+        ];
       },
       async downloads() {
         const res = await call<QueueResponse>('queue');

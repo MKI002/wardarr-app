@@ -277,6 +277,8 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
 - [Calendar](docs/guide/calendar.md): what the calendar shows and how the iCal link stays private.
 - [Tdarr](docs/guide/tdarr.md): what Wardarr reads from Tdarr and when it raises an issue.
+- [Download client checks](docs/guide/download-clients.md): what Wardarr checks in each
+  download client and why some checks wait.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
 - [Live demo](docs/demo.md): how the demo is built and why its films are public domain.

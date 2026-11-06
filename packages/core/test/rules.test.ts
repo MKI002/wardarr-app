@@ -168,3 +168,85 @@ describe('catalog rules', () => {
     }
   });
 });
+
+describe('download client rules', () => {
+  const qbit = { id: 'q1', name: 'qBittorrent', adapter: 'qbittorrent' };
+  const tr = { id: 't1', name: 'Transmission', adapter: 'transmission' };
+  const sab = { id: 'n1', name: 'SABnzbd', adapter: 'sabnzbd' };
+
+  function dl(
+    instance: typeof qbit,
+    source: string,
+    level: Signal['level'],
+    data?: Record<string, unknown>,
+  ): Signal {
+    return { origin: 'service', instance, kind: 'health', source, level, message: source, data };
+  }
+
+  it('turns a disconnected client into a critical issue and a closed port into a warning', () => {
+    const groups = groupSignals(
+      [
+        dl(qbit, 'Downloader.connection', 'error', { status: 'disconnected' }),
+        dl({ ...qbit, id: 'q2', name: 'qBittorrent 2' }, 'Downloader.connection', 'warning', {
+          status: 'firewalled',
+        }),
+      ],
+      RULE_CATALOG,
+    );
+    const byRule = Object.fromEntries(groups.map((g) => [g.ruleId, g]));
+    expect(byRule['downloader-offline']!.severity).toBe('critical');
+    expect(t(byRule['downloader-offline']!.title)).toBe('qBittorrent has no network connection');
+    expect(byRule['downloader-port-closed']!.severity).toBe('warning');
+    expect(t(byRule['downloader-port-closed']!.title)).toBe('Incoming port of qBittorrent 2 is closed');
+  });
+
+  it('collects tracker errors of one client into one issue with one item per torrent', () => {
+    const groups = groupSignals(
+      [
+        dl(tr, 'Downloader.trackerError', 'warning', {
+          name: 'Example.Show.S01E01',
+          reason: 'Unregistered torrent',
+        }),
+        dl(tr, 'Downloader.trackerError', 'warning', { name: 'Sample.Movie.2021', reason: 'timed out' }),
+      ],
+      RULE_CATALOG,
+    );
+    expect(groups).toHaveLength(1);
+    const g = groups[0]!;
+    expect(g.fingerprint).toBe('tracker-errors:t1');
+    expect(t(g.title)).toBe('2 torrents in Transmission have tracker errors');
+    expect(t(g.affected)).toBe('2 torrents');
+    expect(g.explanation.key).toBe('issues.trackerErrors.explanationUnregistered');
+    expect(g.items.map((i) => i.label)).toEqual(['Example.Show.S01E01', 'Sample.Movie.2021']);
+    expect(t(g.items[0]!.info!)).toBe('Unregistered torrent');
+  });
+
+  it('keeps a paused client calm and flags a used-up quota', () => {
+    const groups = groupSignals(
+      [
+        dl(sab, 'Downloader.paused', 'info'),
+        dl({ id: 'z1', name: 'NZBGet', adapter: 'nzbget' }, 'Downloader.quota', 'warning'),
+      ],
+      RULE_CATALOG,
+    );
+    const byRule = Object.fromEntries(groups.map((g) => [g.ruleId, g]));
+    expect(byRule['downloader-paused']!.severity).toBe('info');
+    expect(t(byRule['downloader-paused']!.title)).toBe('Downloads in SABnzbd are paused');
+    expect(byRule['downloader-quota']!.severity).toBe('warning');
+  });
+
+  it('every download client rule has translations', () => {
+    const signals = [
+      dl(qbit, 'Downloader.connection', 'error', { status: 'disconnected' }),
+      dl(tr, 'Downloader.connection', 'warning', { status: 'firewalled' }),
+      dl(tr, 'Downloader.trackerError', 'warning', { name: 'A', reason: 'x' }),
+      dl(sab, 'Downloader.paused', 'info'),
+      dl(sab, 'Downloader.quota', 'warning'),
+    ];
+    for (const g of groupSignals(signals, RULE_CATALOG)) {
+      expect(g.ruleId).not.toBe('unknown');
+      for (const m of [g.title, g.affected, g.explanation, g.fix, ...g.actions.map((a) => a.label)])
+        expect(() => t(m)).not.toThrow();
+    }
+  });
+});

@@ -709,6 +709,7 @@ function qbittorrent(path, res) {
     return text(res, 'Ok.', 200, { 'set-cookie': 'SID=demo-session; path=/' });
   if (path === '/api/v2/app/version') return text(res, 'v5.1.2');
   if (path === '/api/v2/app/webapiVersion') return text(res, '2.11.4');
+  if (path === '/api/v2/transfer/info') return json(res, { connection_status: 'connected' });
   if (path === '/api/v2/torrents/info') return json(res, TORRENTS);
   if (path === '/api/v2/torrents/delete') return text(res, '');
   if (path === '/api/v2/app/defaultSavePath') return text(res, '/data/torrents');

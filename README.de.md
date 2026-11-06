@@ -290,6 +290,7 @@ Die Anleitungen sind auf Englisch:
 - [Backups](docs/guide/backups.md)
 - [Kalender](docs/guide/calendar.md)
 - [Tdarr](docs/guide/tdarr.md)
+- [Download-Clients prüfen](docs/guide/download-clients.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
 - [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind
