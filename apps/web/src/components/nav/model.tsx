@@ -6,16 +6,16 @@ export type GroupId = 'status' | 'media' | 'automation' | 'system';
 
 /** Sections in the order they appear; Settings sits apart at the bottom. */
 export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
-  { id: 'status', tabs: ['overview', 'issues', 'stackmap'] },
+  { id: 'status', tabs: ['overview', 'issues', 'map'] },
   { id: 'media', tabs: ['discover', 'requests', 'library', 'calendar'] },
   { id: 'automation', tabs: ['cleaner', 'hunting', 'trash'] },
-  { id: 'system', tabs: ['indexers', 'downloaders', 'diskspace', 'backup'] },
+  { id: 'system', tabs: ['indexers', 'storage', 'backup'] },
 ];
 
 export const TAB_PATHS: Record<string, string> = {
   overview: '/',
   issues: '/issues',
-  stackmap: '/stackmap',
+  map: '/map',
   discover: '/discover',
   requests: '/requests',
   library: '/library',
@@ -24,8 +24,7 @@ export const TAB_PATHS: Record<string, string> = {
   hunting: '/hunting',
   trash: '/trash',
   indexers: '/indexers',
-  downloaders: '/downloaders',
-  diskspace: '/diskspace',
+  storage: '/storage',
   backup: '/backup',
   settings: '/settings',
 };
@@ -71,8 +70,7 @@ export function phoneTabs(allowed: string[]): { primary: string[]; rest: boolean
 const ICONS: Record<string, string> = {
   overview: 'M3 12h7V3H3zm0 9h7v-7H3zm11 0h7v-9h-7zm0-18v7h7V3z',
   issues: 'M12 3 2 20h20zm0 6v5m0 3h.01',
-  stackmap:
-    'M5 5a2 2 0 1 0 0 .01M19 5a2 2 0 1 0 0 .01M12 19a2 2 0 1 0 0 .01M12 10a2 2 0 1 0 0 .01M6.5 6.5l4 2.5M17.5 6.5l-4 2.5M12 12v5',
+  map: 'M5 5a2 2 0 1 0 0 .01M19 5a2 2 0 1 0 0 .01M12 19a2 2 0 1 0 0 .01M12 10a2 2 0 1 0 0 .01M6.5 6.5l4 2.5M17.5 6.5l-4 2.5M12 12v5',
   discover: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm3.5 5.5-2 5-5 2 2-5z',
   requests: 'M8 4h8l1 3H7zM5 7h14v13H5zM9 12h6M9 16h4',
   library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',
@@ -81,8 +79,7 @@ const ICONS: Record<string, string> = {
   hunting: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4M11 8v6M8 11h6',
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
-  downloaders: 'M12 4v11m-4-4 4 4 4-4M5 19h14',
-  diskspace: 'M4 5h16v6H4zM4 13h16v6H4zM8 8h.01M8 16h.01M12 16h5',
+  storage: 'M4 5h16v6H4zM4 13h16v6H4zM8 8h.01M8 16h.01M12 16h5',
   backup: 'M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',
