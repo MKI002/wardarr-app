@@ -57,7 +57,11 @@ export function memberId(m: { instance: { id: string }; path: string }): string 
 function normalizePath(p: string): string {
   const trimmed = p.trim();
   if (trimmed === '/' || /^[a-z]:\\?$/i.test(trimmed)) return trimmed;
-  return trimmed.replace(/[\\/]+$/, '');
+  // Strip trailing separators by hand; a `[\\/]+$` regex backtracks badly on
+  // paths full of slashes.
+  let end = trimmed.length;
+  while (end > 0 && (trimmed[end - 1] === '/' || trimmed[end - 1] === '\\')) end--;
+  return trimmed.slice(0, end);
 }
 
 /** True when `folder` lies on the mount `mount`. */
