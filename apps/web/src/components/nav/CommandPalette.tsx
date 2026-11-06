@@ -41,7 +41,7 @@ const SYNONYMS: Record<string, string> = {
   indexers: 'prowlarr jackett indexer',
   indexerInsights: 'indexer analysis analyse insights history verlauf prowlarr',
   storage: 'storage disk free speicher platz festplatte',
-  backup: 'restore export sicherung wiederherstellen',
+  backups: 'backup restore retention sicherung wiederherstellen',
   settings: 'preferences options einstellungen',
   instances: 'services connections dienste verbindungen',
   users: 'accounts roles benutzer konten',
@@ -140,11 +140,13 @@ function PaletteBody({ tabs, close }: { tabs: string[]; close: () => void }) {
       go: go(() => navigate({ to: pathOf(id) })),
     }));
     const sections = (
-      isAdmin ? (['instances', 'users', 'notifications', 'appearance'] as const) : (['appearance'] as const)
+      isAdmin
+        ? (['instances', 'users', 'notifications', 'backups', 'appearance'] as const)
+        : (['appearance'] as const)
     ).map<Entry>((s) => ({
       key: `settings:${s}`,
       kind: 'settings',
-      label: t(`ui.settings.${s}`),
+      label: s === 'backups' ? t('backups.title') : t(`ui.settings.${s}`),
       hint: t('ui.tabs.settings'),
       icon: { tab: s === 'instances' ? 'service' : s },
       words: `settings ${SYNONYMS[s] ?? ''}`,

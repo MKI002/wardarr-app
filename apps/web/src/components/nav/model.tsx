@@ -9,7 +9,7 @@ export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
   { id: 'status', tabs: ['overview', 'issues', 'map'] },
   { id: 'media', tabs: ['discover', 'requests', 'library', 'calendar'] },
   { id: 'automation', tabs: ['cleaner', 'hunting', 'trash', 'tdarr'] },
-  { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage', 'backup'] },
+  { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage'] },
 ];
 
 export const TAB_PATHS: Record<string, string> = {
@@ -27,7 +27,6 @@ export const TAB_PATHS: Record<string, string> = {
   indexers: '/indexers',
   indexerInsights: '/indexer-insights',
   storage: '/storage',
-  backup: '/backup',
   settings: '/settings',
 };
 
@@ -82,7 +81,7 @@ const ICONS: Record<string, string> = {
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
   storage: 'M4 5h16v6H4zM4 13h16v6H4zM8 8h.01M8 16h.01M12 16h5',
-  backup: 'M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2',
+  backups: 'M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',
   search: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4',
