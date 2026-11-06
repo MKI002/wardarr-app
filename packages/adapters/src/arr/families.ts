@@ -2,7 +2,14 @@
 // Radarr and Whisparr v3 movies, Lidarr music and Readarr books. Each family
 // knows how to read its queue extras, wanted lists, import previews and
 // history, and how to build its search and import commands.
-import type { HistoryEvent, ImportPreviewFile, QueueItem, SearchTarget, WantedItem } from '@wardarr/core';
+import type {
+  CalendarEntry,
+  HistoryEvent,
+  ImportPreviewFile,
+  QueueItem,
+  SearchTarget,
+  WantedItem,
+} from '@wardarr/core';
 
 export type ArrFamily = 'series' | 'movie' | 'music' | 'book';
 
@@ -30,6 +37,8 @@ export interface FamilyImpl {
   previewFile(file: Rec): ImportPreviewFile;
   importFile(raw: Rec, downloadId: string): Rec;
   historyEvent(r: Rec): HistoryEvent;
+  /** Releases between two ISO times, monitored titles only. */
+  calendar(get: Getter, start: string, end: string): Promise<CalendarEntry[]>;
 }
 
 const obj = (v: unknown): Rec => (v && typeof v === 'object' ? (v as Rec) : {});
@@ -72,6 +81,37 @@ async function paged(
   }
   return out.slice(0, max);
 }
+
+const TMDB_IMAGE =
+  /^https:\/\/image\.tmdb\.org\/t\/p\/[a-z0-9]+(\/[A-Za-z0-9_-]{1,64}\.(?:jpg|jpeg|png|webp))$/;
+
+/** The TMDB poster path of an *arr image list, if the poster comes from TMDB. */
+export function tmdbPoster(images: unknown): string | null {
+  if (!Array.isArray(images)) return null;
+  for (const image of images.map(obj)) {
+    if (image.coverType !== 'poster') continue;
+    const hit = TMDB_IMAGE.exec(str(image.remoteUrl) ?? '');
+    if (hit) return hit[1]!;
+  }
+  return null;
+}
+
+/** The day part of an ISO date, for releases that have no time of day. */
+const dayOf = (v: unknown): string | null => {
+  const s = str(v);
+  return s && /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : null;
+};
+const yearOf = (v: unknown): number | null => {
+  const d = dayOf(v);
+  return d ? Number(d.slice(0, 4)) : null;
+};
+
+const calendarQuery = (start: string, end: string, include: string) => ({
+  start,
+  end,
+  unmonitored: false,
+  [include]: true,
+});
 
 const historyBase = (r: Rec, mediaField: string): HistoryEvent => ({
   at: str(r.date) ?? new Date(0).toISOString(),
@@ -159,6 +199,40 @@ const series: FamilyImpl = {
     };
   },
   historyEvent: (r) => historyBase(r, 'episodeId'),
+  async calendar(get, start, end) {
+    const records = await get<Rec[]>('/calendar', calendarQuery(start, end, 'includeSeries'));
+    return records.flatMap((e): CalendarEntry[] => {
+      const s = obj(e.series);
+      const date = str(e.airDateUtc);
+      if (!date) return [];
+      const season = num(e.seasonNumber);
+      const ep = num(e.episodeNumber);
+      const finale = str(e.finaleType);
+      return [
+        {
+          id: `episode:${String(e.id)}`,
+          kind: 'episode',
+          release: 'airing',
+          title: str(s.title) ?? 'Series',
+          subtitle: str(e.title) ?? null,
+          seasonNumber: season,
+          episodeNumber: ep,
+          date,
+          allDay: false,
+          runtimeMinutes: num(e.runtime) || num(s.runtime) || null,
+          hasFile: e.hasFile === true,
+          monitored: e.monitored !== false,
+          premiere: ep === 1 && season !== 0 ? (season === 1 ? 'series' : 'season') : undefined,
+          finale: finale === 'series' || finale === 'season' || finale === 'midseason' ? finale : undefined,
+          year: num(s.year) ?? null,
+          posterPath: tmdbPoster(s.images),
+          tmdbId: num(s.tmdbId) || null,
+          network: str(s.network) ?? null,
+          overview: str(e.overview) ?? null,
+        },
+      ];
+    });
+  },
 };
 
 const movie: FamilyImpl = {
@@ -224,6 +298,41 @@ const movie: FamilyImpl = {
     };
   },
   historyEvent: (r) => historyBase(r, 'movieId'),
+  async calendar(get, start, end) {
+    const from = start.slice(0, 10);
+    const to = end.slice(0, 10);
+    const movies = await get<Rec[]>('/calendar', { start, end, unmonitored: false });
+    const releases = [
+      ['cinema', 'inCinemas'],
+      ['digital', 'digitalRelease'],
+      ['physical', 'physicalRelease'],
+    ] as const;
+    return movies.flatMap((m) =>
+      releases.flatMap(([release, field]): CalendarEntry[] => {
+        const date = dayOf(m[field]);
+        if (!date || date < from || date > to) return [];
+        return [
+          {
+            id: `movie:${String(m.id)}:${release}`,
+            kind: 'movie',
+            release,
+            title: str(m.title) ?? 'Movie',
+            subtitle: null,
+            date,
+            allDay: true,
+            runtimeMinutes: num(m.runtime) || null,
+            hasFile: m.hasFile === true,
+            monitored: m.monitored !== false,
+            year: num(m.year) ?? null,
+            posterPath: tmdbPoster(m.images),
+            tmdbId: num(m.tmdbId) || null,
+            network: str(m.studio) ?? null,
+            overview: str(m.overview) ?? null,
+          },
+        ];
+      }),
+    );
+  },
 };
 
 const music: FamilyImpl = {
@@ -297,6 +406,35 @@ const music: FamilyImpl = {
     };
   },
   historyEvent: (r) => historyBase(r, 'albumId'),
+  async calendar(get, start, end) {
+    const albums = await get<Rec[]>('/calendar', calendarQuery(start, end, 'includeArtist'));
+    return albums.flatMap((a): CalendarEntry[] => {
+      const date = dayOf(a.releaseDate);
+      if (!date) return [];
+      const artist = obj(a.artist);
+      const pct = num(obj(a.statistics).percentOfTracks);
+      const duration = num(a.duration);
+      return [
+        {
+          id: `album:${String(a.id)}`,
+          kind: 'album',
+          release: 'release',
+          title: str(artist.artistName) ?? 'Artist',
+          subtitle: str(a.title) ?? null,
+          date,
+          allDay: true,
+          runtimeMinutes: duration ? Math.round(duration / 60_000) : null,
+          hasFile: pct !== undefined && pct >= 100,
+          monitored: a.monitored !== false,
+          year: yearOf(a.releaseDate),
+          posterPath: null,
+          tmdbId: null,
+          network: str(a.albumType) ?? null,
+          overview: str(a.overview) ?? null,
+        },
+      ];
+    });
+  },
 };
 
 const book: FamilyImpl = {
@@ -364,6 +502,34 @@ const book: FamilyImpl = {
     };
   },
   historyEvent: (r) => historyBase(r, 'bookId'),
+  async calendar(get, start, end) {
+    const books = await get<Rec[]>('/calendar', calendarQuery(start, end, 'includeAuthor'));
+    return books.flatMap((b): CalendarEntry[] => {
+      const date = dayOf(b.releaseDate);
+      if (!date) return [];
+      const author = obj(b.author);
+      const files = num(obj(b.statistics).bookFileCount);
+      return [
+        {
+          id: `book:${String(b.id)}`,
+          kind: 'book',
+          release: 'release',
+          title: str(author.authorName) ?? 'Author',
+          subtitle: str(b.title) ?? null,
+          date,
+          allDay: true,
+          runtimeMinutes: null,
+          hasFile: files !== undefined && files > 0,
+          monitored: b.monitored !== false,
+          year: yearOf(b.releaseDate),
+          posterPath: null,
+          tmdbId: null,
+          network: null,
+          overview: str(b.overview) ?? null,
+        },
+      ];
+    });
+  },
 };
 
 export const FAMILIES: Record<ArrFamily, FamilyImpl> = { series, movie, music, book };

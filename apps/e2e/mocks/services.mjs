@@ -252,6 +252,7 @@ async function stage2(prefix, p, url, req, res) {
   if (p === '/movie') return json(res, [...(state.stage2 ? FILMS : []), ...stage3.radarrMovies[prefix]]);
   if (p === '/wanted/cutoff') return json(res, { page: 1, pageSize: 250, totalRecords: 0, records: [] });
   if (p === '/history/since') return json(res, []);
+  if (p === '/calendar') return json(res, []);
   if (p === '/manualimport' && req.method === 'GET') {
     if (url.searchParams.get('downloadId') !== 'E2EIMPORT1') return json(res, []);
     return json(res, [

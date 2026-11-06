@@ -167,6 +167,31 @@
       }
     },
     {
+      "path": "/api/v1/calendar",
+      "query": {
+        "start": "2026-03-02T00:00:00.000Z",
+        "end": "2026-03-16T00:00:00.000Z",
+        "unmonitored": "false",
+        "includeArtist": "true"
+      },
+      "json": [
+        {
+          "id": 81,
+          "title": "Example Album",
+          "releaseDate": "2026-03-06T00:00:00Z",
+          "albumType": "Album",
+          "monitored": true,
+          "duration": 2580000,
+          "artist": {
+            "artistName": "Example Artist"
+          },
+          "statistics": {
+            "percentOfTracks": 0
+          }
+        }
+      ]
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -211,7 +236,7 @@
     "wantedMissing": [
       {
         "key": "album:41",
-        "title": "Example Artist \u2013 Album One"
+        "title": "Example Artist – Album One"
       }
     ],
     "search": {
@@ -223,6 +248,24 @@
         "name": "AlbumSearch",
         "albumIds": [41]
       }
+    },
+    "calendar": {
+      "start": "2026-03-02T00:00:00.000Z",
+      "end": "2026-03-16T00:00:00.000Z",
+      "entries": [
+        {
+          "id": "album:81",
+          "kind": "album",
+          "release": "release",
+          "title": "Example Artist",
+          "subtitle": "Example Album",
+          "date": "2026-03-06",
+          "allDay": true,
+          "runtimeMinutes": 43,
+          "hasFile": false,
+          "network": "Album"
+        }
+      ]
     }
   }
 }

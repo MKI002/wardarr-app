@@ -1,0 +1,127 @@
+{
+  "title": "Was kommt",
+  "intro": "Neue Folgen, Filme und Alben aus allen Diensten in einem Kalender.",
+  "hero": {
+    "label_one": "Neuerscheinung in den nächsten 7 Tagen",
+    "label_other": "Neuerscheinungen in den nächsten 7 Tagen",
+    "week": "Diese Woche kommen {{list}}.",
+    "today_one": "Eine davon heute.",
+    "today_other": "{{count}} davon heute.",
+    "todayNone": "Heute nichts.",
+    "quiet": "Eine ruhige Woche: Es kommt nichts Neues.",
+    "missing_one": "Eine Neuerscheinung der letzten Tage hat noch keine Datei.",
+    "missing_other": "{{count}} Neuerscheinungen der letzten Tage haben noch keine Datei."
+  },
+  "count": {
+    "episode_one": "{{count}} Folge",
+    "episode_other": "{{count}} Folgen",
+    "movie_one": "{{count}} Film",
+    "movie_other": "{{count}} Filme",
+    "album_one": "{{count}} Album",
+    "album_other": "{{count}} Alben",
+    "book_one": "{{count}} Buch",
+    "book_other": "{{count}} Bücher"
+  },
+  "kinds": {
+    "episode": "Folgen",
+    "movie": "Filme",
+    "album": "Alben",
+    "book": "Bücher"
+  },
+  "release": {
+    "airing": "Ausstrahlung",
+    "cinema": "im Kino",
+    "digital": "digital",
+    "physical": "Blu-ray & DVD",
+    "release": "Erscheint"
+  },
+  "premiere": {
+    "series": "Serienstart",
+    "season": "Staffelstart"
+  },
+  "finale": {
+    "series": "Serienfinale",
+    "season": "Staffelfinale",
+    "midseason": "Halbstaffelfinale"
+  },
+  "next": {
+    "title": "Als Nächstes",
+    "in": "in {{time}}",
+    "now": "Läuft gerade",
+    "none": "In den nächsten Wochen ist nichts geplant.",
+    "after": "Danach"
+  },
+  "strip": {
+    "title": "Nächste 14 Tage",
+    "label": "Neuerscheinungen pro Tag in den nächsten 14 Tagen",
+    "day": "{{day}}: {{list}}",
+    "empty": "{{day}}: nichts"
+  },
+  "views": {
+    "agenda": "Liste",
+    "month": "Monat"
+  },
+  "filters": {
+    "label": "Zeigen",
+    "hideDownloaded": "Geladene ausblenden"
+  },
+  "day": {
+    "today": "Heute",
+    "tomorrow": "Morgen",
+    "yesterday": "Gestern"
+  },
+  "entry": {
+    "allDay": "Ganztägig",
+    "downloaded": "Geladen",
+    "missing": "Fehlt",
+    "from": "Aus {{instances}}",
+    "minutes": "{{count}} Min."
+  },
+  "agenda": {
+    "earlier": "Letzte 7 Tage zeigen",
+    "hideEarlier": "Letzte 7 Tage ausblenden",
+    "later": "4 weitere Wochen zeigen"
+  },
+  "month": {
+    "previous": "Vorheriger Monat",
+    "next": "Nächster Monat",
+    "today": "Heute",
+    "more": "+{{count}} weitere",
+    "nothing": "An diesem Tag kommt nichts."
+  },
+  "empty": {
+    "title": "Im Kalender steht nichts",
+    "body": "Hier erscheinen Folgen, Filme und Alben, die Sonarr, Radarr oder Lidarr erwarten.",
+    "noSources": "Verbinde Sonarr, Radarr oder Lidarr, um zu sehen, was kommt.",
+    "filtered": "Nichts passt zum Filter."
+  },
+  "sourceError": "{{name}} ist nicht erreichbar, seine Termine fehlen deshalb.",
+  "feed": {
+    "title": "Kalender-App",
+    "intro": "Abonniere den Kalender in Google Kalender, Apple Kalender, Outlook oder Thunderbird. Kalender-Apps holen ihn etwa einmal pro Stunde ab.",
+    "create": "Link erstellen",
+    "rotate": "Neuer Link",
+    "revoke": "Widerrufen",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "open": "In Kalender-App öffnen",
+    "label": "Dein Kalender-Link",
+    "warning": "Wer diesen Link hat, sieht den Kalender ohne Anmeldung. Teile ihn nur mit Leuten, die ihn sehen dürfen. Er wird nur jetzt angezeigt; erstelle einen neuen, wenn du ihn verlierst.",
+    "rotateHint": "Ein neuer Link ersetzt den alten, der sofort nicht mehr funktioniert.",
+    "active": "Link erstellt {{created}}, zuletzt abgerufen {{used}}.",
+    "activeNever": "Link erstellt {{created}}, noch nicht abgerufen.",
+    "none": "Noch kein Link.",
+    "revoked": "Der Link funktioniert nicht mehr.",
+    "household": "Links in diesem Haushalt",
+    "householdEmpty": "Noch niemand hat einen Link.",
+    "user": "Person",
+    "created": "Erstellt",
+    "used": "Zuletzt abgerufen",
+    "never": "nie"
+  },
+  "ical": {
+    "downloaded": "Bereits geladen.",
+    "notDownloaded": "Noch nicht geladen.",
+    "from": "Aus {{instances}}"
+  }
+}

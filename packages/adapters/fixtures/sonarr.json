@@ -290,6 +290,64 @@
       }
     },
     {
+      "path": "/api/v3/calendar",
+      "query": {
+        "start": "2026-03-02T00:00:00.000Z",
+        "end": "2026-03-16T00:00:00.000Z",
+        "unmonitored": "false",
+        "includeSeries": "true"
+      },
+      "json": [
+        {
+          "id": 501,
+          "seriesId": 7,
+          "seasonNumber": 2,
+          "episodeNumber": 1,
+          "title": "The Quiet Harbour",
+          "airDateUtc": "2026-03-03T02:00:00Z",
+          "runtime": 45,
+          "hasFile": false,
+          "monitored": true,
+          "overview": "An invented episode.",
+          "series": {
+            "title": "Example Series",
+            "year": 2024,
+            "network": "Example Network",
+            "runtime": 44,
+            "tmdbId": 9007,
+            "images": [
+              {
+                "coverType": "poster",
+                "remoteUrl": "https://image.tmdb.org/t/p/original/exampleposter1.jpg"
+              }
+            ]
+          }
+        },
+        {
+          "id": 502,
+          "seriesId": 7,
+          "seasonNumber": 2,
+          "episodeNumber": 8,
+          "title": "Last Light",
+          "airDateUtc": "2026-03-10T02:00:00Z",
+          "hasFile": true,
+          "monitored": true,
+          "finaleType": "season",
+          "series": {
+            "title": "Example Series",
+            "year": 2024,
+            "runtime": 44,
+            "images": [
+              {
+                "coverType": "poster",
+                "remoteUrl": "https://artworks.example.test/poster.jpg"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -388,6 +446,37 @@
         "seriesId": 11,
         "seasonNumber": 2
       }
+    },
+    "calendar": {
+      "start": "2026-03-02T00:00:00.000Z",
+      "end": "2026-03-16T00:00:00.000Z",
+      "entries": [
+        {
+          "id": "episode:501",
+          "kind": "episode",
+          "release": "airing",
+          "title": "Example Series",
+          "subtitle": "The Quiet Harbour",
+          "seasonNumber": 2,
+          "episodeNumber": 1,
+          "date": "2026-03-03T02:00:00Z",
+          "allDay": false,
+          "runtimeMinutes": 45,
+          "hasFile": false,
+          "premiere": "season",
+          "posterPath": "/exampleposter1.jpg",
+          "tmdbId": 9007,
+          "network": "Example Network"
+        },
+        {
+          "id": "episode:502",
+          "subtitle": "Last Light",
+          "runtimeMinutes": 44,
+          "hasFile": true,
+          "finale": "season",
+          "posterPath": null
+        }
+      ]
     }
   }
 }

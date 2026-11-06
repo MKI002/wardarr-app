@@ -32,6 +32,7 @@ export const radarr = defineAdapter({
     'search',
     'history',
     'settings',
+    'calendar',
     'trashSync',
   ],
   mediaKind: 'movie',

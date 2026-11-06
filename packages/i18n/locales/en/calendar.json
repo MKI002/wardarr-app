@@ -1,0 +1,127 @@
+{
+  "title": "What's coming",
+  "intro": "New episodes, films and albums from all your services in one calendar.",
+  "hero": {
+    "label_one": "release in the next 7 days",
+    "label_other": "releases in the next 7 days",
+    "week": "This week brings {{list}}.",
+    "today_one": "One of them is today.",
+    "today_other": "{{count}} of them are today.",
+    "todayNone": "Nothing today.",
+    "quiet": "A quiet week: nothing new is expected.",
+    "missing_one": "One recent release has no file yet.",
+    "missing_other": "{{count}} recent releases have no file yet."
+  },
+  "count": {
+    "episode_one": "{{count}} episode",
+    "episode_other": "{{count}} episodes",
+    "movie_one": "{{count}} film",
+    "movie_other": "{{count}} films",
+    "album_one": "{{count}} album",
+    "album_other": "{{count}} albums",
+    "book_one": "{{count}} book",
+    "book_other": "{{count}} books"
+  },
+  "kinds": {
+    "episode": "Episodes",
+    "movie": "Films",
+    "album": "Albums",
+    "book": "Books"
+  },
+  "release": {
+    "airing": "Airs",
+    "cinema": "in cinemas",
+    "digital": "digital release",
+    "physical": "Blu-ray & DVD",
+    "release": "Release"
+  },
+  "premiere": {
+    "series": "Series premiere",
+    "season": "Season premiere"
+  },
+  "finale": {
+    "series": "Series finale",
+    "season": "Season finale",
+    "midseason": "Mid-season finale"
+  },
+  "next": {
+    "title": "Next up",
+    "in": "in {{time}}",
+    "now": "Airing now",
+    "none": "Nothing planned in the next weeks.",
+    "after": "After that"
+  },
+  "strip": {
+    "title": "Next 14 days",
+    "label": "Releases per day over the next 14 days",
+    "day": "{{day}}: {{list}}",
+    "empty": "{{day}}: nothing"
+  },
+  "views": {
+    "agenda": "List",
+    "month": "Month"
+  },
+  "filters": {
+    "label": "Show",
+    "hideDownloaded": "Hide downloaded"
+  },
+  "day": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "yesterday": "Yesterday"
+  },
+  "entry": {
+    "allDay": "All day",
+    "downloaded": "Downloaded",
+    "missing": "Missing",
+    "from": "From {{instances}}",
+    "minutes": "{{count}} min"
+  },
+  "agenda": {
+    "earlier": "Show the last 7 days",
+    "hideEarlier": "Hide the last 7 days",
+    "later": "Show 4 more weeks"
+  },
+  "month": {
+    "previous": "Previous month",
+    "next": "Next month",
+    "today": "Today",
+    "more": "+{{count}} more",
+    "nothing": "Nothing on this day."
+  },
+  "empty": {
+    "title": "Nothing on the calendar",
+    "body": "Episodes, films and albums that Sonarr, Radarr or Lidarr expect show up here.",
+    "noSources": "Connect Sonarr, Radarr or Lidarr to see what's coming.",
+    "filtered": "Nothing matches the filter."
+  },
+  "sourceError": "{{name}} could not be reached, so its releases are missing.",
+  "feed": {
+    "title": "Calendar app",
+    "intro": "Subscribe in Google Calendar, Apple Calendar, Outlook or Thunderbird. Calendar apps fetch it about once an hour.",
+    "create": "Create a link",
+    "rotate": "New link",
+    "revoke": "Revoke",
+    "copy": "Copy",
+    "copied": "Copied",
+    "open": "Open in calendar app",
+    "label": "Your calendar link",
+    "warning": "Anyone with this link sees the calendar without logging in. Share it only with people who may see it. It is shown only now; make a new link if you lose it.",
+    "rotateHint": "A new link replaces the old one, which stops working at once.",
+    "active": "Link created {{created}}, last fetched {{used}}.",
+    "activeNever": "Link created {{created}}, not fetched yet.",
+    "none": "No link yet.",
+    "revoked": "The link no longer works.",
+    "household": "Links in this household",
+    "householdEmpty": "Nobody has a link yet.",
+    "user": "Person",
+    "created": "Created",
+    "used": "Last fetched",
+    "never": "never"
+  },
+  "ical": {
+    "downloaded": "Already downloaded.",
+    "notDownloaded": "Not downloaded yet.",
+    "from": "From {{instances}}"
+  }
+}

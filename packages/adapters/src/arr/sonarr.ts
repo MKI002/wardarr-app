@@ -36,6 +36,7 @@ export const sonarr = defineAdapter({
     'search',
     'history',
     'settings',
+    'calendar',
     'trashSync',
   ],
   mediaKind: 'episode',

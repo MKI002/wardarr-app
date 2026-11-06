@@ -384,6 +384,11 @@ export function createArrInstance(
       return { links, folders };
     },
 
+    async calendar(start, end) {
+      const f = await flavor();
+      return FAMILIES[f.family].calendar(get, start, end);
+    },
+
     async settings(): Promise<SettingsSection[]> {
       const host = await get<Record<string, unknown>>('/config/host');
       return [{ id: 'host', entries: toEntries(host) }];
