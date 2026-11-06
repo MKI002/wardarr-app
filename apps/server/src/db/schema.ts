@@ -329,3 +329,45 @@ export const calendarFeeds = sqliteTable('calendar_feeds', {
   createdAt: text('created_at').notNull(),
   lastUsedAt: text('last_used_at'),
 });
+
+/** An app's view of a disk: mount path and the root folders on it. */
+export interface DiskMemberRow {
+  instanceId: string;
+  path: string;
+  rootFolders: string[];
+}
+
+/** Disks of the *arr apps, one row per physical disk however many apps share it. */
+export const disks = sqliteTable('disks', {
+  key: text('key').primaryKey(),
+  label: text('label').notNull(),
+  totalBytes: integer('total_bytes').notNull(),
+  freeBytes: integer('free_bytes').notNull(),
+  /** An app keeps a root folder on the disk. */
+  media: integer('media', { mode: 'boolean' }).notNull().default(false),
+  members: text('members', { mode: 'json' }).$type<DiskMemberRow[]>().notNull().default([]),
+  firstSeenAt: text('first_seen_at').notNull(),
+  lastSeenAt: text('last_seen_at').notNull(),
+});
+
+/** Free space of each disk over time, about once an hour, for the forecast. */
+export const diskSamples = sqliteTable(
+  'disk_samples',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    diskKey: text('disk_key')
+      .notNull()
+      .references(() => disks.key, { onDelete: 'cascade' }),
+    at: text('at').notNull(),
+    freeBytes: integer('free_bytes').notNull(),
+    totalBytes: integer('total_bytes').notNull(),
+  },
+  (t) => [index('disk_samples_disk_at').on(t.diskKey, t.at)],
+);
+
+/** Thresholds of the disk issue. A single row with id 1. */
+export const storageSettings = sqliteTable('storage_settings', {
+  id: integer('id').primaryKey(),
+  config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  updatedAt: text('updated_at').notNull().default(now),
+});

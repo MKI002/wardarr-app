@@ -20,7 +20,8 @@
     "reviewOrphans": "Review downloads",
     "openTrash": "Open TRaSH Guides",
     "previewSync": "Preview sync",
-    "openTrashHistory": "Open history"
+    "openTrashHistory": "Open history",
+    "openStorage": "Open storage"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} is unreachable",
@@ -63,6 +64,18 @@
     "step1": "Compare the download folder of the client with the path the app sees inside its container.",
     "step2": "Mount the same folder at the same path in both containers, or add a remote path mapping.",
     "step3": "Recheck this issue."
+  },
+  "diskFilling": {
+    "titleForecast": "Disk {{disk}} is filling up",
+    "titleLow": "Disk {{disk}} is almost full",
+    "affectedForecast_one": "Full in about 1 day · {{free, bytes}} free",
+    "affectedForecast_other": "Full in about {{count}} days · {{free, bytes}} free",
+    "affectedLow": "Only {{free, bytes}} free ({{percent}} %)",
+    "explanation": "When {{disk}} is full, downloads stop and {{apps}} can no longer import or upgrade anything.",
+    "fix": "Free up space or add storage before the disk runs full",
+    "step1": "Open the disk in Wardarr's storage view to see how fast it fills and which apps use it.",
+    "step2": "Remove what nobody watches any more, clear finished downloads, or move a root folder to another disk.",
+    "step3": "Add storage if the disk keeps filling at this rate, then recheck this issue."
   },
   "update": {
     "title": "Update available for {{instances}}",

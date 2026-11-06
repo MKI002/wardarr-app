@@ -43,6 +43,8 @@ import { registerIssueRoutes } from './issues/routes.js';
 import { IssueService } from './issues/service.js';
 import { registerOverviewRoutes } from './overview/routes.js';
 import { TrendSampler, registerTrendRoutes } from './overview/trend.js';
+import { registerStorageRoutes } from './storage/routes.js';
+import { StorageService } from './storage/service.js';
 import { registerTrashRoutes } from './trash/routes.js';
 import { TrashService } from './trash/service.js';
 import type { GuideSource } from './trash/source.js';
@@ -97,6 +99,7 @@ export interface App {
   notifications: NotificationService;
   trash: TrashService;
   calendar: CalendarService;
+  storage: StorageService;
 }
 
 function isFile(p: string): boolean {
@@ -188,6 +191,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
   });
+  const storage = new StorageService(opts.db, runtime, bus, app.log);
   const trash = new TrashService(opts.db, runtime, bus, app.log, {
     source: opts.trashSource,
     localDir: opts.trashDir,
@@ -243,7 +247,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerUserRoutes(app, { users, sessions });
   registerInstanceRoutes(app, { registry, store, runtime });
   registerIssueRoutes(app, { issues, runtime });
-  registerOverviewRoutes(app, { runtime, issues });
+  registerOverviewRoutes(app, { runtime, issues, storage });
   registerTrendRoutes(app, { trend });
   registerEventRoutes(app, { bus });
   registerCleanerRoutes(app, { cleaner });
@@ -259,6 +263,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     registerBackupRoutes(app, { backups: opts.backups, restart: opts.restart });
   }
   registerCalendarRoutes(app, { calendar, publicUrl: opts.publicUrl });
+  registerStorageRoutes(app, { storage });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
@@ -309,5 +314,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     notifications,
     trash,
     calendar,
+    storage,
   };
 }

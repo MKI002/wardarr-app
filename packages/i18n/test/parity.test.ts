@@ -15,7 +15,7 @@ function flatten(tree: Tree, prefix = ''): Record<string, string> {
 
 const PLURAL = /_(zero|one|two|few|many|other)$/;
 const base = (key: string) => key.replace(PLURAL, '');
-const vars = (text: string) => [...text.matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map((m) => m[1]).sort();
+const vars = (text: string) => [...text.matchAll(/\{\{\s*(\w+)[^}]*\}\}/g)].map((m) => m[1]).sort();
 
 const en = flatten(resources.en.translation as unknown as Tree);
 

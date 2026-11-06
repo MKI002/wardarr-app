@@ -34,6 +34,7 @@ export const radarr = defineAdapter({
     'settings',
     'calendar',
     'trashSync',
+    'storage',
   ],
   mediaKind: 'movie',
   create: (ctx) => createArrInstance(ctx, 'radarr', RADARR_PROFILE, { profileSyncSince: 3 }),

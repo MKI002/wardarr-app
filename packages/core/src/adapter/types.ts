@@ -4,6 +4,7 @@ import type { z } from 'zod';
 import type { HttpClient } from './http.js';
 import type { Signal } from '../issues/types.js';
 import type { ProfileSyncApi } from '../trash/types.js';
+import type { DiskReport } from '../storage/disks.js';
 
 export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests';
 
@@ -25,6 +26,7 @@ export const CAPABILITIES = [
   'indexers',
   'trashSync',
   'calendar',
+  'storage',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -500,6 +502,8 @@ export interface AdapterInstance {
   removeDownload?(jobId: string, opts: { deleteFiles: boolean }): Promise<void>;
   /** Read-only settings. Secrets must already be masked. */
   settings?(): Promise<SettingsSection[]>;
+  /** Mounts and root folders with their free space (capability `storage`). */
+  storage?(): Promise<DiskReport>;
   /** Custom formats, quality profiles, sizes and naming (capability `trashSync`). */
   profileSync?: ProfileSyncApi;
   /** Connections and folders for the stack map. Parts that fail are left out. */

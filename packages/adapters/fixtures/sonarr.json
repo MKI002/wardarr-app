@@ -348,6 +348,53 @@
       ]
     },
     {
+      "path": "/api/v3/diskspace",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "path": "/",
+          "label": "",
+          "freeSpace": 44023414784,
+          "totalSpace": 68719476736
+        },
+        {
+          "path": "/etc/hosts",
+          "label": "",
+          "freeSpace": 44023414784,
+          "totalSpace": 68719476736
+        },
+        {
+          "path": "/media",
+          "label": "media",
+          "freeSpace": 1288490188800,
+          "totalSpace": 8589934592000
+        },
+        {
+          "path": "/dev/shm",
+          "label": "",
+          "freeSpace": 67108864,
+          "totalSpace": 67108864
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/rootfolder",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "id": 1,
+          "path": "/media/tv",
+          "accessible": true,
+          "freeSpace": 1288490188800,
+          "unmappedFolders": []
+        }
+      ]
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -477,6 +524,10 @@
           "posterPath": null
         }
       ]
+    },
+    "storage": {
+      "mounts": ["/", "/media"],
+      "rootFolders": ["/media/tv"]
     }
   }
 }

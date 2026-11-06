@@ -10,6 +10,7 @@ import {
   type ArrQualityProfile,
   type ProfileSyncApi,
   type AdapterInstance,
+  type DiskReport,
   type MediaKind,
   type QueueItem,
   type QueueItemState,
@@ -57,6 +58,21 @@ interface StatusResource {
   version?: string;
   appName?: string;
   instanceName?: string;
+}
+
+interface DiskSpaceResource {
+  path?: string;
+  label?: string | null;
+  freeSpace?: number;
+  totalSpace?: number;
+}
+
+interface RootFolderResource {
+  path?: string;
+  accessible?: boolean;
+  freeSpace?: number | null;
+  /** Lidarr and Readarr report it; Sonarr and Radarr only the free space. */
+  totalSpace?: number | null;
 }
 
 interface HealthResource {
@@ -387,6 +403,32 @@ export function createArrInstance(
     async calendar(start, end) {
       const f = await flavor();
       return FAMILIES[f.family].calendar(get, start, end);
+    },
+
+    async storage(): Promise<DiskReport> {
+      const [disks, folders] = await Promise.all([
+        get<DiskSpaceResource[]>('/diskspace'),
+        get<RootFolderResource[]>('/rootfolder'),
+      ]);
+      const n = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+      return {
+        disks: (Array.isArray(disks) ? disks : [])
+          .filter((d) => typeof d.path === 'string' && n(d.totalSpace) !== null && n(d.freeSpace) !== null)
+          .map((d) => ({
+            path: d.path!,
+            label: d.label ?? null,
+            freeBytes: d.freeSpace!,
+            totalBytes: d.totalSpace!,
+          })),
+        rootFolders: (Array.isArray(folders) ? folders : [])
+          .filter((r) => typeof r.path === 'string')
+          .map((r) => ({
+            path: r.path!,
+            freeBytes: n(r.freeSpace),
+            totalBytes: n(r.totalSpace),
+            accessible: r.accessible !== false,
+          })),
+      };
     },
 
     async settings(): Promise<SettingsSection[]> {

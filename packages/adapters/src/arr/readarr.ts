@@ -35,6 +35,7 @@ export const readarr = defineAdapter({
     'history',
     'settings',
     'calendar',
+    'storage',
   ],
   mediaKind: 'book',
   create: (ctx) => createArrInstance(ctx, 'readarr', READARR_PROFILE),

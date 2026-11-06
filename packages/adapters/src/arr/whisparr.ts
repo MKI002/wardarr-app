@@ -50,6 +50,7 @@ export const whisparr = defineAdapter({
     'search',
     'history',
     'settings',
+    'storage',
   ],
   mediaKind: 'scene',
   create(ctx) {

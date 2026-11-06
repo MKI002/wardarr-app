@@ -3,6 +3,7 @@ import { isMuted, needsAttention, sortGroups, type Capability } from '@wardarr/c
 import type { FastifyInstance } from 'fastify';
 import type { InstanceRuntime } from '../instances/runtime.js';
 import type { IssueService } from '../issues/service.js';
+import type { StorageService } from '../storage/service.js';
 
 /** Tabs available in this build and the capability each one needs. */
 const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user' }> = [
@@ -17,12 +18,13 @@ const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user'
   { id: 'indexers', needs: 'indexers', role: 'admin' },
   { id: 'trash', needs: 'trashSync', role: 'admin' },
   { id: 'map', needs: null, role: 'admin' },
+  { id: 'storage', needs: 'storage', role: 'admin' },
   { id: 'settings', needs: null, role: 'user' },
 ];
 
 export function registerOverviewRoutes(
   app: FastifyInstance,
-  deps: { runtime: InstanceRuntime; issues: IssueService },
+  deps: { runtime: InstanceRuntime; issues: IssueService; storage?: StorageService },
 ): void {
   app.get('/api/capabilities', { config: { access: 'user' } }, async (req) => {
     const caps = new Set<Capability>();
@@ -76,6 +78,7 @@ export function registerOverviewRoutes(
       instances,
       streams,
       downloads,
+      storage: deps.storage?.summary() ?? null,
       issues: {
         counts,
         needsAttention: attention.slice(0, 6).map((i) => ({

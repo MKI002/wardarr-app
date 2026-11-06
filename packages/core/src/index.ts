@@ -10,3 +10,5 @@ export * from './hunting/index.js';
 export * from './trash/index.js';
 export * from './topology/derive.js';
 export * from './backups/retention.js';
+export * from './storage/disks.js';
+export * from './storage/forecast.js';
