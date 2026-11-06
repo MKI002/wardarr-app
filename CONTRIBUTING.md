@@ -72,8 +72,10 @@ missing.
 
 ## Design
 
-Calm, minimal and friendly. Dark by default, light just as good. Animations
-are short (150 to 300 ms) and respect reduced motion. Loading states use
+Every UI change follows the [design guide](docs/DESIGN.md): picture first,
+one hero per view, status colours only for status, the shared chart and
+dashboard components, and playful but minimal motion that stays still with
+reduced motion. Dark by default, light just as good. Loading states use
 skeletons, errors appear where they happen and say what to do next. Every
 control works with the keyboard and meets WCAG AA contrast.
 

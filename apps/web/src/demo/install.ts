@@ -90,6 +90,13 @@ function updateAll(prefix: string, change: (body: Json) => Json) {
 function get(path: string, url: URL): Answer {
   const exact = answers.get(normalize(`${path}${url.search}`));
   if (exact) return exact;
+  // The recording was made in UTC; answers asked for another time zone use it.
+  if (url.searchParams.has('tz')) {
+    const utc = new URL(url);
+    utc.searchParams.delete('tz');
+    const answer = answers.get(normalize(`${path}${utc.search}`));
+    if (answer) return answer;
+  }
 
   // Search runs over everything Discover knows.
   if (path === '/api/discover/search') {

@@ -7,6 +7,7 @@ import {
   useId,
   type ButtonHTMLAttributes,
   type InputHTMLAttributes,
+  type PointerEvent,
   type ReactNode,
 } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -72,6 +73,14 @@ export const Button = forwardRef<
   );
 });
 
+/** Moves a card's soft highlight to the pointer (see .card-glow). */
+function glowAt(e: PointerEvent<HTMLElement>) {
+  if (e.pointerType === 'touch') return;
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+}
+
 export function Card({
   children,
   className = '',
@@ -82,7 +91,10 @@ export function Card({
   as?: 'section' | 'div' | 'article' | 'li';
 }) {
   return (
-    <As className={`rounded-[var(--radius-card)] border border-border bg-surface p-5 ${className}`}>
+    <As
+      className={`card-glow rounded-[var(--radius-card)] border border-border bg-surface p-5 ${className}`}
+      onPointerMove={glowAt}
+    >
       {children}
     </As>
   );
@@ -120,7 +132,7 @@ export function Badge({ tone, children }: { tone: Tone; children: ReactNode }) {
 export function StatusDot({ tone, label }: { tone: Tone; label: string }) {
   const color = {
     critical: 'bg-critical',
-    warning: 'bg-warning',
+    warning: 'bg-warning-mark',
     info: 'bg-info',
     ok: 'bg-ok',
     neutral: 'bg-muted',

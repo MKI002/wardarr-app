@@ -26,6 +26,17 @@ export function registerIssueRoutes(
     return deps.issues.list({ status });
   });
 
+  app.get('/api/issues/timeline', async (req) => {
+    const q = parse(
+      z.object({
+        days: z.coerce.number().int().min(1).max(90).default(14),
+        tz: z.coerce.number().int().min(-840).max(840).default(0),
+      }),
+      req.query,
+    );
+    return { days: deps.issues.timeline(q.days, q.tz) };
+  });
+
   app.get<{ Params: { fp: string } }>('/api/issues/:fp', async (req) => {
     return { issue: deps.issues.get(req.params.fp), history: deps.issues.history(req.params.fp) };
   });

@@ -166,7 +166,37 @@
     "transcoding": "Transcoding",
     "directPlay": "Direct play",
     "paused": "Paused",
-    "eta": "{{time}} left"
+    "eta": "{{time}} left",
+    "status": "Status",
+    "healthAllGood": "All quiet. Every service answers.",
+    "healthSome_one": "{{count}} service needs a look.",
+    "healthSome_other": "{{count}} services need a look.",
+    "healthDown_one": "{{count}} service is offline.",
+    "healthDown_other": "{{count}} services are offline.",
+    "onlineOf": "of {{total}} online",
+    "radar": "Service radar",
+    "worthALook": "Worth a look",
+    "look": "Look",
+    "rightNow": "Right now",
+    "nobodyWatching": "Nobody is watching",
+    "idle": "Nothing is downloading",
+    "peak": "Peak {{speed}} in the last hour",
+    "lastHour": "{{label}}, last hour",
+    "totalSpeed": "{{speed}} together",
+    "done": "{{percent}} % done",
+    "allClearTitle": "Nothing to do",
+    "playing": "Playing",
+    "acrossDownloads_one": "across {{count}} download",
+    "acrossDownloads_other": "across {{count}} downloads",
+    "moreDownloads_one": "and {{count}} more",
+    "moreDownloads_other": "and {{count}} more",
+    "tone": {
+      "ok": "online",
+      "warning": "with problems",
+      "critical": "offline",
+      "neutral": "unknown or off"
+    },
+    "playback": "How it plays"
   },
   "issues": {
     "title": "Issues",
@@ -209,7 +239,8 @@
       "info": "Info"
     },
     "expand": "Show details",
-    "collapse": "Hide details"
+    "collapse": "Hide details",
+    "bySeverity": "Open issues by severity"
   },
   "queue": {
     "unmatched": "Not matched to the library",
