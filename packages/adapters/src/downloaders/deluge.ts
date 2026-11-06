@@ -1,9 +1,10 @@
 // Deluge Web UI JSON API. Logs in with the Web UI password and connects to
 // the first daemon if the Web UI is not connected yet.
-import { AdapterError, defineAdapter, type DownloadJob } from '@wardarr/core';
+import { AdapterError, defineAdapter, type DownloadJob, type Signal } from '@wardarr/core';
 import { z } from 'zod';
 import { passwordField } from '../shared/fields.js';
 import { ensureOk } from '../shared/http.js';
+import { downloaderSignal, portWatch, trackerErrorSignals } from './health.js';
 
 interface TorrentStatus {
   name: string;
@@ -15,6 +16,12 @@ interface TorrentStatus {
   eta: number;
   label?: string;
   time_added?: number;
+}
+
+/** Deluge prefixes a failed announce with "Error: " in tracker_status. */
+export function trackerError(status: string | undefined): string | null {
+  const m = /^\s*error:\s*(.*)$/i.exec(status ?? '');
+  return m ? m[1]!.trim() : null;
 }
 
 export function delugeState(state: string): DownloadJob['state'] {
@@ -46,8 +53,9 @@ export const deluge = defineAdapter({
   homepage: 'https://deluge-torrent.org',
   fields: [passwordField(true)],
   credentials: z.object({ password: z.string().min(1).max(1024) }),
-  capabilities: ['downloads'],
+  capabilities: ['health', 'downloads'],
   create(ctx) {
+    const port = portWatch();
     let cookie = '';
     let id = 0;
 
@@ -101,6 +109,38 @@ export const deluge = defineAdapter({
       async testConnection() {
         const version = await call<string>('daemon.info');
         return { version: typeof version === 'string' ? version : null };
+      },
+      async health() {
+        const torrents = await call<Record<string, { name: string; tracker_status?: string }>>(
+          'core.get_torrents_status',
+          [{}, ['name', 'tracker_status']],
+        );
+        const signals: Signal[] = trackerErrorSignals(
+          ctx,
+          'deluge',
+          Object.values(torrents).flatMap((t) => {
+            const reason = trackerError(t.tracker_status);
+            return reason === null ? [] : [{ name: t.name, reason }];
+          }),
+        );
+        const session = await call<Record<string, unknown>>('core.get_session_status', [
+          ['has_incoming_connections'],
+        ]);
+        const incoming = session.has_incoming_connections;
+        if (typeof incoming === 'boolean' && port.update(!incoming)) {
+          // Without anything transferring, no incoming connection is expected.
+          const active = await call<Record<string, unknown>>('core.get_torrents_status', [
+            { state: 'Active' },
+            ['name'],
+          ]);
+          if (Object.keys(active).length > 0)
+            signals.push(
+              downloaderSignal(ctx, 'deluge', 'connection', 'warning', 'Deluge has no incoming connections', {
+                status: 'firewalled',
+              }),
+            );
+        }
+        return signals;
       },
       async downloads() {
         const fields = [

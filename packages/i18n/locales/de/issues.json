@@ -51,6 +51,36 @@
     "fix": "Prüfe, ob {{client}} läuft und von den Apps erreichbar ist, und prüfe dann erneut",
     "fixNone": "Füge einen Download-Client hinzu oder aktiviere einen, und prüfe dann erneut"
   },
+  "downloaderOffline": {
+    "title": "{{instance}} hat keine Netzwerkverbindung",
+    "explanation": "{{instance}} meldet, dass es keine Verbindung hat, also wird nichts geladen oder geseedet. Meist ist das VPN ausgefallen, hinter dem der Client läuft, oder die Netzwerkschnittstelle fehlt, an die er gebunden ist.",
+    "fix": "Prüfe den VPN-Container und die Netzwerkschnittstelle in den Verbindungseinstellungen des Clients und starte den Client dann neu"
+  },
+  "downloaderPortClosed": {
+    "title": "Eingehender Port von {{instance}} ist geschlossen",
+    "explanation": "Andere Peers können sich nicht mit dem Client verbinden, nur er sich mit ihnen. Downloads laufen weiter, finden aber weniger Peers, und Seeden klappt kaum, was auf privaten Trackern Ratio kostet.",
+    "fix": "Leite den Port im Router oder beim VPN weiter und trage denselben Port in den Verbindungseinstellungen des Clients ein"
+  },
+  "trackerErrors": {
+    "title_one": "1 Torrent in {{instance}} hat einen Tracker-Fehler",
+    "title_other": "{{count}} Torrents in {{instance}} haben Tracker-Fehler",
+    "affected_one": "1 Torrent",
+    "affected_other": "{{count}} Torrents",
+    "explanation": "Der Tracker antwortet bei diesen Torrents mit einem Fehler. Sie bekommen keine neuen Peers, bis der Tracker sie wieder annimmt.",
+    "explanationUnregistered": "Mindestens einen dieser Torrents kennt der Tracker nicht mehr. Meist wurde er entfernt oder durch ein besseres Release ersetzt, und er wird nie wieder laden oder seeden.",
+    "fix": "Prüfe die Meldung des Trackers in {{instance}}. Entferne nicht mehr registrierte Torrents; bei anderen Fehlern prüfe den Status des Trackers und deinen Passkey",
+    "reason": "{{reason}}"
+  },
+  "downloaderPaused": {
+    "title": "Downloads in {{instance}} sind pausiert",
+    "explanation": "Der Client ist ohne Zeitschaltung pausiert, neue Downloads warten deshalb in der Warteschlange.",
+    "fix": "Setze die Downloads in {{instance}} fort. Pausiert ein Zeitplan den Client mit Absicht, schalte dieses Problem stumm"
+  },
+  "downloaderQuota": {
+    "title": "Download-Kontingent von {{instance}} ist aufgebraucht",
+    "explanation": "Der Client lädt erst weiter, wenn der nächste Zeitraum des Kontingents beginnt.",
+    "fix": "Erhöhe das Kontingent oder warte auf den nächsten Zeitraum"
+  },
   "rootFolder": {
     "title": "Stammordner fehlt in {{instance}}",
     "affected_one": "1 Ordner: {{folders}}",
