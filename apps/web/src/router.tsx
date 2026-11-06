@@ -11,6 +11,7 @@ import { DiscoverPage } from './pages/Discover';
 import { IndexersPage } from './pages/Indexers';
 import { LibraryPage } from './pages/Library';
 import { RequestsPage } from './pages/Requests';
+import { StoragePage } from './pages/Storage';
 import { TrashPage, type TrashTab } from './pages/Trash';
 import { StackMapPage } from './pages/StackMap';
 
@@ -107,6 +108,12 @@ const mapRoute = createRoute({
   path: '/map',
   component: StackMapPage,
 });
+const storageRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/storage',
+  validateSearch: (s: Record<string, unknown>): { disk?: string } => ({ disk: str(s.disk) }),
+  component: StoragePage,
+});
 /** The read-only queue of stage 1 became the Queue Cleaner. */
 const queueRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -153,6 +160,7 @@ const routeTree = rootRoute.addChildren([
   indexersRoute,
   trashRoute,
   mapRoute,
+  storageRoute,
   settingsRoute,
   settingsInstanceRoute,
 ]);

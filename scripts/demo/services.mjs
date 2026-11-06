@@ -7,6 +7,7 @@
 // albums) is invented.
 import http from 'node:http';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
+import { DEMO_DISKS } from './disks.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
 const PORT = Number(process.env.DEMO_MOCK_PORT ?? 19300);
@@ -383,6 +384,51 @@ function inRange(list, url, dates) {
   );
 }
 
+// ------------------------------------------------------------------ disks
+
+const SYSTEM_MOUNTS = [
+  { path: '/', label: '', freeSpace: DEMO_DISKS.system.freeBytes, totalSpace: DEMO_DISKS.system.totalBytes },
+  {
+    path: '/config',
+    label: '',
+    freeSpace: DEMO_DISKS.system.freeBytes,
+    totalSpace: DEMO_DISKS.system.totalBytes,
+  },
+  {
+    path: '/etc/hosts',
+    label: '',
+    freeSpace: DEMO_DISKS.system.freeBytes,
+    totalSpace: DEMO_DISKS.system.totalBytes,
+  },
+];
+const mount = (path, disk) => ({
+  path,
+  label: '',
+  freeSpace: DEMO_DISKS[disk].freeBytes,
+  totalSpace: DEMO_DISKS[disk].totalBytes,
+});
+const folder = (path, disk, withTotal = false) => ({
+  id: 1,
+  path,
+  accessible: true,
+  freeSpace: DEMO_DISKS[disk].freeBytes,
+  ...(withTotal ? { totalSpace: DEMO_DISKS[disk].totalBytes } : {}),
+  unmappedFolders: [],
+});
+const STORAGE = {
+  sonarr: { disks: [...SYSTEM_MOUNTS, mount('/data', 'data')], folders: [folder('/data/media/tv', 'data')] },
+  'sonarr-4k': { disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')], folders: [folder('/uhd/tv', 'uhd')] },
+  radarr: {
+    disks: [...SYSTEM_MOUNTS, mount('/data', 'data')],
+    folders: [folder('/data/media/movies', 'data')],
+  },
+  'radarr-4k': { disks: [...SYSTEM_MOUNTS, mount('/uhd', 'uhd')], folders: [folder('/uhd/movies', 'uhd')] },
+  lidarr: {
+    disks: [...SYSTEM_MOUNTS, mount('/data', 'data')],
+    folders: [folder('/data/media/music', 'data', true)],
+  },
+};
+
 const ARR = {
   sonarr: {
     api: '/api/v3',
@@ -522,6 +568,8 @@ async function arr(prefix, path, url, req, res) {
   }
   if (p === '/system/status') return json(res, { version: svc.version, appName: svc.appName });
   if (p === '/health') return json(res, svc.health());
+  if (p === '/diskspace') return json(res, STORAGE[prefix]?.disks ?? []);
+  if (p === '/rootfolder') return json(res, STORAGE[prefix]?.folders ?? []);
   if (p === '/queue') return json(res, paged(svc.queue()));
   if (p === '/tag') return json(res, [{ id: 1, label: 'wardarr-keep' }]);
   if (p === '/qualityprofile')

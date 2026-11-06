@@ -12,6 +12,7 @@ import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'n
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { DEMO_DISKS } from './disks.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -238,6 +239,46 @@ function seedBackupHistory(dir) {
   });
 }
 
+/**
+ * Four months of disk history, written straight into the database like the
+ * plays above: Wardarr only samples disks while it runs. The media disk had
+ * a big cleanup six weeks ago; the 4K disk fills faster on weekends.
+ */
+function seedDiskHistory() {
+  const require = createRequire(path.join(root, 'apps/server/package.json'));
+  const Database = require('better-sqlite3');
+  const db = new Database(path.join(dataDir, 'wardarr.db'));
+  let seed = 11;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  const insert = db.prepare(
+    'INSERT INTO disk_samples (disk_key, at, free_bytes, total_bytes) VALUES (?, ?, ?, ?)',
+  );
+  const now = Date.now();
+  const GiB = 1024 ** 3;
+  for (const disk of db.prepare('SELECT key, total_bytes, free_bytes FROM disks').all()) {
+    const demo = Object.entries(DEMO_DISKS).find(([, d]) => d.totalBytes === disk.total_bytes);
+    if (!demo) continue;
+    const [name, d] = demo;
+    const used = d.totalBytes - d.freeBytes;
+    db.prepare('DELETE FROM disk_samples WHERE disk_key = ?').run(disk.key);
+    for (let hours = 120 * 24; hours >= 3; hours -= 3) {
+      const days = hours / 24;
+      const weekday = new Date(now - hours * 3_600_000).getUTCDay();
+      const weekend = weekday === 0 || weekday === 6;
+      let u = used - d.perDay * days;
+      if (name === 'data' && days > 42) u += 700 * GiB;
+      // Upgrades land in bursts on weekends.
+      if (name === 'uhd') u += (weekend ? 1.6 : -0.4) * d.perDay * rand();
+      u += (rand() - 0.5) * d.perDay * 0.5;
+      if (name === 'system') u = used + (rand() - 0.5) * 2 * GiB;
+      const at = new Date(now - hours * 3_600_000).toISOString();
+      const free = Math.max(0, Math.min(d.totalBytes, d.totalBytes - Math.round(u)));
+      insert.run(disk.key, at, free, d.totalBytes);
+    }
+  }
+  db.close();
+}
+
 const dataDir = mkdtempSync(path.join(tmpdir(), 'wardarr-demo-'));
 try {
   start([path.join(here, 'services.mjs')], { DEMO_MOCK_PORT: String(MOCK_PORT) });
@@ -326,6 +367,9 @@ try {
   seedStreamHistory(ids.jellyfin);
   await must('POST', '/api/backups', {});
   seedBackupHistory(path.join(dataDir, 'backups'));
+  await must('POST', '/api/storage/refresh');
+  seedDiskHistory();
+  await must('POST', '/api/storage/refresh');
   await must('POST', `/api/library/${ids.jellyfin}/refresh`);
 
   // Give the jobs (issue engine, library) a moment, then poll again.
@@ -400,6 +444,8 @@ try {
   for (const product of ['radarr', 'sonarr']) await get(`/api/trash/catalog/${product}`);
   for (const inst of trash?.instances ?? [])
     if (inst.templateId) await get(`/api/trash/instances/${encodeURIComponent(inst.id)}/preview`);
+
+  for (const days of [30, 90, 365]) await get(`/api/storage?days=${days}`);
 
   for (const days of [7, 30, 90, 365]) {
     await get(`/api/library?days=${days}`);

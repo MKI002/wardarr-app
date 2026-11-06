@@ -343,6 +343,15 @@ http
     const p = path.slice(svc.api.length);
     if (p === '/system/status') return json(res, { version: svc.version, appName: svc.appName });
     if (p === '/health') return json(res, svc.health());
+    // Every app sees one shared media disk under its own path, plus the container's root.
+    if (p === '/diskspace')
+      return json(res, [
+        { path: '/', label: '', freeSpace: 40 * 1024 ** 3, totalSpace: 100 * 1024 ** 3 },
+        { path: '/etc/hosts', label: '', freeSpace: 40 * 1024 ** 3, totalSpace: 100 * 1024 ** 3 },
+        { path: '/data', label: '', freeSpace: 2 * 1024 ** 4, totalSpace: 8 * 1024 ** 4 },
+      ]);
+    if (p === '/rootfolder')
+      return json(res, [{ id: 1, path: `/data/${prefix}`, accessible: true, freeSpace: 2 * 1024 ** 4 }]);
     if (p === '/queue') {
       const records = svc.queue();
       return json(res, { page: 1, pageSize: 250, totalRecords: records.length, records });

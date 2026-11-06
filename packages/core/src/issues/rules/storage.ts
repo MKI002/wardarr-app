@@ -123,7 +123,6 @@ export const diskFillingUp: IssueRule<DiskParams> = {
   },
   build(matches) {
     const p = matches[0]!.params;
-    const instance = matches[0]!.signal.instance;
     const days = Math.max(0, Math.round(p.daysLeft));
     const values = { disk: p.label, free: p.freeBytes, percent: Math.round(p.percentFree * 10) / 10 };
     return {
@@ -156,13 +155,6 @@ export const diskFillingUp: IssueRule<DiskParams> = {
             { key: 'issues.diskFilling.step2' },
             { key: 'issues.diskFilling.step3' },
           ],
-        },
-        {
-          id: 'recheck',
-          kind: 'recheck',
-          class: 'safe',
-          label: { key: 'issues.action.recheck' },
-          instanceId: instance.id,
         },
       ],
     };
