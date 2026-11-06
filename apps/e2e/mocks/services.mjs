@@ -7,6 +7,7 @@
 //   POST /__control/stage2        turns on the Queue Cleaner and Hunting scenario
 //   GET  /__control/calls         changing calls the services received
 import http from 'node:http';
+import { INDEXER_APPS, INDEXER_STATS, createStage3 } from './stage3.mjs';
 
 export const API_KEY = '00000000000000000000000000000001';
 const PORT = Number(process.env.MOCK_PORT ?? 19000);
@@ -16,6 +17,11 @@ const initial = () => ({ indexerBroken: true, updateAvailable: true, queueFailed
 let state = initial();
 /** POST and DELETE calls, so tests can check that a dry run changed nothing. */
 let calls = [];
+const stage3 = createStage3({
+  apiKey: API_KEY,
+  base: `http://${HOST}:${PORT}`,
+  record: (c) => calls.push(c),
+});
 
 const FILM = (id, title, year, hasFile) => ({
   id,
@@ -194,6 +200,8 @@ function prowlarr(path, res, method) {
   if (path === '/api/v1/system/status') return json(res, { version: '2.0.5.5160', appName: 'Prowlarr' });
   if (path === '/api/v1/health') return json(res, []);
   if (path === '/api/v1/indexer') return json(res, [EXAMPLE_INDEXER]);
+  if (path === '/api/v1/indexerstats') return json(res, INDEXER_STATS);
+  if (path === '/api/v1/applications') return json(res, INDEXER_APPS);
   if (path === '/api/v1/indexerstatus')
     return json(
       res,
@@ -225,7 +233,7 @@ async function stage2(prefix, p, url, req, res) {
   }
   if (p === '/tag') return json(res, [{ id: 1, label: 'wardarr-keep' }]);
   if (p === '/qualityprofile') return json(res, [{ id: 1, name: 'Ultra HD' }]);
-  if (p === '/movie') return json(res, state.stage2 ? FILMS : []);
+  if (p === '/movie') return json(res, [...(state.stage2 ? FILMS : []), ...stage3.radarrMovies[prefix]]);
   if (p === '/wanted/cutoff') return json(res, { page: 1, pageSize: 250, totalRecords: 0, records: [] });
   if (p === '/history/since') return json(res, []);
   if (p === '/manualimport' && req.method === 'GET') {
@@ -258,7 +266,7 @@ function notFound(res) {
 }
 
 http
-  .createServer((req, res) => {
+  .createServer(async (req, res) => {
     const url = new URL(req.url ?? '/', 'http://mock.invalid');
     const [, prefix = '', ...rest] = url.pathname.split('/');
     const path = `/${rest.join('/')}`;
@@ -284,11 +292,16 @@ http
       }
       return notFound(res);
     }
+    if (prefix === 'jellyfin') return stage3.jellyfin(path, url, req, res, json);
     if (req.headers['x-api-key'] !== API_KEY) {
       res.writeHead(401);
       return res.end();
     }
     if (prefix === 'prowlarr') return prowlarr(path, res, req.method);
+    if (prefix === 'seerr') {
+      const body = req.method === 'POST' || req.method === 'PUT' ? await readBody(req) : null;
+      return stage3.seerr(path, url, req, res, json, body);
+    }
     const svc = SERVICES[prefix];
     if (!svc || !path.startsWith(svc.api)) return notFound(res);
     const p = path.slice(svc.api.length);
@@ -299,7 +312,11 @@ http
       return json(res, { page: 1, pageSize: 250, totalRecords: records.length, records });
     }
     if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: API_KEY });
+    if (p === '/movie' && req.method === 'POST') {
+      if (stage3.radarr(prefix, p, req, res, json, await readBody(req))) return;
+    }
     if (svc.stage2) return stage2(prefix, p, url, req, res);
+    if (p === '/movie') return json(res, stage3.radarrMovies[prefix] ?? []);
     return notFound(res);
   })
   .listen(PORT, HOST);

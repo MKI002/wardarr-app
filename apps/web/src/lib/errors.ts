@@ -24,6 +24,8 @@ export function errorText(t: T, err: unknown): { message: string; next?: string 
       const kind = (err.details as { kind?: string } | undefined)?.kind ?? 'badResponse';
       return { message: t('ui.errors.serviceError', { reason: t(`ui.instance.testFailed.${kind}`) }) };
     }
+    if (err.code === 'notLinked')
+      return { message: t('ui.errors.notLinked'), next: t('ui.errors.notLinkedNext') };
     if (err.code === 'budget') return { message: t('ui.errors.budget') };
     if (err.code === 'nothingToImport') return { message: t('ui.errors.nothingToImport') };
     if (err.code === 'notFound')

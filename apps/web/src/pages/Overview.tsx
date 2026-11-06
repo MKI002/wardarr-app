@@ -23,6 +23,7 @@ import { formatDuration, formatRelative, formatSpeed } from '../lib/format';
 import { tm } from '../lib/i18n';
 import { STATUS_TONE, groupByProduct } from '../lib/instances';
 import { useSession } from '../lib/session';
+import { useTabs } from '../components/Layout';
 
 const SEVERITY_TONE: Record<string, Tone> = { critical: 'critical', warning: 'warning', info: 'info' };
 
@@ -76,8 +77,13 @@ function OverviewSkeleton() {
 
 export function OverviewPage() {
   const { me } = useSession();
-  // Overview is admin-only in this stage; other users land in Settings.
-  if (me.role !== 'admin') return <Navigate to="/settings" />;
+  const tabs = useTabs();
+  // The overview is for admins. Everyone else starts in Discover when a
+  // request manager is connected, otherwise in Settings.
+  if (me.role !== 'admin') {
+    if (tabs.isPending) return null;
+    return <Navigate to={tabs.data?.tabs.includes('discover') ? '/discover' : '/settings'} />;
+  }
   return <AdminOverview />;
 }
 
