@@ -29,8 +29,8 @@ interface Entry {
 /** Words people type for a page besides its name. */
 const SYNONYMS: Record<string, string> = {
   overview: 'home start dashboard übersicht',
-  issues: 'problems alerts health probleme warnungen',
-  stackmap: 'map topology graph karte',
+  issues: 'problems alerts health downloader sabnzbd qbittorrent probleme warnungen',
+  map: 'stack map topology graph stack-karte',
   discover: 'tmdb trending popular entdecken',
   requests: 'seerr overseerr jellyseerr anfragen wünsche',
   library: 'plex jellyfin emby streams bibliothek',
@@ -39,8 +39,7 @@ const SYNONYMS: Record<string, string> = {
   hunting: 'search missing upgrade suche fehlend',
   trash: 'trash guides profiles custom formats profile',
   indexers: 'prowlarr jackett indexer analysis',
-  downloaders: 'sabnzbd nzbget qbittorrent transmission deluge download',
-  diskspace: 'storage disk free speicher platz festplatte',
+  storage: 'storage disk free speicher platz festplatte',
   backup: 'restore export sicherung wiederherstellen',
   settings: 'preferences options einstellungen',
   instances: 'services connections dienste verbindungen',
