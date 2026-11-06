@@ -10,7 +10,7 @@ import {
   type Signal,
   type StoredIssue,
 } from '@wardarr/core';
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq, gte, inArray } from 'drizzle-orm';
 import type { Db } from '../db/index.js';
 import { issueEvents, issues } from '../db/schema.js';
 import type { EventBus } from '../events/bus.js';
@@ -24,6 +24,14 @@ export interface IssueHistoryEntry {
   type: string;
   severity: string;
   at: string;
+}
+
+export interface IssueTimelineDay {
+  /** Local day, YYYY-MM-DD. */
+  day: string;
+  critical: number;
+  warning: number;
+  info: number;
 }
 
 export class IssueService {
@@ -116,6 +124,35 @@ export class IssueService {
       .orderBy(desc(issueEvents.at), desc(issueEvents.id))
       .limit(200)
       .all();
+  }
+
+  /**
+   * Issues that opened (or came back) per day over the last `days` days,
+   * oldest first, by severity. `tzMinutes` is the viewer's offset from UTC,
+   * so days follow the viewer's calendar. Days without issues are included.
+   */
+  timeline(days: number, tzMinutes = 0): IssueTimelineDay[] {
+    const now = this.now().getTime();
+    const shift = tzMinutes * 60_000;
+    const localDay = (ms: number) => new Date(ms + shift).toISOString().slice(0, 10);
+    const out = new Map<string, IssueTimelineDay>();
+    for (let i = days - 1; i >= 0; i--) {
+      const day = localDay(now - i * 86_400_000);
+      out.set(day, { day, critical: 0, warning: 0, info: 0 });
+    }
+    const since = new Date(now - (days + 1) * 86_400_000).toISOString();
+    const rows = this.db
+      .select({ severity: issueEvents.severity, at: issueEvents.at })
+      .from(issueEvents)
+      .where(and(gte(issueEvents.at, since), inArray(issueEvents.type, ['opened', 'reopened'])))
+      .all();
+    for (const r of rows) {
+      const entry = out.get(localDay(Date.parse(r.at)));
+      if (entry && (r.severity === 'critical' || r.severity === 'warning' || r.severity === 'info')) {
+        entry[r.severity]++;
+      }
+    }
+    return [...out.values()];
   }
 
   /** Mutes until a time, or forever when `until` is null. */

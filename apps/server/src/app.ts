@@ -38,6 +38,7 @@ import { InstanceStore } from './instances/store.js';
 import { registerIssueRoutes } from './issues/routes.js';
 import { IssueService } from './issues/service.js';
 import { registerOverviewRoutes } from './overview/routes.js';
+import { TrendSampler, registerTrendRoutes } from './overview/trend.js';
 import { registerTrashRoutes } from './trash/routes.js';
 import { TrashService } from './trash/service.js';
 import type { GuideSource } from './trash/source.js';
@@ -167,6 +168,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const library = new LibraryService(features, runtime, bus, app.log);
   const requests = new RequestService(opts.db, runtime, users, bus);
   const indexers = new IndexerService(runtime);
+  const trend = new TrendSampler(runtime);
   const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
@@ -226,6 +228,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerInstanceRoutes(app, { registry, store, runtime });
   registerIssueRoutes(app, { issues, runtime });
   registerOverviewRoutes(app, { runtime, issues });
+  registerTrendRoutes(app, { trend });
   registerEventRoutes(app, { bus });
   registerCleanerRoutes(app, { cleaner });
   registerHuntingRoutes(app, { hunting });

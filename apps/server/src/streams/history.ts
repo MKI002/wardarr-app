@@ -35,6 +35,8 @@ export interface StreamStats {
   users: Array<{ user: string; plays: number; playedMs: number }>;
   topTitles: Array<{ title: string; mediaType: string; plays: number }>;
   perDay: Array<{ day: string; plays: number }>;
+  /** Plays by local weekday (0 = Monday) and hour of day: 7 rows of 24 counts. */
+  perHour: number[][];
 }
 
 export class StreamHistoryService {
@@ -132,7 +134,7 @@ export class StreamHistoryService {
   }
 
   /** Aggregated plays of the last `days` days. `withUsers` adds plays per user. */
-  stats(days: number, withUsers: boolean): StreamStats {
+  stats(days: number, withUsers: boolean, tzMinutes = 0): StreamStats {
     const since = new Date(this.now().getTime() - days * 86_400_000).toISOString();
     const where = gte(streamHistory.startedAt, since);
     const totals = this.db
@@ -178,8 +180,26 @@ export class StreamHistoryService {
       .groupBy(day)
       .orderBy(day)
       .all();
+    // SQLite shifts the UTC start to the viewer's local time before bucketing.
+    const local = sql`datetime(${streamHistory.startedAt}, ${`${tzMinutes >= 0 ? '+' : ''}${tzMinutes} minutes`})`;
+    const weekday = sql<string>`strftime('%w', ${local})`;
+    const hour = sql<string>`strftime('%H', ${local})`;
+    const hourly = this.db
+      .select({ weekday, hour, plays: sql<number>`count(*)` })
+      .from(streamHistory)
+      .where(where)
+      .groupBy(weekday, hour)
+      .all();
+    const perHour = Array.from({ length: 7 }, () => Array<number>(24).fill(0));
+    for (const h of hourly) {
+      // strftime %w counts from Sunday; the grid starts on Monday.
+      const row = (Number(h.weekday) + 6) % 7;
+      const col = Number(h.hour);
+      if (perHour[row] && col >= 0 && col < 24) perHour[row][col] = Number(h.plays);
+    }
     return {
       days,
+      perHour,
       plays: Number(totals.plays),
       playedMs: Number(totals.playedMs),
       transcodes: Number(totals.transcodes),

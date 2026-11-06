@@ -151,7 +151,14 @@ function seedStreamHistory(instanceId) {
   for (let i = 0; i < 150; i++) {
     // Most plays in recent weeks, a few going back a year.
     const daysAgo = 1 + Math.floor(rand() * (rand() < 0.6 ? 40 : 360));
-    const start = now - daysAgo * 86_400_000 - Math.floor(rand() * 10) * 3_600_000;
+    // Evenings most, weekend afternoons too, rarely at night.
+    const day = new Date(now - daysAgo * 86_400_000);
+    const weekend = day.getUTCDay() === 0 || day.getUTCDay() === 6;
+    const hours = weekend
+      ? [11, 13, 14, 15, 16, 17, 19, 20, 20, 21, 21, 22]
+      : [7, 12, 18, 19, 20, 20, 21, 21, 21, 22, 22, 23];
+    day.setUTCHours(pick(hours), Math.floor(rand() * 60), 0, 0);
+    const start = Math.min(day.getTime(), now - 3_600_000);
     const [user, client, transcoding, resolution] = pick(users);
     const isFilm = rand() < 0.45;
     let title;
@@ -358,6 +365,25 @@ try {
     await get(`/api/library?days=${days}`);
     await get(`/api/stats?days=${days}`);
   }
+
+  // The live trend and the issue timeline only have today's data on a fresh
+  // server. The demo shows an invented hour and fortnight around those values.
+  const overview = fixtures['/api/overview'].body;
+  const trend = await get('/api/overview/trend');
+  const wave = (i, base, spread) =>
+    Math.max(0, Math.round(base + spread * Math.sin(i / 5) + spread * 0.4 * Math.sin(i / 1.7)));
+  const nowMinute = Math.floor(Date.now() / 60_000) * 60_000;
+  trend.points = Array.from({ length: 60 }, (_, i) => ({
+    at: new Date(nowMinute - (59 - i) * 60_000).toISOString(),
+    speed: i === 59 ? overview.stats.downloadSpeed : wave(i, overview.stats.downloadSpeed * 0.8, 18e6),
+    downloads: i === 59 ? overview.stats.activeDownloads : Math.max(1, wave(i, 3, 1.5)),
+    streams: i === 59 ? overview.stats.activeStreams : Math.min(4, wave(i + 20, 2, 1.4)),
+  }));
+  const timeline = await get('/api/issues/timeline?days=14');
+  const past = [0, 1, 0, 2, 1, 0, 0, 3, 1, 0, 2, 1, 0];
+  timeline.days = timeline.days.map((d, i) =>
+    i < past.length ? { ...d, warning: past[i], info: i % 4 === 1 ? 1 : 0, critical: i === 7 ? 1 : 0 } : d,
+  );
 
   // Answers to a few actions, so buttons in the demo show real results.
   const mutations = {};

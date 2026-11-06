@@ -166,7 +166,37 @@
     "transcoding": "Transcodiert",
     "directPlay": "Direkte Wiedergabe",
     "paused": "Pausiert",
-    "eta": "noch {{time}}"
+    "eta": "noch {{time}}",
+    "status": "Lage",
+    "healthAllGood": "Alles ruhig. Jeder Dienst antwortet.",
+    "healthSome_one": "{{count}} Dienst braucht einen Blick.",
+    "healthSome_other": "{{count}} Dienste brauchen einen Blick.",
+    "healthDown_one": "{{count}} Dienst ist offline.",
+    "healthDown_other": "{{count}} Dienste sind offline.",
+    "onlineOf": "von {{total}} online",
+    "radar": "Dienste-Radar",
+    "worthALook": "Einen Blick wert",
+    "look": "Ansehen",
+    "rightNow": "Gerade jetzt",
+    "nobodyWatching": "Niemand schaut gerade",
+    "idle": "Gerade lädt nichts",
+    "peak": "Spitze {{speed}} in der letzten Stunde",
+    "lastHour": "{{label}}, letzte Stunde",
+    "totalSpeed": "{{speed}} zusammen",
+    "done": "{{percent}} % fertig",
+    "allClearTitle": "Nichts zu tun",
+    "playing": "Läuft",
+    "acrossDownloads_one": "verteilt auf {{count}} Download",
+    "acrossDownloads_other": "verteilt auf {{count}} Downloads",
+    "moreDownloads_one": "und {{count}} weiterer",
+    "moreDownloads_other": "und {{count}} weitere",
+    "tone": {
+      "ok": "online",
+      "warning": "mit Problemen",
+      "critical": "offline",
+      "neutral": "unbekannt oder aus"
+    },
+    "playback": "Wie abgespielt wird"
   },
   "issues": {
     "title": "Probleme",
@@ -209,7 +239,8 @@
       "info": "Info"
     },
     "expand": "Details zeigen",
-    "collapse": "Details ausblenden"
+    "collapse": "Details ausblenden",
+    "bySeverity": "Offene Probleme nach Schweregrad"
   },
   "queue": {
     "unmatched": "Keiner Bibliothek zugeordnet",

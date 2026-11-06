@@ -16,10 +16,13 @@
   --critical-bg: #fdecec;
   --warning: #8a5a00;
   --warning-bg: #fff4dc;
+  /* Warning as a mark (dots, bars, rings): brighter than the text colour, 3.4:1 on white. */
+  --warning-mark: #c27c0e;
   --info: #1f6fb2;
   --info-bg: #e7f1fb;
   --ok: #167044;
   --ok-bg: #e5f5ec;
+  --glow-opacity: 0.09;
 }
 
 [data-theme='dark'] {
@@ -35,10 +38,12 @@
   --critical-bg: #3a1d22;
   --warning: #f5c451;
   --warning-bg: #3a2f14;
+  --warning-mark: #f5c451;
   --info: #7cbcf0;
   --info-bg: #15283a;
   --ok: #5ad8a0;
   --ok-bg: #12301f;
+  --glow-opacity: 0.16;
 }
 
 @theme {
@@ -52,6 +57,7 @@
   --color-accent-contrast: var(--accent-contrast);
   --color-critical: var(--critical);
   --color-warning: var(--warning);
+  --color-warning-mark: var(--warning-mark);
   --color-info: var(--info);
   --color-ok: var(--ok);
   --color-critical-bg: var(--critical-bg);
@@ -63,10 +69,107 @@
   --radius-card: 14px;
 }
 
-html,
-body {
+html {
   background: var(--bg);
+}
+
+/* The body stays transparent so the glows below can sit behind the content. */
+body {
   color: var(--text);
+}
+
+/* Night watch: two soft violet glows behind every screen that drift very
+   slowly. Pure CSS transforms; still when motion is reduced. */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: var(--glow-opacity);
+}
+body::before {
+  top: -38vmax;
+  left: -18vmax;
+  background: radial-gradient(closest-side, var(--accent), transparent);
+  animation: drift-a 38s ease-in-out infinite alternate;
+}
+body::after {
+  bottom: -42vmax;
+  right: -22vmax;
+  background: radial-gradient(closest-side, var(--info), transparent);
+  animation: drift-b 46s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  to {
+    transform: translate3d(9vw, 6vh, 0) scale(1.08);
+  }
+}
+@keyframes drift-b {
+  to {
+    transform: translate3d(-8vw, -7vh, 0) scale(0.94);
+  }
+}
+
+/* Cards light up softly where the pointer is (mouse and pen only). */
+.card-glow {
+  position: relative;
+  isolation: isolate;
+}
+@media (hover: hover) {
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, -200px),
+      color-mix(in oklab, var(--accent) 9%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card-glow:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Rolling digits: each digit is a column 0-9 that slides into place. */
+.odo-col {
+  display: inline-block;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+}
+.odo-col > span {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+/* Moving stripes inside a download's progress, faster for faster downloads. */
+@keyframes flow {
+  to {
+    background-position: 28px 0;
+  }
+}
+.flow-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in oklab, white 22%, transparent) 0 7px,
+    transparent 7px 14px
+  );
+  background-size: 28px 100%;
+  animation: flow var(--flow-speed, 1.2s) linear infinite;
 }
 
 body {
@@ -96,8 +199,29 @@ body {
   border-radius: 8px;
 }
 
+/* A soft halo behind live dots (streams, downloads). */
+@keyframes live-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  60% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.live-pulse {
+  animation: live-pulse 2.4s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .skeleton {
+  .skeleton,
+  .live-pulse,
+  .flow-stripes,
+  body::before,
+  body::after {
     animation: none;
   }
   *,
@@ -109,7 +233,11 @@ body {
 }
 
 /* Explicit "reduced animations" preference, independent of the OS setting. */
-:root[data-motion='reduce'] .skeleton {
+:root[data-motion='reduce'] .skeleton,
+:root[data-motion='reduce'] .live-pulse,
+:root[data-motion='reduce'] .flow-stripes,
+:root[data-motion='reduce'] body::before,
+:root[data-motion='reduce'] body::after {
   animation: none;
 }
 :root[data-motion='reduce'] *,
