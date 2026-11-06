@@ -4,6 +4,7 @@ import {
   groupSignals,
   isMuted,
   reconcileIssues,
+  type IssueEvent,
   type IssueGroup,
   type RuleContext,
   type Signal,
@@ -48,6 +49,13 @@ export class IssueService {
     }
   }
 
+  private readonly eventListeners: Array<(events: IssueEvent[]) => void> = [];
+
+  /** Called with lifecycle events (opened, resolved, ...) after they were stored. */
+  onEvents(listener: (events: IssueEvent[]) => void): void {
+    this.eventListeners.push(listener);
+  }
+
   /** Regroups all current signals and merges them into the stored issues. */
   update(signals: Signal[], checkedSources: ReadonlySet<string>) {
     const groups = groupSignals(signals, RULE_CATALOG, this.ruleContext());
@@ -79,7 +87,10 @@ export class IssueService {
       }
     });
     for (const issue of result.upserts) this.stored.set(issue.fingerprint, issue);
-    if (result.events.length > 0) this.bus.publish({ type: 'issues.updated', audience: 'admin' });
+    if (result.events.length > 0) {
+      this.bus.publish({ type: 'issues.updated', audience: 'admin' });
+      for (const listener of this.eventListeners) listener(result.events);
+    }
     return result;
   }
 

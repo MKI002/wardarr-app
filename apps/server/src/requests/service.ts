@@ -56,6 +56,13 @@ export class RequestService {
     });
   }
 
+  private readonly createdListeners: Array<(req: MediaRequest, user: AuthUser) => void> = [];
+
+  /** Called after a request was created, for notifications. */
+  onCreated(listener: (req: MediaRequest, user: AuthUser) => void): void {
+    this.createdListeners.push(listener);
+  }
+
   /** Enabled request managers (Seerr) in a stable order. */
   instances() {
     return this.runtime
@@ -255,6 +262,7 @@ export class RequestService {
     }
     const created = await s.run(() => this.method(s.adapter, 'createRequest')(body, asUser));
     this.bus.publish({ type: 'requests.updated', audience: 'all' });
+    for (const listener of this.createdListeners) listener(created, user);
     return created;
   }
 

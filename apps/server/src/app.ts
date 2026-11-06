@@ -17,6 +17,8 @@ import { registerImageRoutes, type ImageFetch } from './images/tmdb.js';
 import { registerIndexerRoutes } from './indexers/routes.js';
 import { IndexerService } from './indexers/service.js';
 import { registerLibraryRoutes } from './library/routes.js';
+import { registerNotificationRoutes } from './notifications/routes.js';
+import { NotificationService, type NotificationOptions } from './notifications/service.js';
 import { LibraryService } from './library/service.js';
 import { registerRequestRoutes } from './requests/routes.js';
 import { RequestService } from './requests/service.js';
@@ -52,6 +54,10 @@ export interface AppOptions {
   httpTimeoutMs?: number;
   /** Replaces the poster download, for tests. */
   imageFetch?: ImageFetch;
+  /** Address of this installation, for links in notifications. */
+  publicUrl?: string;
+  /** Overrides for notification timing and delivery, for tests. */
+  notificationOptions?: NotificationOptions;
 }
 
 export interface App {
@@ -69,6 +75,7 @@ export interface App {
   history: StreamHistoryService;
   requests: RequestService;
   indexers: IndexerService;
+  notifications: NotificationService;
 }
 
 function isFile(p: string): boolean {
@@ -152,6 +159,14 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const library = new LibraryService(features, runtime, bus, app.log);
   const requests = new RequestService(opts.db, runtime, users, bus);
   const indexers = new IndexerService(runtime);
+  const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
+    publicUrl: opts.publicUrl,
+    ...opts.notificationOptions,
+  });
+  requests.onCreated(
+    (req, user) => void notifications.requestPending(req, user.displayName ?? user.username),
+  );
+  app.addHook('onClose', async () => notifications.stop());
   const cookie: CookieOptions = { secure: opts.cookieSecure ?? 'auto' };
 
   await app.register(fastifyCookie);
@@ -205,6 +220,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerRequestRoutes(app, { requests });
   registerLibraryRoutes(app, { library, history });
   registerIndexerRoutes(app, { indexers });
+  registerNotificationRoutes(app, { notifications });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
@@ -251,5 +267,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     history,
     requests,
     indexers,
+    notifications,
   };
 }

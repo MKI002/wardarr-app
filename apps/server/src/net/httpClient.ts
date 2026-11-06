@@ -52,6 +52,8 @@ export interface HttpClientOptions {
   /** Accept self-signed certificates. Off by default. */
   allowInsecureTls?: boolean;
   dispatcher?: Dispatcher;
+  /** Off for URLs that carry a secret in the path, such as webhooks. */
+  followRedirects?: boolean;
 }
 
 function stripCredentials(url: URL, headers: Record<string, string>): Record<string, string> {
@@ -118,7 +120,12 @@ export function createHttpClient(opts: HttpClientOptions): HttpClient {
         } catch (err) {
           throw classify(err);
         }
-        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        if (
+          opts.followRedirects !== false &&
+          res.statusCode >= 300 &&
+          res.statusCode < 400 &&
+          res.headers.location
+        ) {
           await res.body.dump();
           if (hop >= MAX_REDIRECTS) throw new AdapterError('badResponse', 'too many redirects');
           const next = new URL(String(res.headers.location), url);

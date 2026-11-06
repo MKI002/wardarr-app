@@ -72,6 +72,9 @@ importers:
       '@wardarr/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@wardarr/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       better-sqlite3:
         specifier: ^13.0.3
         version: 13.0.3

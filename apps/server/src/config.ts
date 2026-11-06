@@ -22,6 +22,12 @@ const schema = z.object({
   WARDARR_WEB_DIR: z.string().optional(),
   /** Default timeout for calls to connected services, in milliseconds. */
   WARDARR_HTTP_TIMEOUT_MS: z.coerce.number().int().min(1000).max(120000).default(10000),
+  /** Address Wardarr is reached at, for links in notifications. Optional. */
+  WARDARR_PUBLIC_URL: z
+    .string()
+    .url()
+    .refine((u) => /^https?:\/\//.test(u), 'http or https only')
+    .optional(),
 });
 
 export interface Config {
@@ -34,6 +40,7 @@ export interface Config {
   logLevel: string;
   webDir: string | undefined;
   httpTimeoutMs: number;
+  publicUrl: string | undefined;
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
@@ -48,5 +55,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     logLevel: parsed.WARDARR_LOG_LEVEL,
     webDir: parsed.WARDARR_WEB_DIR,
     httpTimeoutMs: parsed.WARDARR_HTTP_TIMEOUT_MS,
+    publicUrl: parsed.WARDARR_PUBLIC_URL?.replace(/\/+$/, ''),
   };
 }

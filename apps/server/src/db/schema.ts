@@ -228,3 +228,21 @@ export const requestLinks = sqliteTable(
   },
   (t) => [uniqueIndex('request_links_user_instance').on(t.userId, t.instanceId)],
 );
+
+/** Where Wardarr sends notifications, and which events it sends there. */
+export const notificationChannels = sqliteTable('notification_channels', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull().unique(),
+  kind: text('kind', { enum: ['webhook', 'discord', 'ntfy', 'gotify', 'telegram'] }).notNull(),
+  enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
+  /** Non-secret settings such as the server address or topic. */
+  config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  /** Secret settings (tokens, webhook URLs), AES-256-GCM encrypted JSON. */
+  secret: text('secret'),
+  events: text('events', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  language: text('language').notNull().default('en'),
+  lastSentAt: text('last_sent_at'),
+  lastError: text('last_error'),
+  createdAt: text('created_at').notNull().default(now),
+  updatedAt: text('updated_at').notNull().default(now),
+});

@@ -96,9 +96,14 @@ const queueRoute = createRoute({
 const settingsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/settings',
-  validateSearch: (s: Record<string, unknown>): { section?: 'instances' | 'users' | 'appearance' } => ({
+  validateSearch: (
+    s: Record<string, unknown>,
+  ): { section?: 'instances' | 'users' | 'notifications' | 'appearance' } => ({
     section:
-      s.section === 'users' || s.section === 'appearance' || s.section === 'instances'
+      s.section === 'users' ||
+      s.section === 'appearance' ||
+      s.section === 'instances' ||
+      s.section === 'notifications'
         ? s.section
         : undefined,
   }),
