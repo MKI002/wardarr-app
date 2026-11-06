@@ -1,5 +1,5 @@
 // Overview data and the capability map that drives which tabs are shown.
-import { isMuted, needsAttention, type Capability } from '@wardarr/core';
+import { isMuted, needsAttention, sortGroups, type Capability } from '@wardarr/core';
 import type { FastifyInstance } from 'fastify';
 import type { InstanceRuntime } from '../instances/runtime.js';
 import type { IssueService } from '../issues/service.js';
@@ -62,7 +62,7 @@ export function registerOverviewRoutes(
     const open = deps.issues.list({ status: 'open' }).filter((i) => !isMuted(i, now));
     const counts = { critical: 0, warning: 0, info: 0 };
     for (const i of open) counts[i.group.severity]++;
-    const attention = needsAttention(open.map((i) => ({ ...i, severity: i.group.severity })));
+    const attention = sortGroups(needsAttention(open.map((i) => ({ ...i, severity: i.group.severity }))));
     return {
       instances,
       streams,
@@ -87,5 +87,21 @@ export function registerOverviewRoutes(
         downloadSpeed: downloads.reduce((sum, d) => sum + (d.speedBytesPerSecond ?? 0), 0),
       },
     };
+  });
+
+  /** Read-only queue view. Actions on queue items come with the Queue Cleaner. */
+  app.get<{ Querystring: { instance?: string } }>('/api/queue', async (req) => {
+    return deps.runtime
+      .snapshots()
+      .filter(({ row, def }) => row.enabled && def.capabilities.includes('queue'))
+      .filter(({ row }) => !req.query.instance || row.id === req.query.instance)
+      .map(({ row, def, snapshot }) => ({
+        instanceId: row.id,
+        instanceName: row.name,
+        adapter: def.id,
+        adapterName: def.name,
+        checkedAt: snapshot.checkedAt,
+        items: snapshot.queue ?? [],
+      }));
   });
 }

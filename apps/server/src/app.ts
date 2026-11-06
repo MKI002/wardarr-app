@@ -24,7 +24,7 @@ import { registerIssueRoutes } from './issues/routes.js';
 import { IssueService } from './issues/service.js';
 import { registerOverviewRoutes } from './overview/routes.js';
 import type { SecretBox } from './security/crypto.js';
-import { redact } from './security/redact.js';
+import { redact, redactString } from './security/redact.js';
 import { registerUserRoutes } from './users/routes.js';
 import { UserStore } from './users/store.js';
 
@@ -74,10 +74,23 @@ function loggerOptions(level: string): FastifyServerOptions['logger'] {
       censor: '[redacted]',
     },
     formatters: {
-      log: (obj) => redact(obj) as Record<string, unknown>,
+      // Pino runs this before the serializers, so request and response
+      // objects are passed through untouched and masked by their serializers.
+      log: (obj) => {
+        const { req, res, ...rest } = obj;
+        return {
+          ...(redact(rest) as Record<string, unknown>),
+          ...(req === undefined ? {} : { req }),
+          ...(res === undefined ? {} : { res }),
+        };
+      },
     },
     serializers: {
-      req: (req) => ({ method: req.method, url: String(redact(req.url)) }),
+      req: (req: { method?: string; url?: string }) => ({
+        method: req.method,
+        url: redactString(req.url ?? ''),
+      }),
+      res: (res: { statusCode?: number }) => ({ statusCode: res.statusCode }),
     },
   };
 }
