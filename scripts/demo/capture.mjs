@@ -320,6 +320,7 @@ try {
     '/api/users',
     '/api/notifications',
     '/api/indexers',
+    '/api/topology',
     '/api/streams/history?limit=25',
     '/api/discover/instances',
     '/api/discover/options',

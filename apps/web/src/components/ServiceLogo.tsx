@@ -13,6 +13,16 @@ const LOGOS: Record<string, string> = Object.fromEntries(
   Object.entries(FILES).map(([file, url]) => [file.replace(/^.*\/|\.(svg|png)$/g, ''), url]),
 );
 
+/** URL of a product logo, or null when Wardarr has none. */
+export function logoUrl(adapter: string | null | undefined): string | null {
+  return (adapter && LOGOS[adapter]) || null;
+}
+
+/** Logos drawn for a dark background need a dark plate in the light theme. */
+export function needsPlate(adapter: string | null | undefined): boolean {
+  return !!adapter && DARK_ONLY.has(adapter);
+}
+
 // Logos drawn for a dark background (white parts) get a dark plate in the
 // light theme so they stay recognisable.
 const DARK_ONLY = new Set(['radarr']);

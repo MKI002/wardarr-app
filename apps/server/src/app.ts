@@ -44,6 +44,8 @@ import { TrashService } from './trash/service.js';
 import type { GuideSource } from './trash/source.js';
 import type { SecretBox } from './security/crypto.js';
 import { redact, redactString } from './security/redact.js';
+import { registerTopologyRoutes } from './topology/routes.js';
+import { TopologyService } from './topology/service.js';
 import { registerUserRoutes } from './users/routes.js';
 import { UserStore } from './users/store.js';
 
@@ -83,6 +85,7 @@ export interface App {
   history: StreamHistoryService;
   requests: RequestService;
   indexers: IndexerService;
+  topology: TopologyService;
   notifications: NotificationService;
   trash: TrashService;
 }
@@ -169,6 +172,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const requests = new RequestService(opts.db, runtime, users, bus);
   const indexers = new IndexerService(runtime);
   const trend = new TrendSampler(runtime);
+  const topology = new TopologyService(runtime);
   const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
@@ -235,6 +239,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerRequestRoutes(app, { requests });
   registerLibraryRoutes(app, { library, history });
   registerIndexerRoutes(app, { indexers });
+  registerTopologyRoutes(app, { topology });
   registerNotificationRoutes(app, { notifications });
   registerTrashRoutes(app, { trash });
   registerImageRoutes(app, { fetch: opts.imageFetch });
@@ -283,6 +288,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     history,
     requests,
     indexers,
+    topology,
     notifications,
     trash,
   };

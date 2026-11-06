@@ -363,6 +363,50 @@ export interface LibraryStats {
   videoCodecs: Record<string, number>;
 }
 
+/** What a reported connection between two services is for (stack map). */
+export type LinkKind = 'indexers' | 'downloads' | 'requests' | 'subtitles' | 'mediaServer' | 'libraryUpdate';
+
+/**
+ * A connection a service reports to another service, for example a download
+ * client configured in Sonarr. Wardarr matches it to a connected instance.
+ */
+export interface ServiceLink {
+  kind: LinkKind;
+  /** Wardarr adapter ids the other side can be, most likely first. Empty when unknown. */
+  products: string[];
+  /** Implementation as the service names it, for example `QBittorrent`. */
+  implementation: string;
+  /** Name the link has in the service. */
+  name: string;
+  /** Address configured in the service, without credentials. */
+  url: string | null;
+  enabled: boolean;
+  /** Ids of the indexers a Prowlarr app receives. */
+  indexerIds?: number[];
+  is4k?: boolean;
+}
+
+/** A folder a service reads or writes, with the space of its disk when known. */
+export interface StorageFolder {
+  path: string;
+  /** `media`: *arr root folder, `downloads`: download client folder, `library`: media server library. */
+  use: 'media' | 'downloads' | 'library';
+  kind?: 'movie' | 'show' | 'music' | 'book' | 'other';
+  /** Library or folder name, when the service gives one. */
+  name?: string;
+  freeBytes: number | null;
+  totalBytes: number | null;
+  /** Mount point the space figures belong to, when the service reports one. */
+  mount?: string;
+  accessible?: boolean;
+}
+
+/** Everything a service reports about its neighbours. */
+export interface ServiceTopology {
+  links: ServiceLink[];
+  folders: StorageFolder[];
+}
+
 export interface SettingsEntry {
   key: string;
   value: string | number | boolean | null;
@@ -420,6 +464,8 @@ export interface AdapterInstance {
   settings?(): Promise<SettingsSection[]>;
   /** Custom formats, quality profiles, sizes and naming (capability `trashSync`). */
   profileSync?: ProfileSyncApi;
+  /** Connections and folders for the stack map. Parts that fail are left out. */
+  topology?(): Promise<ServiceTopology>;
   /** Deep link into the service UI. */
   webUrl?(target?: { kind: 'indexer' | 'queue' | 'settings' | 'system'; id?: string | number }): string;
 }

@@ -17,6 +17,7 @@ const TAB_PATHS: Record<string, string> = {
   library: '/library',
   indexers: '/indexers',
   trash: '/trash',
+  map: '/map',
   settings: '/settings',
 };
 
@@ -30,6 +31,7 @@ const ICONS: Record<string, string> = {
   library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
+  map: 'M3 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M10 18a2 2 0 1 0 4 0a2 2 0 1 0-4 0M7 6h10M6 7.7l5 8.6M18 7.7l-5 8.6',
   more: 'M5 12h.01M12 12h.01M19 12h.01',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',
@@ -96,7 +98,7 @@ export function Layout() {
                 <li key={id} className="relative">
                   <Link
                     to={TAB_PATHS[id] ?? '/'}
-                    className={`relative z-10 block rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${activeTab(id) ? 'text-text' : 'text-muted hover:text-text'}`}
+                    className={`relative z-10 block rounded-lg px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition-colors xl:px-3 ${activeTab(id) ? 'text-text' : 'text-muted hover:text-text'}`}
                     aria-current={activeTab(id) ? 'page' : undefined}
                   >
                     {t(`ui.tabs.${id}`)}

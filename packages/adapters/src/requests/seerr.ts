@@ -12,9 +12,11 @@ import {
   type RequestServer,
   type RequestStatus,
   type Signal,
+  type ServiceLink,
 } from '@wardarr/core';
 import { z } from 'zod';
 import { ensureOk, jsonOf } from '../shared/http.js';
+import { addressOf, link, part } from '../shared/topology.js';
 
 interface StatusResponse {
   version?: string;
@@ -180,7 +182,39 @@ export const seerr = defineAdapter({
       );
     };
 
+    /** Radarr and Sonarr servers, and the media server, as Seerr has them configured. */
+    const topology = async () => {
+      const arrs = async (type: 'radarr' | 'sonarr') =>
+        (await part(() => get<Rec[]>(`/settings/${type}`), [])).map((s) =>
+          link(
+            'requests',
+            type,
+            str(s.name) ?? type,
+            addressOf({ host: s.hostname, port: s.port, ssl: s.useSsl, base: s.baseUrl }),
+            true,
+            { is4k: s.is4k === true },
+          ),
+        );
+      const main = await part(() => get<Rec>('/settings/main'), {} as Rec);
+      // 1 Plex, 2 Jellyfin, 3 Emby, 4 none. Overseerr has no field and only knows Plex.
+      const type = num(main.mediaServerType);
+      const media: ServiceLink[] = [];
+      if (type === null || type === 1) {
+        const plex = await part(() => get<Rec>('/settings/plex'), {} as Rec);
+        const url = addressOf({ host: plex.ip, port: plex.port, ssl: plex.useSsl });
+        if (url) media.push(link('mediaServer', 'plex', str(plex.name) ?? 'Plex', url, true));
+      } else if (type === 2 || type === 3) {
+        const jf = await part(() => get<Rec>('/settings/jellyfin'), {} as Rec);
+        const url = addressOf({ host: jf.ip, port: jf.port, ssl: jf.useSsl, base: jf.urlBase });
+        const product = type === 2 ? 'jellyfin' : 'emby';
+        if (url) media.push(link('mediaServer', product, str(jf.name) ?? product, url, true));
+      }
+      const [radarr, sonarr] = await Promise.all([arrs('radarr'), arrs('sonarr')]);
+      return { links: [...radarr, ...sonarr, ...media], folders: [] };
+    };
+
     return {
+      topology,
       async testConnection() {
         // /status is public in Seerr; /auth/me proves the API key works.
         const status = await get<StatusResponse>('/status');

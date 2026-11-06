@@ -2,6 +2,7 @@
 import { AdapterError, defineAdapter, type LibraryStats, type StreamSession } from '@wardarr/core';
 import { z } from 'zod';
 import { jsonOf } from '../shared/http.js';
+import { folder } from '../shared/topology.js';
 import { MAX_LIBRARY_PAGES, accumulate, emptyLibrary, normalizeCodec } from './library.js';
 
 interface PlexSession {
@@ -57,6 +58,7 @@ interface PlexSection {
   key?: string;
   title?: string;
   type?: string;
+  Location?: Array<{ path?: string }>;
 }
 
 interface PlexItem {
@@ -113,6 +115,24 @@ export const plex = defineAdapter({
       async sessions() {
         const res = await get<{ MediaContainer?: { Metadata?: PlexSession[] } }>('/status/sessions');
         return (res.MediaContainer?.Metadata ?? []).map(mapPlexSession);
+      },
+      async topology() {
+        const sections = (await get<Container>('/library/sections')).MediaContainer?.Directory ?? [];
+        return {
+          links: [],
+          folders: sections.flatMap((sec) =>
+            (sec.Location ?? [])
+              .filter((l) => typeof l.path === 'string' && l.path)
+              .map((l) =>
+                folder(
+                  l.path!,
+                  'library',
+                  {},
+                  { name: sec.title, kind: PLEX_TYPES[sec.type ?? '']?.kind ?? 'other' },
+                ),
+              ),
+          ),
+        };
       },
       async libraries() {
         const sections = (await get<Container>('/library/sections')).MediaContainer?.Directory ?? [];

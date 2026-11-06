@@ -319,6 +319,57 @@ function profileDrift(prefix, res) {
   if (item) item.score += 25;
   return json(res, { changed: Boolean(item) });
 }
+// --------------------------------------------------------------- stack map
+// What the services report about each other: download clients, folders and
+// disks. Host names are invented container names, so Wardarr has to match
+// them by name and product, as it would behind Docker.
+
+const DATA_TOTAL = 7_999_415_812_096;
+const DATA_FREE = 2_023_406_814_208;
+const GIB = 1024 ** 3;
+const client = (id, name, implementation, host, port, enable = true) => ({
+  id,
+  name,
+  implementation,
+  enable,
+  protocol: implementation === 'Sabnzbd' ? 'usenet' : 'torrent',
+  fields: [
+    { name: 'host', value: host },
+    { name: 'port', value: port },
+    { name: 'useSsl', value: false },
+    { name: 'urlBase', value: '' },
+  ],
+});
+const QBIT = client(1, 'qBittorrent', 'QBittorrent', 'qbittorrent', 8080);
+const SAB = client(2, 'SABnzbd', 'Sabnzbd', 'sabnzbd', 8080);
+const JELLYFIN_HOOK = {
+  id: 1,
+  name: 'Jellyfin',
+  implementation: 'MediaBrowser',
+  onDownload: true,
+  onUpgrade: true,
+  fields: [
+    { name: 'host', value: 'jellyfin' },
+    { name: 'port', value: 8096 },
+    { name: 'useSsl', value: false },
+  ],
+};
+const DISKS = [
+  { path: '/', label: 'overlay', freeSpace: 41 * GIB, totalSpace: 64 * GIB },
+  { path: '/data', label: 'data', freeSpace: DATA_FREE, totalSpace: DATA_TOTAL },
+];
+const STACK = {
+  sonarr: { clients: [QBIT, SAB], hooks: [JELLYFIN_HOOK], root: '/data/media/tv' },
+  'sonarr-4k': { clients: [QBIT], hooks: [], root: '/data/media/tv-4k' },
+  radarr: { clients: [QBIT, SAB], hooks: [JELLYFIN_HOOK], root: '/data/media/movies' },
+  'radarr-4k': { clients: [QBIT], hooks: [JELLYFIN_HOOK], root: '/data/media/movies-4k' },
+  // Lidarr also knows a Deluge client that is not connected to Wardarr.
+  lidarr: {
+    clients: [SAB, client(3, 'Deluge', 'Deluge', 'deluge', 8112)],
+    hooks: [],
+    root: '/data/media/music',
+  },
+};
 
 async function arr(prefix, path, url, req, res) {
   const svc = ARR[prefix];
@@ -348,6 +399,11 @@ async function arr(prefix, path, url, req, res) {
   if (p === '/wanted/missing') return json(res, paged(svc.wanted?.missing ?? []));
   if (p === '/wanted/cutoff') return json(res, paged(svc.wanted?.cutoff ?? []));
   if (p === '/history/since') return json(res, []);
+  if (p === '/downloadclient') return json(res, STACK[prefix]?.clients ?? []);
+  if (p === '/notification') return json(res, STACK[prefix]?.hooks ?? []);
+  if (p === '/diskspace') return json(res, DISKS);
+  if (p === '/rootfolder')
+    return json(res, [{ id: 1, path: STACK[prefix].root, accessible: true, freeSpace: DATA_FREE }]);
   if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: DEMO_KEY });
   if (p === '/manualimport') {
     if (url.searchParams.get('downloadId') !== 'DEMOIMPORT01') return json(res, []);
@@ -403,10 +459,19 @@ function prowlarr(path, req, res) {
     });
   if (path === '/api/v1/applications')
     return json(res, [
-      { id: 1, name: 'Sonarr', implementation: 'Sonarr', syncLevel: 'fullSync', tags: [], fields: [] },
-      { id: 2, name: 'Radarr', implementation: 'Radarr', syncLevel: 'fullSync', tags: [], fields: [] },
-      { id: 3, name: 'Radarr 4K', implementation: 'Radarr', syncLevel: 'fullSync', tags: [], fields: [] },
-      { id: 4, name: 'Lidarr', implementation: 'Lidarr', syncLevel: 'addOnly', tags: [], fields: [] },
+      ...[
+        ['Sonarr', 'Sonarr', 'fullSync', 'http://sonarr:8989'],
+        ['Radarr', 'Radarr', 'fullSync', 'http://radarr:7878'],
+        ['Radarr 4K', 'Radarr', 'fullSync', 'http://radarr-4k:7878'],
+        ['Lidarr', 'Lidarr', 'addOnly', 'http://lidarr:8686'],
+      ].map(([name, implementation, syncLevel, baseUrl], i) => ({
+        id: i + 1,
+        name,
+        implementation,
+        syncLevel,
+        tags: [],
+        fields: [{ name: 'baseUrl', value: baseUrl }],
+      })),
     ]);
   if (path === '/api/v1/indexerstatus')
     return json(res, [{ indexerId: 2, disabledTill: '2099-01-01T00:00:00Z', mostRecentFailure: ago(400) }]);
@@ -461,6 +526,9 @@ function qbittorrent(path, res) {
   if (path === '/api/v2/app/webapiVersion') return text(res, '2.11.4');
   if (path === '/api/v2/torrents/info') return json(res, TORRENTS);
   if (path === '/api/v2/torrents/delete') return text(res, '');
+  if (path === '/api/v2/app/defaultSavePath') return text(res, '/data/torrents');
+  if (path === '/api/v2/sync/maindata')
+    return json(res, { rid: 1, server_state: { free_space_on_disk: DATA_FREE } });
   return json(res, {}, 404);
 }
 
@@ -468,9 +536,17 @@ function sabnzbd(url, res) {
   const mode = url.searchParams.get('mode');
   if (mode === 'version') return json(res, { version: '4.5.3' });
   if (mode === 'warnings') return json(res, { warnings: [] });
+  if (mode === 'get_config')
+    return json(res, {
+      config: { misc: { complete_dir: '/data/usenet/complete', download_dir: '/data/usenet/incomplete' } },
+    });
   if (mode === 'queue')
     return json(res, {
       queue: {
+        diskspace1: (DATA_FREE / GIB).toFixed(2),
+        diskspacetotal1: (DATA_TOTAL / GIB).toFixed(2),
+        diskspace2: (DATA_FREE / GIB).toFixed(2),
+        diskspacetotal2: (DATA_TOTAL / GIB).toFixed(2),
         kbpersec: '41250',
         paused: false,
         slots: [
@@ -552,8 +628,13 @@ const SESSIONS = [
   },
 ];
 const LIBRARIES = [
-  { Name: 'Films', CollectionType: 'movies', ItemId: 'lib-films' },
-  { Name: 'Series', CollectionType: 'tvshows', ItemId: 'lib-series' },
+  {
+    Name: 'Films',
+    CollectionType: 'movies',
+    ItemId: 'lib-films',
+    Locations: ['/media/movies', '/media/movies-4k'],
+  },
+  { Name: 'Series', CollectionType: 'tvshows', ItemId: 'lib-series', Locations: ['/media/tv'] },
 ];
 const media = (size, height, codec) => ({
   MediaSources: [{ Size: size, MediaStreams: [{ Type: 'Video', Height: height, Codec: codec }] }],
@@ -732,6 +813,28 @@ async function seerr(path, url, req, res) {
   if (req.method !== 'GET') await readBody(req);
   if (p === '/status') return json(res, { version: '2.7.3', updateAvailable: false });
   if (p === '/auth/me') return json(res, { id: 1 });
+  const arrServer = (id, name, hostname, port, is4k) => ({
+    id,
+    name,
+    hostname,
+    port,
+    useSsl: false,
+    is4k,
+    isDefault: true,
+  });
+  if (p === '/settings/radarr')
+    return json(res, [
+      arrServer(0, 'Radarr', 'radarr', 7878, false),
+      arrServer(1, 'Radarr 4K', 'radarr-4k', 7878, true),
+    ]);
+  if (p === '/settings/sonarr')
+    return json(res, [
+      arrServer(0, 'Sonarr', 'sonarr', 8989, false),
+      arrServer(1, 'Sonarr 4K', 'sonarr-4k', 8989, true),
+    ]);
+  if (p === '/settings/main') return json(res, { mediaServerType: 2 });
+  if (p === '/settings/jellyfin')
+    return json(res, { name: 'Jellyfin', ip: 'jellyfin', port: 8096, useSsl: false });
   if (p === '/discover/trending') return json(res, seerrPage(TITLES));
   if (p === '/discover/movies') return json(res, seerrPage(TITLES.filter((t) => t.mediaType === 'movie')));
   if (p === '/discover/tv') return json(res, seerrPage(TITLES.filter((t) => t.mediaType === 'tv')));

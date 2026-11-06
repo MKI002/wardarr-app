@@ -4,6 +4,7 @@ import { AdapterError, defineAdapter, type DownloadJob } from '@wardarr/core';
 import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
 import { ensureOk } from '../shared/http.js';
+import { folder, part } from '../shared/topology.js';
 
 interface Torrent {
   hash: string;
@@ -140,6 +141,21 @@ export const qbittorrent = defineAdapter({
           hashes: jobId.toLowerCase(),
           deleteFiles: String(opts.deleteFiles),
         });
+      },
+      async topology() {
+        const dir = (await part(() => get('/api/v2/app/defaultSavePath'), '')).trim();
+        if (!dir) return { links: [], folders: [] };
+        const main = await part(
+          async () =>
+            JSON.parse(await get('/api/v2/sync/maindata', { rid: '0' })) as {
+              server_state?: { free_space_on_disk?: number };
+            },
+          {},
+        );
+        return {
+          links: [],
+          folders: [folder(dir, 'downloads', { free: main.server_state?.free_space_on_disk })],
+        };
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

@@ -93,7 +93,12 @@ Each capability promises a method. The contract test checks that it exists.
 | `settings`                    | `settings()`                             | Read-only settings view          |
 
 The full types live in `packages/core/src/adapter/types.ts`. Optional extras
-such as `webUrl()` add deep links into the service.
+such as `webUrl()` add deep links into the service, and `topology()` puts the
+service on the [stack map](stack-map.md): the other services it is set up to
+use (`links`, with the address but never credentials) and the folders it reads
+or writes (`folders`, with disk space when the service reports it). Read each
+part with `part()` from `shared/topology.ts`, so one missing endpoint only
+drops that part.
 
 ## Rules
 

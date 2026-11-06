@@ -38,7 +38,8 @@
     "requests": "Anfragen",
     "library": "Bibliothek",
     "indexers": "Indexer",
-    "trash": "TRaSH Guides"
+    "trash": "TRaSH Guides",
+    "map": "Karte"
   },
   "errors": {
     "serverUnreachable": "Der Wardarr-Server antwortet nicht.",
@@ -712,6 +713,113 @@
       "starttls": "STARTTLS (Port 587)",
       "tls": "TLS (Port 465)",
       "none": "Keine, nur im eigenen Netz"
+    }
+  },
+  "map": {
+    "title": "Stack-Map",
+    "intro": "So hängen deine Dienste zusammen, gezeichnet aus dem, was sie voneinander melden.",
+    "reload": "Neu einlesen",
+    "readAt": "Verbindungen gelesen {{when}}",
+    "views": "Ansichten",
+    "viewMap": "Karte",
+    "viewList": "Liste",
+    "canvasLabel": "Karte der verbundenen Dienste. Wähle einen Dienst für Details.",
+    "listCaption": "Verbindungen zwischen den Diensten",
+    "list": {
+      "from": "Von",
+      "to": "Nach",
+      "what": "Verbindung",
+      "status": "Status"
+    },
+    "empty": "Noch nichts zu zeichnen",
+    "emptyBody": "Verbinde deinen ersten Dienst, dann zeichnet Wardarr, wie dein Stack zusammenpasst.",
+    "lonely": "Füge weitere Dienste hinzu, dann zeichnet Wardarr, wie sie verbunden sind.",
+    "addService": "Dienst hinzufügen",
+    "unread": "Wardarr konnte die Verbindungen von {{list}} nicht lesen. Auf der Karte fehlen vielleicht ein paar Linien.",
+    "ghost": "Nicht in Wardarr",
+    "ghostBody": "Ein anderer Dienst ist so eingerichtet, dass er diesen nutzt, aber er ist noch nicht mit Wardarr verbunden. Füge ihn hinzu, um hier seinen Status zu sehen.",
+    "address": "Adresse",
+    "checked": "geprüft {{when}}",
+    "connections": "Verbindungen",
+    "noLinks": "Dieser Dienst meldet keine Verbindungen zu anderen.",
+    "open": "{{name}} öffnen",
+    "status": {
+      "ok": "Online",
+      "warning": "Braucht Aufmerksamkeit",
+      "critical": "Nicht erreichbar",
+      "unknown": "Unbekannt",
+      "off": "Aus"
+    },
+    "legend": {
+      "reported": "Gemeldet",
+      "inferred": "Erschlossen",
+      "off": "Aus oder nicht verbunden",
+      "active": "Lädt herunter"
+    },
+    "kind": {
+      "indexers": "Indexer",
+      "downloads": "Download-Client",
+      "requests": "Anfragen",
+      "subtitles": "Untertitel",
+      "mediaServer": "Medienserver",
+      "libraryUpdate": "Bibliothek aktualisieren nach Importen",
+      "storage": {
+        "media": "Medienordner",
+        "downloads": "Download-Ordner",
+        "library": "Bibliotheksordner"
+      }
+    },
+    "edge": {
+      "failing_one": "{{count}} fällt aus",
+      "failing_other": "{{count}} fallen aus",
+      "disabled": "ausgeschaltet",
+      "inferred": "erschlossen",
+      "as": "eingerichtet als {{name}}"
+    },
+    "match": {
+      "address": "Erkannt an der Adresse",
+      "name": "Erkannt am Namen",
+      "product": "Die einzige verbundene Instanz dieses Produkts",
+      "path": "Zugeordnet über den Ordnerpfad",
+      "space": "Selbe Platte: Größe und freier Platz stimmen überein",
+      "kind": "Zugeordnet über die Medienart, kein gemeinsamer Pfad"
+    },
+    "live": {
+      "streams_one": "{{count}} Stream",
+      "streams_other": "{{count}} Streams",
+      "downloading_one": "{{count}} lädt",
+      "downloading_other": "{{count}} laden",
+      "indexers_one": "{{count}} Indexer",
+      "indexers_other": "{{count}} Indexer",
+      "indexersFailing_one": "{{count}} Indexer, {{failing}} fällt aus",
+      "indexersFailing_other": "{{count}} Indexer, {{failing}} fallen aus",
+      "queue_one": "{{count}} in der Warteschlange",
+      "queue_other": "{{count}} in der Warteschlange"
+    },
+    "stat": {
+      "queue": "Warteschlange",
+      "downloading": "Lädt",
+      "speed": "Tempo",
+      "streams": "Streams",
+      "transcodes": "Transkodierungen",
+      "indexers": "Indexer",
+      "failing": "Fallen aus",
+      "issues": "Probleme"
+    },
+    "storage": {
+      "name": "Speicher",
+      "title": "Speicher, wie ihn deine Dienste sehen",
+      "free": "{{free}} frei",
+      "freeOf": "{{free}} von {{total}} frei",
+      "used": "Belegter Platz",
+      "noSpace": "Platz unbekannt",
+      "noSpaceBody": "Keiner dieser Dienste meldet den freien Platz dieser Platte.",
+      "inaccessible": "Der Dienst erreicht diesen Ordner nicht",
+      "use": {
+        "media": "Medien",
+        "downloads": "Downloads",
+        "library": "Bibliothek"
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import {
   AdapterError,
   defineAdapter,
+  type AdapterInstance,
   type IndexerApp,
   type IndexerInfo,
   type IndexerStats,
@@ -9,6 +10,7 @@ import {
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
 import { compatSignal, detectApi, detectionCache, type VersionProfile } from '../shared/apiVersion.js';
 import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
+import { link, stripCredentials } from '../shared/topology.js';
 
 /** Prowlarr v1 and v2 speak API v1. */
 export const PROWLARR_PROFILE: VersionProfile = { apis: ['v1'], testedMajors: { min: 1, max: 2 } };
@@ -68,7 +70,7 @@ export const prowlarr = defineAdapter({
       }
     };
 
-    return {
+    const instance: AdapterInstance = {
       async testConnection() {
         let d = await detection.get();
         const status = await get<{ version?: string }>('/system/status');
@@ -177,11 +179,30 @@ export const prowlarr = defineAdapter({
       async settings() {
         return [{ id: 'host', entries: toEntries(await get<Record<string, unknown>>('/config/host')) }];
       },
+      async topology() {
+        const apps = await instance.indexerApps!();
+        return {
+          links: apps.map((a) =>
+            link(
+              'indexers',
+              a.implementation,
+              a.name,
+              a.baseUrl ? stripCredentials(a.baseUrl) : null,
+              a.enabled,
+              {
+                indexerIds: a.indexerIds,
+              },
+            ),
+          ),
+          folders: [],
+        };
+      },
       webUrl(target) {
         if (target?.kind === 'system') return `${ctx.baseUrl}/system/status`;
         if (target?.kind === 'settings') return `${ctx.baseUrl}/settings`;
         return `${ctx.baseUrl}/`;
       },
     };
+    return instance;
   },
 });
