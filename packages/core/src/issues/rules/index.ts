@@ -6,7 +6,7 @@ import { downloadClientUnavailable } from './downloadClients.js';
 import { allIndexersUnavailable, indexerSearchUnavailable, indexerUnavailable } from './indexers.js';
 import { attemptsExhausted, cleanerPaused, importReady, orphanedDownloads } from './cleaner.js';
 import { downloadsFailed } from './queue.js';
-import { remotePathMapping, rootFolderMissing } from './storage.js';
+import { diskFillingUp, remotePathMapping, rootFolderMissing } from './storage.js';
 import {
   trashGuideDrift,
   trashGuideFetchFailed,
@@ -28,6 +28,7 @@ export const RULE_CATALOG: readonly IssueRule[] = [
   downloadClientUnavailable,
   rootFolderMissing,
   remotePathMapping,
+  diskFillingUp,
   updateAvailable,
   cleanerPaused,
   importReady,

@@ -78,6 +78,7 @@ export async function createTestApp(
     ...built,
     backups,
     dataDir,
+    db,
     close: async () => {
       await built.app.close();
       close();

@@ -12,7 +12,8 @@ export interface InstanceRef {
   adapter: string;
 }
 
-export type SignalKind = 'health' | 'connection' | 'queueItem' | 'cache' | 'update' | 'cleaner' | 'trash';
+export type SignalKind =
+  'health' | 'connection' | 'queueItem' | 'cache' | 'update' | 'cleaner' | 'trash' | 'storage';
 
 /** A single observation, for example one health message of one instance. */
 export interface Signal {

@@ -1,4 +1,4 @@
-import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, resources, type Language } from '@wardarr/i18n';
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, formatBytes, resources, type Language } from '@wardarr/i18n';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import type { Msg } from '@wardarr/core';
@@ -22,6 +22,8 @@ void i18next.use(initReactI18next).init({
   resources,
   interpolation: { escapeValue: false },
 });
+// `{{free, bytes}}` in translations, for example in disk issues.
+i18next.services.formatter?.add('bytes', (value: number, lng?: string) => formatBytes(value, lng));
 
 /** Languages that have translations in this build. */
 export const AVAILABLE_LANGUAGES = Object.keys(resources);

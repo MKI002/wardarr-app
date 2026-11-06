@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { CAPABILITIES } from '@wardarr/core';
-import { AdapterError, type AdapterDefinition, type AdapterInstance } from '@wardarr/core';
+import { AdapterError, groupDisks, type AdapterDefinition, type AdapterInstance } from '@wardarr/core';
 import { resources } from '@wardarr/i18n';
 import { describe, expect, it } from 'vitest';
 import { ADAPTERS } from '../src/index.js';
@@ -37,6 +37,8 @@ interface Fixture {
     search?: { target: Record<string, unknown>; body: Record<string, unknown> };
     /** Calendar entries between two times, matched field by field. */
     calendar?: { start: string; end: string; entries: Array<Record<string, unknown>> };
+    /** Mount paths Wardarr keeps after grouping, and the root folders on them. */
+    storage?: { mounts: string[]; rootFolders: string[] };
   };
 }
 
@@ -88,6 +90,7 @@ const METHOD_FOR: Partial<Record<(typeof CAPABILITIES)[number], keyof AdapterIns
   discover: 'discover',
   requests: 'requests',
   calendar: 'calendar',
+  storage: 'storage',
 };
 
 describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDef) => {
@@ -284,6 +287,18 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
       for (const v of Object.values(fx.credentials))
         if (typeof v === 'string' && v) expect(dump).not.toContain(v);
       expect(sections.flatMap((s) => s.entries).some((e) => e.secret)).toBe(true);
+    });
+  }
+
+  if (def.capabilities.includes('storage')) {
+    it('reports mounts and root folders, without system mounts', async () => {
+      const { adapter } = instantiate(def, fx);
+      const report = await adapter.storage!();
+      expect(report.rootFolders.map((r) => r.path)).toEqual(fx.expect.storage?.rootFolders);
+      const disks = groupDisks([{ instance: { id: 'inst-1', name: 'x', adapter: def.id }, report }]);
+      const paths = disks.flatMap((d) => d.members.map((m) => m.path)).sort();
+      expect(paths).toEqual(fx.expect.storage?.mounts);
+      expect(disks.find((d) => d.media)?.members[0]?.rootFolders).toEqual(fx.expect.storage?.rootFolders);
     });
   }
 

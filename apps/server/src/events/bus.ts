@@ -13,7 +13,8 @@ export interface WardarrEvent {
     | 'library.updated'
     | 'requests.updated'
     | 'trash.updated'
-    | 'backups.updated';
+    | 'backups.updated'
+    | 'storage.updated';
   audience: Audience;
   data?: unknown;
 }

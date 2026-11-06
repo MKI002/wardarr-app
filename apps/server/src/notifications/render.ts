@@ -1,7 +1,7 @@
 // Renders translatable messages on the server, for notifications. Uses the
 // same translation files as the web UI.
 import type { Msg } from '@wardarr/core';
-import { resources, type Language } from '@wardarr/i18n';
+import { formatBytes, resources, type Language } from '@wardarr/i18n';
 
 type Tree = { [key: string]: string | Tree };
 
@@ -33,9 +33,13 @@ export function t(lang: Language, key: string, params: Record<string, string | n
     if (text) break;
   }
   if (!text) return key;
-  return text.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, name: string) =>
-    params[name] === undefined ? '' : String(params[name]),
-  );
+  // `{{name}}` or `{{name, bytes}}`, the one format the translations use.
+  return text.replace(/\{\{\s*(\w+)\s*(?:,\s*(\w+)\s*)?\}\}/g, (_, name: string, format?: string) => {
+    const value = params[name];
+    if (value === undefined) return '';
+    if (format === 'bytes' && typeof value === 'number') return formatBytes(value, lang);
+    return String(value);
+  });
 }
 
 export function renderMsg(lang: Language, msg: Msg): string {

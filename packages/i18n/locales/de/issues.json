@@ -20,7 +20,8 @@
     "reviewOrphans": "Downloads prüfen",
     "openTrash": "TRaSH Guides öffnen",
     "previewSync": "Vorschau ansehen",
-    "openTrashHistory": "Verlauf öffnen"
+    "openTrashHistory": "Verlauf öffnen",
+    "openStorage": "Speicher öffnen"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} ist nicht erreichbar",
@@ -63,6 +64,18 @@
     "step1": "Vergleiche den Download-Ordner des Clients mit dem Pfad, den die App in ihrem Container sieht.",
     "step2": "Binde denselben Ordner in beiden Containern unter demselben Pfad ein, oder lege eine Remote-Path-Zuordnung an.",
     "step3": "Prüfe dieses Problem erneut."
+  },
+  "diskFilling": {
+    "titleForecast": "Platte {{disk}} läuft voll",
+    "titleLow": "Platte {{disk}} ist fast voll",
+    "affectedForecast_one": "Voll in etwa 1 Tag · {{free, bytes}} frei",
+    "affectedForecast_other": "Voll in etwa {{count}} Tagen · {{free, bytes}} frei",
+    "affectedLow": "Nur noch {{free, bytes}} frei ({{percent}} %)",
+    "explanation": "Ist {{disk}} voll, bleiben Downloads stehen und {{apps}} können nichts mehr importieren oder verbessern.",
+    "fix": "Platz schaffen oder Speicher erweitern, bevor die Platte voll ist",
+    "step1": "Öffne die Platte in der Speicher-Ansicht von Wardarr: Dort siehst du, wie schnell sie voll läuft und welche Apps sie nutzen.",
+    "step2": "Entferne, was niemand mehr schaut, räume fertige Downloads auf oder verschiebe einen Stammordner auf eine andere Platte.",
+    "step3": "Wächst die Platte weiter in diesem Tempo, erweitere den Speicher und prüfe das Problem dann erneut."
   },
   "update": {
     "title": "Update verfügbar für {{instances}}",

@@ -55,3 +55,26 @@ export const resources = {
     },
   },
 } as const;
+
+const BYTE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+
+/**
+ * Formats a byte count for people, in binary steps with the language's
+ * decimal separator: 1.2 TB, 1,2 TB. Used through `{{value, bytes}}` in
+ * translations, on the web and in notifications.
+ */
+export function formatBytes(bytes: number, lang: string = DEFAULT_LANGUAGE): string {
+  if (!Number.isFinite(bytes)) return '–';
+  let v = Math.abs(bytes);
+  let i = 0;
+  while (v >= 1024 && i < BYTE_UNITS.length - 1) {
+    v /= 1024;
+    i++;
+  }
+  const digits = v >= 100 || i === 0 ? 0 : 1;
+  const text = new Intl.NumberFormat(lang, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: digits,
+  }).format(v);
+  return `${bytes < 0 ? '−' : ''}${text} ${BYTE_UNITS[i]}`;
+}
