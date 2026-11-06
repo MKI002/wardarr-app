@@ -44,6 +44,8 @@ export async function createTestApp(
     cookieSecure?: boolean | 'auto';
     adapters?: unknown[];
     imageFetch?: AppOptions['imageFetch'];
+    notificationOptions?: AppOptions['notificationOptions'];
+    publicUrl?: string;
   } = {},
 ) {
   const { db, close } = openDatabase(':memory:');
@@ -55,6 +57,8 @@ export async function createTestApp(
     logLevel: 'silent',
     cookieSecure: extra.cookieSecure,
     imageFetch: extra.imageFetch,
+    notificationOptions: extra.notificationOptions,
+    publicUrl: extra.publicUrl,
   });
   await built.app.ready();
   return {

@@ -21,6 +21,7 @@ const { app, runtime, sessions, history } = await buildApp({
   logLevel: config.logLevel,
   webDir,
   httpTimeoutMs: config.httpTimeoutMs,
+  publicUrl: config.publicUrl,
 });
 
 const scheduler = new Scheduler(app.log);

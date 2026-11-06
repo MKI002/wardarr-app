@@ -1,3 +1,4 @@
+import { NotificationsSection } from '../components/NotificationsSection';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams, useSearch } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'motion/react';
@@ -29,7 +30,7 @@ import { STATUS_TONE, groupByProduct } from '../lib/instances';
 import { useSession } from '../lib/session';
 import { useOverview } from './Overview';
 
-type Section = 'instances' | 'users' | 'appearance';
+type Section = 'instances' | 'users' | 'notifications' | 'appearance';
 
 // ---------------------------------------------------------------- instances
 
@@ -464,7 +465,9 @@ export function SettingsPage() {
   const search = useSearch({ strict: false }) as { section?: Section };
   const params = useParams({ strict: false }) as { id?: string };
   const isAdmin = me.role === 'admin';
-  const sections: Section[] = isAdmin ? ['instances', 'users', 'appearance'] : ['appearance'];
+  const sections: Section[] = isAdmin
+    ? ['instances', 'users', 'notifications', 'appearance']
+    : ['appearance'];
   const active: Section = params.id
     ? 'instances'
     : search.section && sections.includes(search.section)
@@ -473,11 +476,13 @@ export function SettingsPage() {
   const labels: Record<Section, string> = {
     instances: t('ui.settings.instances'),
     users: t('ui.settings.users'),
+    notifications: t('ui.settings.notifications'),
     appearance: t('ui.settings.appearance'),
   };
   const content: Record<Section, ReactNode> = {
     instances: <InstancesSection editId={params.id} />,
     users: <UsersSection />,
+    notifications: <NotificationsSection />,
     appearance: <AppearanceSection />,
   };
 

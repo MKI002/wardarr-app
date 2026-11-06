@@ -250,7 +250,8 @@
     "disabled": "Disabled",
     "you": "you",
     "deleteUserConfirm": "Delete the account {{name}}?",
-    "displayName": "Display name"
+    "displayName": "Display name",
+    "notifications": "Notifications"
   },
   "languages": {
     "en": "English",
@@ -595,5 +596,72 @@
     "open": "Open in Prowlarr",
     "stranded_one": "{{list}} has no working indexer left while this one fails.",
     "stranded_other": "{{list}} have no working indexer left while this one fails."
+  },
+  "notifications": {
+    "intro": "Wardarr tells you about new problems, when they are fixed and when a request waits for approval. A problem that fixes itself within a minute stays quiet.",
+    "add": "Add notification",
+    "empty": "No notifications yet",
+    "emptyBody": "Add a channel such as ntfy, Discord or Telegram, and Wardarr reaches you when something needs you.",
+    "pickKind": "Where should notifications go?",
+    "kind": {
+      "webhook": "Webhook",
+      "discord": "Discord",
+      "ntfy": "ntfy",
+      "gotify": "Gotify",
+      "telegram": "Telegram"
+    },
+    "kindHint": {
+      "webhook": "JSON to any address, optionally signed.",
+      "discord": "A message in a Discord channel.",
+      "ntfy": "Push to your phone through ntfy.sh or your own server.",
+      "gotify": "Push through your own Gotify server.",
+      "telegram": "A message from your Telegram bot."
+    },
+    "field": {
+      "url": "Address",
+      "server": "Server address",
+      "topic": "Topic",
+      "chatId": "Chat ID",
+      "webhookUrl": "Webhook address",
+      "token": "Access token",
+      "appToken": "Application token",
+      "botToken": "Bot token",
+      "signingSecret": "Signing secret"
+    },
+    "fieldHelp": {
+      "topic": "Pick a long, hard to guess topic on public servers.",
+      "server": "Leave as is for ntfy.sh.",
+      "signingSecret": "Wardarr signs each message with HMAC-SHA256 in the x-wardarr-signature header.",
+      "webhookUrl": "Discord: channel settings → Integrations → Webhooks.",
+      "chatId": "The chat, group or channel the bot writes to."
+    },
+    "name": "Name",
+    "when": "Send when",
+    "newIssues": "New issues",
+    "threshold": {
+      "critical": "Critical issues",
+      "warning": "Warnings and critical issues",
+      "info": "All issues",
+      "off": "No issues"
+    },
+    "resolved": "Issues resolved",
+    "resolvedHelp": "Only for issues this channel announced.",
+    "requests": "Requests waiting for approval",
+    "requestsHelp": "Requests made in Wardarr that need an admin.",
+    "language": "Language of the messages",
+    "enabled": "Send notifications",
+    "off": "Off",
+    "failing": "Failing",
+    "nothing": "Nothing selected",
+    "lastSent": "Last sent {{when}}",
+    "neverSent": "Nothing sent yet",
+    "test": "Send test",
+    "testOk": "Test sent. Check that it arrived.",
+    "testFailed": "Sending failed: {{reason}}",
+    "lastError": "The last notification failed: {{reason}}",
+    "lastErrorNext": "Check the address and token, then send a test.",
+    "editTitle": "Edit {{name}}",
+    "deleteTitle": "Delete {{name}}?",
+    "deleteBody": "Wardarr stops sending notifications there. The service itself is not changed."
   }
 }

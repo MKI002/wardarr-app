@@ -6,6 +6,7 @@ import enAdapters from '../locales/en/adapters.json' with { type: 'json' };
 import enUi from '../locales/en/ui.json' with { type: 'json' };
 import enCleaner from '../locales/en/cleaner.json' with { type: 'json' };
 import enHunting from '../locales/en/hunting.json' with { type: 'json' };
+import enNotifications from '../locales/en/notifications.json' with { type: 'json' };
 
 export const SUPPORTED_LANGUAGES = ['en', 'de'] as const;
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -20,6 +21,7 @@ export const resources = {
       ui: enUi,
       cleaner: enCleaner,
       hunting: enHunting,
+      notifications: enNotifications,
     },
   },
 } as const;

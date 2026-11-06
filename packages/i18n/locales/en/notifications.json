@@ -1,0 +1,16 @@
+{
+  "test": {
+    "title": "Wardarr test notification",
+    "body": "If you can read this, notifications from Wardarr arrive here."
+  },
+  "resolved": {
+    "title": "Resolved: {{title}}",
+    "body": "Wardarr checked again and the problem is gone."
+  },
+  "request": {
+    "title": "New request: {{title}}",
+    "body": "{{user}} requested it. It is waiting for approval.",
+    "body4k": "{{user}} requested it in 4K. It is waiting for approval.",
+    "unknownTitle": "a title"
+  }
+}
