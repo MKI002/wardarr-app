@@ -10,6 +10,7 @@ export * from './cleaner/index.js';
 export * from './hunting/index.js';
 export * from './trash/index.js';
 export * from './topology/derive.js';
+export * from './indexers/index.js';
 export * from './backups/retention.js';
 export * from './storage/disks.js';
 export * from './storage/forecast.js';

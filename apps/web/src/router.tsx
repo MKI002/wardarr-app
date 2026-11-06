@@ -9,6 +9,7 @@ import { HuntingPage } from './pages/Hunting';
 import { SettingsPage } from './pages/Settings';
 import { DiscoverPage } from './pages/Discover';
 import { IndexersPage } from './pages/Indexers';
+import { IndexerInsightsPage } from './pages/IndexerInsights';
 import { LibraryPage } from './pages/Library';
 import { RequestsPage } from './pages/Requests';
 import { StoragePage } from './pages/Storage';
@@ -94,6 +95,15 @@ const indexersRoute = createRoute({
   path: '/indexers',
   component: IndexersPage,
 });
+const INSIGHT_RANGES = new Set(['24h', '7d', '30d', '90d']);
+const indexerInsightsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/indexer-insights',
+  validateSearch: (s: Record<string, unknown>): { range?: '24h' | '7d' | '30d' | '90d' } => ({
+    range: INSIGHT_RANGES.has(String(s.range)) ? (s.range as '24h' | '7d' | '30d' | '90d') : undefined,
+  }),
+  component: IndexerInsightsPage,
+});
 const TRASH_TABS = new Set(['instances', 'templates', 'history', 'test', 'settings']);
 const trashRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -165,6 +175,7 @@ const routeTree = rootRoute.addChildren([
   libraryRoute,
   calendarRoute,
   indexersRoute,
+  indexerInsightsRoute,
   trashRoute,
   tdarrRoute,
   mapRoute,

@@ -113,12 +113,20 @@ const calendarQuery = (start: string, end: string, include: string) => ({
   [include]: true,
 });
 
-const historyBase = (r: Rec, mediaField: string): HistoryEvent => ({
-  at: str(r.date) ?? new Date(0).toISOString(),
-  type: historyType(r.eventType),
-  mediaId: num(r[mediaField]) ?? null,
-  downloadId: str(r.downloadId) ?? null,
-});
+const historyBase = (r: Rec, mediaField: string): HistoryEvent => {
+  const type = historyType(r.eventType);
+  const data = obj(r.data);
+  const indexer = type === 'grabbed' ? str(data.indexer)?.trim() : undefined;
+  const size = Number(str(data.size) ?? num(data.size));
+  return {
+    at: str(r.date) ?? new Date(0).toISOString(),
+    type,
+    mediaId: num(r[mediaField]) ?? null,
+    downloadId: str(r.downloadId) ?? null,
+    ...(indexer ? { indexer } : {}),
+    ...(type === 'grabbed' && Number.isFinite(size) && size > 0 ? { sizeBytes: size } : {}),
+  };
+};
 
 const series: FamilyImpl = {
   queueIncludes: { includeSeries: true, includeEpisode: true },

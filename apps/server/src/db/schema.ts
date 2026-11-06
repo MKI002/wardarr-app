@@ -1,6 +1,6 @@
 // Database schema. Migrations in ../../drizzle are generated from this file.
 import { sql } from 'drizzle-orm';
-import { index, integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { index, integer, primaryKey, real, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 const now = sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`;
 
@@ -315,6 +315,105 @@ export const trashHistory = sqliteTable(
   (t) => [index('trash_history_instance_at').on(t.instanceId, t.at)],
 );
 
+// ------------------------------------------------------- indexer insights
+
+/** Prowlarr query and grab counts per indexer and time window (hour or day). */
+export const indexerStatBuckets = sqliteTable(
+  'indexer_stat_buckets',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    indexerId: integer('indexer_id').notNull(),
+    indexerName: text('indexer_name').notNull(),
+    bucketStart: text('bucket_start').notNull(),
+    bucketMinutes: integer('bucket_minutes').notNull(),
+    queries: integer('queries').notNull().default(0),
+    grabs: integer('grabs').notNull().default(0),
+    failedQueries: integer('failed_queries').notNull().default(0),
+    failedGrabs: integer('failed_grabs').notNull().default(0),
+    rssQueries: integer('rss_queries').notNull().default(0),
+    authQueries: integer('auth_queries').notNull().default(0),
+    avgResponseMs: real('avg_response_ms'),
+    avgGrabResponseMs: real('avg_grab_response_ms'),
+  },
+  (t) => [
+    primaryKey({ columns: [t.instanceId, t.indexerId, t.bucketStart] }),
+    index('indexer_stat_buckets_start').on(t.bucketStart),
+  ],
+);
+
+/** Prowlarr calls per calling app (user agent) and time window. */
+export const indexerAgentBuckets = sqliteTable(
+  'indexer_agent_buckets',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    agent: text('agent').notNull(),
+    bucketStart: text('bucket_start').notNull(),
+    bucketMinutes: integer('bucket_minutes').notNull(),
+    queries: integer('queries').notNull().default(0),
+    grabs: integer('grabs').notNull().default(0),
+  },
+  (t) => [primaryKey({ columns: [t.instanceId, t.agent, t.bucketStart] })],
+);
+
+/** Indexer state changes seen while polling Prowlarr; outages are derived from these. */
+export const indexerStatusLog = sqliteTable(
+  'indexer_status_log',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    indexerId: integer('indexer_id').notNull(),
+    indexerName: text('indexer_name').notNull(),
+    at: text('at').notNull(),
+    failing: integer('failing', { mode: 'boolean' }).notNull(),
+  },
+  (t) => [index('indexer_status_log_lookup').on(t.instanceId, t.indexerId, t.at)],
+);
+
+/** Grabs from *arr history and what became of them. */
+export const indexerGrabs = sqliteTable(
+  'indexer_grabs',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    downloadId: text('download_id').notNull(),
+    /** Indexer name as the app knows it, for example `Lantern (Prowlarr)`. */
+    indexer: text('indexer').notNull(),
+    grabbedAt: text('grabbed_at').notNull(),
+    importedAt: text('imported_at'),
+    failedAt: text('failed_at'),
+    sizeBytes: integer('size_bytes'),
+  },
+  (t) => [
+    primaryKey({ columns: [t.instanceId, t.downloadId] }),
+    index('indexer_grabs_grabbed').on(t.grabbedAt),
+  ],
+);
+
+/** Daily record of where each app's indexers come from. */
+export const indexerSourceDaily = sqliteTable(
+  'indexer_source_daily',
+  {
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    day: text('day').notNull(),
+    mode: text('mode').notNull(),
+    total: integer('total').notNull(),
+    synced: integer('synced').notNull(),
+    direct: integer('direct').notNull(),
+    duplicate: integer('duplicate').notNull(),
+    missing: integer('missing').notNull(),
+    orphan: integer('orphan').notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.instanceId, t.day] })],
+);
 /**
  * Calendar feed links (iCal). The link carries a random token; the database
  * holds only its SHA-256. One link per user; a new link replaces the old one.

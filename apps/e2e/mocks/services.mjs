@@ -208,6 +208,30 @@ const SERVICES = {
 
 const EXAMPLE_INDEXER = { id: 7, name: 'ExampleIndexer', enable: true, protocol: 'torrent', priority: 25 };
 
+const arrIndexer = (id, name, baseUrl) => ({
+  id,
+  name,
+  implementation: 'Torznab',
+  protocol: 'torrent',
+  priority: 25,
+  enableRss: true,
+  enableAutomaticSearch: true,
+  enableInteractiveSearch: true,
+  tags: [],
+  fields: [
+    { name: 'baseUrl', value: baseUrl },
+    { name: 'apiKey', value: API_KEY },
+  ],
+});
+
+/** Indexers set up in an app: synced from Prowlarr, plus one added by hand in Radarr 4K. */
+function arrIndexerList(prefix) {
+  const synced = arrIndexer(1, 'ExampleIndexer (Prowlarr)', 'http://prowlarr.example.test:9696/7/');
+  if (prefix === 'radarr-4k')
+    return [synced, arrIndexer(2, 'Example Extra', 'https://extra.example.test/api')];
+  return [synced];
+}
+
 function prowlarr(path, res, method) {
   if (path === '/api/v1/indexer/7') return json(res, EXAMPLE_INDEXER);
   if (path === '/api/v1/indexer/test' && method === 'POST')
@@ -363,6 +387,7 @@ http
       return json(res, { page: 1, pageSize: 250, totalRecords: records.length, records });
     }
     if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: API_KEY });
+    if (p === '/indexer') return json(res, arrIndexerList(prefix));
     if (profiles[prefix] && PROFILE_PATH.test(p)) {
       const body = req.method === 'POST' || req.method === 'PUT' ? await readBody(req) : null;
       if (req.method !== 'GET') calls.push({ service: prefix, method: req.method, path: p, body });

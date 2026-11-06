@@ -410,6 +410,10 @@ describe('Prowlarr statistics and apps', () => {
         failedQueries: 4,
         failedGrabs: 1,
         averageResponseMs: 350,
+        // Missing in the answer: counted as none.
+        rssQueries: 0,
+        authQueries: 0,
+        averageGrabResponseMs: null,
       },
     ]);
   });

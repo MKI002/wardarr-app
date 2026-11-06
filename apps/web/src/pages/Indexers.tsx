@@ -1,6 +1,7 @@
 // Indexers: Prowlarr status, statistics, tests, and which apps lose search
 // coverage when an indexer fails.
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { ActionMenu } from '../components/ActionMenu';
@@ -80,9 +81,17 @@ export function IndexersPage() {
         title={t('ui.indexers.title')}
         intro={t('ui.indexers.intro')}
         actions={
-          <Button busy={reload.isPending} onClick={() => reload.mutate()}>
-            {t('ui.indexers.reload')}
-          </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              to="/indexer-insights"
+              className="rounded-lg px-3 py-1.5 text-sm font-medium text-accent hover:bg-surface-2"
+            >
+              {t('insights.fromIndexers')} →
+            </Link>
+            <Button busy={reload.isPending} onClick={() => reload.mutate()}>
+              {t('ui.indexers.reload')}
+            </Button>
+          </div>
         }
       />
       {data.isError ? (

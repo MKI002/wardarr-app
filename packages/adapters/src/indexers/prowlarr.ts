@@ -5,6 +5,7 @@ import {
   type IndexerApp,
   type IndexerInfo,
   type IndexerStats,
+  type IndexerStatsWindow,
   type Signal,
 } from '@wardarr/core';
 import { apiKeyField, apiKeySchema } from '../shared/fields.js';
@@ -20,6 +21,10 @@ interface IndexerResource {
   name: string;
   enable: boolean;
   protocol?: string;
+  privacy?: string;
+  indexerUrls?: string[];
+  fields?: Array<{ name?: string; value?: unknown }>;
+  capabilities?: { categories?: Array<{ id?: number; subCategories?: Array<{ id?: number }> }> };
   [key: string]: unknown;
 }
 
@@ -40,6 +45,50 @@ interface IndexerStatsResource {
   numberOfGrabs?: number;
   numberOfFailedQueries?: number;
   numberOfFailedGrabs?: number;
+  numberOfRssQueries?: number;
+  numberOfAuthQueries?: number;
+  averageGrabResponseTime?: number;
+}
+
+interface IndexerStatsResponse {
+  indexers?: IndexerStatsResource[];
+  userAgents?: Array<{ userAgent?: string; numberOfQueries?: number; numberOfGrabs?: number }>;
+}
+
+const fieldOf = (fields: Array<{ name?: string; value?: unknown }> | undefined, name: string) =>
+  fields?.find((f) => f.name === name)?.value;
+
+const numbers = (v: unknown): number[] =>
+  Array.isArray(v) ? v.filter((x): x is number => typeof x === 'number') : [];
+
+function siteUrls(i: IndexerResource): string[] {
+  const base = fieldOf(i.fields, 'baseUrl');
+  const list = [...(i.indexerUrls ?? []), ...(typeof base === 'string' ? [base] : [])];
+  return [...new Set(list.filter((u) => typeof u === 'string' && u.length > 0))];
+}
+
+function categoriesOf(i: IndexerResource): number[] {
+  const out = new Set<number>();
+  for (const c of i.capabilities?.categories ?? []) {
+    if (typeof c.id === 'number') out.add(c.id);
+    for (const sub of c.subCategories ?? []) if (typeof sub.id === 'number') out.add(sub.id);
+  }
+  return [...out];
+}
+
+function statsOf(i: IndexerStatsResource): IndexerStats {
+  return {
+    indexerId: i.indexerId ?? 0,
+    name: i.indexerName ?? '',
+    queries: i.numberOfQueries ?? 0,
+    grabs: i.numberOfGrabs ?? 0,
+    failedQueries: i.numberOfFailedQueries ?? 0,
+    failedGrabs: i.numberOfFailedGrabs ?? 0,
+    averageResponseMs: typeof i.averageResponseTime === 'number' ? i.averageResponseTime : null,
+    rssQueries: i.numberOfRssQueries ?? 0,
+    authQueries: i.numberOfAuthQueries ?? 0,
+    averageGrabResponseMs: typeof i.averageGrabResponseTime === 'number' ? i.averageGrabResponseTime : null,
+  };
 }
 
 interface IndexerStatusResource {
@@ -61,9 +110,9 @@ export const prowlarr = defineAdapter({
     const headers = { 'X-Api-Key': ctx.credentials.apiKey };
     const detection = detectionCache(() => detectApi(ctx, PROWLARR_PROFILE));
     const base = async () => (await detection.get()).apiBase;
-    const get = async <T>(path: string) => {
+    const get = async <T>(path: string, query?: Record<string, string>) => {
       try {
-        return jsonOf<T>(await ctx.http.request({ path: `${await base()}${path}`, headers }));
+        return jsonOf<T>(await ctx.http.request({ path: `${await base()}${path}`, query, headers }));
       } catch (err) {
         if (err instanceof AdapterError && err.kind === 'notFound') detection.reset();
         throw err;
@@ -115,20 +164,32 @@ export const prowlarr = defineAdapter({
             failing,
             disabledUntil: st?.disabledTill,
             mostRecentFailure: st?.mostRecentFailure,
+            urls: siteUrls(i),
+            privacy:
+              i.privacy === 'public' || i.privacy === 'semiPrivate' || i.privacy === 'private'
+                ? i.privacy
+                : undefined,
+            categories: categoriesOf(i),
           };
         });
       },
       async indexerStats() {
-        const res = await get<{ indexers?: IndexerStatsResource[] }>('/indexerstats');
-        return (res.indexers ?? []).map((i): IndexerStats => ({
-          indexerId: i.indexerId ?? 0,
-          name: i.indexerName ?? '',
-          queries: i.numberOfQueries ?? 0,
-          grabs: i.numberOfGrabs ?? 0,
-          failedQueries: i.numberOfFailedQueries ?? 0,
-          failedGrabs: i.numberOfFailedGrabs ?? 0,
-          averageResponseMs: typeof i.averageResponseTime === 'number' ? i.averageResponseTime : null,
-        }));
+        const res = await get<IndexerStatsResponse>('/indexerstats');
+        return (res.indexers ?? []).map(statsOf);
+      },
+      /** Prowlarr counts its own history, so any past window can be read. */
+      async indexerStatsWindow(start, end): Promise<IndexerStatsWindow> {
+        const res = await get<IndexerStatsResponse>('/indexerstats', { startDate: start, endDate: end });
+        return {
+          indexers: (res.indexers ?? []).map(statsOf),
+          userAgents: (res.userAgents ?? [])
+            .filter((u) => typeof u.userAgent === 'string' && u.userAgent)
+            .map((u) => ({
+              agent: u.userAgent!,
+              queries: u.numberOfQueries ?? 0,
+              grabs: u.numberOfGrabs ?? 0,
+            })),
+        };
       },
       /**
        * Apps Prowlarr syncs to. An app with tags only receives indexers that
@@ -141,7 +202,8 @@ export const prowlarr = defineAdapter({
         ]);
         return apps.map((a): IndexerApp => {
           const tags = a.tags ?? [];
-          const baseUrl = a.fields?.find((f) => f.name === 'baseUrl')?.value;
+          const baseUrl = fieldOf(a.fields, 'baseUrl');
+          const prowlarrUrl = fieldOf(a.fields, 'prowlarrUrl');
           const enabled = a.syncLevel !== 'disabled';
           return {
             id: a.id,
@@ -149,6 +211,15 @@ export const prowlarr = defineAdapter({
             implementation: a.implementation ?? '',
             baseUrl: typeof baseUrl === 'string' && baseUrl ? baseUrl : null,
             enabled,
+            prowlarrUrl: typeof prowlarrUrl === 'string' && prowlarrUrl ? prowlarrUrl : null,
+            syncLevel:
+              a.syncLevel === 'disabled' || a.syncLevel === 'addOnly' || a.syncLevel === 'fullSync'
+                ? a.syncLevel
+                : undefined,
+            syncCategories: [
+              ...numbers(fieldOf(a.fields, 'syncCategories')),
+              ...numbers(fieldOf(a.fields, 'animeSyncCategories')),
+            ],
             indexerIds: enabled
               ? indexers
                   .filter(

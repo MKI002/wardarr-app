@@ -57,6 +57,13 @@
       "when": 1794008717014,
       "tag": "0007_transcoding",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1794034024621,
+      "tag": "0008_indexer_insights",
+      "breakpoints": true
     }
   ]
 }

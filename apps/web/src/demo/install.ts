@@ -91,9 +91,11 @@ function get(path: string, url: URL): Answer {
   const exact = answers.get(normalize(`${path}${url.search}`));
   if (exact) return exact;
   // The recording was made in UTC; answers asked for another time zone use it.
-  if (url.searchParams.has('tz')) {
+  // A forced refresh ("Update now") answers with the recorded numbers too.
+  if (url.searchParams.has('tz') || url.searchParams.has('refresh')) {
     const utc = new URL(url);
     utc.searchParams.delete('tz');
+    utc.searchParams.delete('refresh');
     const answer = answers.get(normalize(`${path}${utc.search}`));
     if (answer) return answer;
   }

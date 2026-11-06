@@ -200,6 +200,10 @@ export interface HistoryEvent {
   type: 'grabbed' | 'imported' | 'failed' | 'other';
   mediaId: number | null;
   downloadId: string | null;
+  /** Indexer name as the *arr knows it, on grab events. */
+  indexer?: string;
+  /** Release size in bytes, on grab events. */
+  sizeBytes?: number;
 }
 
 export interface TagInfo {
@@ -264,6 +268,11 @@ export interface IndexerInfo {
   failing: boolean;
   disabledUntil?: string;
   mostRecentFailure?: string;
+  /** Site addresses of the indexer, used to spot the same site added twice. */
+  urls?: string[];
+  privacy?: 'public' | 'semiPrivate' | 'private';
+  /** Newznab category ids the indexer offers. */
+  categories?: number[];
 }
 
 /** Query and grab statistics of one indexer (Prowlarr). */
@@ -275,6 +284,16 @@ export interface IndexerStats {
   failedQueries: number;
   failedGrabs: number;
   averageResponseMs: number | null;
+  rssQueries?: number;
+  authQueries?: number;
+  averageGrabResponseMs?: number | null;
+}
+
+/** Prowlarr statistics for one time window, per indexer and per calling app. */
+export interface IndexerStatsWindow {
+  indexers: IndexerStats[];
+  /** Calls per user agent, for example `Sonarr/4.0.15`. */
+  userAgents: Array<{ agent: string; queries: number; grabs: number }>;
 }
 
 /** An app Prowlarr syncs indexers to, with the indexers it receives. */
@@ -286,6 +305,27 @@ export interface IndexerApp {
   enabled: boolean;
   /** Indexer ids synced to this app. */
   indexerIds: number[];
+  /** Prowlarr address as the app reaches it; synced indexers point there. */
+  prowlarrUrl?: string | null;
+  syncLevel?: 'disabled' | 'addOnly' | 'fullSync';
+  /** Categories the app syncs; indexers without any of them are not synced. */
+  syncCategories?: number[];
+}
+
+/** An indexer as it is set up inside an *arr app (Sonarr, Radarr, ...). */
+export interface ArrIndexerInfo {
+  id: number;
+  name: string;
+  /** For example `Torznab` or `Newznab`. */
+  implementation: string;
+  protocol: 'usenet' | 'torrent' | 'unknown';
+  /** Site or Prowlarr proxy address from the indexer settings. */
+  baseUrl: string | null;
+  enableRss: boolean;
+  enableAutomaticSearch: boolean;
+  enableInteractiveSearch: boolean;
+  priority: number | null;
+  tags: number[];
 }
 
 /** A title on a Discover list (Seerr). Music is never included. */
@@ -570,6 +610,10 @@ export interface AdapterInstance {
   // Prowlarr (capability `indexers`).
   indexerStats?(): Promise<IndexerStats[]>;
   indexerApps?(): Promise<IndexerApp[]>;
+  /** Statistics for one time window (ISO dates). */
+  indexerStatsWindow?(start: string, end: string): Promise<IndexerStatsWindow>;
+  // *arr apps: the indexers set up in the app itself, synced or added by hand.
+  arrIndexers?(): Promise<ArrIndexerInfo[]>;
   // Seerr (capabilities `discover`, `requests`). `asUser` is the Seerr user id
   // the request is made for (X-API-User); without it the API key owner acts.
   discover?(list: 'trending' | 'movies' | 'tv', page: number, asUser?: number): Promise<DiscoverPage>;
