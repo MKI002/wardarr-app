@@ -296,7 +296,8 @@
     "you": "you",
     "deleteUserConfirm": "Delete the account {{name}}?",
     "displayName": "Display name",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "eyebrow": "Your setup"
   },
   "languages": {
     "en": "English",
@@ -553,7 +554,8 @@
     "requestedBody": "The request is on its way. You can follow it under Requests.",
     "alreadyAvailable": "Already in the library.",
     "alreadyRequested": "Already requested.",
-    "noServer": "No server for this kind of title is set up in the request manager."
+    "noServer": "No server for this kind of title is set up in the request manager.",
+    "eyebrow": "Something to watch"
   },
   "requests": {
     "title": "Requests",

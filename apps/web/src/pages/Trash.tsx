@@ -5,6 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Ring, SegmentBar, type RingSegment } from '../components/charts';
+import { Odometer, PageHeader } from '../components/dash';
 import { ConfirmDialog } from '../components/Dialog';
 import { PreviewDialog } from '../components/trash/PreviewDialog';
 import { TemplateEditor, type EditorInput } from '../components/trash/TemplateEditor';
@@ -76,39 +78,101 @@ function GuideHeader({ data }: { data: TrashOverview }) {
     onSettled: () => void client.invalidateQueries({ queryKey: ['trash'] }),
   });
   const g = data.guide;
+  const badges = data.instances.map(instanceBadge);
+  const withTemplate = data.instances.filter((i) => i.templateId).length;
+  const inSync = badges.filter((b) => b.tone === 'ok').length;
+  const attention = badges.filter(
+    (b) => b.tone === 'warning' || b.tone === 'critical' || b.key === 'drift',
+  ).length;
+  const tones: Array<[Tone, string]> = [
+    ['ok', t('trash.badge.inSync')],
+    ['info', t('trash.badge.neverSynced')],
+    ['warning', t('trash.badge.paused')],
+    ['critical', t('trash.badge.unreachable')],
+    ['neutral', t('trash.badge.noTemplate')],
+  ];
+  const segments: RingSegment[] = tones.map(([tone, label]) => {
+    const value = badges.filter((b) => b.tone === tone).length;
+    return { key: tone, tone, value, label: `${value} ${label}` };
+  });
   return (
-    <Card className="flex flex-wrap items-center gap-x-6 gap-y-3">
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-sm font-medium">
-          {g.version ? t('trash.guide.version', { version: shortVersion(g.version) }) : t('trash.guide.none')}
-        </span>
-        <span className="text-xs text-muted">
-          {g.date ? t('trash.guide.published', { when: formatRelative(g.date, i18n.language) }) + ' · ' : ''}
-          {t('trash.guide.checked', {
-            when: g.checkedAt ? formatRelative(g.checkedAt, i18n.language) : t('ui.common.never'),
-          })}
-        </span>
-        {g.error ? <span className="text-xs text-warning">{t('trash.errors.guideFetchFailed')}</span> : null}
-        {g.skipped.length ? (
-          <span className="text-xs text-muted">{t('trash.guide.skipped', { count: g.skipped.length })}</span>
-        ) : null}
+    <Card className="grid gap-8 lg:grid-cols-[auto_1.3fr_1fr] lg:items-center">
+      <div className="flex justify-center">
+        <Ring segments={segments} size={160} thickness={14} label={t('trash.hero.ring')}>
+          <span className="flex flex-col items-center leading-tight">
+            <Odometer text={String(inSync)} className="text-5xl font-bold tracking-tight" />
+            <span className="max-w-24 text-xs text-muted">
+              {t('trash.hero.inSyncOf', { count: withTemplate })}
+            </span>
+          </span>
+        </Ring>
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <a
-          className="text-sm text-accent hover:underline"
-          href="https://trash-guides.info/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          trash-guides.info
-        </a>
-        <Button busy={refresh.isPending} onClick={() => refresh.mutate()}>
-          {t('trash.guide.refresh')}
-        </Button>
+      <div className="flex min-w-0 flex-col gap-3">
+        <p className="text-xl font-semibold text-balance">
+          {withTemplate === 0
+            ? t('trash.hero.none')
+            : attention
+              ? t('trash.hero.attention', { count: attention })
+              : t('trash.hero.allGood')}
+        </p>
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-medium">
+            {g.version
+              ? t('trash.guide.version', { version: shortVersion(g.version) })
+              : t('trash.guide.none')}
+          </span>
+          <span className="text-xs text-muted">
+            {g.date
+              ? t('trash.guide.published', { when: formatRelative(g.date, i18n.language) }) + ' · '
+              : ''}
+            {t('trash.guide.checked', {
+              when: g.checkedAt ? formatRelative(g.checkedAt, i18n.language) : t('ui.common.never'),
+            })}
+          </span>
+          {g.error ? (
+            <span className="text-xs text-warning">{t('trash.errors.guideFetchFailed')}</span>
+          ) : null}
+          {g.skipped.length ? (
+            <span className="text-xs text-muted">
+              {t('trash.guide.skipped', { count: g.skipped.length })}
+            </span>
+          ) : null}
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button busy={refresh.isPending} onClick={() => refresh.mutate()}>
+            {t('trash.guide.refresh')}
+          </Button>
+          <a
+            className="text-sm text-accent hover:underline"
+            href="https://trash-guides.info/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            trash-guides.info
+          </a>
+        </div>
       </div>
+      {withTemplate > 0 ? (
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+            {t('trash.hero.guards')}
+          </span>
+          <SegmentBar
+            tall
+            label={t('trash.hero.guards')}
+            segments={GUARD_MODES.map((m, i) => ({
+              key: m,
+              label: t(`trash.guard.${m}`),
+              value: data.instances.filter((x) => x.templateId && x.guardMode === m).length,
+              tone: m === 'off' ? ('neutral' as const) : ('accent' as const),
+              shade: m === 'off' ? 1 : 0.4 + i * 0.2,
+            })).filter((x) => x.value > 0)}
+          />
+        </div>
+      ) : null}
       {refresh.isError ? <InlineError {...errorText(t, refresh.error)} /> : null}
       {refresh.data ? (
-        <p className="w-full text-xs text-muted" role="status">
+        <p className="text-xs text-muted lg:col-span-3" role="status">
           {refresh.data.changed ? t('trash.guide.updated') : t('trash.guide.upToDate')}
         </p>
       ) : null}
@@ -736,11 +800,8 @@ export function TrashPage() {
     void navigate({ search: { tab: next === 'instances' ? undefined : next } });
 
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <h1 className="text-xl font-semibold">{t('trash.title')}</h1>
-        <p className="text-sm text-muted">{t('trash.subtitle')}</p>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader eyebrow={t('trash.hero.eyebrow')} title={t('trash.title')} intro={t('trash.subtitle')} />
       {data.isError ? (
         <InlineError message={t('ui.errors.loadFailed')} onRetry={() => void data.refetch()} />
       ) : null}

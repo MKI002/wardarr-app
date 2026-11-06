@@ -290,5 +290,15 @@
     "alreadyRolledBack": "This sync was already rolled back.",
     "confirmationRequired": "This needs a confirmation.",
     "productFixed": "The product of a template cannot change."
+  },
+  "hero": {
+    "eyebrow": "Quality profiles",
+    "inSyncOf": "of {{count}} in sync",
+    "allGood": "Every instance matches its template.",
+    "attention_one": "{{count}} instance needs a look.",
+    "attention_other": "{{count}} instances need a look.",
+    "none": "No instance has a template yet.",
+    "ring": "Sync state overview",
+    "guards": "Guard modes in use"
   }
 }

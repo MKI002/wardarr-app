@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams, useSearch } from '@tanstack/react-router'
 import { AnimatePresence, motion } from 'motion/react';
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ActionMenu } from '../components/ActionMenu';
+import { PageHeader } from '../components/dash';
 import { ConfirmDialog, Dialog } from '../components/Dialog';
 import {
   CATEGORY_ORDER,
@@ -123,24 +125,25 @@ function InstancesSection({ editId }: { editId?: string }) {
                             tone={i.enabled ? STATUS_TONE[statusOf(i.id)] : 'neutral'}
                             label={t(`ui.status.${i.enabled ? statusOf(i.id) : 'disabled'}`)}
                           />
-                          <div className="min-w-0 flex-1">
-                            <div className="truncate text-sm font-medium">{i.name}</div>
-                            <div className="truncate text-xs text-muted">{i.baseUrl}</div>
-                          </div>
                           <Link
                             to="/settings/instances/$id"
                             params={{ id: i.id }}
-                            className="rounded-lg px-2 py-1 text-sm text-muted hover:text-text"
+                            className="min-w-0 flex-1 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-accent"
                           >
-                            {t('ui.common.edit')}
+                            <div className="truncate text-sm font-medium">{i.name}</div>
+                            <div className="truncate text-xs text-muted">{i.baseUrl}</div>
                           </Link>
-                          <button
-                            type="button"
-                            onClick={() => setDeleting(i)}
-                            className="rounded-lg px-2 py-1 text-sm text-muted hover:text-critical"
-                          >
-                            {t('ui.common.delete')}
-                          </button>
+                          <ActionMenu
+                            label={t('ui.common.moreActions')}
+                            actions={[
+                              {
+                                label: t('ui.common.edit'),
+                                onSelect: () =>
+                                  void navigate({ to: '/settings/instances/$id', params: { id: i.id } }),
+                              },
+                              { label: t('ui.common.delete'), danger: true, onSelect: () => setDeleting(i) },
+                            ]}
+                          />
                         </motion.li>
                       ))}
                     </AnimatePresence>
@@ -492,8 +495,8 @@ export function SettingsPage() {
   };
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-semibold">{t('ui.settings.title')}</h1>
+    <div className="flex flex-col gap-6">
+      <PageHeader eyebrow={t('ui.settings.eyebrow')} title={t('ui.settings.title')} />
       {sections.length > 1 ? (
         <nav
           aria-label={t('ui.settings.title')}

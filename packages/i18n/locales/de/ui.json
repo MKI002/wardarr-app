@@ -296,7 +296,8 @@
     "you": "du",
     "deleteUserConfirm": "Das Konto {{name}} löschen?",
     "displayName": "Anzeigename",
-    "notifications": "Benachrichtigungen"
+    "notifications": "Benachrichtigungen",
+    "eyebrow": "Deine Einrichtung"
   },
   "languages": {
     "en": "English",
@@ -553,7 +554,8 @@
     "requestedBody": "Die Anfrage ist unterwegs. Unter „Anfragen“ siehst du, wie es weitergeht.",
     "alreadyAvailable": "Schon in der Bibliothek.",
     "alreadyRequested": "Schon angefragt.",
-    "noServer": "Im Anfrage-Manager ist kein Server für diese Art von Titel eingerichtet."
+    "noServer": "Im Anfrage-Manager ist kein Server für diese Art von Titel eingerichtet.",
+    "eyebrow": "Etwas zum Schauen"
   },
   "requests": {
     "title": "Anfragen",
