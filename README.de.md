@@ -72,6 +72,12 @@ anfragen.
 | **Anfragen** freigeben, ablehnen oder neu senden          | **Benachrichtigungen** je Kanal und Schwelle                     |
 
 <p align="center">
+  <img src="docs/screenshots/map.png" alt="Stack-Map: alle verbundenen Dienste, ihre Verbindungen und der gemeinsame Speicher" />
+  <br />
+  <sub>Die <b>Stack-Map</b> zeichnet deinen Stack aus dem, was die Dienste voneinander melden.</sub>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/phone.png" width="280" alt="Wardarr auf dem Handy" />
 </p>
 

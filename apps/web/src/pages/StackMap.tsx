@@ -3,8 +3,10 @@
 // same connections as text.
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useWidth } from '../components/charts';
+import { PageHeader } from '../components/dash';
 import { computeLayout, nodesPerRow } from '../components/map/layout';
 import { NodeDetails } from '../components/map/NodeDetails';
 import { StackMapCanvas, TONE_VAR, edgeText, nodeSubline } from '../components/map/StackMapCanvas';
@@ -21,20 +23,6 @@ const VERTICAL_BELOW = 680;
 const MIN_SCALE = 0.85;
 const FLOOR_SCALE = 0.7;
 const MAX_SCALE = 1.15;
-
-function useWidth<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-  const [width, setWidth] = useState(0);
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    setWidth(el.clientWidth);
-    const ro = new ResizeObserver(([entry]) => setWidth(entry?.contentRect.width ?? 0));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  return [ref, width] as const;
-}
 
 function Legend() {
   const { t } = useTranslation();
@@ -188,22 +176,27 @@ export function StackMapPage() {
 
   return (
     <div className="flex flex-col gap-5" onKeyDown={(e) => e.key === 'Escape' && setSelected(null)}>
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t('ui.map.title')}</h1>
-          <p className="text-sm text-muted">{t('ui.map.intro')}</p>
-        </div>
-        <div className="flex items-center gap-3">
-          {map?.readAt ? (
-            <span className="text-xs text-muted">
-              {t('ui.map.readAt', { when: formatRelative(map.readAt, i18n.language) })}
-            </span>
-          ) : null}
-          <Button busy={reload.isPending} onClick={() => reload.mutate()}>
-            {t('ui.map.reload')}
-          </Button>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow={
+          map && map.nodes.length
+            ? `${t('ui.map.eyebrowServices', { count: map.nodes.filter((n) => n.type === 'instance').length })} · ${t('ui.map.eyebrowLinks', { count: map.edges.filter((e) => !e.redundant).length })}`
+            : undefined
+        }
+        title={t('ui.map.title')}
+        intro={t('ui.map.intro')}
+        actions={
+          <>
+            {map?.readAt ? (
+              <span className="text-xs text-muted">
+                {t('ui.map.readAt', { when: formatRelative(map.readAt, i18n.language) })}
+              </span>
+            ) : null}
+            <Button busy={reload.isPending} onClick={() => reload.mutate()}>
+              {t('ui.map.reload')}
+            </Button>
+          </>
+        }
+      />
 
       {query.isError ? (
         <InlineError {...errorText(t, query.error)} onRetry={() => void query.refetch()} />

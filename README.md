@@ -69,6 +69,12 @@ titles at a gentle pace and lets everyone in the house request something to watc
 | **Requests** to approve, decline or retry                    | **Notifications** per channel and threshold                  |
 
 <p align="center">
+  <img src="docs/screenshots/map.png" alt="Stack map: every connected service, the links between them and the shared storage" />
+  <br />
+  <sub>The <b>stack map</b> draws your stack from what the services report about each other.</sub>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/phone.png" width="280" alt="Wardarr on a phone" />
 </p>
 
