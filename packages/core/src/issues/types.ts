@@ -26,6 +26,12 @@ export interface Signal {
   message: string;
   wikiUrl?: string;
   data?: Record<string, unknown>;
+  /**
+   * Which check produced the signal, for example `poll` for the regular
+   * instance poll or `cache` for Wardarr's library cache. An issue resolves
+   * only when the same channel was checked again. Defaults to `poll`.
+   */
+  channel?: string;
 }
 
 /** A translatable message: an i18n key plus interpolation values. */
@@ -85,6 +91,8 @@ export interface IssueGroup {
   fix: Msg;
   /** Instances that reported this cause; "recheck" polls exactly these. */
   instances: InstanceRef[];
+  /** Source keys (see `sourceKey`) that must be checked again to resolve the issue. */
+  sources: string[];
   details: IssueDetail[];
   items: IssueItem[];
   actions: IssueAction[];

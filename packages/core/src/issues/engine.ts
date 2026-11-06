@@ -11,6 +11,15 @@ import type {
   Signal,
 } from './types.js';
 
+/** Key of a checked source: origin, instance and channel. */
+export function sourceKey(origin: Signal['origin'], instanceId: string, channel = 'poll'): string {
+  return `${origin}:${instanceId}:${channel}`;
+}
+
+export function signalSourceKey(s: Signal): string {
+  return sourceKey(s.origin, s.instance.id, s.channel);
+}
+
 const SEVERITY_ORDER: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
 
 export const emptyRuleContext: RuleContext = {
@@ -109,6 +118,7 @@ export function groupSignals(
       explanation: out.explanation,
       fix: out.fix,
       instances: uniqueInstances(signalsOfGroup),
+      sources: [...new Set(signalsOfGroup.map(signalSourceKey))].sort(),
       details: details(signalsOfGroup),
       items: out.items ?? [],
       actions: [...out.actions, ...commonActions(fingerprint)],

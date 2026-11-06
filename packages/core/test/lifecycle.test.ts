@@ -14,6 +14,7 @@ function group(fingerprint: string, severity: IssueGroup['severity'] = 'warning'
     explanation: { key: 'x' },
     fix: { key: 'x' },
     instances: [inst],
+    sources: [sourceKey('service', 'a')],
     details: [],
     items: [],
     actions: [],

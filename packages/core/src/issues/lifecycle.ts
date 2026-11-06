@@ -1,6 +1,6 @@
 // Issue lifecycle: open, update, resolve and reopen groups between polls.
 // Pure functions; the server persists the result.
-import type { IssueGroup, IssueOrigin } from './types.js';
+import type { IssueGroup } from './types.js';
 
 export type IssueStatus = 'open' | 'resolved';
 
@@ -30,11 +30,6 @@ export interface ReconcileResult {
   events: IssueEvent[];
   /** New or reopened groups that are not muted; candidates for notifications. */
   notify: StoredIssue[];
-}
-
-/** Key of a source that was checked in this round, see `sourceKey`. */
-export function sourceKey(origin: IssueOrigin, instanceId: string): string {
-  return `${origin}:${instanceId}`;
 }
 
 export function isMuted(issue: Pick<StoredIssue, 'mutedForever' | 'mutedUntil'>, now: Date): boolean {
@@ -93,7 +88,7 @@ export function reconcileIssues(
 
   for (const prev of stored.values()) {
     if (prev.status !== 'open' || seen.has(prev.fingerprint)) continue;
-    const sources = prev.group.instances.map((i) => sourceKey(prev.group.origin, i.id));
+    const sources = prev.group.sources;
     const allChecked = sources.length > 0 && sources.every((s) => checkedSources.has(s));
     if (!allChecked) continue;
     upserts.push({ ...prev, status: 'resolved', resolvedAt: at });
