@@ -94,3 +94,26 @@ test('switching Discover lists brings every list in the same way', async () => {
   await expect.poll(() => before!.evaluate((el) => el.isConnected)).toBe(false);
   await settled(page);
 });
+
+// Shares this file's sign-in: the login route allows only a few attempts a minute.
+test('the storage page shows each disk once, with the apps that use it, and settles', async () => {
+  await page.goto('/');
+  const nav = page.getByRole('navigation', { name: 'Main navigation' }).first();
+  await nav.getByRole('link', { name: 'Storage', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Storage', level: 1 })).toBeVisible();
+  await page.getByRole('button', { name: 'Check now' }).click();
+
+  // Every app sees the same disk under /data: it is listed once.
+  const media = page.getByRole('button', { name: /^\/data/ });
+  await expect(media).toHaveCount(1);
+  await expect(media).toContainText('2 TB free of 8 TB');
+  await expect(media).toContainText('learning');
+  // The container's own disk is listed apart; /etc/hosts is not a disk.
+  await expect(page.getByRole('button', { name: /^\/ / })).toHaveCount(1);
+  await expect(page.getByText('/etc/hosts')).toHaveCount(0);
+  await expect(page.getByText('/data in detail')).toBeVisible();
+  await expect(
+    page.getByText('Wardarr is still learning how fast /data fills', { exact: false }),
+  ).toBeVisible();
+  await settled(page);
+});
