@@ -1,0 +1,29 @@
+{
+  "trash_id": "f494ec422c4bfe07c044fecf9c977fc3",
+  "trash_scores": {
+    "default": 1800,
+    "german": 1800
+  },
+  "name": "Example Tier 01",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Harbor",
+      "implementation": "ReleaseGroupSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "^(HARBOR)$"
+      }
+    },
+    {
+      "name": "Lantern",
+      "implementation": "ReleaseGroupSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "^(LANTERN)$"
+      }
+    }
+  ]
+}

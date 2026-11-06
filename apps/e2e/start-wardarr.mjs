@@ -16,6 +16,8 @@ const child = spawn(process.execPath, [path.resolve(here, '../server/dist/main.j
     WARDARR_HOST: '127.0.0.1',
     WARDARR_WEB_DIR: path.resolve(here, '../web/dist'),
     WARDARR_LOG_LEVEL: 'warn',
+    // Invented guide data, so the suite never downloads the real TRaSH Guides.
+    WARDARR_TRASH_DIR: path.resolve(here, '../../testbed/trash-guides'),
   },
 });
 const stop = () => child.kill('SIGTERM');

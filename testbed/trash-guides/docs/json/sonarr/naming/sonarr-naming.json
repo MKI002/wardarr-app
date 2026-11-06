@@ -1,0 +1,20 @@
+{
+  "season": {
+    "default": "Season {season:00}"
+  },
+  "series": {
+    "default": "{Series CleanTitleWithoutYear} {(Series Year)}",
+    "jellyfin-tvdb": "{Series CleanTitleWithoutYear} {(Series Year)} [tvdbid-{TvdbId}]"
+  },
+  "episodes": {
+    "standard": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+    },
+    "daily": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - {Air-Date} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+    },
+    "anime": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "folder": {
+    "default": "{Movie CleanTitle} ({Release Year})",
+    "jellyfin-tmdb": "{Movie CleanTitle} ({Release Year}) [tmdbid-{TmdbId}]",
+    "plex-tmdb": "{Movie CleanTitle} ({Release Year}) {tmdb-{TmdbId}}"
+  },
+  "file": {
+    "standard": "{Movie CleanTitle} {(Release Year)} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+    "jellyfin-tmdb": "{Movie CleanTitle} {(Release Year)} [tmdbid-{TmdbId}] {[Custom Formats]}{[Quality Full]}{-Release Group}"
+  }
+}

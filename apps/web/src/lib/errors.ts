@@ -2,6 +2,19 @@ import { ApiError } from './api';
 
 type T = (key: string, params?: Record<string, unknown>) => string;
 
+const TRASH_ERRORS = new Set([
+  'guideMissing',
+  'guideFetchFailed',
+  'templateInUse',
+  'noTemplate',
+  'syncFirst',
+  'wrongProduct',
+  'noBackup',
+  'alreadyRolledBack',
+  'confirmationRequired',
+  'productFixed',
+]);
+
 const KNOWN = new Set([
   'invalidCredentials',
   'tooManyAttempts',
@@ -37,6 +50,7 @@ export function errorText(t: T, err: unknown): { message: string; next?: string 
     if (err.code === 'invalidInput' || err.code === 'invalidName')
       return { message: t('ui.errors.validation') };
     if (KNOWN.has(err.code)) return { message: t(`ui.errors.${err.code}`) };
+    if (TRASH_ERRORS.has(err.code)) return { message: t(`trash.errors.${err.code}`) };
     if (err.status === 403) return { message: t('ui.errors.forbidden') };
   }
   return { message: t('ui.errors.generic'), next: t('ui.errors.genericNext') };

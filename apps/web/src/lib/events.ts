@@ -8,7 +8,8 @@ const INVALIDATES: Record<string, string[][]> = {
   'hunting.updated': [['hunting']],
   'library.updated': [['library'], ['stats']],
   'requests.updated': [['requests'], ['discover']],
-  'instances.updated': [['instances'], ['overview'], ['capabilities']],
+  'instances.updated': [['instances'], ['overview'], ['capabilities'], ['trash']],
+  'trash.updated': [['trash']],
 };
 
 export function connectEvents(client: QueryClient): () => void {

@@ -1,0 +1,54 @@
+{
+  "trash_id": "3307876f1299e90b8788815f5e4ae1a8",
+  "type": "series",
+  "qualities": [
+    {
+      "quality": "HDTV-720p",
+      "min": 10.0,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBDL-720p",
+      "min": 12.5,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBRip-720p",
+      "min": 15.0,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "HDTV-1080p",
+      "min": 17.5,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBDL-1080p",
+      "min": 20.0,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBRip-1080p",
+      "min": 22.5,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBDL-2160p",
+      "min": 25.0,
+      "preferred": 995,
+      "max": 1000
+    },
+    {
+      "quality": "WEBRip-2160p",
+      "min": 27.5,
+      "preferred": 995,
+      "max": 1000
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "trash_id": "511da697c8f18baac7424b2b2a46171a",
+  "name": "[German] Example HD Bluray + WEB",
+  "trash_description": "Invented example profile for German releases.",
+  "trash_url": "https://trash-guides.info/",
+  "group": 11,
+  "trash_score_set": "german",
+  "upgradeAllowed": true,
+  "cutoff": "Bluray-1080p",
+  "minFormatScore": 0,
+  "cutoffFormatScore": 10000,
+  "minUpgradeFormatScore": 1,
+  "language": "Any",
+  "trash_quality_definition": {
+    "movie": "4f87c4f176abc6d6b0268f8415519a96"
+  },
+  "items": [
+    {
+      "name": "Bluray-1080p",
+      "allowed": true
+    },
+    {
+      "name": "WEB 1080p",
+      "allowed": true,
+      "items": ["WEBRip-1080p", "WEBDL-1080p"]
+    },
+    {
+      "name": "Bluray-720p",
+      "allowed": true
+    },
+    {
+      "name": "Remux-2160p",
+      "allowed": false
+    },
+    {
+      "name": "Bluray-2160p",
+      "allowed": false
+    },
+    {
+      "name": "WEB 2160p",
+      "allowed": false,
+      "items": ["WEBRip-2160p", "WEBDL-2160p"]
+    },
+    {
+      "name": "WEB 720p",
+      "allowed": false,
+      "items": ["WEBRip-720p", "WEBDL-720p"]
+    },
+    {
+      "name": "DVD",
+      "allowed": false
+    },
+    {
+      "name": "Unknown",
+      "allowed": false
+    }
+  ],
+  "formatItems": {
+    "German DL": "55ad6f2f6c91301095ee5947c9264fa8",
+    "Example Tier 01": "3ab792373cb9be5bfa4cda6d00b409a2",
+    "Repack/Proper": "9db6825daea06b2d650f8e599912bb85"
+  }
+}

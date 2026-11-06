@@ -10,6 +10,7 @@ import { DiscoverPage } from './pages/Discover';
 import { IndexersPage } from './pages/Indexers';
 import { LibraryPage } from './pages/Library';
 import { RequestsPage } from './pages/Requests';
+import { TrashPage, type TrashTab } from './pages/Trash';
 
 const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({ component: Root });
 
@@ -84,6 +85,16 @@ const indexersRoute = createRoute({
   path: '/indexers',
   component: IndexersPage,
 });
+const TRASH_TABS = new Set(['instances', 'templates', 'history', 'test', 'settings']);
+const trashRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/trash',
+  validateSearch: (s: Record<string, unknown>): { tab?: TrashTab; instance?: string } => ({
+    tab: TRASH_TABS.has(String(s.tab)) ? (s.tab as TrashTab) : undefined,
+    instance: str(s.instance),
+  }),
+  component: TrashPage,
+});
 /** The read-only queue of stage 1 became the Queue Cleaner. */
 const queueRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -126,6 +137,7 @@ const routeTree = rootRoute.addChildren([
   requestsRoute,
   libraryRoute,
   indexersRoute,
+  trashRoute,
   settingsRoute,
   settingsInstanceRoute,
 ]);

@@ -17,7 +17,10 @@
     "openCleaner": "Queue Cleaner öffnen",
     "reviewImport": "Import prüfen",
     "openAttempts": "Titel zeigen",
-    "reviewOrphans": "Downloads prüfen"
+    "reviewOrphans": "Downloads prüfen",
+    "openTrash": "TRaSH Guides öffnen",
+    "previewSync": "Vorschau ansehen",
+    "openTrashHistory": "Verlauf öffnen"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} ist nicht erreichbar",
@@ -154,5 +157,47 @@
     "explanation": "Wardarr wurde mit {{product}} {{version}} noch nicht getestet. Es nutzt weiter API {{api}}, die diese Version noch anbietet.",
     "explanationNewer": "{{product}} {{version}} bietet API {{newest}} an. Wardarr nutzt weiter API {{api}}, die diese Version noch anbietet, daher funktioniert alles weiter.",
     "fix": "Gerade nichts zu tun. Aktualisiere Wardarr, wenn eine neue Version erscheint; es wechselt dann von selbst"
+  },
+  "trashGuideDrift": {
+    "title": "TRaSH Guides für {{instance}} geändert",
+    "affected": "{{count}} Einstellungen",
+    "explanation": "Die TRaSH Guides oder die Vorlage „{{template}}“ haben sich seit dem letzten Abgleich geändert. Die Instanz hat noch die alten Werte.",
+    "fix": "Vorschau öffnen, Änderungen prüfen und abgleichen"
+  },
+  "trashLocalDrift": {
+    "title": "Einstellungen von {{instance}} weichen von der Vorlage ab",
+    "affected": "{{count}} Einstellungen",
+    "explanation": "In {{instance}} wurden Einstellungen geändert, die Wardarr mit der Vorlage „{{template}}“ verwaltet. Wardarr lässt sie, bis du entscheidest.",
+    "fix": "Abgleichen, um die Vorlage wiederherzustellen, oder die Änderung als eigenen Score in die Vorlage übernehmen"
+  },
+  "trashSyncPaused": {
+    "title": "Guard von {{instance}} pausiert",
+    "reason": {
+      "cutoff": "Cutoff würde sich ändern",
+      "qualities": "Qualitäten würden sich ändern",
+      "manyChanges": "Viele Änderungen auf einmal",
+      "removals": "Custom Formats würden entfernt",
+      "pingPong": "Eine Einstellung wird immer wieder zurückgeändert"
+    },
+    "explanation": "Der Guard gleicht selbst ab, aber diese Änderung ist zu groß oder kommt immer wieder, deshalb wartet er auf dich. Vielleicht verwaltet ein anderes Werkzeug wie Recyclarr dieselben Einstellungen.",
+    "fix": "Vorschau prüfen und von Hand abgleichen oder den Guard fortsetzen"
+  },
+  "trashSyncFailed": {
+    "title": "Abgleich von {{instance}} fehlgeschlagen",
+    "affected": "{{message}}",
+    "explanation": "Der Abgleich hat beim ersten Fehler angehalten. Alles, was er vorher geändert hat, steckt im Backup.",
+    "fix": "Prüfen, ob die Instanz erreichbar ist, dann erneut abgleichen oder im Verlauf zurückrollen"
+  },
+  "trashUnsupported": {
+    "title": "{{instance}} kennt keine Custom Formats",
+    "affected": "Version zu alt",
+    "explanation": "{{instance}} läuft mit einer Version ohne Custom Formats, deshalb lassen sich die TRaSH Guides nicht anwenden.",
+    "fix": "Auf Sonarr v4 oder neuer aktualisieren"
+  },
+  "trashGuideFetch": {
+    "title": "TRaSH Guides konnten nicht aktualisiert werden",
+    "affected": "{{count}} Instanzen",
+    "explanation": "Wardarr konnte die TRaSH Guides nicht herunterladen. Es arbeitet mit dem letzten Stand weiter.",
+    "fix": "Internetzugang von Wardarr prüfen oder das Repository in den TRaSH-Guides-Einstellungen"
   }
 }

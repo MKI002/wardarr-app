@@ -1,5 +1,5 @@
 {
- "capturedAt": "2026-11-06T21:55:02.372Z",
+ "capturedAt": "2026-11-06T22:18:32.831Z",
  "fixtures": {
   "/api/setup/status": {
    "status": 200,
@@ -32,6 +32,7 @@
      "hunting",
      "library",
      "indexers",
+     "trash",
      "settings"
     ],
     "capabilities": [
@@ -43,6 +44,7 @@
      "search",
      "history",
      "settings",
+     "trashSync",
      "indexers",
      "downloads",
      "sessions",
@@ -72,7 +74,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T21:55:00.914Z",
+      "checkedAt": "2026-11-06T22:18:30.718Z",
       "errorKind": null
      },
      {
@@ -84,7 +86,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T21:54:58.939Z",
+      "checkedAt": "2026-11-06T22:18:29.471Z",
       "errorKind": null
      },
      {
@@ -96,7 +98,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T21:55:01.111Z",
+      "checkedAt": "2026-11-06T22:18:29.478Z",
       "errorKind": null
      },
      {
@@ -108,7 +110,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T21:54:58.948Z",
+      "checkedAt": "2026-11-06T22:18:29.484Z",
       "errorKind": null
      },
      {
@@ -120,7 +122,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T21:55:00.159Z",
+      "checkedAt": "2026-11-06T22:18:29.489Z",
       "errorKind": null
      },
      {
@@ -132,7 +134,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T21:54:58.961Z",
+      "checkedAt": "2026-11-06T22:18:29.495Z",
       "errorKind": null
      },
      {
@@ -144,7 +146,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T21:55:00.623Z",
+      "checkedAt": "2026-11-06T22:18:29.500Z",
       "errorKind": null
      },
      {
@@ -156,7 +158,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T21:54:59.612Z",
+      "checkedAt": "2026-11-06T22:18:29.505Z",
       "errorKind": null
      },
      {
@@ -168,7 +170,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T21:54:59.357Z",
+      "checkedAt": "2026-11-06T22:18:29.511Z",
       "errorKind": null
      },
      {
@@ -180,7 +182,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T21:54:58.985Z",
+      "checkedAt": "2026-11-06T22:18:29.517Z",
       "errorKind": null
      }
     ],
@@ -246,7 +248,7 @@
       "speedBytesPerSecond": 12400000,
       "etaSeconds": 74,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T21:29:55.000Z",
+      "addedAt": "2026-11-06T21:53:25.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -261,7 +263,7 @@
       "speedBytesPerSecond": 6100000,
       "etaSeconds": 190,
       "category": "radarr",
-      "addedAt": "2026-11-06T21:46:55.000Z",
+      "addedAt": "2026-11-06T22:10:25.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -276,7 +278,7 @@
       "speedBytesPerSecond": 0,
       "etaSeconds": null,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T21:51:55.000Z",
+      "addedAt": "2026-11-06T22:15:25.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -314,24 +316,24 @@
      "counts": {
       "critical": 0,
       "warning": 4,
-      "info": 2
+      "info": 3
      },
      "needsAttention": [
       {
-       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
        "severity": "warning",
        "origin": "service",
        "title": {
         "key": "issues.downloadsFailed.title",
         "params": {
-         "count": 3,
-         "instance": "Lidarr"
+         "count": 1,
+         "instance": "Sonarr"
         }
        },
        "affected": {
-        "key": "issues.mediaKind.album",
+        "key": "issues.mediaKind.episode",
         "params": {
-         "count": 3
+         "count": 1
         }
        }
       },
@@ -354,20 +356,20 @@
        }
       },
       {
-       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
        "severity": "warning",
        "origin": "service",
        "title": {
         "key": "issues.downloadsFailed.title",
         "params": {
-         "count": 1,
-         "instance": "Sonarr"
+         "count": 3,
+         "instance": "Lidarr"
         }
        },
        "affected": {
-        "key": "issues.mediaKind.episode",
+        "key": "issues.mediaKind.album",
         "params": {
-         "count": 1
+         "count": 3
         }
        }
       },
@@ -389,7 +391,7 @@
        }
       }
      ],
-     "wardarr": 0
+     "wardarr": 1
     },
     "stats": {
      "instancesOnline": 10,
@@ -427,7 +429,8 @@
       "wanted",
       "search",
       "history",
-      "settings"
+      "settings",
+      "trashSync"
      ]
     },
     {
@@ -453,7 +456,8 @@
       "wanted",
       "search",
       "history",
-      "settings"
+      "settings",
+      "trashSync"
      ]
     },
     {
@@ -928,7 +932,7 @@
      "instanceName": "Sonarr",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T21:55:00.914Z",
+     "checkedAt": "2026-11-06T22:18:30.718Z",
      "items": [
       {
        "id": 51,
@@ -945,7 +949,7 @@
        "sizeLeftBytes": 850000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T21:29:55.109Z",
+       "added": "2026-11-06T21:53:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1102",
@@ -973,7 +977,7 @@
        "sizeLeftBytes": 1900000000,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T21:42:55.109Z",
+       "added": "2026-11-06T22:06:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1103",
@@ -1004,7 +1008,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T20:19:55.109Z",
+       "added": "2026-11-06T20:43:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1200",
@@ -1035,7 +1039,7 @@
        "sizeLeftBytes": 1450000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T12:54:55.109Z",
+       "added": "2026-11-06T13:18:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1306",
@@ -1055,7 +1059,7 @@
      "instanceName": "Sonarr 4K",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T21:54:58.939Z",
+     "checkedAt": "2026-11-06T22:18:29.471Z",
      "items": []
     },
     {
@@ -1063,7 +1067,7 @@
      "instanceName": "Radarr",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T21:55:01.111Z",
+     "checkedAt": "2026-11-06T22:18:29.478Z",
      "items": []
     },
     {
@@ -1071,7 +1075,7 @@
      "instanceName": "Radarr 4K",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T21:54:58.948Z",
+     "checkedAt": "2026-11-06T22:18:29.484Z",
      "items": [
       {
        "id": 41,
@@ -1091,7 +1095,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T16:54:55.109Z",
+       "added": "2026-11-06T17:18:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:204",
@@ -1120,7 +1124,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T18:54:55.109Z",
+       "added": "2026-11-06T19:18:25.636Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:202",
@@ -1138,7 +1142,7 @@
      "instanceName": "Lidarr",
      "adapter": "lidarr",
      "adapterName": "Lidarr",
-     "checkedAt": "2026-11-06T21:55:00.159Z",
+     "checkedAt": "2026-11-06T22:18:29.489Z",
      "items": [
       {
        "id": 61,
@@ -1158,7 +1162,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T11:54:55.109Z",
+       "added": "2026-11-06T12:18:25.636Z",
        "tags": [],
        "titleKey": "album:301",
        "searchTarget": {
@@ -1187,7 +1191,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T11:24:55.109Z",
+       "added": "2026-11-06T11:48:25.636Z",
        "tags": [],
        "titleKey": "album:302",
        "searchTarget": {
@@ -1216,7 +1220,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T10:54:55.109Z",
+       "added": "2026-11-06T11:18:25.636Z",
        "tags": [],
        "titleKey": "album:303",
        "searchTarget": {
@@ -1240,7 +1244,7 @@
      "displayName": "Demo Admin",
      "role": "admin",
      "disabled": false,
-     "createdAt": "2026-11-06T21:54:55.558Z"
+     "createdAt": "2026-11-06T22:18:26.055Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000012",
@@ -1248,7 +1252,7 @@
      "displayName": "Mira",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T21:54:55.594Z"
+     "createdAt": "2026-11-06T22:18:26.079Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000013",
@@ -1256,7 +1260,7 @@
      "displayName": "Jonas",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T21:54:55.612Z"
+     "createdAt": "2026-11-06T22:18:26.091Z"
     }
    ]
   },
@@ -1381,7 +1385,7 @@
       "instanceName": "Prowlarr",
       "adapterName": "Prowlarr",
       "status": "ok",
-      "checkedAt": "2026-11-06T21:54:58.961Z",
+      "checkedAt": "2026-11-06T22:18:29.495Z",
       "error": null,
       "indexers": [
        {
@@ -1415,7 +1419,7 @@
         "protocol": "torrent",
         "failing": true,
         "disabledUntil": "2099-01-01T00:00:00Z",
-        "mostRecentFailure": "2026-11-06T15:14:55.109Z",
+        "mostRecentFailure": "2026-11-06T15:38:25.636Z",
         "stats": {
          "indexerId": 2,
          "name": "Nightjar",
@@ -1551,9 +1555,9 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T21:54:55.748Z",
+      "startedAt": "2026-11-06T22:18:26.202Z",
       "endedAt": null,
-      "playedMs": 3612,
+      "playedMs": 3310,
       "progress": 46,
       "transcoding": false,
       "resolution": "4K",
@@ -1566,7 +1570,7 @@
       "title": "Lanternfall",
       "subtitle": "S01E03 · The Long Watch",
       "mediaType": "episode",
-      "startedAt": "2026-11-06T21:54:55.748Z",
+      "startedAt": "2026-11-06T22:18:26.202Z",
       "endedAt": null,
       "playedMs": 0,
       "progress": 23,
@@ -1581,9 +1585,9 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T21:54:55.748Z",
+      "startedAt": "2026-11-06T22:18:26.202Z",
       "endedAt": null,
-      "playedMs": 3612,
+      "playedMs": 3310,
       "progress": 44,
       "transcoding": false,
       "resolution": "1080p",
@@ -1596,8 +1600,8 @@
       "title": "The Great Train Robbery",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-05T19:54:55.901Z",
-      "endedAt": "2026-11-05T20:06:55.901Z",
+      "startedAt": "2026-11-05T20:18:26.439Z",
+      "endedAt": "2026-11-05T20:30:26.439Z",
       "playedMs": 720000,
       "progress": 100,
       "transcoding": true,
@@ -1611,8 +1615,8 @@
       "title": "Kestrel Station",
       "subtitle": "S01E01 · Pressure Drop",
       "mediaType": "episode",
-      "startedAt": "2026-11-05T19:54:55.901Z",
-      "endedAt": "2026-11-05T20:50:55.901Z",
+      "startedAt": "2026-11-05T20:18:26.439Z",
+      "endedAt": "2026-11-05T21:14:26.439Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": false,
@@ -1626,8 +1630,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E02 · Water Damage",
       "mediaType": "episode",
-      "startedAt": "2026-11-05T19:54:55.901Z",
-      "endedAt": "2026-11-05T20:49:55.901Z",
+      "startedAt": "2026-11-05T20:18:26.439Z",
+      "endedAt": "2026-11-05T21:13:26.439Z",
       "playedMs": 3300000,
       "progress": 100,
       "transcoding": false,
@@ -1641,8 +1645,8 @@
       "title": "The Great Train Robbery",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-05T13:54:55.901Z",
-      "endedAt": "2026-11-05T14:06:55.901Z",
+      "startedAt": "2026-11-05T14:18:26.439Z",
+      "endedAt": "2026-11-05T14:30:26.439Z",
       "playedMs": 720000,
       "progress": 100,
       "transcoding": false,
@@ -1656,8 +1660,8 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-05T13:54:55.901Z",
-      "endedAt": "2026-11-05T15:28:55.901Z",
+      "startedAt": "2026-11-05T14:18:26.439Z",
+      "endedAt": "2026-11-05T15:52:26.439Z",
       "playedMs": 5640000,
       "progress": 100,
       "transcoding": true,
@@ -1671,8 +1675,8 @@
       "title": "Kestrel Station",
       "subtitle": "S01E03 · Night Reading",
       "mediaType": "episode",
-      "startedAt": "2026-11-05T13:54:55.901Z",
-      "endedAt": "2026-11-05T14:44:55.901Z",
+      "startedAt": "2026-11-05T14:18:26.439Z",
+      "endedAt": "2026-11-05T15:08:26.439Z",
       "playedMs": 3000000,
       "progress": 100,
       "transcoding": false,
@@ -1686,8 +1690,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E04 · The Ledger",
       "mediaType": "episode",
-      "startedAt": "2026-11-04T16:54:55.901Z",
-      "endedAt": "2026-11-04T17:50:55.901Z",
+      "startedAt": "2026-11-04T17:18:26.439Z",
+      "endedAt": "2026-11-04T18:14:26.439Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": false,
@@ -1701,8 +1705,8 @@
       "title": "Intolerance",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-03T20:54:55.901Z",
-      "endedAt": "2026-11-03T23:37:55.901Z",
+      "startedAt": "2026-11-03T21:18:26.439Z",
+      "endedAt": "2026-11-04T00:01:26.439Z",
       "playedMs": 9780000,
       "progress": 100,
       "transcoding": false,
@@ -1716,8 +1720,8 @@
       "title": "Lanternfall",
       "subtitle": "S01E01 · The Dark Coast",
       "mediaType": "episode",
-      "startedAt": "2026-11-02T21:54:55.901Z",
-      "endedAt": "2026-11-02T22:42:55.901Z",
+      "startedAt": "2026-11-02T22:18:26.439Z",
+      "endedAt": "2026-11-02T23:06:26.439Z",
       "playedMs": 2880000,
       "progress": 100,
       "transcoding": false,
@@ -1731,8 +1735,8 @@
       "title": "Lanternfall",
       "subtitle": "S01E01 · The Dark Coast",
       "mediaType": "episode",
-      "startedAt": "2026-11-02T18:54:55.901Z",
-      "endedAt": "2026-11-02T19:33:19.901Z",
+      "startedAt": "2026-11-02T19:18:26.439Z",
+      "endedAt": "2026-11-02T19:56:50.439Z",
       "playedMs": 2304000,
       "progress": 80,
       "transcoding": false,
@@ -1746,8 +1750,8 @@
       "title": "Lanternfall",
       "subtitle": "S01E01 · The Dark Coast",
       "mediaType": "episode",
-      "startedAt": "2026-11-01T21:54:55.901Z",
-      "endedAt": "2026-11-01T22:44:55.901Z",
+      "startedAt": "2026-11-01T22:18:26.439Z",
+      "endedAt": "2026-11-01T23:08:26.439Z",
       "playedMs": 3000000,
       "progress": 100,
       "transcoding": false,
@@ -1761,8 +1765,8 @@
       "title": "Kestrel Station",
       "subtitle": "S01E02 · Isobars",
       "mediaType": "episode",
-      "startedAt": "2026-11-01T19:54:55.901Z",
-      "endedAt": "2026-11-01T20:50:55.901Z",
+      "startedAt": "2026-11-01T20:18:26.439Z",
+      "endedAt": "2026-11-01T21:14:26.439Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": false,
@@ -1776,8 +1780,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E02 · Water Damage",
       "mediaType": "episode",
-      "startedAt": "2026-11-01T13:54:55.901Z",
-      "endedAt": "2026-11-01T14:47:55.901Z",
+      "startedAt": "2026-11-01T14:18:26.439Z",
+      "endedAt": "2026-11-01T15:11:26.439Z",
       "playedMs": 3180000,
       "progress": 100,
       "transcoding": false,
@@ -1791,8 +1795,8 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-10-31T16:54:55.901Z",
-      "endedAt": "2026-10-31T17:07:55.901Z",
+      "startedAt": "2026-10-31T17:18:26.439Z",
+      "endedAt": "2026-10-31T17:31:26.439Z",
       "playedMs": 780000,
       "progress": 100,
       "transcoding": false,
@@ -1806,8 +1810,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E06 · Return Address",
       "mediaType": "episode",
-      "startedAt": "2026-10-30T19:54:55.901Z",
-      "endedAt": "2026-10-30T20:42:55.901Z",
+      "startedAt": "2026-10-30T20:18:26.439Z",
+      "endedAt": "2026-10-30T21:06:26.439Z",
       "playedMs": 2880000,
       "progress": 100,
       "transcoding": false,
@@ -1821,8 +1825,8 @@
       "title": "Intolerance",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-10-30T17:54:55.901Z",
-      "endedAt": "2026-10-30T20:37:55.901Z",
+      "startedAt": "2026-10-30T18:18:26.439Z",
+      "endedAt": "2026-10-30T21:01:26.439Z",
       "playedMs": 9780000,
       "progress": 100,
       "transcoding": true,
@@ -1836,8 +1840,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E05 · Low Shelves",
       "mediaType": "episode",
-      "startedAt": "2026-10-30T17:54:55.901Z",
-      "endedAt": "2026-10-30T18:50:55.901Z",
+      "startedAt": "2026-10-30T18:18:26.439Z",
+      "endedAt": "2026-10-30T19:14:26.439Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": true,
@@ -1851,8 +1855,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E01 · Index Cards",
       "mediaType": "episode",
-      "startedAt": "2026-10-30T13:54:55.901Z",
-      "endedAt": "2026-10-30T14:46:55.901Z",
+      "startedAt": "2026-10-30T14:18:26.439Z",
+      "endedAt": "2026-10-30T15:10:26.439Z",
       "playedMs": 3120000,
       "progress": 100,
       "transcoding": true,
@@ -1866,8 +1870,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E05 · Low Shelves",
       "mediaType": "episode",
-      "startedAt": "2026-10-29T20:54:55.901Z",
-      "endedAt": "2026-10-29T21:50:55.901Z",
+      "startedAt": "2026-10-29T21:18:26.439Z",
+      "endedAt": "2026-10-29T22:14:26.439Z",
       "playedMs": 3360000,
       "progress": 100,
       "transcoding": false,
@@ -1881,8 +1885,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E04 · The Ledger",
       "mediaType": "episode",
-      "startedAt": "2026-10-29T19:54:55.901Z",
-      "endedAt": "2026-10-29T20:42:55.901Z",
+      "startedAt": "2026-10-29T20:18:26.439Z",
+      "endedAt": "2026-10-29T21:06:26.439Z",
       "playedMs": 2880000,
       "progress": 100,
       "transcoding": true,
@@ -1896,8 +1900,8 @@
       "title": "Kestrel Station",
       "subtitle": "S01E02 · Isobars",
       "mediaType": "episode",
-      "startedAt": "2026-10-28T21:54:55.901Z",
-      "endedAt": "2026-10-28T22:42:55.901Z",
+      "startedAt": "2026-10-28T22:18:26.439Z",
+      "endedAt": "2026-10-28T23:06:26.439Z",
       "playedMs": 2880000,
       "progress": 100,
       "transcoding": false,
@@ -1911,8 +1915,8 @@
       "title": "The Salt Archive",
       "subtitle": "S01E05 · Low Shelves",
       "mediaType": "episode",
-      "startedAt": "2026-10-27T21:54:55.901Z",
-      "endedAt": "2026-10-27T22:49:55.901Z",
+      "startedAt": "2026-10-27T22:18:26.439Z",
+      "endedAt": "2026-10-27T23:13:26.439Z",
       "playedMs": 3300000,
       "progress": 100,
       "transcoding": false,
@@ -2434,8 +2438,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.704Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.171Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2530,8 +2534,8 @@
     {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.739Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.188Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2637,8 +2641,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.746Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.197Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2733,8 +2737,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.762Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.211Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2857,8 +2861,8 @@
     {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.762Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.211Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -2949,10 +2953,104 @@
      "muted": false
     },
     {
+     "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T22:18:26.420Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
+      "ruleId": "trash-local-drift",
+      "origin": "wardarr",
+      "severity": "info",
+      "title": {
+       "key": "issues.trashLocalDrift.title",
+       "params": {
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.trashLocalDrift.affected",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.trashLocalDrift.explanation",
+       "params": {
+        "instance": "Radarr 4K",
+        "template": "Movies 4K"
+       }
+      },
+      "fix": {
+       "key": "issues.trashLocalDrift.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "wardarr:00000000-0000-4000-8000-000000000005:trash"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Trash.localDrift",
+        "level": "info",
+        "message": "1"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-trash",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.previewSync"
+        },
+        "href": "/trash?instance=00000000-0000-4000-8000-000000000005"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:59.038Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:29.557Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3052,8 +3150,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.704Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.171Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3149,7 +3247,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T21:54:55.704Z"
+      "at": "2026-11-06T22:18:26.171Z"
      }
     ]
    }
@@ -3160,8 +3258,8 @@
     "issue": {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.739Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.188Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3268,7 +3366,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T21:54:55.739Z"
+      "at": "2026-11-06T22:18:26.188Z"
      }
     ]
    }
@@ -3279,8 +3377,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.746Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.197Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3376,7 +3474,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T21:54:55.746Z"
+      "at": "2026-11-06T22:18:26.197Z"
      }
     ]
    }
@@ -3387,8 +3485,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.762Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.211Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3512,7 +3610,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T21:54:55.762Z"
+      "at": "2026-11-06T22:18:26.211Z"
      }
     ]
    }
@@ -3523,8 +3621,8 @@
     "issue": {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:55.762Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:26.211Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3618,7 +3716,113 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T21:54:55.762Z"
+      "at": "2026-11-06T22:18:26.211Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/trash-local-drift%3A00000000-0000-4000-8000-000000000005": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T22:18:26.420Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
+      "ruleId": "trash-local-drift",
+      "origin": "wardarr",
+      "severity": "info",
+      "title": {
+       "key": "issues.trashLocalDrift.title",
+       "params": {
+        "instance": "Radarr 4K"
+       }
+      },
+      "affected": {
+       "key": "issues.trashLocalDrift.affected",
+       "params": {
+        "count": 1
+       }
+      },
+      "explanation": {
+       "key": "issues.trashLocalDrift.explanation",
+       "params": {
+        "instance": "Radarr 4K",
+        "template": "Movies 4K"
+       }
+      },
+      "fix": {
+       "key": "issues.trashLocalDrift.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000005",
+        "name": "Radarr 4K",
+        "adapter": "radarr"
+       }
+      ],
+      "sources": [
+       "wardarr:00000000-0000-4000-8000-000000000005:trash"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000005",
+         "name": "Radarr 4K",
+         "adapter": "radarr"
+        },
+        "source": "Trash.localDrift",
+        "level": "info",
+        "message": "1"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-trash",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.previewSync"
+        },
+        "href": "/trash?instance=00000000-0000-4000-8000-000000000005"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "info",
+      "at": "2026-11-06T22:18:26.420Z"
      }
     ]
    }
@@ -3629,8 +3833,8 @@
     "issue": {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T21:54:59.038Z",
-     "lastSeenAt": "2026-11-06T21:55:01.116Z",
+     "firstSeenAt": "2026-11-06T22:18:29.557Z",
+     "lastSeenAt": "2026-11-06T22:18:30.722Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3726,7 +3930,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T21:54:59.038Z"
+      "at": "2026-11-06T22:18:29.557Z"
      }
     ]
    }
@@ -3760,8 +3964,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T21:54:59.000Z",
-      "nextRunAt": "2026-11-06T21:59:59.000Z",
+      "lastRunAt": "2026-11-06T22:18:29.524Z",
+      "nextRunAt": "2026-11-06T22:23:29.524Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -3821,7 +4025,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T22:54:59.000Z",
+        "nextStrikeAt": "2026-11-06T23:18:29.524Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -3918,8 +4122,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T21:54:59.023Z",
-      "nextRunAt": "2026-11-06T21:59:59.023Z",
+      "lastRunAt": "2026-11-06T22:18:29.545Z",
+      "nextRunAt": "2026-11-06T22:23:29.545Z",
       "error": null,
       "paused": null,
       "downloads": [],
@@ -3951,8 +4155,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T21:54:59.032Z",
-      "nextRunAt": "2026-11-06T21:59:59.032Z",
+      "lastRunAt": "2026-11-06T22:18:29.553Z",
+      "nextRunAt": "2026-11-06T22:23:29.553Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -3968,7 +4172,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T22:54:59.032Z",
+        "nextStrikeAt": "2026-11-06T23:18:29.553Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -3994,7 +4198,7 @@
         "strikes": 0,
         "maxStrikes": 4,
         "nextStrikeAt": null,
-        "waitUntil": "2026-11-13T21:54:59.032Z",
+        "waitUntil": "2026-11-13T22:18:29.553Z",
         "action": {
          "type": "none"
         },
@@ -4032,8 +4236,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T21:54:59.051Z",
-      "nextRunAt": "2026-11-06T21:59:59.051Z",
+      "lastRunAt": "2026-11-06T22:18:29.568Z",
+      "nextRunAt": "2026-11-06T22:23:29.568Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -4049,7 +4253,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4074,7 +4278,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4099,7 +4303,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+        "nextStrikeAt": "2026-11-06T23:18:29.568Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -4123,7 +4327,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T21:59:59.000Z",
+    "at": "2026-11-06T22:23:29.524Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4183,7 +4387,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T22:54:59.000Z",
+       "nextStrikeAt": "2026-11-06T23:18:29.524Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4223,48 +4427,48 @@
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
        "title": "Lanternfall.S02E01.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "firstSeenAt": "2026-11-06T22:18:29.524Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastProgressAt": "2026-11-06T22:18:29.524Z",
        "lastSizeLeft": 850000000,
        "ignored": false
       },
       {
        "key": "sabnzbd_nzo_demo0001",
        "title": "Lanternfall.S02E02.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "firstSeenAt": "2026-11-06T22:18:29.524Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastProgressAt": "2026-11-06T22:18:29.524Z",
        "lastSizeLeft": 1900000000,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "firstSeenAt": "2026-11-06T22:18:29.524Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T21:54:59.000Z",
+       "problemSince": "2026-11-06T22:18:29.524Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T21:54:59.000Z",
-       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastStrikeAt": "2026-11-06T22:18:29.524Z",
+       "lastProgressAt": "2026-11-06T22:18:29.524Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T21:54:59.000Z",
+       "firstSeenAt": "2026-11-06T22:18:29.524Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T21:54:59.000Z",
+       "lastProgressAt": "2026-11-06T22:18:29.524Z",
        "lastSizeLeft": 1450000000,
        "ignored": false
       }
@@ -4282,7 +4486,7 @@
      {
       "id": 1,
       "instanceId": "00000000-0000-4000-8000-000000000002",
-      "at": "2026-11-06T21:54:59.004Z",
+      "at": "2026-11-06T22:18:29.528Z",
       "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
       "kind": "strike",
@@ -4318,7 +4522,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T21:59:59.023Z",
+    "at": "2026-11-06T22:23:29.545Z",
     "plan": {
      "paused": null,
      "downloads": [],
@@ -4338,7 +4542,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T21:59:59.032Z",
+    "at": "2026-11-06T22:23:29.553Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4354,7 +4558,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T22:54:59.032Z",
+       "nextStrikeAt": "2026-11-06T23:18:29.553Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4380,7 +4584,7 @@
        "strikes": 0,
        "maxStrikes": 4,
        "nextStrikeAt": null,
-       "waitUntil": "2026-11-13T21:54:59.032Z",
+       "waitUntil": "2026-11-13T22:18:29.553Z",
        "action": {
         "type": "none"
        },
@@ -4394,24 +4598,24 @@
       {
        "key": "demofail0001",
        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
-       "firstSeenAt": "2026-11-06T21:54:59.032Z",
+       "firstSeenAt": "2026-11-06T22:18:29.553Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T21:54:59.032Z",
+       "problemSince": "2026-11-06T22:18:29.553Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T21:54:59.032Z",
-       "lastProgressAt": "2026-11-06T21:54:59.032Z",
+       "lastStrikeAt": "2026-11-06T22:18:29.553Z",
+       "lastProgressAt": "2026-11-06T22:18:29.553Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoimport01",
        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
-       "firstSeenAt": "2026-11-06T21:54:59.032Z",
+       "firstSeenAt": "2026-11-06T22:18:29.553Z",
        "problem": "importReady",
-       "problemSince": "2026-11-06T21:54:59.032Z",
+       "problemSince": "2026-11-06T22:18:29.553Z",
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T21:54:59.032Z",
+       "lastProgressAt": "2026-11-06T22:18:29.553Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -4429,7 +4633,7 @@
      {
       "id": 2,
       "instanceId": "00000000-0000-4000-8000-000000000005",
-      "at": "2026-11-06T21:54:59.037Z",
+      "at": "2026-11-06T22:18:29.556Z",
       "downloadKey": "demofail0001",
       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
       "kind": "strike",
@@ -4452,7 +4656,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T21:59:59.051Z",
+    "at": "2026-11-06T22:23:29.568Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -4468,7 +4672,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4493,7 +4697,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4518,7 +4722,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-06T22:54:59.051Z",
+       "nextStrikeAt": "2026-11-06T23:18:29.568Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -4536,36 +4740,36 @@
       {
        "key": "demoalbum001",
        "title": "The Lamplighters-Night Shift",
-       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "firstSeenAt": "2026-11-06T22:18:29.568Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T21:54:59.051Z",
+       "problemSince": "2026-11-06T22:18:29.568Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
-       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
+       "lastProgressAt": "2026-11-06T22:18:29.568Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum002",
        "title": "The Lamplighters-Harbour Songs",
-       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "firstSeenAt": "2026-11-06T22:18:29.568Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T21:54:59.051Z",
+       "problemSince": "2026-11-06T22:18:29.568Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
-       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
+       "lastProgressAt": "2026-11-06T22:18:29.568Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum003",
        "title": "Marrow & Pine-Low Tide",
-       "firstSeenAt": "2026-11-06T21:54:59.051Z",
+       "firstSeenAt": "2026-11-06T22:18:29.568Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T21:54:59.051Z",
+       "problemSince": "2026-11-06T22:18:29.568Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T21:54:59.051Z",
-       "lastProgressAt": "2026-11-06T21:54:59.051Z",
+       "lastStrikeAt": "2026-11-06T22:18:29.568Z",
+       "lastProgressAt": "2026-11-06T22:18:29.568Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -4583,7 +4787,7 @@
      {
       "id": 5,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T21:54:59.054Z",
+      "at": "2026-11-06T22:18:29.571Z",
       "downloadKey": "demoalbum003",
       "title": "Marrow & Pine-Low Tide",
       "kind": "strike",
@@ -4603,7 +4807,7 @@
      {
       "id": 4,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T21:54:59.054Z",
+      "at": "2026-11-06T22:18:29.571Z",
       "downloadKey": "demoalbum002",
       "title": "The Lamplighters-Harbour Songs",
       "kind": "strike",
@@ -4623,7 +4827,7 @@
      {
       "id": 3,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T21:54:59.053Z",
+      "at": "2026-11-06T22:18:29.570Z",
       "downloadKey": "demoalbum001",
       "title": "The Lamplighters-Night Shift",
       "kind": "strike",
@@ -4685,8 +4889,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T21:54:59.019Z",
-        "nextRunAt": "2026-11-06T22:54:59.019Z",
+        "lastRunAt": "2026-11-06T22:18:29.540Z",
+        "nextRunAt": "2026-11-06T23:18:29.540Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -4695,8 +4899,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T21:54:59.021Z",
-        "nextRunAt": "2026-11-06T23:54:59.021Z",
+        "lastRunAt": "2026-11-06T22:18:29.543Z",
+        "nextRunAt": "2026-11-07T00:18:29.543Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -4720,7 +4924,7 @@
           "count": 3
          }
         },
-        "at": "2026-11-06T21:54:59.018Z",
+        "at": "2026-11-06T22:18:29.539Z",
         "manual": false,
         "result": "pending"
        },
@@ -4732,7 +4936,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T21:54:59.016Z",
+        "at": "2026-11-06T22:18:29.538Z",
         "manual": false,
         "result": "pending"
        }
@@ -4778,7 +4982,7 @@
          "everyMinutes": 60
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T21:55:02.221Z",
+        "nextRunAt": "2026-11-06T22:18:32.687Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -4788,7 +4992,7 @@
          "everyMinutes": 120
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T21:55:02.221Z",
+        "nextRunAt": "2026-11-06T22:18:32.687Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -4913,8 +5117,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T21:54:59.047Z",
-        "nextRunAt": "2026-11-06T22:54:59.047Z",
+        "lastRunAt": "2026-11-06T22:18:29.565Z",
+        "nextRunAt": "2026-11-06T23:18:29.565Z",
         "upcoming": [
          {
           "key": "movie:203",
@@ -4932,7 +5136,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-06T22:54:59.047Z"
+          "at": "2026-11-06T23:18:29.565Z"
          },
          {
           "key": "movie:202",
@@ -4950,7 +5154,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-06T22:54:59.047Z"
+          "at": "2026-11-06T23:18:29.565Z"
          }
         ],
         "waiting": 2
@@ -4960,8 +5164,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T21:54:59.049Z",
-        "nextRunAt": "2026-11-06T23:54:59.049Z",
+        "lastRunAt": "2026-11-06T22:18:29.567Z",
+        "nextRunAt": "2026-11-07T00:18:29.567Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -4982,7 +5186,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T21:54:59.047Z",
+        "at": "2026-11-06T22:18:29.565Z",
         "manual": false,
         "result": "pending"
        },
@@ -4994,7 +5198,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T21:54:59.045Z",
+        "at": "2026-11-06T22:18:29.563Z",
         "manual": false,
         "result": "pending"
        }
@@ -5039,8 +5243,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T21:54:59.059Z",
-        "nextRunAt": "2026-11-06T22:54:59.059Z",
+        "lastRunAt": "2026-11-06T22:18:29.576Z",
+        "nextRunAt": "2026-11-06T23:18:29.576Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -5049,8 +5253,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T21:54:59.062Z",
-        "nextRunAt": "2026-11-06T23:54:59.062Z",
+        "lastRunAt": "2026-11-06T22:18:29.578Z",
+        "nextRunAt": "2026-11-07T00:18:29.578Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -5127,6 +5331,10 @@
      {
       "id": 2,
       "name": "Any"
+     },
+     {
+      "id": 106,
+      "name": "Example HD Bluray + WEB"
      }
     ]
    }
@@ -5148,6 +5356,10 @@
      {
       "id": 2,
       "name": "Any"
+     },
+     {
+      "id": 107,
+      "name": "Example UHD Bluray + WEB"
      }
     ]
    }
@@ -5164,7 +5376,7 @@
     "qualityProfiles": [
      {
       "id": 1,
-      "name": "HD-1080p"
+      "name": "Lossless"
      },
      {
       "id": 2,
@@ -5584,8 +5796,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T21:19:55.109Z",
-      "updatedAt": "2026-11-06T21:19:55.109Z",
+      "createdAt": "2026-11-06T21:43:25.636Z",
+      "updatedAt": "2026-11-06T21:43:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5606,8 +5818,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:14:55.109Z",
-      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "createdAt": "2026-11-06T19:38:25.636Z",
+      "updatedAt": "2026-11-06T19:38:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5626,8 +5838,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5648,8 +5860,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T19:54:55.109Z",
-      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "createdAt": "2026-11-05T20:18:25.636Z",
+      "updatedAt": "2026-11-05T20:18:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5668,8 +5880,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T19:54:55.109Z",
-      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "createdAt": "2026-11-04T20:18:25.636Z",
+      "updatedAt": "2026-11-04T20:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5688,8 +5900,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T21:54:55.109Z",
-      "updatedAt": "2026-11-03T21:54:55.109Z",
+      "createdAt": "2026-11-03T22:18:25.636Z",
+      "updatedAt": "2026-11-03T22:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5711,8 +5923,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T21:54:55.109Z",
-      "updatedAt": "2026-10-31T21:54:55.109Z",
+      "createdAt": "2026-10-31T22:18:25.636Z",
+      "updatedAt": "2026-10-31T22:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5731,8 +5943,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T21:54:55.109Z",
-      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "createdAt": "2026-10-25T22:18:25.636Z",
+      "updatedAt": "2026-10-25T22:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5751,8 +5963,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T21:54:55.109Z",
-      "updatedAt": "2026-10-22T21:54:55.109Z",
+      "createdAt": "2026-10-22T22:18:25.636Z",
+      "updatedAt": "2026-10-22T22:18:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5781,8 +5993,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5801,8 +6013,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T21:54:55.109Z",
-      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "createdAt": "2026-10-25T22:18:25.636Z",
+      "updatedAt": "2026-10-25T22:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5830,8 +6042,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T21:19:55.109Z",
-      "updatedAt": "2026-11-06T21:19:55.109Z",
+      "createdAt": "2026-11-06T21:43:25.636Z",
+      "updatedAt": "2026-11-06T21:43:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5870,8 +6082,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:14:55.109Z",
-      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "createdAt": "2026-11-06T19:38:25.636Z",
+      "updatedAt": "2026-11-06T19:38:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5890,8 +6102,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5912,8 +6124,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T19:54:55.109Z",
-      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "createdAt": "2026-11-05T20:18:25.636Z",
+      "updatedAt": "2026-11-05T20:18:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -5932,8 +6144,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T19:54:55.109Z",
-      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "createdAt": "2026-11-04T20:18:25.636Z",
+      "updatedAt": "2026-11-04T20:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -5962,8 +6174,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -5993,8 +6205,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T19:14:55.109Z",
-      "updatedAt": "2026-11-06T19:14:55.109Z",
+      "createdAt": "2026-11-06T19:38:25.636Z",
+      "updatedAt": "2026-11-06T19:38:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6013,8 +6225,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6035,8 +6247,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T19:54:55.109Z",
-      "updatedAt": "2026-11-05T19:54:55.109Z",
+      "createdAt": "2026-11-05T20:18:25.636Z",
+      "updatedAt": "2026-11-05T20:18:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6055,8 +6267,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T19:54:55.109Z",
-      "updatedAt": "2026-11-04T19:54:55.109Z",
+      "createdAt": "2026-11-04T20:18:25.636Z",
+      "updatedAt": "2026-11-04T20:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6085,8 +6297,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T16:54:55.109Z",
-      "updatedAt": "2026-11-06T16:54:55.109Z",
+      "createdAt": "2026-11-06T17:18:25.636Z",
+      "updatedAt": "2026-11-06T17:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6117,8 +6329,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T21:54:55.109Z",
-      "updatedAt": "2026-10-31T21:54:55.109Z",
+      "createdAt": "2026-10-31T22:18:25.636Z",
+      "updatedAt": "2026-10-31T22:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6137,8 +6349,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T21:54:55.109Z",
-      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "createdAt": "2026-10-25T22:18:25.636Z",
+      "updatedAt": "2026-10-25T22:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6167,8 +6379,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T21:54:55.109Z",
-      "updatedAt": "2026-10-25T21:54:55.109Z",
+      "createdAt": "2026-10-25T22:18:25.636Z",
+      "updatedAt": "2026-10-25T22:18:25.636Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -6196,8 +6408,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T21:54:55.109Z",
-      "updatedAt": "2026-10-22T21:54:55.109Z",
+      "createdAt": "2026-10-22T22:18:25.636Z",
+      "updatedAt": "2026-10-22T22:18:25.636Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -6234,8 +6446,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T21:54:55.109Z",
-      "updatedAt": "2026-11-03T21:54:55.109Z",
+      "createdAt": "2026-11-03T22:18:25.636Z",
+      "updatedAt": "2026-11-03T22:18:25.636Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -6257,6 +6469,2226 @@
     "results": []
    }
   },
+  "/api/trash": {
+   "status": 200,
+   "body": {
+    "guide": {
+     "version": "cfd2ca038b4a08ed119940df760cca5ca904a528",
+     "date": null,
+     "fetchedAt": "2026-11-06T22:18:26.295Z",
+     "checkedAt": "2026-11-06T22:18:26.295Z",
+     "error": null,
+     "source": "directory",
+     "skipped": [
+      {
+       "path": "radarr/cf/example-broken.json",
+       "reason": "Invalid input: expected string, received undefined"
+      },
+      {
+       "path": "sonarr/cf/example-broken.json",
+       "reason": "Invalid input: expected string, received undefined"
+      }
+     ]
+    },
+    "settings": {
+     "repo": "TRaSH-Guides/Guides",
+     "branch": "master",
+     "refreshHours": 24,
+     "guardHours": 6,
+     "maxAutoChanges": 25,
+     "backupsPerInstance": 20
+    },
+    "instances": [
+     {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "name": "Sonarr",
+      "adapter": "sonarr",
+      "product": "sonarr",
+      "version": "4.0.15.2941",
+      "status": "degraded",
+      "templateId": "00000000-0000-4000-8000-000000000016",
+      "templateName": "Series",
+      "guardMode": "notify",
+      "lastSyncAt": null,
+      "neverSynced": true,
+      "state": {
+       "checkedAt": "2026-11-06T22:18:26.423Z",
+       "error": null,
+       "counts": {
+        "guide": 0,
+        "local": 0,
+        "initial": 11
+       },
+       "removable": 0
+      }
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "name": "Sonarr 4K",
+      "adapter": "sonarr",
+      "product": "sonarr",
+      "version": "4.0.15.2941",
+      "status": "ok",
+      "templateId": null,
+      "templateName": null,
+      "guardMode": "off",
+      "lastSyncAt": null,
+      "neverSynced": false,
+      "state": {}
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "name": "Radarr",
+      "adapter": "radarr",
+      "product": "radarr",
+      "version": "5.26.2.10099",
+      "status": "degraded",
+      "templateId": "00000000-0000-4000-8000-000000000017",
+      "templateName": "Movies HD",
+      "guardMode": "auto",
+      "lastSyncAt": "2026-11-06T22:18:26.373Z",
+      "neverSynced": false,
+      "state": {
+       "checkedAt": "2026-11-06T22:18:26.410Z",
+       "error": null,
+       "counts": {
+        "guide": 0,
+        "local": 0,
+        "initial": 0
+       },
+       "removable": 0,
+       "lastSync": {
+        "at": "2026-11-06T22:18:26.373Z",
+        "status": "ok",
+        "historyId": "00000000-0000-4000-8000-000000000018",
+        "error": null
+       },
+       "pause": null,
+       "reverts": {}
+      }
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "name": "Radarr 4K",
+      "adapter": "radarr",
+      "product": "radarr",
+      "version": "5.26.2.10099",
+      "status": "degraded",
+      "templateId": "00000000-0000-4000-8000-000000000019",
+      "templateName": "Movies 4K",
+      "guardMode": "notify",
+      "lastSyncAt": "2026-11-06T22:18:26.395Z",
+      "neverSynced": false,
+      "state": {
+       "checkedAt": "2026-11-06T22:18:26.416Z",
+       "error": null,
+       "counts": {
+        "guide": 0,
+        "local": 1,
+        "initial": 0
+       },
+       "removable": 0,
+       "lastSync": {
+        "at": "2026-11-06T22:18:26.395Z",
+        "status": "ok",
+        "historyId": "00000000-0000-4000-8000-000000000020",
+        "error": null
+       },
+       "pause": null
+      }
+     }
+    ],
+    "templates": [
+     {
+      "id": "00000000-0000-4000-8000-000000000019",
+      "name": "Movies 4K",
+      "product": "radarr",
+      "config": {
+       "profiles": [
+        {
+         "trashId": "4b60a7b48461a2ffa0db937e13c84108",
+         "groups": [
+          "a52fda891923615bd55075229cbfd147",
+          "65342dc7cd156666db203441072dd6ea"
+         ],
+         "excludedFormats": [],
+         "extraFormats": [],
+         "scoreOverrides": {}
+        }
+       ],
+       "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+       "naming": {
+        "folder": "default",
+        "file": "default"
+       },
+       "rename": true
+      },
+      "createdAt": "2026-11-06T22:18:26.329Z",
+      "updatedAt": "2026-11-06T22:18:26.329Z"
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000017",
+      "name": "Movies HD",
+      "product": "radarr",
+      "config": {
+       "profiles": [
+        {
+         "trashId": "433dc658c9d5c28610bd440085d1b397",
+         "groups": [
+          "3fe36b60639972d1c1372795bd292d37"
+         ],
+         "excludedFormats": [],
+         "extraFormats": [],
+         "scoreOverrides": {}
+        }
+       ],
+       "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+       "naming": {
+        "folder": "default",
+        "file": "default"
+       },
+       "rename": true
+      },
+      "createdAt": "2026-11-06T22:18:26.324Z",
+      "updatedAt": "2026-11-06T22:18:26.324Z"
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000016",
+      "name": "Series",
+      "product": "sonarr",
+      "config": {
+       "profiles": [
+        {
+         "trashId": "744be2984bd8b3c5d0b5f74d818f2cef",
+         "groups": [
+          "1565e4e215af0ff7e4a35d7bf4a210c8"
+         ],
+         "excludedFormats": [],
+         "extraFormats": [],
+         "scoreOverrides": {}
+        },
+        {
+         "trashId": "b564657984f7a3e79fac4b4908e67cd8",
+         "groups": [
+          "1565e4e215af0ff7e4a35d7bf4a210c8"
+         ],
+         "excludedFormats": [],
+         "extraFormats": [],
+         "scoreOverrides": {}
+        }
+       ],
+       "qualitySize": "3307876f1299e90b8788815f5e4ae1a8",
+       "naming": {
+        "season": "default",
+        "series": "default",
+        "episodes.standard": "default",
+        "episodes.daily": "default",
+        "episodes.anime": "default"
+       },
+       "rename": true
+      },
+      "createdAt": "2026-11-06T22:18:26.333Z",
+      "updatedAt": "2026-11-06T22:18:26.333Z"
+     }
+    ],
+    "changelog": []
+   }
+  },
+  "/api/trash/history?limit=100": {
+   "status": 200,
+   "body": {
+    "entries": [
+     {
+      "id": "00000000-0000-4000-8000-000000000020",
+      "instanceId": "00000000-0000-4000-8000-000000000005",
+      "templateName": "Movies 4K",
+      "at": "2026-11-06T22:18:26.395Z",
+      "actor": "00000000-0000-4000-8000-000000000001",
+      "kind": "sync",
+      "status": "ok",
+      "summary": {
+       "counts": {
+        "create": 8,
+        "update": 2,
+        "unchanged": 0,
+        "remove": 0,
+        "fields": 49
+       },
+       "objects": [
+        {
+         "kind": "customFormat",
+         "label": "BR-DISK",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Example Tier 01",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Example Tier 02",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "HDR",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "LQ",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Repack/Proper",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "x265 (no HDR/DV)",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "qualityProfile",
+         "label": "Example UHD Bluray + WEB",
+         "action": "create",
+         "fields": 15
+        },
+        {
+         "kind": "qualitySize",
+         "label": "movie",
+         "action": "update",
+         "fields": 11
+        },
+        {
+         "kind": "naming",
+         "label": "naming",
+         "action": "update",
+         "fields": 2
+        }
+       ],
+       "warnings": [],
+       "guide": "cfd2ca038b4a08ed119940df760cca5ca904a528"
+      },
+      "error": null,
+      "rolledBackAt": null,
+      "instanceName": "Radarr 4K",
+      "hasBackup": true
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000018",
+      "instanceId": "00000000-0000-4000-8000-000000000004",
+      "templateName": "Movies HD",
+      "at": "2026-11-06T22:18:26.373Z",
+      "actor": "00000000-0000-4000-8000-000000000001",
+      "kind": "sync",
+      "status": "ok",
+      "summary": {
+       "counts": {
+        "create": 7,
+        "update": 2,
+        "unchanged": 0,
+        "remove": 0,
+        "fields": 45
+       },
+       "objects": [
+        {
+         "kind": "customFormat",
+         "label": "BR-DISK",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Example Tier 01",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Example Tier 02",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "LQ",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "Repack/Proper",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "customFormat",
+         "label": "x265 (HD)",
+         "action": "create",
+         "fields": 3
+        },
+        {
+         "kind": "qualityProfile",
+         "label": "Example HD Bluray + WEB",
+         "action": "create",
+         "fields": 14
+        },
+        {
+         "kind": "qualitySize",
+         "label": "movie",
+         "action": "update",
+         "fields": 11
+        },
+        {
+         "kind": "naming",
+         "label": "naming",
+         "action": "update",
+         "fields": 2
+        }
+       ],
+       "warnings": [],
+       "guide": "cfd2ca038b4a08ed119940df760cca5ca904a528"
+      },
+      "error": null,
+      "rolledBackAt": null,
+      "instanceName": "Radarr",
+      "hasBackup": true
+     }
+    ]
+   }
+  },
+  "/api/trash/catalog/radarr": {
+   "status": 200,
+   "body": {
+    "product": "radarr",
+    "categories": [
+     "Standard",
+     "German"
+    ],
+    "profiles": [
+     {
+      "trashId": "433dc658c9d5c28610bd440085d1b397",
+      "name": "Example HD Bluray + WEB",
+      "description": "Invented example profile for 1080p releases.",
+      "url": "https://trash-guides.info/",
+      "category": "Standard",
+      "scoreSet": "default",
+      "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+      "formats": [
+       "3ab792373cb9be5bfa4cda6d00b409a2",
+       "d291dc7f55415073bb7e293cb9ffdd4c",
+       "9db6825daea06b2d650f8e599912bb85"
+      ],
+      "groups": [
+       "cd871842301e31e246c72b24f622f933",
+       "3fe36b60639972d1c1372795bd292d37"
+      ],
+      "suggested": {
+       "trashId": "433dc658c9d5c28610bd440085d1b397",
+       "groups": [
+        "3fe36b60639972d1c1372795bd292d37"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "Bluray-1080p",
+      "qualities": [
+       {
+        "name": "Bluray-1080p",
+        "allowed": true
+       },
+       {
+        "name": "WEB 1080p",
+        "allowed": true,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "Bluray-720p",
+        "allowed": true
+       },
+       {
+        "name": "Remux-2160p",
+        "allowed": false
+       },
+       {
+        "name": "Bluray-2160p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 2160p",
+        "allowed": false,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "DVD",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     },
+     {
+      "trashId": "4b60a7b48461a2ffa0db937e13c84108",
+      "name": "Example UHD Bluray + WEB",
+      "description": "Invented example profile for 2160p releases.",
+      "url": "https://trash-guides.info/",
+      "category": "Standard",
+      "scoreSet": "default",
+      "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+      "formats": [
+       "3ab792373cb9be5bfa4cda6d00b409a2",
+       "d291dc7f55415073bb7e293cb9ffdd4c",
+       "9db6825daea06b2d650f8e599912bb85"
+      ],
+      "groups": [
+       "a52fda891923615bd55075229cbfd147",
+       "cd871842301e31e246c72b24f622f933",
+       "65342dc7cd156666db203441072dd6ea"
+      ],
+      "suggested": {
+       "trashId": "4b60a7b48461a2ffa0db937e13c84108",
+       "groups": [
+        "a52fda891923615bd55075229cbfd147",
+        "65342dc7cd156666db203441072dd6ea"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "Bluray-2160p",
+      "qualities": [
+       {
+        "name": "Bluray-2160p",
+        "allowed": true
+       },
+       {
+        "name": "WEB 2160p",
+        "allowed": true,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "Remux-2160p",
+        "allowed": false
+       },
+       {
+        "name": "Bluray-1080p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 1080p",
+        "allowed": false,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "Bluray-720p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "DVD",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     },
+     {
+      "trashId": "511da697c8f18baac7424b2b2a46171a",
+      "name": "[German] Example HD Bluray + WEB",
+      "description": "Invented example profile for German releases.",
+      "url": "https://trash-guides.info/",
+      "category": "German",
+      "scoreSet": "german",
+      "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+      "formats": [
+       "55ad6f2f6c91301095ee5947c9264fa8",
+       "3ab792373cb9be5bfa4cda6d00b409a2",
+       "9db6825daea06b2d650f8e599912bb85"
+      ],
+      "groups": [
+       "cd871842301e31e246c72b24f622f933",
+       "3fe36b60639972d1c1372795bd292d37"
+      ],
+      "suggested": {
+       "trashId": "511da697c8f18baac7424b2b2a46171a",
+       "groups": [
+        "3fe36b60639972d1c1372795bd292d37"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "Bluray-1080p",
+      "qualities": [
+       {
+        "name": "Bluray-1080p",
+        "allowed": true
+       },
+       {
+        "name": "WEB 1080p",
+        "allowed": true,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "Bluray-720p",
+        "allowed": true
+       },
+       {
+        "name": "Remux-2160p",
+        "allowed": false
+       },
+       {
+        "name": "Bluray-2160p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 2160p",
+        "allowed": false,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "DVD",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "trashId": "a52fda891923615bd55075229cbfd147",
+      "name": "[HDR Formats] HDR",
+      "description": "For HDR-capable screens.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "358032402b7568200a603b5456690ede",
+        "name": "HDR",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "5f65090fc2ee8bec2198d5aef81eca74",
+        "name": "DV",
+        "required": false,
+        "preselected": false
+       }
+      ]
+     },
+     {
+      "trashId": "cd871842301e31e246c72b24f622f933",
+      "name": "[Optional] Miscellaneous",
+      "description": "Optional formats, read their descriptions first.",
+      "recommended": false,
+      "formats": [
+       {
+        "trashId": "c013cd2ed34ef9c84181a37963a26466",
+        "name": "HFR",
+        "required": false,
+        "preselected": false
+       },
+       {
+        "trashId": "9db6825daea06b2d650f8e599912bb85",
+        "name": "Repack/Proper",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     },
+     {
+      "trashId": "3fe36b60639972d1c1372795bd292d37",
+      "name": "[Unwanted] Unwanted Formats",
+      "description": "Formats the guide recommends to avoid.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "413aadae167017c1de53efde8f5ab0ac",
+        "name": "BR-DISK",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "e4eb13a771af7975c0d4c11352bffbc3",
+        "name": "LQ",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "70488d840bc7f84094198cf5a25c476e",
+        "name": "x265 (HD)",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     },
+     {
+      "trashId": "65342dc7cd156666db203441072dd6ea",
+      "name": "[Unwanted] Unwanted Formats (UHD)",
+      "description": "Unwanted formats for UHD profiles.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "413aadae167017c1de53efde8f5ab0ac",
+        "name": "BR-DISK",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "e4eb13a771af7975c0d4c11352bffbc3",
+        "name": "LQ",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "56f43935a17a4133caaf6ed382817697",
+        "name": "x265 (no HDR/DV)",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     }
+    ],
+    "customFormats": [
+     {
+      "trashId": "413aadae167017c1de53efde8f5ab0ac",
+      "name": "BR-DISK",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "5f65090fc2ee8bec2198d5aef81eca74",
+      "name": "DV",
+      "scores": {
+       "default": 1500
+      },
+      "description": null
+     },
+     {
+      "trashId": "3ab792373cb9be5bfa4cda6d00b409a2",
+      "name": "Example Tier 01",
+      "scores": {
+       "default": 1800,
+       "german": 1800
+      },
+      "description": null
+     },
+     {
+      "trashId": "d291dc7f55415073bb7e293cb9ffdd4c",
+      "name": "Example Tier 02",
+      "scores": {
+       "default": 1750,
+       "german": 1750
+      },
+      "description": null
+     },
+     {
+      "trashId": "55ad6f2f6c91301095ee5947c9264fa8",
+      "name": "German DL",
+      "scores": {
+       "default": 0,
+       "german": 10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "358032402b7568200a603b5456690ede",
+      "name": "HDR",
+      "scores": {
+       "default": 500
+      },
+      "description": null
+     },
+     {
+      "trashId": "c013cd2ed34ef9c84181a37963a26466",
+      "name": "HFR",
+      "scores": {
+       "default": 0
+      },
+      "description": null
+     },
+     {
+      "trashId": "e4eb13a771af7975c0d4c11352bffbc3",
+      "name": "LQ",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "9db6825daea06b2d650f8e599912bb85",
+      "name": "Repack/Proper",
+      "scores": {
+       "default": 5
+      },
+      "description": null
+     },
+     {
+      "trashId": "70488d840bc7f84094198cf5a25c476e",
+      "name": "x265 (HD)",
+      "scores": {
+       "default": -10000,
+       "german": 0
+      },
+      "description": null
+     },
+     {
+      "trashId": "56f43935a17a4133caaf6ed382817697",
+      "name": "x265 (no HDR/DV)",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     }
+    ],
+    "qualitySizes": [
+     {
+      "trashId": "4f87c4f176abc6d6b0268f8415519a96",
+      "type": "movie"
+     }
+    ],
+    "naming": {
+     "folder": {
+      "default": "{Movie CleanTitle} ({Release Year})",
+      "jellyfin-tmdb": "{Movie CleanTitle} ({Release Year}) [tmdbid-{TmdbId}]",
+      "plex-tmdb": "{Movie CleanTitle} ({Release Year}) {tmdb-{TmdbId}}"
+     },
+     "file": {
+      "standard": "{Movie CleanTitle} {(Release Year)} {[Custom Formats]}{[Quality Full]}{-Release Group}",
+      "jellyfin-tmdb": "{Movie CleanTitle} {(Release Year)} [tmdbid-{TmdbId}] {[Custom Formats]}{[Quality Full]}{-Release Group}"
+     }
+    },
+    "conflicts": [
+     [
+      "70488d840bc7f84094198cf5a25c476e",
+      "56f43935a17a4133caaf6ed382817697"
+     ]
+    ]
+   }
+  },
+  "/api/trash/catalog/sonarr": {
+   "status": 200,
+   "body": {
+    "product": "sonarr",
+    "categories": [
+     "Standard",
+     "German"
+    ],
+    "profiles": [
+     {
+      "trashId": "744be2984bd8b3c5d0b5f74d818f2cef",
+      "name": "Example WEB-1080p",
+      "description": "Invented example profile for 1080p releases.",
+      "url": "https://trash-guides.info/",
+      "category": "Standard",
+      "scoreSet": "default",
+      "qualitySize": "3307876f1299e90b8788815f5e4ae1a8",
+      "formats": [
+       "f494ec422c4bfe07c044fecf9c977fc3",
+       "de3ee14b36b56d6f3e523a5fd09fe274",
+       "3e22b363a472278a64689c7bc85783f0"
+      ],
+      "groups": [
+       "5683ebaea9c4d1f5cb26cd2554349fc3",
+       "1565e4e215af0ff7e4a35d7bf4a210c8"
+      ],
+      "suggested": {
+       "trashId": "744be2984bd8b3c5d0b5f74d818f2cef",
+       "groups": [
+        "1565e4e215af0ff7e4a35d7bf4a210c8"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "WEB 1080p",
+      "qualities": [
+       {
+        "name": "WEB 1080p",
+        "allowed": true,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "HDTV-1080p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 2160p",
+        "allowed": false,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "HDTV-720p",
+        "allowed": false
+       },
+       {
+        "name": "SDTV",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     },
+     {
+      "trashId": "e4220021cd026c68779b53606d234f53",
+      "name": "Example WEB-2160p",
+      "description": "Invented example profile for 2160p releases.",
+      "url": "https://trash-guides.info/",
+      "category": "Standard",
+      "scoreSet": "default",
+      "qualitySize": "3307876f1299e90b8788815f5e4ae1a8",
+      "formats": [
+       "f494ec422c4bfe07c044fecf9c977fc3",
+       "de3ee14b36b56d6f3e523a5fd09fe274",
+       "3e22b363a472278a64689c7bc85783f0"
+      ],
+      "groups": [
+       "11883b1a7ea38d04ef3e6825acb82a5b",
+       "5683ebaea9c4d1f5cb26cd2554349fc3",
+       "7cbcad2a69ec5e46495a3131399f5774"
+      ],
+      "suggested": {
+       "trashId": "e4220021cd026c68779b53606d234f53",
+       "groups": [
+        "11883b1a7ea38d04ef3e6825acb82a5b",
+        "7cbcad2a69ec5e46495a3131399f5774"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "WEB 2160p",
+      "qualities": [
+       {
+        "name": "WEB 2160p",
+        "allowed": true,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "WEB 1080p",
+        "allowed": false,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "HDTV-1080p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "HDTV-720p",
+        "allowed": false
+       },
+       {
+        "name": "SDTV",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     },
+     {
+      "trashId": "b564657984f7a3e79fac4b4908e67cd8",
+      "name": "[German] Example WEB-1080p",
+      "description": "Invented example profile for German releases.",
+      "url": "https://trash-guides.info/",
+      "category": "German",
+      "scoreSet": "german",
+      "qualitySize": "3307876f1299e90b8788815f5e4ae1a8",
+      "formats": [
+       "8e92c7fe891b1237e30ac39abd2910a9",
+       "f494ec422c4bfe07c044fecf9c977fc3",
+       "3e22b363a472278a64689c7bc85783f0"
+      ],
+      "groups": [
+       "5683ebaea9c4d1f5cb26cd2554349fc3",
+       "1565e4e215af0ff7e4a35d7bf4a210c8"
+      ],
+      "suggested": {
+       "trashId": "b564657984f7a3e79fac4b4908e67cd8",
+       "groups": [
+        "1565e4e215af0ff7e4a35d7bf4a210c8"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      },
+      "cutoff": "WEB 1080p",
+      "qualities": [
+       {
+        "name": "WEB 1080p",
+        "allowed": true,
+        "items": [
+         "WEBRip-1080p",
+         "WEBDL-1080p"
+        ]
+       },
+       {
+        "name": "HDTV-1080p",
+        "allowed": false
+       },
+       {
+        "name": "WEB 2160p",
+        "allowed": false,
+        "items": [
+         "WEBRip-2160p",
+         "WEBDL-2160p"
+        ]
+       },
+       {
+        "name": "WEB 720p",
+        "allowed": false,
+        "items": [
+         "WEBRip-720p",
+         "WEBDL-720p"
+        ]
+       },
+       {
+        "name": "HDTV-720p",
+        "allowed": false
+       },
+       {
+        "name": "SDTV",
+        "allowed": false
+       },
+       {
+        "name": "Unknown",
+        "allowed": false
+       }
+      ]
+     }
+    ],
+    "groups": [
+     {
+      "trashId": "11883b1a7ea38d04ef3e6825acb82a5b",
+      "name": "[HDR Formats] HDR",
+      "description": "For HDR-capable screens.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "acba97212e53a38055ce551ebf93c0ed",
+        "name": "HDR",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "6d9da51f8ede51a149c062fd10e1b5c6",
+        "name": "DV",
+        "required": false,
+        "preselected": false
+       }
+      ]
+     },
+     {
+      "trashId": "5683ebaea9c4d1f5cb26cd2554349fc3",
+      "name": "[Optional] Miscellaneous",
+      "description": "Optional formats, read their descriptions first.",
+      "recommended": false,
+      "formats": [
+       {
+        "trashId": "b17589fdf59e1c342af11e355963dc72",
+        "name": "HFR",
+        "required": false,
+        "preselected": false
+       },
+       {
+        "trashId": "3e22b363a472278a64689c7bc85783f0",
+        "name": "Repack/Proper",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     },
+     {
+      "trashId": "1565e4e215af0ff7e4a35d7bf4a210c8",
+      "name": "[Unwanted] Unwanted Formats",
+      "description": "Formats the guide recommends to avoid.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "ac4002fa44d30006a82129608492726e",
+        "name": "BR-DISK",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "af5a89f18109544bbf9cdf3225e54633",
+        "name": "LQ",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "a910cf075b1d2003780c081feb4204b2",
+        "name": "x265 (HD)",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     },
+     {
+      "trashId": "7cbcad2a69ec5e46495a3131399f5774",
+      "name": "[Unwanted] Unwanted Formats (UHD)",
+      "description": "Unwanted formats for UHD profiles.",
+      "recommended": true,
+      "formats": [
+       {
+        "trashId": "ac4002fa44d30006a82129608492726e",
+        "name": "BR-DISK",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "af5a89f18109544bbf9cdf3225e54633",
+        "name": "LQ",
+        "required": true,
+        "preselected": true
+       },
+       {
+        "trashId": "7d76f0ad5c9c14d37f886954151ceab5",
+        "name": "x265 (no HDR/DV)",
+        "required": false,
+        "preselected": true
+       }
+      ]
+     }
+    ],
+    "customFormats": [
+     {
+      "trashId": "ac4002fa44d30006a82129608492726e",
+      "name": "BR-DISK",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "6d9da51f8ede51a149c062fd10e1b5c6",
+      "name": "DV",
+      "scores": {
+       "default": 1500
+      },
+      "description": null
+     },
+     {
+      "trashId": "f494ec422c4bfe07c044fecf9c977fc3",
+      "name": "Example Tier 01",
+      "scores": {
+       "default": 1800,
+       "german": 1800
+      },
+      "description": null
+     },
+     {
+      "trashId": "de3ee14b36b56d6f3e523a5fd09fe274",
+      "name": "Example Tier 02",
+      "scores": {
+       "default": 1750,
+       "german": 1750
+      },
+      "description": null
+     },
+     {
+      "trashId": "8e92c7fe891b1237e30ac39abd2910a9",
+      "name": "German DL",
+      "scores": {
+       "default": 0,
+       "german": 10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "acba97212e53a38055ce551ebf93c0ed",
+      "name": "HDR",
+      "scores": {
+       "default": 500
+      },
+      "description": null
+     },
+     {
+      "trashId": "b17589fdf59e1c342af11e355963dc72",
+      "name": "HFR",
+      "scores": {
+       "default": 0
+      },
+      "description": null
+     },
+     {
+      "trashId": "af5a89f18109544bbf9cdf3225e54633",
+      "name": "LQ",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     },
+     {
+      "trashId": "3e22b363a472278a64689c7bc85783f0",
+      "name": "Repack/Proper",
+      "scores": {
+       "default": 5
+      },
+      "description": null
+     },
+     {
+      "trashId": "a910cf075b1d2003780c081feb4204b2",
+      "name": "x265 (HD)",
+      "scores": {
+       "default": -10000,
+       "german": 0
+      },
+      "description": null
+     },
+     {
+      "trashId": "7d76f0ad5c9c14d37f886954151ceab5",
+      "name": "x265 (no HDR/DV)",
+      "scores": {
+       "default": -10000
+      },
+      "description": null
+     }
+    ],
+    "qualitySizes": [
+     {
+      "trashId": "3307876f1299e90b8788815f5e4ae1a8",
+      "type": "series"
+     }
+    ],
+    "naming": {
+     "season": {
+      "default": "Season {season:00}"
+     },
+     "series": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)}",
+      "jellyfin-tvdb": "{Series CleanTitleWithoutYear} {(Series Year)} [tvdbid-{TvdbId}]"
+     },
+     "episodes.standard": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+     },
+     "episodes.daily": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - {Air-Date} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+     },
+     "episodes.anime": {
+      "default": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle} {[Quality Full]}{-Release Group}"
+     }
+    },
+    "conflicts": [
+     [
+      "a910cf075b1d2003780c081feb4204b2",
+      "7d76f0ad5c9c14d37f886954151ceab5"
+     ]
+    ]
+   }
+  },
+  "/api/trash/instances/00000000-0000-4000-8000-000000000002/preview": {
+   "status": 200,
+   "body": {
+    "template": {
+     "id": "00000000-0000-4000-8000-000000000016",
+     "name": "Series"
+    },
+    "neverSynced": true,
+    "plan": {
+     "product": "sonarr",
+     "objects": [
+      {
+       "kind": "customFormat",
+       "key": "cf:ac4002fa44d30006a82129608492726e",
+       "label": "BR-DISK",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "BR-DISK",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "BR-DISK",
+           "implementation": "ReleaseTitleSpecification",
+           "negate": false,
+           "required": true,
+           "fields": {
+            "value": "^(?!.*\\b(remux)\\b).*\\b(COMPLETE.BLURAY|BD25|BD50)\\b"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:f494ec422c4bfe07c044fecf9c977fc3",
+       "label": "Example Tier 01",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "Example Tier 01",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "Harbor",
+           "implementation": "ReleaseGroupSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "^(HARBOR)$"
+           }
+          },
+          {
+           "name": "Lantern",
+           "implementation": "ReleaseGroupSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "^(LANTERN)$"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:de3ee14b36b56d6f3e523a5fd09fe274",
+       "label": "Example Tier 02",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "Example Tier 02",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "Meadow",
+           "implementation": "ReleaseGroupSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "^(MEADOW)$"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:8e92c7fe891b1237e30ac39abd2910a9",
+       "label": "German DL",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "German DL",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "German",
+           "implementation": "LanguageSpecification",
+           "negate": false,
+           "required": true,
+           "fields": {
+            "value": 4
+           }
+          },
+          {
+           "name": "Original",
+           "implementation": "LanguageSpecification",
+           "negate": false,
+           "required": true,
+           "fields": {
+            "value": -2
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:af5a89f18109544bbf9cdf3225e54633",
+       "label": "LQ",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "LQ",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "Example LQ",
+           "implementation": "ReleaseGroupSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "^(BADGROUP|WORSEGROUP)$"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:3e22b363a472278a64689c7bc85783f0",
+       "label": "Repack/Proper",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "Repack/Proper",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "Proper",
+           "implementation": "ReleaseTitleSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "\\b(proper)\\b"
+           }
+          },
+          {
+           "name": "Repack",
+           "implementation": "ReleaseTitleSpecification",
+           "negate": false,
+           "required": false,
+           "fields": {
+            "value": "\\b(repack)\\b"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:a910cf075b1d2003780c081feb4204b2",
+       "label": "x265 (HD)",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "x265 (HD)",
+         "origin": "initial"
+        },
+        {
+         "field": "includeCustomFormatWhenRenaming",
+         "after": false,
+         "origin": "initial"
+        },
+        {
+         "field": "specifications",
+         "after": [
+          {
+           "name": "Not 2160p",
+           "implementation": "ResolutionSpecification",
+           "negate": true,
+           "required": true,
+           "fields": {
+            "value": 2160
+           }
+          },
+          {
+           "name": "x265/HEVC",
+           "implementation": "ReleaseTitleSpecification",
+           "negate": false,
+           "required": true,
+           "fields": {
+            "value": "[xh][ ._-]?265|\\bHEVC(\\b|\\d)"
+           }
+          }
+         ],
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "qualityProfile",
+       "key": "qp:744be2984bd8b3c5d0b5f74d818f2cef",
+       "label": "Example WEB-1080p",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "Example WEB-1080p",
+         "origin": "initial"
+        },
+        {
+         "field": "upgradeAllowed",
+         "after": true,
+         "origin": "initial"
+        },
+        {
+         "field": "cutoff",
+         "after": "WEB 1080p",
+         "origin": "initial"
+        },
+        {
+         "field": "minFormatScore",
+         "after": 0,
+         "origin": "initial"
+        },
+        {
+         "field": "cutoffFormatScore",
+         "after": 10000,
+         "origin": "initial"
+        },
+        {
+         "field": "qualities",
+         "after": [
+          {
+           "name": "WEB 1080p",
+           "allowed": true,
+           "items": [
+            "WEBDL-1080p",
+            "WEBRip-1080p"
+           ]
+          },
+          {
+           "name": "HDTV-1080p",
+           "allowed": false
+          },
+          {
+           "name": "WEB 2160p",
+           "allowed": false,
+           "items": [
+            "WEBDL-2160p",
+            "WEBRip-2160p"
+           ]
+          },
+          {
+           "name": "WEB 720p",
+           "allowed": false,
+           "items": [
+            "WEBDL-720p",
+            "WEBRip-720p"
+           ]
+          },
+          {
+           "name": "HDTV-720p",
+           "allowed": false
+          },
+          {
+           "name": "SDTV",
+           "allowed": false
+          },
+          {
+           "name": "Unknown",
+           "allowed": false
+          }
+         ],
+         "origin": "initial"
+        },
+        {
+         "field": "minUpgradeFormatScore",
+         "after": 1,
+         "origin": "initial"
+        },
+        {
+         "field": "score:f494ec422c4bfe07c044fecf9c977fc3",
+         "label": "Example Tier 01",
+         "after": 1800,
+         "origin": "initial"
+        },
+        {
+         "field": "score:de3ee14b36b56d6f3e523a5fd09fe274",
+         "label": "Example Tier 02",
+         "after": 1750,
+         "origin": "initial"
+        },
+        {
+         "field": "score:3e22b363a472278a64689c7bc85783f0",
+         "label": "Repack/Proper",
+         "after": 5,
+         "origin": "initial"
+        },
+        {
+         "field": "score:ac4002fa44d30006a82129608492726e",
+         "label": "BR-DISK",
+         "after": -10000,
+         "origin": "initial"
+        },
+        {
+         "field": "score:af5a89f18109544bbf9cdf3225e54633",
+         "label": "LQ",
+         "after": -10000,
+         "origin": "initial"
+        },
+        {
+         "field": "score:a910cf075b1d2003780c081feb4204b2",
+         "label": "x265 (HD)",
+         "after": -10000,
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "qualityProfile",
+       "key": "qp:b564657984f7a3e79fac4b4908e67cd8",
+       "label": "[German] Example WEB-1080p",
+       "action": "create",
+       "changes": [
+        {
+         "field": "name",
+         "after": "[German] Example WEB-1080p",
+         "origin": "initial"
+        },
+        {
+         "field": "upgradeAllowed",
+         "after": true,
+         "origin": "initial"
+        },
+        {
+         "field": "cutoff",
+         "after": "WEB 1080p",
+         "origin": "initial"
+        },
+        {
+         "field": "minFormatScore",
+         "after": 0,
+         "origin": "initial"
+        },
+        {
+         "field": "cutoffFormatScore",
+         "after": 10000,
+         "origin": "initial"
+        },
+        {
+         "field": "qualities",
+         "after": [
+          {
+           "name": "WEB 1080p",
+           "allowed": true,
+           "items": [
+            "WEBDL-1080p",
+            "WEBRip-1080p"
+           ]
+          },
+          {
+           "name": "HDTV-1080p",
+           "allowed": false
+          },
+          {
+           "name": "WEB 2160p",
+           "allowed": false,
+           "items": [
+            "WEBDL-2160p",
+            "WEBRip-2160p"
+           ]
+          },
+          {
+           "name": "WEB 720p",
+           "allowed": false,
+           "items": [
+            "WEBDL-720p",
+            "WEBRip-720p"
+           ]
+          },
+          {
+           "name": "HDTV-720p",
+           "allowed": false
+          },
+          {
+           "name": "SDTV",
+           "allowed": false
+          },
+          {
+           "name": "Unknown",
+           "allowed": false
+          }
+         ],
+         "origin": "initial"
+        },
+        {
+         "field": "minUpgradeFormatScore",
+         "after": 1,
+         "origin": "initial"
+        },
+        {
+         "field": "score:8e92c7fe891b1237e30ac39abd2910a9",
+         "label": "German DL",
+         "after": 10000,
+         "origin": "initial"
+        },
+        {
+         "field": "score:f494ec422c4bfe07c044fecf9c977fc3",
+         "label": "Example Tier 01",
+         "after": 1800,
+         "origin": "initial"
+        },
+        {
+         "field": "score:3e22b363a472278a64689c7bc85783f0",
+         "label": "Repack/Proper",
+         "after": 5,
+         "origin": "initial"
+        },
+        {
+         "field": "score:ac4002fa44d30006a82129608492726e",
+         "label": "BR-DISK",
+         "after": -10000,
+         "origin": "initial"
+        },
+        {
+         "field": "score:af5a89f18109544bbf9cdf3225e54633",
+         "label": "LQ",
+         "after": -10000,
+         "origin": "initial"
+        },
+        {
+         "field": "score:a910cf075b1d2003780c081feb4204b2",
+         "label": "x265 (HD)",
+         "after": 0,
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "qualitySize",
+       "key": "qs",
+       "label": "series",
+       "action": "update",
+       "arrId": 0,
+       "changes": [
+        {
+         "field": "HDTV-720p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 10,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBDL-720p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 12.5,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBRip-720p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 15,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "HDTV-1080p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 17.5,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBDL-1080p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 20,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBRip-1080p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 22.5,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBDL-2160p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 25,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        },
+        {
+         "field": "WEBRip-2160p",
+         "before": {
+          "min": 0,
+          "preferred": 995,
+          "max": 1000
+         },
+         "after": {
+          "min": 27.5,
+          "preferred": 995,
+          "max": 1000
+         },
+         "origin": "initial"
+        }
+       ]
+      },
+      {
+       "kind": "naming",
+       "key": "naming",
+       "label": "naming",
+       "action": "update",
+       "arrId": 1,
+       "changes": [
+        {
+         "field": "seasonFolderFormat",
+         "before": "Season {season}",
+         "after": "Season {season:00}",
+         "origin": "initial"
+        },
+        {
+         "field": "seriesFolderFormat",
+         "before": "{Series Title}",
+         "after": "{Series CleanTitleWithoutYear} {(Series Year)}",
+         "origin": "initial"
+        },
+        {
+         "field": "standardEpisodeFormat",
+         "before": "{Series Title} - S{season:00}E{episode:00} - {Episode Title}",
+         "after": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {Episode CleanTitle} {[Quality Full]}{-Release Group}",
+         "origin": "initial"
+        },
+        {
+         "field": "dailyEpisodeFormat",
+         "before": "{Series Title} - {Air-Date} - {Episode Title}",
+         "after": "{Series CleanTitleWithoutYear} {(Series Year)} - {Air-Date} - {Episode CleanTitle} {[Quality Full]}{-Release Group}",
+         "origin": "initial"
+        },
+        {
+         "field": "animeEpisodeFormat",
+         "before": "{Series Title} - S{season:00}E{episode:00} - {Episode Title}",
+         "after": "{Series CleanTitleWithoutYear} {(Series Year)} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle} {[Quality Full]}{-Release Group}",
+         "origin": "initial"
+        },
+        {
+         "field": "renameEpisodes",
+         "before": false,
+         "after": true,
+         "origin": "initial"
+        }
+       ]
+      }
+     ],
+     "warnings": [],
+     "counts": {
+      "create": 9,
+      "update": 2,
+      "unchanged": 0,
+      "remove": 0,
+      "fields": 61
+     }
+    },
+    "brakes": []
+   }
+  },
+  "/api/trash/instances/00000000-0000-4000-8000-000000000004/preview": {
+   "status": 200,
+   "body": {
+    "template": {
+     "id": "00000000-0000-4000-8000-000000000017",
+     "name": "Movies HD"
+    },
+    "neverSynced": false,
+    "plan": {
+     "product": "radarr",
+     "objects": [
+      {
+       "kind": "customFormat",
+       "key": "cf:413aadae167017c1de53efde8f5ab0ac",
+       "label": "BR-DISK",
+       "action": "unchanged",
+       "arrId": 100,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:3ab792373cb9be5bfa4cda6d00b409a2",
+       "label": "Example Tier 01",
+       "action": "unchanged",
+       "arrId": 101,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:d291dc7f55415073bb7e293cb9ffdd4c",
+       "label": "Example Tier 02",
+       "action": "unchanged",
+       "arrId": 102,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:e4eb13a771af7975c0d4c11352bffbc3",
+       "label": "LQ",
+       "action": "unchanged",
+       "arrId": 103,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:9db6825daea06b2d650f8e599912bb85",
+       "label": "Repack/Proper",
+       "action": "unchanged",
+       "arrId": 104,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:70488d840bc7f84094198cf5a25c476e",
+       "label": "x265 (HD)",
+       "action": "unchanged",
+       "arrId": 105,
+       "changes": []
+      },
+      {
+       "kind": "qualityProfile",
+       "key": "qp:433dc658c9d5c28610bd440085d1b397",
+       "label": "Example HD Bluray + WEB",
+       "action": "unchanged",
+       "arrId": 106,
+       "changes": []
+      },
+      {
+       "kind": "qualitySize",
+       "key": "qs",
+       "label": "movie",
+       "action": "unchanged",
+       "arrId": 0,
+       "changes": []
+      },
+      {
+       "kind": "naming",
+       "key": "naming",
+       "label": "naming",
+       "action": "unchanged",
+       "arrId": 1,
+       "changes": []
+      }
+     ],
+     "warnings": [
+      {
+       "code": "unknownNaming",
+       "params": {
+        "setting": "file",
+        "variant": "default"
+       }
+      }
+     ],
+     "counts": {
+      "create": 0,
+      "update": 0,
+      "unchanged": 9,
+      "remove": 0,
+      "fields": 0
+     }
+    },
+    "brakes": []
+   }
+  },
+  "/api/trash/instances/00000000-0000-4000-8000-000000000005/preview": {
+   "status": 200,
+   "body": {
+    "template": {
+     "id": "00000000-0000-4000-8000-000000000019",
+     "name": "Movies 4K"
+    },
+    "neverSynced": false,
+    "plan": {
+     "product": "radarr",
+     "objects": [
+      {
+       "kind": "customFormat",
+       "key": "cf:413aadae167017c1de53efde8f5ab0ac",
+       "label": "BR-DISK",
+       "action": "unchanged",
+       "arrId": 100,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:3ab792373cb9be5bfa4cda6d00b409a2",
+       "label": "Example Tier 01",
+       "action": "unchanged",
+       "arrId": 101,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:d291dc7f55415073bb7e293cb9ffdd4c",
+       "label": "Example Tier 02",
+       "action": "unchanged",
+       "arrId": 102,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:358032402b7568200a603b5456690ede",
+       "label": "HDR",
+       "action": "unchanged",
+       "arrId": 103,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:e4eb13a771af7975c0d4c11352bffbc3",
+       "label": "LQ",
+       "action": "unchanged",
+       "arrId": 104,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:9db6825daea06b2d650f8e599912bb85",
+       "label": "Repack/Proper",
+       "action": "unchanged",
+       "arrId": 105,
+       "changes": []
+      },
+      {
+       "kind": "customFormat",
+       "key": "cf:56f43935a17a4133caaf6ed382817697",
+       "label": "x265 (no HDR/DV)",
+       "action": "unchanged",
+       "arrId": 106,
+       "changes": []
+      },
+      {
+       "kind": "qualityProfile",
+       "key": "qp:4b60a7b48461a2ffa0db937e13c84108",
+       "label": "Example UHD Bluray + WEB",
+       "action": "update",
+       "arrId": 107,
+       "changes": [
+        {
+         "field": "score:413aadae167017c1de53efde8f5ab0ac",
+         "label": "BR-DISK",
+         "before": -9975,
+         "after": -10000,
+         "origin": "local"
+        }
+       ]
+      },
+      {
+       "kind": "qualitySize",
+       "key": "qs",
+       "label": "movie",
+       "action": "unchanged",
+       "arrId": 0,
+       "changes": []
+      },
+      {
+       "kind": "naming",
+       "key": "naming",
+       "label": "naming",
+       "action": "unchanged",
+       "arrId": 1,
+       "changes": []
+      }
+     ],
+     "warnings": [
+      {
+       "code": "unknownNaming",
+       "params": {
+        "setting": "file",
+        "variant": "default"
+       }
+      }
+     ],
+     "counts": {
+      "create": 0,
+      "update": 1,
+      "unchanged": 9,
+      "remove": 0,
+      "fields": 1
+     }
+    },
+    "brakes": []
+   }
+  },
   "/api/library?days=7": {
    "status": 200,
    "body": {
@@ -6266,7 +8698,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "refreshedAt": "2026-11-06T22:18:26.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -6312,18 +8744,18 @@
     "streams": {
      "days": 7,
      "plays": 17,
-     "playedMs": 45391224,
+     "playedMs": 45390620,
      "transcodes": 3,
      "users": [
       {
        "user": "Mira",
        "plays": 7,
-       "playedMs": 22707612
+       "playedMs": 22707310
       },
       {
        "user": "Demo",
        "plays": 7,
-       "playedMs": 16323612
+       "playedMs": 16323310
       },
       {
        "user": "Jonas",
@@ -6422,12 +8854,12 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T21:54:55.919Z"
+     "refreshedAt": "2026-11-06T22:18:26.460Z"
     },
     "streams": {
      "days": 7,
      "plays": 17,
-     "playedMs": 45391224,
+     "playedMs": 45390620,
      "transcodes": 3,
      "topTitles": [
       {
@@ -6508,7 +8940,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "refreshedAt": "2026-11-06T22:18:26.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -6554,13 +8986,13 @@
     "streams": {
      "days": 30,
      "plays": 82,
-     "playedMs": 286885824,
+     "playedMs": 286885220,
      "transcodes": 25,
      "users": [
       {
        "user": "Mira",
        "plays": 38,
-       "playedMs": 131411412
+       "playedMs": 131411110
       },
       {
        "user": "Jonas",
@@ -6570,7 +9002,7 @@
       {
        "user": "Demo",
        "plays": 19,
-       "playedMs": 55523412
+       "playedMs": 55523110
       }
      ],
      "topTitles": [
@@ -6757,12 +9189,12 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T21:54:55.919Z"
+     "refreshedAt": "2026-11-06T22:18:26.460Z"
     },
     "streams": {
      "days": 30,
      "plays": 82,
-     "playedMs": 286885824,
+     "playedMs": 286885220,
      "transcodes": 25,
      "topTitles": [
       {
@@ -6936,7 +9368,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "refreshedAt": "2026-11-06T22:18:26.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -6982,13 +9414,13 @@
     "streams": {
      "days": 90,
      "plays": 112,
-     "playedMs": 415973424,
+     "playedMs": 415972820,
      "transcodes": 33,
      "users": [
       {
        "user": "Mira",
        "plays": 54,
-       "playedMs": 197930412
+       "playedMs": 197930110
       },
       {
        "user": "Jonas",
@@ -6998,7 +9430,7 @@
       {
        "user": "Demo",
        "plays": 25,
-       "playedMs": 72263412
+       "playedMs": 72263110
       }
      ],
      "topTitles": [
@@ -7253,12 +9685,12 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T21:54:55.919Z"
+     "refreshedAt": "2026-11-06T22:18:26.460Z"
     },
     "streams": {
      "days": 90,
      "plays": 112,
-     "playedMs": 415973424,
+     "playedMs": 415972820,
      "transcodes": 33,
      "topTitles": [
       {
@@ -7500,7 +9932,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T21:54:55.919Z",
+      "refreshedAt": "2026-11-06T22:18:26.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -7546,13 +9978,13 @@
     "streams": {
      "days": 365,
      "plays": 153,
-     "playedMs": 572683224,
+     "playedMs": 572682620,
      "transcodes": 43,
      "users": [
       {
        "user": "Mira",
        "plays": 78,
-       "playedMs": 279756612
+       "playedMs": 279756310
       },
       {
        "user": "Jonas",
@@ -7562,7 +9994,7 @@
       {
        "user": "Demo",
        "plays": 32,
-       "playedMs": 94146612
+       "playedMs": 94146310
       }
      ],
      "topTitles": [
@@ -7961,12 +10393,12 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T21:54:55.919Z"
+     "refreshedAt": "2026-11-06T22:18:26.460Z"
     },
     "streams": {
      "days": 365,
      "plays": 153,
-     "playedMs": 572683224,
+     "playedMs": 572682620,
      "transcodes": 43,
      "topTitles": [
       {
@@ -8364,6 +10796,219 @@
     "ok": true,
     "version": "4.0.15.2941",
     "variant": null
+   }
+  },
+  "POST /api/trash/resolve": {
+   "status": 200,
+   "body": {
+    "warnings": [
+     {
+      "code": "unknownNaming",
+      "params": {
+       "setting": "file",
+       "variant": "default"
+      }
+     }
+    ],
+    "profiles": [
+     {
+      "trashId": "433dc658c9d5c28610bd440085d1b397",
+      "name": "Example HD Bluray + WEB",
+      "scoreSet": "default",
+      "formats": [
+       {
+        "trashId": "3ab792373cb9be5bfa4cda6d00b409a2",
+        "name": "Example Tier 01",
+        "guideScore": 1800,
+        "score": 1800,
+        "source": "profile",
+        "group": null
+       },
+       {
+        "trashId": "d291dc7f55415073bb7e293cb9ffdd4c",
+        "name": "Example Tier 02",
+        "guideScore": 1750,
+        "score": 1750,
+        "source": "profile",
+        "group": null
+       },
+       {
+        "trashId": "9db6825daea06b2d650f8e599912bb85",
+        "name": "Repack/Proper",
+        "guideScore": 5,
+        "score": 5,
+        "source": "profile",
+        "group": null
+       },
+       {
+        "trashId": "413aadae167017c1de53efde8f5ab0ac",
+        "name": "BR-DISK",
+        "guideScore": -10000,
+        "score": -10000,
+        "source": "group",
+        "group": "[Unwanted] Unwanted Formats"
+       },
+       {
+        "trashId": "e4eb13a771af7975c0d4c11352bffbc3",
+        "name": "LQ",
+        "guideScore": -10000,
+        "score": -10000,
+        "source": "group",
+        "group": "[Unwanted] Unwanted Formats"
+       },
+       {
+        "trashId": "70488d840bc7f84094198cf5a25c476e",
+        "name": "x265 (HD)",
+        "guideScore": -10000,
+        "score": -10000,
+        "source": "group",
+        "group": "[Unwanted] Unwanted Formats"
+       }
+      ]
+     }
+    ],
+    "counts": {
+     "customFormats": 6,
+     "qualityProfiles": 1
+    }
+   }
+  },
+  "POST /api/trash/instances/00000000-0000-4000-8000-000000000004/suggest": {
+   "status": 200,
+   "body": {
+    "product": "radarr",
+    "config": {
+     "profiles": [
+      {
+       "trashId": "433dc658c9d5c28610bd440085d1b397",
+       "name": "Example HD Bluray + WEB",
+       "groups": [
+        "3fe36b60639972d1c1372795bd292d37"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {}
+      }
+     ],
+     "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+     "naming": {
+      "folder": "default"
+     },
+     "rename": false
+    },
+    "matches": [
+     {
+      "arrProfile": "Example HD Bluray + WEB",
+      "trashProfile": "Example HD Bluray + WEB",
+      "match": "name",
+      "similarity": 1
+     }
+    ]
+   }
+  },
+  "POST /api/trash/instances/00000000-0000-4000-8000-000000000005/suggest": {
+   "status": 200,
+   "body": {
+    "product": "radarr",
+    "config": {
+     "profiles": [
+      {
+       "trashId": "4b60a7b48461a2ffa0db937e13c84108",
+       "name": "Example UHD Bluray + WEB",
+       "groups": [
+        "a52fda891923615bd55075229cbfd147",
+        "65342dc7cd156666db203441072dd6ea"
+       ],
+       "excludedFormats": [],
+       "extraFormats": [],
+       "scoreOverrides": {
+        "413aadae167017c1de53efde8f5ab0ac": -9975
+       }
+      }
+     ],
+     "qualitySize": "4f87c4f176abc6d6b0268f8415519a96",
+     "naming": {
+      "folder": "default"
+     },
+     "rename": false
+    },
+    "matches": [
+     {
+      "arrProfile": "Example UHD Bluray + WEB",
+      "trashProfile": "Example UHD Bluray + WEB",
+      "match": "name",
+      "similarity": 1
+     }
+    ]
+   }
+  },
+  "POST /api/trash/instances/00000000-0000-4000-8000-000000000002/suggest": {
+   "status": 200,
+   "body": {
+    "product": "sonarr",
+    "config": {
+     "profiles": [],
+     "qualitySize": null,
+     "naming": {},
+     "rename": false
+    },
+    "matches": []
+   }
+  },
+  "POST /api/trash/instances/00000000-0000-4000-8000-000000000003/suggest": {
+   "status": 200,
+   "body": {
+    "product": "sonarr",
+    "config": {
+     "profiles": [],
+     "qualitySize": null,
+     "naming": {},
+     "rename": false
+    },
+    "matches": []
+   }
+  },
+  "POST /api/trash/instances/00000000-0000-4000-8000-000000000004/release-test": {
+   "status": 200,
+   "body": {
+    "parsed": {
+     "title": "Nosferatu.1922.1080p.BluRay.x264-EXAMPLE",
+     "quality": "Bluray-1080p",
+     "customFormats": [],
+     "languages": [
+      "English"
+     ],
+     "releaseGroup": "EXAMPLE"
+    },
+    "profiles": [
+     {
+      "id": 106,
+      "name": "Example HD Bluray + WEB",
+      "managed": true,
+      "formats": [],
+      "total": 0,
+      "accepted": true,
+      "meetsCutoff": false
+     },
+     {
+      "id": 2,
+      "name": "Any",
+      "managed": false,
+      "formats": [],
+      "total": 0,
+      "accepted": true,
+      "meetsCutoff": true
+     },
+     {
+      "id": 1,
+      "name": "HD-1080p",
+      "managed": false,
+      "formats": [],
+      "total": 0,
+      "accepted": true,
+      "meetsCutoff": true
+     }
+    ]
    }
   }
  }

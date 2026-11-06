@@ -1,0 +1,23 @@
+{
+  "name": "[HDR Formats] HDR",
+  "trash_id": "11883b1a7ea38d04ef3e6825acb82a5b",
+  "trash_description": "For HDR-capable screens.",
+  "default": "true",
+  "custom_formats": [
+    {
+      "name": "HDR",
+      "trash_id": "acba97212e53a38055ce551ebf93c0ed",
+      "required": true
+    },
+    {
+      "name": "DV",
+      "trash_id": "6d9da51f8ede51a149c062fd10e1b5c6",
+      "required": false
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example WEB-2160p": "e4220021cd026c68779b53606d234f53"
+    }
+  }
+}

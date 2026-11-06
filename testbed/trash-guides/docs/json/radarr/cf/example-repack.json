@@ -1,0 +1,28 @@
+{
+  "trash_id": "9db6825daea06b2d650f8e599912bb85",
+  "trash_scores": {
+    "default": 5
+  },
+  "name": "Repack/Proper",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Repack",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "\\b(repack)\\b"
+      }
+    },
+    {
+      "name": "Proper",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "\\b(proper)\\b"
+      }
+    }
+  ]
+}

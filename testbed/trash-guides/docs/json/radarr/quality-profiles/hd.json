@@ -1,0 +1,62 @@
+{
+  "trash_id": "433dc658c9d5c28610bd440085d1b397",
+  "name": "Example HD Bluray + WEB",
+  "trash_description": "Invented example profile for 1080p releases.",
+  "trash_url": "https://trash-guides.info/",
+  "group": 1,
+  "upgradeAllowed": true,
+  "cutoff": "Bluray-1080p",
+  "minFormatScore": 0,
+  "cutoffFormatScore": 10000,
+  "minUpgradeFormatScore": 1,
+  "language": "Original",
+  "trash_quality_definition": {
+    "movie": "4f87c4f176abc6d6b0268f8415519a96"
+  },
+  "items": [
+    {
+      "name": "Bluray-1080p",
+      "allowed": true
+    },
+    {
+      "name": "WEB 1080p",
+      "allowed": true,
+      "items": ["WEBRip-1080p", "WEBDL-1080p"]
+    },
+    {
+      "name": "Bluray-720p",
+      "allowed": true
+    },
+    {
+      "name": "Remux-2160p",
+      "allowed": false
+    },
+    {
+      "name": "Bluray-2160p",
+      "allowed": false
+    },
+    {
+      "name": "WEB 2160p",
+      "allowed": false,
+      "items": ["WEBRip-2160p", "WEBDL-2160p"]
+    },
+    {
+      "name": "WEB 720p",
+      "allowed": false,
+      "items": ["WEBRip-720p", "WEBDL-720p"]
+    },
+    {
+      "name": "DVD",
+      "allowed": false
+    },
+    {
+      "name": "Unknown",
+      "allowed": false
+    }
+  ],
+  "formatItems": {
+    "Example Tier 01": "3ab792373cb9be5bfa4cda6d00b409a2",
+    "Example Tier 02": "d291dc7f55415073bb7e293cb9ffdd4c",
+    "Repack/Proper": "9db6825daea06b2d650f8e599912bb85"
+  }
+}

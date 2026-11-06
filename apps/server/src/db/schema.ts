@@ -246,3 +246,71 @@ export const notificationChannels = sqliteTable('notification_channels', {
   createdAt: text('created_at').notNull().default(now),
   updatedAt: text('updated_at').notNull().default(now),
 });
+
+/** Cached TRaSH Guides JSON files, by path below the product folder (`radarr/cf/x.json`). */
+export const trashFiles = sqliteTable('trash_files', {
+  path: text('path').primaryKey(),
+  /** Git blob id, so unchanged files are not downloaded again. */
+  sha: text('sha').notNull(),
+  content: text('content', { mode: 'json' }).$type<unknown>().notNull(),
+});
+
+/** State of the TRaSH Guides sync: guide version, settings, changelog. */
+export const trashMeta = sqliteTable('trash_meta', {
+  key: text('key').primaryKey(),
+  value: text('value', { mode: 'json' }).$type<unknown>().notNull(),
+  updatedAt: text('updated_at').notNull().default(now),
+});
+
+/** Templates: which TRaSH profiles, formats, sizes and naming an instance gets. */
+export const trashTemplates = sqliteTable('trash_templates', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull().unique(),
+  product: text('product', { enum: ['radarr', 'sonarr'] }).notNull(),
+  config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull(),
+  createdAt: text('created_at').notNull().default(now),
+  updatedAt: text('updated_at').notNull().default(now),
+});
+
+/** Template of an instance, its guard mode and what Wardarr manages there. */
+export const trashAssignments = sqliteTable('trash_assignments', {
+  instanceId: text('instance_id')
+    .primaryKey()
+    .references(() => instances.id, { onDelete: 'cascade' }),
+  templateId: text('template_id')
+    .notNull()
+    .references(() => trashTemplates.id),
+  guardMode: text('guard_mode', { enum: ['off', 'notify', 'auto', 'strict'] })
+    .notNull()
+    .default('notify'),
+  /** Instance ids of the objects Wardarr created or adopted, by sync key. */
+  managed: text('managed', { mode: 'json' }).$type<Record<string, number>>().notNull().default({}),
+  /** Fields as of the last sync, to tell guide changes from local changes. */
+  applied: text('applied', { mode: 'json' }).$type<Record<string, Record<string, unknown>>>(),
+  /** Last check: drift counts, pause reason, errors. */
+  state: text('state', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  lastSyncAt: text('last_sync_at'),
+  updatedAt: text('updated_at').notNull().default(now),
+});
+
+/** Every sync and rollback, with the backup taken before it. */
+export const trashHistory = sqliteTable(
+  'trash_history',
+  {
+    id: text('id').primaryKey(),
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    templateName: text('template_name'),
+    at: text('at').notNull(),
+    /** `guard` or the id of the user. */
+    actor: text('actor').notNull(),
+    kind: text('kind', { enum: ['sync', 'rollback'] }).notNull(),
+    status: text('status', { enum: ['ok', 'partial', 'failed'] }).notNull(),
+    summary: text('summary', { mode: 'json' }).$type<Record<string, unknown>>().notNull(),
+    backup: text('backup', { mode: 'json' }).$type<Record<string, unknown>>(),
+    error: text('error'),
+    rolledBackAt: text('rolled_back_at'),
+  },
+  (t) => [index('trash_history_instance_at').on(t.instanceId, t.at)],
+);

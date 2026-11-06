@@ -46,6 +46,7 @@ export async function createTestApp(
     imageFetch?: AppOptions['imageFetch'];
     notificationOptions?: AppOptions['notificationOptions'];
     publicUrl?: string;
+    trashDir?: string;
   } = {},
 ) {
   const { db, close } = openDatabase(':memory:');
@@ -59,6 +60,7 @@ export async function createTestApp(
     imageFetch: extra.imageFetch,
     notificationOptions: extra.notificationOptions,
     publicUrl: extra.publicUrl,
+    trashDir: extra.trashDir,
   });
   await built.app.ready();
   return {

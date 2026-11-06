@@ -1,0 +1,30 @@
+{
+  "name": "[Unwanted] Unwanted Formats",
+  "trash_id": "1565e4e215af0ff7e4a35d7bf4a210c8",
+  "trash_description": "Formats the guide recommends to avoid.",
+  "default": "true",
+  "custom_formats": [
+    {
+      "name": "BR-DISK",
+      "trash_id": "ac4002fa44d30006a82129608492726e",
+      "required": true
+    },
+    {
+      "name": "LQ",
+      "trash_id": "af5a89f18109544bbf9cdf3225e54633",
+      "required": true
+    },
+    {
+      "name": "x265 (HD)",
+      "trash_id": "a910cf075b1d2003780c081feb4204b2",
+      "required": false,
+      "default": true
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example WEB-1080p": "744be2984bd8b3c5d0b5f74d818f2cef",
+      "[German] Example WEB-1080p": "b564657984f7a3e79fac4b4908e67cd8"
+    }
+  }
+}

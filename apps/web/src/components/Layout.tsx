@@ -16,6 +16,7 @@ const TAB_PATHS: Record<string, string> = {
   requests: '/requests',
   library: '/library',
   indexers: '/indexers',
+  trash: '/trash',
   settings: '/settings',
 };
 
@@ -28,6 +29,7 @@ const ICONS: Record<string, string> = {
   requests: 'M8 4h8l1 3H7zM5 7h14v13H5zM9 12h6M9 16h4',
   library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
+  trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
   more: 'M5 12h.01M12 12h.01M19 12h.01',
   settings:
     'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.5 4a8.5 8.5 0 0 0-.2-1.8l2-1.6-2-3.4-2.4 1a8 8 0 0 0-3-1.8L14.5 2h-5l-.4 2.4a8 8 0 0 0-3 1.8l-2.4-1-2 3.4 2 1.6a8.5 8.5 0 0 0 0 3.6l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 3 1.8l.4 2.4h5l.4-2.4a8 8 0 0 0 3-1.8l2.4 1 2-3.4-2-1.6c.1-.6.2-1.2.2-1.8z',

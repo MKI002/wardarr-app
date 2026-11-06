@@ -3,6 +3,7 @@
 import type { z } from 'zod';
 import type { HttpClient } from './http.js';
 import type { Signal } from '../issues/types.js';
+import type { ProfileSyncApi } from '../trash/types.js';
 
 export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests';
 
@@ -22,6 +23,7 @@ export const CAPABILITIES = [
   'requests',
   'downloads',
   'indexers',
+  'trashSync',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -416,6 +418,8 @@ export interface AdapterInstance {
   removeDownload?(jobId: string, opts: { deleteFiles: boolean }): Promise<void>;
   /** Read-only settings. Secrets must already be masked. */
   settings?(): Promise<SettingsSection[]>;
+  /** Custom formats, quality profiles, sizes and naming (capability `trashSync`). */
+  profileSync?: ProfileSyncApi;
   /** Deep link into the service UI. */
   webUrl?(target?: { kind: 'indexer' | 'queue' | 'settings' | 'system'; id?: string | number }): string;
 }

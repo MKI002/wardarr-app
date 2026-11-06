@@ -1,0 +1,25 @@
+{
+  "name": "[Optional] Miscellaneous",
+  "trash_id": "cd871842301e31e246c72b24f622f933",
+  "trash_description": "Optional formats, read their descriptions first.",
+  "custom_formats": [
+    {
+      "name": "HFR",
+      "trash_id": "c013cd2ed34ef9c84181a37963a26466",
+      "required": false
+    },
+    {
+      "name": "Repack/Proper",
+      "trash_id": "9db6825daea06b2d650f8e599912bb85",
+      "required": false,
+      "default": true
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example HD Bluray + WEB": "433dc658c9d5c28610bd440085d1b397",
+      "Example UHD Bluray + WEB": "4b60a7b48461a2ffa0db937e13c84108",
+      "[German] Example HD Bluray + WEB": "511da697c8f18baac7424b2b2a46171a"
+    }
+  }
+}

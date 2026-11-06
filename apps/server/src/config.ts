@@ -28,6 +28,8 @@ const schema = z.object({
     .url()
     .refine((u) => /^https?:\/\//.test(u), 'http or https only')
     .optional(),
+  /** Local checkout of the TRaSH Guides, instead of downloading them from GitHub. */
+  WARDARR_TRASH_DIR: z.string().optional(),
 });
 
 export interface Config {
@@ -41,6 +43,7 @@ export interface Config {
   webDir: string | undefined;
   httpTimeoutMs: number;
   publicUrl: string | undefined;
+  trashDir: string | undefined;
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
@@ -56,5 +59,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     webDir: parsed.WARDARR_WEB_DIR,
     httpTimeoutMs: parsed.WARDARR_HTTP_TIMEOUT_MS,
     publicUrl: parsed.WARDARR_PUBLIC_URL?.replace(/\/+$/, ''),
+    trashDir: parsed.WARDARR_TRASH_DIR ? path.resolve(parsed.WARDARR_TRASH_DIR) : undefined,
   };
 }

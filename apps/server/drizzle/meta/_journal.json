@@ -29,6 +29,13 @@
       "when": 1793999167220,
       "tag": "0003_stage4_notifications",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1794002010313,
+      "tag": "0004_trash_guides",
+      "breakpoints": true
     }
   ]
 }
