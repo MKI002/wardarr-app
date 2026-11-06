@@ -5,6 +5,7 @@ import { useNavigate, useSearch } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PageHeader } from '../components/dash';
 import { Dialog } from '../components/Dialog';
 import { Poster } from '../components/Poster';
 import {
@@ -96,33 +97,34 @@ export function DiscoverPage() {
   }, [pages.data]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{t('ui.discover.title')}</h1>
-          <p className="text-sm text-muted">{t('ui.discover.intro')}</p>
-        </div>
-        <label className="relative w-full sm:w-80">
-          <span className="sr-only">{t('ui.discover.search')}</span>
-          <svg
-            viewBox="0 0 24 24"
-            className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden
-          >
-            <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4" />
-          </svg>
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={t('ui.discover.searchPlaceholder')}
-            className="min-h-10 w-full rounded-lg border border-border bg-surface pr-3 pl-9 text-sm outline-none placeholder:text-muted focus:border-accent"
-          />
-        </label>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        eyebrow={t('ui.discover.eyebrow')}
+        title={t('ui.discover.title')}
+        intro={t('ui.discover.intro')}
+        actions={
+          <label className="relative w-full sm:w-80">
+            <span className="sr-only">{t('ui.discover.search')}</span>
+            <svg
+              viewBox="0 0 24 24"
+              className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
+              <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t('ui.discover.searchPlaceholder')}
+              className="min-h-10 w-full rounded-xl border border-border bg-surface pr-3 pl-9 text-sm transition-shadow outline-none placeholder:text-muted focus:border-accent focus:ring-4 focus:ring-[color-mix(in_oklab,var(--accent)_18%,transparent)]"
+            />
+          </label>
+        }
+      />
 
       {q ? (
         <p className="text-sm text-muted">{t('ui.discover.resultsFor', { query: q })}</p>
@@ -164,9 +166,9 @@ export function DiscoverPage() {
           {items.map((item, index) => (
             <motion.li
               key={`${item.mediaType}:${item.tmdbId}`}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...spring, delay: Math.min(index % 20, 12) * 0.015 }}
+              initial={{ opacity: 0, y: 14, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ ...spring, delay: Math.min(index % 20, 12) * 0.035 }}
             >
               <button
                 type="button"
@@ -176,7 +178,7 @@ export function DiscoverPage() {
                 }}
                 className="group flex w-full flex-col gap-2 rounded-xl text-left outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
-                <div className="relative transition-transform duration-200 group-hover:-translate-y-0.5 motion-reduce:transform-none">
+                <div className="relative rounded-xl transition-[transform,box-shadow] duration-300 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_18px_40px_-18px_color-mix(in_oklab,var(--accent)_55%,transparent)] group-focus-visible:-translate-y-1.5 motion-reduce:transform-none">
                   <Poster path={item.posterPath} title={item.title} />
                   <div className="absolute top-2 left-2 flex flex-col items-start gap-1">
                     <AvailabilityBadge status={item.status} />

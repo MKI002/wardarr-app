@@ -290,5 +290,15 @@
     "alreadyRolledBack": "Dieser Abgleich wurde schon zurückgerollt.",
     "confirmationRequired": "Das braucht eine Bestätigung.",
     "productFixed": "Das Produkt einer Vorlage lässt sich nicht ändern."
+  },
+  "hero": {
+    "eyebrow": "Qualitätsprofile",
+    "inSyncOf": "von {{count}} synchron",
+    "allGood": "Jede Instanz entspricht ihrer Vorlage.",
+    "attention_one": "{{count}} Instanz braucht einen Blick.",
+    "attention_other": "{{count}} Instanzen brauchen einen Blick.",
+    "none": "Noch keine Instanz hat eine Vorlage.",
+    "ring": "Sync-Zustand im Überblick",
+    "guards": "Genutzte Wächter-Modi"
   }
 }

@@ -22,8 +22,9 @@ the rest when asked.
    accent violet.
 5. **Nothing waits for an animation.** Every value is readable in the first
    frame. Motion adds life; it never hides or delays content.
-6. **Show actions where they apply.** Repeated per-row buttons go behind a
-   hover, a menu or a single primary action per row.
+6. **Show actions where they apply.** Each row shows at most one primary
+   action; the rest go into an `ActionMenu`. Never hide content or actions
+   behind an opacity hover.
 
 ## Tokens
 
@@ -65,22 +66,26 @@ on content (see _Motion_).
 Use these before writing a new chart. They share colours, motion, tooltips and
 accessibility.
 
-| Component                   | File            | For                                                                                    |
-| --------------------------- | --------------- | -------------------------------------------------------------------------------------- |
-| `Ring`                      | `charts.tsx`    | a whole split into states (services, indexers) with a centre label                     |
-| `Gauge`                     | `charts.tsx`    | one value against a limit (API budget)                                                 |
-| `Sparkline`                 | `charts.tsx`    | a recent trend with hover values                                                       |
-| `Columns`                   | `charts.tsx`    | counts over time, optionally stacked by status, with hover tooltip and axis            |
-| `SegmentBar`                | `charts.tsx`    | parts of a whole; thin beside text, `tall` with shares and legend when it stands alone |
-| `Heatmap`                   | `charts.tsx`    | a grid of counts (weekday × hour)                                                      |
-| `ProgressRing`, `BarRow`    | `charts.tsx`    | progress of one item, a ranked list                                                    |
-| `LiveDot`                   | `charts.tsx`    | something running right now                                                            |
-| `Radar`                     | `Radar.tsx`     | the overview centrepiece: every service as a blip                                      |
-| `PageHeader`, `SectionRule` | `dash.tsx`      | page and section structure                                                             |
-| `Odometer`                  | `dash.tsx`      | big numbers that roll into place                                                       |
-| `KpiCard`, `MiniBars`       | `dash.tsx`      | a key figure with a small trend chart                                                  |
-| `InsightRow`                | `dash.tsx`      | "worth a look" rows: icon, sentence, action                                            |
-| `IssueIcon`                 | `IssueIcon.tsx` | what kind of problem an issue is, tinted by severity                                   |
+| Component                   | File             | For                                                                                    |
+| --------------------------- | ---------------- | -------------------------------------------------------------------------------------- |
+| `Ring`                      | `charts.tsx`     | a whole split into states (services, indexers) with a centre label                     |
+| `Gauge`                     | `charts.tsx`     | one value against a limit (API budget)                                                 |
+| `Sparkline`                 | `charts.tsx`     | a recent trend with hover values                                                       |
+| `Columns`                   | `charts.tsx`     | counts over time, optionally stacked by status, with hover tooltip and axis            |
+| `SegmentBar`                | `charts.tsx`     | parts of a whole; thin beside text, `tall` with shares and legend when it stands alone |
+| `Heatmap`                   | `charts.tsx`     | a grid of counts (weekday × hour)                                                      |
+| `ProgressRing`, `BarRow`    | `charts.tsx`     | progress of one item, a ranked list                                                    |
+| `LiveDot`                   | `charts.tsx`     | something running right now                                                            |
+| `Radar`                     | `Radar.tsx`      | the overview centrepiece: every service as a blip                                      |
+| `PageHeader`, `SectionRule` | `dash.tsx`       | page and section structure                                                             |
+| `Odometer`                  | `dash.tsx`       | big numbers that roll into place                                                       |
+| `KpiCard`, `MiniBars`       | `dash.tsx`       | a key figure with a small trend chart                                                  |
+| `InsightRow`                | `dash.tsx`       | "worth a look" rows: icon, sentence, action                                            |
+| `IssueIcon`                 | `IssueIcon.tsx`  | what kind of problem an issue is, tinted by severity                                   |
+| `Funnel`                    | `charts.tsx`     | stages that narrow (downloads → strikes → removals, searched → found → imported)       |
+| `InstanceChips`             | `dash.tsx`       | picking one instance of a feature, with logo and a status dot or count                 |
+| `ActionMenu`                | `ActionMenu.tsx` | the rare actions of a row (ignore, delete, open elsewhere) behind a "more" button      |
+| `Choice`                    | `ui.tsx`         | a small set of exclusive options; the selection slides between them                    |
 
 ### Choosing a chart
 
@@ -93,6 +98,8 @@ accessibility.
 | see change over time               | `Sparkline` (trend), `Columns` (counts per day)     |
 | see when something happens         | `Heatmap`                                           |
 | see many items × many items        | a matrix of status cells                            |
+| see how many get through stages    | `Funnel`                                            |
+| see what happens next over time    | a timeline strip with one mark per planned event    |
 
 Never a pie chart, never two y-axes, never a generated rainbow. More than six
 parts fold into "Other".
