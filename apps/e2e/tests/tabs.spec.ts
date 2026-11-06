@@ -1,6 +1,7 @@
 // Switching tabs faster than the view transition must never leave a blank or
-// half-faded view, and the navigation (sidebar, rail, palette, phone menu)
-// works. Runs after stages 1 to 4, against the setup they created.
+// half-faded view, the navigation (sidebar, rail, palette, phone menu) works,
+// and the indexer insights tab shows what it found. Runs after stages 1 to 4,
+// against the setup they created.
 import { expect, test, type Page } from '@playwright/test';
 
 const ADMIN = { username: 'admin', password: 'example-password-1' };
@@ -93,6 +94,45 @@ test('switching Discover lists brings every list in the same way', async () => {
   const before = await grid.elementHandle();
   await lists.getByRole('tab', { name: 'Trending' }).click();
   await expect.poll(() => before!.evaluate((el) => el.isConnected)).toBe(false);
+  await settled(page);
+});
+
+// Reads where every app gets its indexers from and the numbers Prowlarr
+// collected. Lives here to share the one sign-in.
+test('the indexer insights tab shows sources, numbers and what needs a look', async () => {
+  // The Indexers page links to the analysis.
+  await page.goto('/indexers');
+  await page.getByRole('link', { name: /Analysis and history/ }).click();
+  await expect(page).toHaveURL(/\/indexer-insights/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Indexer insights' })).toBeVisible();
+
+  // Read everything now instead of waiting for the next collection run.
+  await page.getByRole('button', { name: 'Update now' }).click();
+  const main = page.locator('main');
+
+  // Radarr takes its indexer from Prowlarr; Radarr 4K also has one added by hand.
+  const card = (name: string) =>
+    main.locator('article', { has: page.getByRole('heading', { name, exact: true }) });
+  await expect(card('Radarr').getByText('Prowlarr', { exact: true })).toBeVisible();
+  await expect(card('Radarr 4K').getByText('Mixed', { exact: true })).toBeVisible();
+
+  // The matrix names how each site gets into each app.
+  const matrix = page.getByRole('table', { name: 'Which app gets which indexer, and how' });
+  await expect(matrix.getByRole('img', { name: 'ExampleIndexer in Radarr: From Prowlarr' })).toBeVisible();
+  await expect(matrix.getByRole('img', { name: 'Example Extra in Radarr 4K: Added by hand' })).toBeVisible();
+
+  // Numbers from Prowlarr reach the comparison table.
+  const table = page.getByRole('table', { name: 'Indexer comparison' });
+  await expect(table.getByText('ExampleIndexer', { exact: true })).toBeVisible();
+
+  // A mixed setup is worth a look.
+  await expect(main.getByText(/mixes sources: 1 from Prowlarr, 1 added by hand/)).toBeVisible();
+
+  // Switching the range keeps the page and the address in step.
+  await page.getByRole('tab', { name: '30 days' }).click();
+  await expect(page).toHaveURL(/range=30d/);
+  await expect(table).toBeVisible();
+  // Nothing may stay half faded after the charts came in.
   await settled(page);
 });
 

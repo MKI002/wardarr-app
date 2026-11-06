@@ -1,0 +1,209 @@
+{
+  "title": "Indexer-Analyse",
+  "intro": "Woher jede App ihre Indexer bekommt und wie sich jeder Indexer über die Zeit schlägt.",
+  "eyebrow": "Indexer · {{range}}",
+  "since": "Daten seit {{date}}",
+  "collecting": "Sammelt",
+  "refresh": "Jetzt aktualisieren",
+  "range": {
+    "label": "Zeitraum",
+    "24h": "24 Std.",
+    "7d": "7 Tage",
+    "30d": "30 Tage",
+    "90d": "90 Tage",
+    "long": {
+      "24h": "letzten 24 Stunden",
+      "7d": "letzten 7 Tage",
+      "30d": "letzten 30 Tage",
+      "90d": "letzten 90 Tage"
+    }
+  },
+  "empty": {
+    "title": "Noch keine Indexer zum Auswerten",
+    "body": "Verbinde Prowlarr oder eine Sonarr-, Radarr- oder Lidarr-Instanz in den Einstellungen. Wardarr liest dann deren Indexer und sammelt Zahlen."
+  },
+  "hero": {
+    "label": "Erfolgreiche Suchen",
+    "importLabel": "Importierte Grabs",
+    "none": "–",
+    "failing_one": "{{count}} Indexer ist gerade ausgefallen.",
+    "failing_other": "{{count}} Indexer sind gerade ausgefallen.",
+    "reliable": "Deine Indexer antworten zuverlässig.",
+    "someFail": "{{percent}} aller Suchen schlagen fehl.",
+    "noStats": "Ohne Prowlarr gibt es keine Suchzahlen; das hier zeigt die Historie deiner Apps.",
+    "waiting": "Wardarr liest gerade die letzten 30 Tage ein. Die ersten Zahlen erscheinen in ein paar Minuten.",
+    "versus": "{{delta}} gegenüber den {{range}} davor",
+    "searches": "Suchen",
+    "grabs": "Grabs",
+    "response": "Ø Antwort"
+  },
+  "sourcesRing": "Indexer-Einträge in deinen Apps nach Herkunft",
+  "entries_one": "Eintrag",
+  "entries_other": "Einträge",
+  "source": {
+    "synced": "Aus Prowlarr",
+    "direct": "Von Hand eingetragen",
+    "both": "Doppelt",
+    "missing": "Fehlt",
+    "off": "Abgeschaltet",
+    "orphan": "Überbleibsel"
+  },
+  "sentence": {
+    "prowlarr": "{{apps}} holen alle Indexer aus Prowlarr.",
+    "direct": "{{apps}} nutzen nur von Hand eingetragene Indexer.",
+    "mixed": "{{apps}} mischen Prowlarr und eigene Indexer.",
+    "none": "{{apps}} haben keine Indexer.",
+    "unknown": "{{apps}} konnten nicht gelesen werden."
+  },
+  "worthALook": "Einen Blick wert",
+  "allGood": "Nichts fällt auf",
+  "allGoodBody": "Die Herkunft ist sauber und alle Indexer benehmen sich.",
+  "insight": {
+    "failing": "<b>{{name}}</b> ist gerade ausgefallen.",
+    "failingApps": "{{apps}} suchen ohne ihn.",
+    "duplicate": "<b>{{app}}</b> hat {{name}} doppelt, neben {{other}}. Jede Suche trifft die Seite zweimal.",
+    "missing_one": "Prowlarr sollte {{list}} nach <b>{{app}}</b> synchronisieren, dort fehlt er aber.",
+    "missing_other": "Prowlarr sollte {{count}} Indexer nach <b>{{app}}</b> synchronisieren, die dort fehlen: {{list}}.",
+    "orphan": "<b>{{name}}</b> in {{app}} zeigt auf einen Indexer, den Prowlarr nicht mehr hat.",
+    "mixed": "<b>{{app}}</b> mischt die Quellen: {{synced}} aus Prowlarr, {{direct}} von Hand eingetragen.",
+    "directOnly_one": "<b>{{app}}</b> hat einen eigenen Indexer und ist in Prowlarr nicht eingerichtet.",
+    "directOnly_other": "<b>{{app}}</b> hat {{count}} eigene Indexer und ist in Prowlarr nicht eingerichtet.",
+    "unmatchedApp": "Prowlarr synchronisiert nach <b>{{name}}</b> ({{implementation}}), das Wardarr nicht kennt.",
+    "unknownProwlarr": "<b>{{name}}</b> in {{app}} stammt aus einem Prowlarr, das nicht mit Wardarr verbunden ist.",
+    "highFailRate": "<b>{{name}}</b> ist bei {{percent}} von {{queries}} Suchen gescheitert.",
+    "slow": "<b>{{name}}</b> braucht im Schnitt {{seconds}} s pro Antwort.",
+    "noGrabs": "<b>{{name}}</b> hat {{queries}} Suchen beantwortet, ohne dass einmal gegrabbt wurde.",
+    "lowImport": "Nur {{percent}} der Grabs von <b>{{name}}</b> sind in der Bibliothek angekommen.",
+    "best": "<b>{{name}}</b> ist dein stärkster Indexer mit einer Wertung von {{score}}."
+  },
+  "open": "Öffnen",
+  "kpi": {
+    "searches": "Suchen",
+    "searchesSub": "davon {{rss}} per RSS",
+    "grabs": "Grabs",
+    "grabsSub": "{{rate}} Grabs pro 100 Suchen",
+    "response": "Antwortzeit",
+    "responseSub": "Grabs antworten in {{ms}}",
+    "imports": "Importiert",
+    "importsSub": "{{imported}} von {{finished}} abgeschlossenen Grabs",
+    "noImports": "Noch keine abgeschlossenen Grabs",
+    "trend": "{{label}} in den {{range}}"
+  },
+  "sections": {
+    "sources": "Woher die Indexer kommen",
+    "compare": "Indexer vergleichen",
+    "time": "Im Zeitverlauf",
+    "outages": "Ausfälle",
+    "who": "Wer sucht"
+  },
+  "app": {
+    "mode": {
+      "prowlarr": "Prowlarr",
+      "direct": "Eigene Indexer",
+      "mixed": "Gemischt",
+      "none": "Keine Indexer",
+      "unknown": "Nicht lesbar"
+    },
+    "via": "Von {{prowlarr}} als „{{app}}“ synchronisiert",
+    "syncLevel": {
+      "fullSync": "voller Abgleich",
+      "addOnly": "nur hinzufügen und ändern",
+      "disabled": "Abgleich aus"
+    },
+    "notInProwlarr": "In Prowlarr nicht eingerichtet",
+    "noProwlarr": "Kein Prowlarr verbunden",
+    "counts": "{{synced}} aus Prowlarr · {{direct}} von Hand",
+    "grabs": "{{total}} Grabs, {{imported}} importiert",
+    "error": "Die Indexer konnten nicht gelesen werden: {{reason}}",
+    "evidence": {
+      "url": "Die Adresse zeigt auf Prowlarr",
+      "name": "Am Namen erkannt",
+      "none": "In der App selbst eingetragen"
+    },
+    "searchOff": "RSS und Suchen aus",
+    "history": "Einträge pro Tag"
+  },
+  "matrix": {
+    "title": "Indexer × Apps",
+    "label": "Welche App welchen Indexer bekommt, und wie",
+    "indexer": "Indexer",
+    "cell": "{{indexer}} bei {{app}}: {{state}}",
+    "none": "Nicht genutzt",
+    "gone": "Nur in der Historie"
+  },
+  "scatter": {
+    "title": "Tempo und Zuverlässigkeit",
+    "intro": "Jede Blase ist ein Indexer, größer heißt mehr Grabs. Oben links ist am besten.",
+    "label": "Indexer nach Antwortzeit und Anteil erfolgreicher Suchen",
+    "x": "Ø Antwortzeit",
+    "y": "Erfolgreiche Suchen",
+    "best": "schnell und zuverlässig",
+    "worst": "langsam und unzuverlässig",
+    "empty": "Braucht Suchzahlen aus Prowlarr."
+  },
+  "table": {
+    "label": "Indexer-Vergleich",
+    "sortBy": "Nach {{column}} sortieren",
+    "indexer": "Indexer",
+    "score": "Wertung",
+    "searches": "Suchen",
+    "grabs": "Grabs",
+    "success": "Erfolg",
+    "response": "Antwort",
+    "uptime": "Verfügbar",
+    "imports": "Importiert",
+    "noData": "–",
+    "scoreHelp": "Wertung 0–100 aus erfolgreichen Suchen (35 %), Antwortzeit (20 %), Verfügbarkeit (25 %) und importierten Grabs (20 %). Fehlende Teile werden ausgelassen.",
+    "details": "Details zu {{name}}",
+    "protocol": {
+      "usenet": "Usenet",
+      "torrent": "Torrent",
+      "unknown": "Unbekannt"
+    },
+    "privacy": {
+      "public": "öffentlich",
+      "semiPrivate": "halbprivat",
+      "private": "privat"
+    },
+    "failing": "Ausgefallen",
+    "disabled": "In Prowlarr deaktiviert",
+    "trendSearches": "Suchen",
+    "trendResponse": "Antwortzeit",
+    "importTime": "Median {{time}} vom Grab bis zum Import",
+    "outages_one": "{{count}} Ausfall, insgesamt {{time}}",
+    "outages_other": "{{count}} Ausfälle, insgesamt {{time}}",
+    "noOutages": "Kein Ausfall in diesem Zeitraum",
+    "versus": "{{delta}} Suchen gegenüber dem Zeitraum davor",
+    "inApps": "In Apps",
+    "size": "{{size}} gegrabbt"
+  },
+  "time": {
+    "searches": "Suchen pro Abschnitt",
+    "ok": "erfolgreich",
+    "failed": "fehlgeschlagen",
+    "heat": "Wann deine Apps suchen",
+    "heatLabel": "Suchen nach Wochentag und Stunde, letzte {{days}} Tage",
+    "heatCell": "{{day}} {{hour}}:00 – {{count}} Suchen",
+    "less": "weniger",
+    "more": "mehr"
+  },
+  "outages": {
+    "label": "Ausfälle jedes Indexers im Zeitraum",
+    "none": "In diesem Zeitraum ist kein Indexer ausgefallen.",
+    "noData": "Ausfälle werden aufgezeichnet, solange Wardarr Prowlarr beobachtet.",
+    "span": "{{from}} – {{to}}",
+    "unwatched": "Grau: bevor Wardarr den Indexer beobachtet hat.",
+    "now": "jetzt"
+  },
+  "who": {
+    "callers": "Suchen pro App (Prowlarr)",
+    "grabs": "Grabs pro App (Historie)",
+    "callerValue": "{{queries}} Suchen · {{grabs}} Grabs",
+    "grabValue": "{{total}} Grabs · {{imported}} importiert",
+    "none": "Noch keine Aufrufe aufgezeichnet."
+  },
+  "errors": {
+    "collect": "Einige Daten konnten nicht gelesen werden: {{list}}"
+  },
+  "fromIndexers": "Analyse und Verlauf"
+}

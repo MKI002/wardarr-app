@@ -81,6 +81,7 @@ const ICONS: Record<string, string> = {
   tdarr: 'M4 9a8 8 0 0 1 14.5-3.5M20 4v4h-4M20 15a8 8 0 0 1-14.5 3.5M4 20v-4h4M10 9.5v5l4-2.5z',
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
+  indexerInsights: 'M4 20V10M10 20V4M16 20v-7M21 20H3',
   storage:
     'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
   backups: 'M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2',

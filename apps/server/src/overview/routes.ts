@@ -6,7 +6,7 @@ import type { IssueService } from '../issues/service.js';
 import type { StorageService } from '../storage/service.js';
 
 /** Tabs available in this build and the capability each one needs. */
-const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user' }> = [
+const TABS: Array<{ id: string; needs: Capability | Capability[] | null; role: 'admin' | 'user' }> = [
   { id: 'overview', needs: null, role: 'admin' },
   { id: 'issues', needs: null, role: 'admin' },
   { id: 'discover', needs: 'discover', role: 'user' },
@@ -16,6 +16,8 @@ const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user'
   { id: 'hunting', needs: 'search', role: 'admin' },
   { id: 'library', needs: 'library', role: 'user' },
   { id: 'indexers', needs: 'indexers', role: 'admin' },
+  // Works with Prowlarr, and with *arr apps alone (their own indexers and grabs).
+  { id: 'indexerInsights', needs: ['indexers', 'search'], role: 'admin' },
   { id: 'trash', needs: 'trashSync', role: 'admin' },
   { id: 'tdarr', needs: 'transcoding', role: 'admin' },
   { id: 'map', needs: null, role: 'admin' },
@@ -37,7 +39,9 @@ export function registerOverviewRoutes(
     }
     const isAdmin = req.user!.role === 'admin';
     const tabs = TABS.filter(
-      (t) => (isAdmin || t.role === 'user') && (t.needs === null || caps.has(t.needs)),
+      (t) =>
+        (isAdmin || t.role === 'user') &&
+        (t.needs === null || (Array.isArray(t.needs) ? t.needs.some((n) => caps.has(n)) : caps.has(t.needs))),
     ).map((t) => t.id);
     return { tabs, capabilities: isAdmin ? [...caps] : [], categories: isAdmin ? [...categories] : [] };
   });

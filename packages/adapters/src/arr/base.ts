@@ -10,6 +10,7 @@ import {
   type ArrQualityProfile,
   type ProfileSyncApi,
   type AdapterInstance,
+  type ArrIndexerInfo,
   type DiskReport,
   type MediaKind,
   type QueueItem,
@@ -98,6 +99,36 @@ export interface ArrQueueRecord {
   added?: string;
   estimatedCompletionTime?: string;
   [key: string]: unknown;
+}
+
+interface IndexerResource {
+  id: number;
+  name?: string;
+  implementation?: string;
+  protocol?: string;
+  enableRss?: boolean;
+  enableAutomaticSearch?: boolean;
+  enableInteractiveSearch?: boolean;
+  priority?: number;
+  tags?: number[];
+  fields?: Array<{ name?: string; value?: unknown }>;
+}
+
+/** Normalizes an *arr indexer; the API key field is never read. */
+export function normalizeArrIndexer(r: IndexerResource): ArrIndexerInfo {
+  const baseUrl = r.fields?.find((f) => f.name === 'baseUrl')?.value;
+  return {
+    id: r.id,
+    name: r.name ?? `#${r.id}`,
+    implementation: r.implementation ?? '',
+    protocol: r.protocol === 'usenet' || r.protocol === 'torrent' ? r.protocol : 'unknown',
+    baseUrl: typeof baseUrl === 'string' && baseUrl ? baseUrl : null,
+    enableRss: r.enableRss !== false,
+    enableAutomaticSearch: r.enableAutomaticSearch !== false,
+    enableInteractiveSearch: r.enableInteractiveSearch !== false,
+    priority: typeof r.priority === 'number' ? r.priority : null,
+    tags: Array.isArray(r.tags) ? r.tags.filter((t): t is number => typeof t === 'number') : [],
+  };
 }
 
 interface Paged<T> {
@@ -360,6 +391,11 @@ export function createArrInstance(
     async search(target) {
       const f = await flavor();
       await send('POST', '/command', FAMILIES[f.family].searchCommand(target));
+    },
+
+    async arrIndexers() {
+      const list = await get<IndexerResource[]>('/indexer');
+      return list.map(normalizeArrIndexer);
     },
 
     async historySince(since) {

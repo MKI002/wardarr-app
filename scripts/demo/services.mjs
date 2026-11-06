@@ -6,6 +6,14 @@
 // was checked); everything else (series, users, hosts, keys, indexers,
 // albums) is invented.
 import http from 'node:http';
+import {
+  arrHistory,
+  arrIndexers,
+  indexerStats,
+  indexerStatus,
+  prowlarrApplications,
+  prowlarrIndexers,
+} from '../../apps/e2e/mocks/indexers.mjs';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
 import { DEMO_DISKS } from './disks.mjs';
 import { createTdarr } from './tdarr.mjs';
@@ -585,7 +593,8 @@ async function arr(prefix, path, url, req, res) {
   if (p === '/series') return json(res, sonarrSeries);
   if (p === '/wanted/missing') return json(res, paged(svc.wanted?.missing ?? []));
   if (p === '/wanted/cutoff') return json(res, paged(svc.wanted?.cutoff ?? []));
-  if (p === '/history/since') return json(res, []);
+  if (p === '/history/since') return json(res, arrHistory(prefix, url.searchParams.get('date'), Date.now()));
+  if (p === '/indexer') return json(res, arrIndexers(prefix));
   if (p === '/downloadclient') return json(res, STACK[prefix]?.clients ?? []);
   if (p === '/notification') return json(res, STACK[prefix]?.hooks ?? []);
   if (p === '/calendar') return json(res, svc.calendar?.(url) ?? []);
@@ -610,56 +619,22 @@ async function arr(prefix, path, url, req, res) {
 
 // ------------------------------------------------------------------ Prowlarr
 
-const INDEXERS = [
-  { id: 1, name: 'Lantern', enable: true, protocol: 'torrent', priority: 25 },
-  { id: 2, name: 'Nightjar', enable: true, protocol: 'torrent', priority: 25 },
-  { id: 3, name: 'Harbor Light', enable: true, protocol: 'usenet', priority: 20 },
-  { id: 4, name: 'Old Mill', enable: false, protocol: 'torrent', priority: 50 },
-];
-
 function prowlarr(path, req, res) {
+  const url = new URL(req.url ?? '/', 'http://mock.invalid');
   const one = path.match(/^\/api\/v1\/indexer\/(\d+)$/);
-  if (one) return json(res, INDEXERS.find((i) => i.id === Number(one[1])) ?? {});
+  if (one) return json(res, prowlarrIndexers().find((i) => i.id === Number(one[1])) ?? {});
   if (path === '/api/v1/indexer/test')
     return json(res, [{ errorMessage: 'Unable to connect to indexer' }], 400);
   if (path === '/api/v1/system/status') return json(res, { version: '2.0.5.5160', appName: 'Prowlarr' });
   if (path === '/api/v1/health') return json(res, []);
-  if (path === '/api/v1/indexer') return json(res, INDEXERS);
+  if (path === '/api/v1/indexer') return json(res, prowlarrIndexers());
   if (path === '/api/v1/indexerstats')
-    return json(res, {
-      indexers: [
-        [1, 'Lantern', 1840, 212, 9, 1, 310],
-        [2, 'Nightjar', 960, 41, 388, 3, 2900],
-        [3, 'Harbor Light', 1215, 167, 14, 0, 520],
-        [4, 'Old Mill', 0, 0, 0, 0, 0],
-      ].map(([indexerId, indexerName, q, g, fq, fg, ms]) => ({
-        indexerId,
-        indexerName,
-        numberOfQueries: q,
-        numberOfGrabs: g,
-        numberOfFailedQueries: fq,
-        numberOfFailedGrabs: fg,
-        averageResponseTime: ms,
-      })),
-    });
-  if (path === '/api/v1/applications')
-    return json(res, [
-      ...[
-        ['Sonarr', 'Sonarr', 'fullSync', 'http://sonarr:8989'],
-        ['Radarr', 'Radarr', 'fullSync', 'http://radarr:7878'],
-        ['Radarr 4K', 'Radarr', 'fullSync', 'http://radarr-4k:7878'],
-        ['Lidarr', 'Lidarr', 'addOnly', 'http://lidarr:8686'],
-      ].map(([name, implementation, syncLevel, baseUrl], i) => ({
-        id: i + 1,
-        name,
-        implementation,
-        syncLevel,
-        tags: [],
-        fields: [{ name: 'baseUrl', value: baseUrl }],
-      })),
-    ]);
-  if (path === '/api/v1/indexerstatus')
-    return json(res, [{ indexerId: 2, disabledTill: '2099-01-01T00:00:00Z', mostRecentFailure: ago(400) }]);
+    return json(
+      res,
+      indexerStats(url.searchParams.get('startDate'), url.searchParams.get('endDate'), Date.now()),
+    );
+  if (path === '/api/v1/applications') return json(res, prowlarrApplications(`http://${HOST}:${PORT}`));
+  if (path === '/api/v1/indexerstatus') return json(res, indexerStatus(Date.now()));
   return json(res, {}, 404);
 }
 

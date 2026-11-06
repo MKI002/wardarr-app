@@ -87,6 +87,8 @@ export interface RingSegment {
   value: number;
   tone: ChartTone;
   label: string;
+  /** A step of the tone instead of its full colour, e.g. `tint('accent', 60)`. */
+  color?: string;
 }
 
 function polar(cx: number, cy: number, r: number, angle: number): [number, number] {
@@ -143,7 +145,7 @@ export function Ring({
             key={a.key}
             d={a.d}
             fill="none"
-            stroke={toneColor(a.tone)}
+            stroke={a.color ?? toneColor(a.tone)}
             strokeWidth={thickness}
             initial={calm ? false : { pathLength: 0 }}
             animate={{ pathLength: 1 }}

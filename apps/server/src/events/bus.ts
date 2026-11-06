@@ -13,6 +13,7 @@ export interface WardarrEvent {
     | 'library.updated'
     | 'requests.updated'
     | 'trash.updated'
+    | 'indexers.updated'
     | 'backups.updated'
     | 'storage.updated';
   audience: Audience;

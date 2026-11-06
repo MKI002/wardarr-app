@@ -12,6 +12,7 @@ import { mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'n
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { indexerStatusChanges } from '../../apps/e2e/mocks/indexers.mjs';
 import { DEMO_DISKS } from './disks.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
@@ -105,6 +106,24 @@ async function must(method, p, body) {
   return r.data;
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Up and down changes of the invented indexers over the last 30 days, written
+ * straight into the database: Wardarr only records them while it runs.
+ */
+function seedIndexerStatus(instanceId) {
+  const require = createRequire(path.join(root, 'apps/server/package.json'));
+  const Database = require('better-sqlite3');
+  const db = new Database(path.join(dataDir, 'wardarr.db'));
+  const insert = db.prepare(
+    'INSERT INTO indexer_status_log (instance_id, indexer_id, indexer_name, at, failing) VALUES (?, ?, ?, ?, ?)',
+  );
+  db.transaction(() => {
+    for (const c of indexerStatusChanges())
+      insert.run(instanceId, c.indexerId, c.name, c.at, c.failing ? 1 : 0);
+  })();
+  db.close();
+}
 
 /**
  * Plays from the last months, written straight into the database: Wardarr
@@ -425,6 +444,10 @@ try {
   seedTranscodeHistory(ids.tdarr);
   await must('POST', `/api/library/${ids.jellyfin}/refresh`);
 
+  // Read 30 days of invented indexer statistics and grab history.
+  await must('POST', '/api/indexer-insights/collect');
+  seedIndexerStatus(ids.prowlarr);
+
   // Give the jobs (issue engine, library) a moment, then poll again.
   await sleep(3000);
   for (const id of Object.values(ids)) await call('POST', `/api/instances/${id}/poll`);
@@ -499,6 +522,7 @@ try {
   for (const inst of trash?.instances ?? [])
     if (inst.templateId) await get(`/api/trash/instances/${encodeURIComponent(inst.id)}/preview`);
 
+  for (const range of ['24h', '7d', '30d', '90d']) await get(`/api/indexer-insights?range=${range}`);
   for (const days of [30, 90, 365]) await get(`/api/storage?days=${days}`);
 
   for (const days of [7, 30, 90, 365]) {

@@ -1,0 +1,209 @@
+{
+  "title": "Indexer insights",
+  "intro": "Where each app gets its indexers from, and how every indexer performs over time.",
+  "eyebrow": "Indexers · {{range}}",
+  "since": "Data since {{date}}",
+  "collecting": "Collecting",
+  "refresh": "Update now",
+  "range": {
+    "label": "Time range",
+    "24h": "24 h",
+    "7d": "7 days",
+    "30d": "30 days",
+    "90d": "90 days",
+    "long": {
+      "24h": "last 24 hours",
+      "7d": "last 7 days",
+      "30d": "last 30 days",
+      "90d": "last 90 days"
+    }
+  },
+  "empty": {
+    "title": "No indexers to analyse yet",
+    "body": "Connect Prowlarr or a Sonarr, Radarr or Lidarr instance in Settings. Wardarr then reads their indexers and starts collecting numbers."
+  },
+  "hero": {
+    "label": "Successful searches",
+    "importLabel": "Grabs imported",
+    "none": "–",
+    "failing_one": "{{count}} indexer is down right now.",
+    "failing_other": "{{count}} indexers are down right now.",
+    "reliable": "Your indexers answer reliably.",
+    "someFail": "{{percent}} of all searches fail.",
+    "noStats": "Without Prowlarr there are no search numbers; this is what your apps' history shows.",
+    "waiting": "Wardarr is reading the last 30 days. The first numbers appear in a few minutes.",
+    "versus": "{{delta}} vs. the {{range}} before",
+    "searches": "Searches",
+    "grabs": "Grabs",
+    "response": "Avg. answer"
+  },
+  "sourcesRing": "Indexer entries in your apps by source",
+  "entries_one": "entry",
+  "entries_other": "entries",
+  "source": {
+    "synced": "From Prowlarr",
+    "direct": "Added by hand",
+    "both": "Twice (duplicate)",
+    "missing": "Missing",
+    "off": "Switched off",
+    "orphan": "Leftover"
+  },
+  "sentence": {
+    "prowlarr": "{{apps}} take every indexer from Prowlarr.",
+    "direct": "{{apps}} use only indexers added by hand.",
+    "mixed": "{{apps}} mix Prowlarr and own indexers.",
+    "none": "{{apps}} have no indexers.",
+    "unknown": "{{apps}} could not be read."
+  },
+  "worthALook": "Worth a look",
+  "allGood": "Nothing stands out",
+  "allGoodBody": "Sources are tidy and every indexer behaves.",
+  "insight": {
+    "failing": "<b>{{name}}</b> is down right now.",
+    "failingApps": "{{apps}} search without it.",
+    "duplicate": "<b>{{app}}</b> has {{name}} twice, next to {{other}}. Every search hits the site twice.",
+    "missing_one": "Prowlarr should sync {{list}} to <b>{{app}}</b>, but it is missing there.",
+    "missing_other": "Prowlarr should sync {{count}} indexers to <b>{{app}}</b> that are missing there: {{list}}.",
+    "orphan": "<b>{{name}}</b> in {{app}} points to an indexer Prowlarr no longer has.",
+    "mixed": "<b>{{app}}</b> mixes sources: {{synced}} from Prowlarr, {{direct}} added by hand.",
+    "directOnly_one": "<b>{{app}}</b> has one indexer of its own and is not set up in Prowlarr.",
+    "directOnly_other": "<b>{{app}}</b> has {{count}} indexers of its own and is not set up in Prowlarr.",
+    "unmatchedApp": "Prowlarr syncs to <b>{{name}}</b> ({{implementation}}), which Wardarr does not know.",
+    "unknownProwlarr": "<b>{{name}}</b> in {{app}} comes from a Prowlarr that is not connected to Wardarr.",
+    "highFailRate": "<b>{{name}}</b> failed {{percent}} of {{queries}} searches.",
+    "slow": "<b>{{name}}</b> takes {{seconds}} s per answer on average.",
+    "noGrabs": "<b>{{name}}</b> answered {{queries}} searches without a single grab.",
+    "lowImport": "Only {{percent}} of grabs from <b>{{name}}</b> made it into the library.",
+    "best": "<b>{{name}}</b> is your strongest indexer with a score of {{score}}."
+  },
+  "open": "Open",
+  "kpi": {
+    "searches": "Searches",
+    "searchesSub": "{{rss}} of them RSS",
+    "grabs": "Grabs",
+    "grabsSub": "{{rate}} grabs per 100 searches",
+    "response": "Answer time",
+    "responseSub": "Grabs answer in {{ms}}",
+    "imports": "Imported",
+    "importsSub": "{{imported}} of {{finished}} finished grabs",
+    "noImports": "No finished grabs yet",
+    "trend": "{{label}} over the {{range}}"
+  },
+  "sections": {
+    "sources": "Where the indexers come from",
+    "compare": "Compare indexers",
+    "time": "Over time",
+    "outages": "Outages",
+    "who": "Who searches"
+  },
+  "app": {
+    "mode": {
+      "prowlarr": "Prowlarr",
+      "direct": "Own indexers",
+      "mixed": "Mixed",
+      "none": "No indexers",
+      "unknown": "Not readable"
+    },
+    "via": "Synced by {{prowlarr}} as “{{app}}”",
+    "syncLevel": {
+      "fullSync": "full sync",
+      "addOnly": "add and update only",
+      "disabled": "sync off"
+    },
+    "notInProwlarr": "Not set up in Prowlarr",
+    "noProwlarr": "No Prowlarr connected",
+    "counts": "{{synced}} from Prowlarr · {{direct}} by hand",
+    "grabs": "{{total}} grabs, {{imported}} imported",
+    "error": "Could not read the indexers: {{reason}}",
+    "evidence": {
+      "url": "Its address points at Prowlarr",
+      "name": "Recognised by its name",
+      "none": "Added in the app itself"
+    },
+    "searchOff": "RSS and searches off",
+    "history": "Entries per day"
+  },
+  "matrix": {
+    "title": "Indexers × apps",
+    "label": "Which app gets which indexer, and how",
+    "indexer": "Indexer",
+    "cell": "{{indexer}} in {{app}}: {{state}}",
+    "none": "Not used",
+    "gone": "Only in history"
+  },
+  "scatter": {
+    "title": "Speed and reliability",
+    "intro": "Each bubble is an indexer; bigger means more grabs. Top left is best.",
+    "label": "Indexers by answer time and share of successful searches",
+    "x": "Avg. answer time",
+    "y": "Successful searches",
+    "best": "fast and reliable",
+    "worst": "slow and unreliable",
+    "empty": "Needs search numbers from Prowlarr."
+  },
+  "table": {
+    "label": "Indexer comparison",
+    "sortBy": "Sort by {{column}}",
+    "indexer": "Indexer",
+    "score": "Score",
+    "searches": "Searches",
+    "grabs": "Grabs",
+    "success": "Success",
+    "response": "Answer",
+    "uptime": "Uptime",
+    "imports": "Imported",
+    "noData": "–",
+    "scoreHelp": "Score 0–100 from successful searches (35 %), answer time (20 %), uptime (25 %) and imported grabs (20 %). Missing parts are left out.",
+    "details": "Details for {{name}}",
+    "protocol": {
+      "usenet": "Usenet",
+      "torrent": "Torrent",
+      "unknown": "Unknown"
+    },
+    "privacy": {
+      "public": "public",
+      "semiPrivate": "semi-private",
+      "private": "private"
+    },
+    "failing": "Down",
+    "disabled": "Disabled in Prowlarr",
+    "trendSearches": "Searches",
+    "trendResponse": "Answer time",
+    "importTime": "Median {{time}} from grab to import",
+    "outages_one": "{{count}} outage, {{time}} in total",
+    "outages_other": "{{count}} outages, {{time}} in total",
+    "noOutages": "No outage in this range",
+    "versus": "{{delta}} searches vs. the range before",
+    "inApps": "In apps",
+    "size": "{{size}} grabbed"
+  },
+  "time": {
+    "searches": "Searches per step",
+    "ok": "successful",
+    "failed": "failed",
+    "heat": "When your apps search",
+    "heatLabel": "Searches by weekday and hour, last {{days}} days",
+    "heatCell": "{{day}} {{hour}}:00 – {{count}} searches",
+    "less": "less",
+    "more": "more"
+  },
+  "outages": {
+    "label": "Outages of each indexer over the range",
+    "none": "No indexer was down in this range.",
+    "noData": "Outages are recorded while Wardarr watches Prowlarr.",
+    "span": "{{from}} – {{to}}",
+    "unwatched": "Grey: before Wardarr watched the indexer.",
+    "now": "now"
+  },
+  "who": {
+    "callers": "Searches per app (Prowlarr)",
+    "grabs": "Grabs per app (history)",
+    "callerValue": "{{queries}} searches · {{grabs}} grabs",
+    "grabValue": "{{total}} grabs · {{imported}} imported",
+    "none": "No calls recorded yet."
+  },
+  "errors": {
+    "collect": "Some data could not be read: {{list}}"
+  },
+  "fromIndexers": "Analysis and history"
+}

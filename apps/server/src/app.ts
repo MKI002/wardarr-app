@@ -20,6 +20,8 @@ import { registerHuntingRoutes } from './hunting/routes.js';
 import { registerImageRoutes, type ImageFetch } from './images/tmdb.js';
 import { registerIndexerRoutes } from './indexers/routes.js';
 import { IndexerService } from './indexers/service.js';
+import { registerIndexerInsightRoutes } from './indexers/insightsRoutes.js';
+import { IndexerInsightsService } from './indexers/insights/service.js';
 import { registerLibraryRoutes } from './library/routes.js';
 import { registerNotificationRoutes } from './notifications/routes.js';
 import { NotificationService, type NotificationOptions } from './notifications/service.js';
@@ -98,6 +100,7 @@ export interface App {
   requests: RequestService;
   indexers: IndexerService;
   topology: TopologyService;
+  indexerInsights: IndexerInsightsService;
   notifications: NotificationService;
   trash: TrashService;
   calendar: CalendarService;
@@ -191,6 +194,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const trend = new TrendSampler(runtime);
   const topology = new TopologyService(runtime);
   const transcoding = new TranscodingService(opts.db, runtime);
+  const indexerInsights = new IndexerInsightsService(opts.db, features, runtime, bus, app.log);
   const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
@@ -260,6 +264,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerLibraryRoutes(app, { library, history });
   registerIndexerRoutes(app, { indexers });
   registerTopologyRoutes(app, { topology });
+  registerIndexerInsightRoutes(app, { insights: indexerInsights });
   registerNotificationRoutes(app, { notifications });
   registerTrashRoutes(app, { trash });
   if (opts.backups) {
@@ -316,6 +321,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     requests,
     indexers,
     topology,
+    indexerInsights,
     notifications,
     trash,
     calendar,

@@ -139,7 +139,9 @@ a look, and what is streaming, downloading and filling up right now.
     apps share it, with the day it will be full at the current pace. A disk that fills up soon
     becomes an issue before downloads stop.</td>
     <td valign="top"><b>Indexer statistics.</b> Queries, grabs, failures and response times per indexer from
-    Prowlarr, and which apps are left without a working one.</td>
+    Prowlarr, and which apps are left without a working one. <b>Indexer insights</b> show whether
+    each app takes its indexers from Prowlarr, has its own or both, and score every indexer over
+    time.</td>
   </tr>
 </table>
 
@@ -273,6 +275,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [TRaSH Guides](docs/guide/trash-guides.md): templates, previews, rollbacks and the guard.
 - [Storage](docs/guide/storage.md): how disks are counted and how the forecast works.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
+- [Indexer insights](docs/guide/indexer-insights.md): sources, the score and what is stored.
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
 - [Calendar](docs/guide/calendar.md): what the calendar shows and how the iCal link stays private.
