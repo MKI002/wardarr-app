@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { useId } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api';
 import { useSession } from '../../lib/session';
@@ -55,13 +55,18 @@ function NavItem({
   const descId = useId();
   const active = isActive(id, pathname);
   const label = t(`ui.tabs.${id}`);
+  const ref = useRef<HTMLLIElement>(null);
+  // On short screens the list scrolls: keep the current page in view.
+  useEffect(() => {
+    if (active) ref.current?.scrollIntoView({ block: 'nearest' });
+  }, [active]);
   return (
-    <li className="relative">
+    <li ref={ref} className="relative">
       <Link
         to={pathOf(id)}
         aria-current={active ? 'page' : undefined}
         aria-describedby={badge ? descId : undefined}
-        className={`group relative flex h-9 items-center gap-3 rounded-lg text-sm font-medium transition-colors ${rail ? 'justify-center px-0' : 'px-3'} ${active ? 'text-text' : 'text-muted hover:bg-surface-2/60 hover:text-text'}`}
+        className={`group relative flex h-9 items-center [@media(max-height:820px)]:h-8 gap-3 rounded-lg text-sm font-medium transition-colors ${rail ? 'justify-center px-0' : 'px-3'} ${active ? 'text-text' : 'text-muted hover:bg-surface-2/60 hover:text-text'}`}
       >
         {active ? (
           <motion.span
@@ -246,7 +251,7 @@ export function Sidebar({
             const isFolded = !rail && folded.includes(g.id);
             const visible = isFolded ? g.tabs.filter((id) => isActive(id, pathname)) : g.tabs;
             return (
-              <div key={g.id} className={i ? 'mt-4' : ''}>
+              <div key={g.id} className={i ? 'mt-4 [@media(max-height:820px)]:mt-2.5' : ''}>
                 {rail ? (
                   i ? (
                     <div className="mx-2 mb-3 h-px bg-border" aria-hidden />
