@@ -14,6 +14,7 @@ import { RequestsPage } from './pages/Requests';
 import { StoragePage } from './pages/Storage';
 import { TrashPage, type TrashTab } from './pages/Trash';
 import { StackMapPage } from './pages/StackMap';
+import { TdarrPage } from './pages/Tdarr';
 
 const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({ component: Root });
 
@@ -103,6 +104,12 @@ const trashRoute = createRoute({
   }),
   component: TrashPage,
 });
+const tdarrRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/tdarr',
+  validateSearch: (s: Record<string, unknown>): { instance?: string } => ({ instance: str(s.instance) }),
+  component: TdarrPage,
+});
 const mapRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/map',
@@ -159,6 +166,7 @@ const routeTree = rootRoute.addChildren([
   calendarRoute,
   indexersRoute,
   trashRoute,
+  tdarrRoute,
   mapRoute,
   storageRoute,
   settingsRoute,

@@ -35,6 +35,7 @@ const HOSTS = [
   [`${MOCK}/sabnzbd`, 'http://sabnzbd:8080'],
   [`${MOCK}/jellyfin`, 'http://jellyfin:8096'],
   [`${MOCK}/seerr`, 'http://seerr:5055'],
+  [`${MOCK}/tdarr`, 'http://tdarr:8265'],
   [`${MOCK}/hook`, 'https://hooks.example.com'],
   [`${MOCK}/ntfy`, 'https://ntfy.example.com'],
   [MOCK, 'http://wardarr.example.com'],
@@ -51,6 +52,7 @@ const INSTANCES = [
   ['sabnzbd', 'SABnzbd', 'sabnzbd', { apiKey: DEMO_KEY }],
   ['jellyfin', 'Jellyfin', 'jellyfin', { apiKey: DEMO_KEY }],
   ['seerr', 'Seerr', 'seerr', { apiKey: DEMO_KEY }],
+  ['tdarr', 'Tdarr', 'tdarr', {}],
 ];
 const ADMIN = { username: 'demo', password: 'demo-password-1' };
 const USERS = [
@@ -279,6 +281,56 @@ function seedDiskHistory() {
   db.close();
 }
 
+/**
+ * Tdarr: a month of daily counters, so the history and the space saved trend
+ * have something to show, and a node that was connected until a few hours
+ * ago, so the stack map and the issue center show an offline node.
+ * Written straight into the database, like the stream history.
+ */
+function seedTranscodeHistory(instanceId) {
+  const require = createRequire(path.join(root, 'apps/server/package.json'));
+  const Database = require('better-sqlite3');
+  const db = new Database(path.join(dataDir, 'wardarr.db'));
+  const today = db
+    .prepare('SELECT * FROM transcode_daily WHERE instance_id = ? ORDER BY day DESC LIMIT 1')
+    .get(instanceId);
+  if (!today) throw new Error('Tdarr was not polled');
+  const insert = db.prepare(
+    `INSERT INTO transcode_daily (instance_id, day, transcodes, health_checks, saved_bytes,
+       failed_transcodes, failed_health_checks, queued) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+  );
+  let seed = 11;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  const row = { ...today };
+  for (let i = 1; i < 30; i++) {
+    // Walk back one day: undo that day's work.
+    const weekend = new Date(Date.now() - (i - 1) * 86_400_000).getUTCDay() % 6 === 0;
+    const transcodes = Math.round((weekend ? 30 : 14) + rand() * 12);
+    row.transcodes -= transcodes;
+    row.health_checks -= Math.round(transcodes * 1.4 + rand() * 6);
+    row.saved_bytes -= Math.round(transcodes * (0.7 + rand() * 0.9) * 1024 ** 3);
+    if (i === 1 || i === 3 || i === 9 || i === 16) row.failed_transcodes -= 1;
+    if (i === 2) row.failed_health_checks -= 1;
+    const day = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+    insert.run(
+      instanceId,
+      day,
+      row.transcodes,
+      row.health_checks,
+      row.saved_bytes,
+      Math.max(0, row.failed_transcodes),
+      Math.max(0, row.failed_health_checks),
+      row.queued + Math.round(rand() * 40),
+    );
+  }
+  const seen = new Date(Date.now() - 3 * 3_600_000).toISOString();
+  const first = new Date(Date.now() - 40 * 86_400_000).toISOString();
+  db.prepare(
+    'INSERT INTO transcode_nodes (instance_id, node_id, name, first_seen_at, last_seen_at) VALUES (?, ?, ?, ?, ?)',
+  ).run(instanceId, 'node-garage', 'Garage NAS', first, seen);
+  db.close();
+}
+
 const dataDir = mkdtempSync(path.join(tmpdir(), 'wardarr-demo-'));
 try {
   start([path.join(here, 'services.mjs')], { DEMO_MOCK_PORT: String(MOCK_PORT) });
@@ -370,6 +422,7 @@ try {
   await must('POST', '/api/storage/refresh');
   seedDiskHistory();
   await must('POST', '/api/storage/refresh');
+  seedTranscodeHistory(ids.tdarr);
   await must('POST', `/api/library/${ids.jellyfin}/refresh`);
 
   // Give the jobs (issue engine, library) a moment, then poll again.
@@ -403,6 +456,7 @@ try {
     '/api/backups',
     '/api/indexers',
     '/api/topology',
+    '/api/tdarr',
     '/api/streams/history?limit=25',
     '/api/discover/instances',
     '/api/discover/options',

@@ -1,0 +1,279 @@
+{
+  "adapter": "tdarr",
+  "baseUrl": "http://tdarr.example.test:8265",
+  "credentials": {
+    "apiKey": "tapi_fixture000000000001"
+  },
+  "wrongCredentials": {
+    "apiKey": "tapi_fixture000000000009"
+  },
+  "routes": [
+    {
+      "path": "/api/v2/status",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "json": {
+        "status": "good",
+        "isProduction": true,
+        "os": "linux",
+        "version": "2.27.01",
+        "uptime": 86400
+      }
+    },
+    {
+      "path": "/api/v2/get-nodes",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "json": {
+        "node-a": {
+          "_id": "node-a",
+          "nodeName": "Example Node A",
+          "nodePaused": false,
+          "workerLimits": {
+            "transcodecpu": 1,
+            "transcodegpu": 1,
+            "healthcheckcpu": 2,
+            "healthcheckgpu": 0
+          },
+          "resStats": {
+            "os": {
+              "cpuPerc": "63.5",
+              "memUsedGB": "5.2",
+              "memTotalGB": "16"
+            }
+          },
+          "workers": {
+            "w1": {
+              "_id": "w1",
+              "workerType": "transcodegpu",
+              "idle": false,
+              "file": "/media/movies/Example Film (2001)/Example Film.mkv",
+              "percentage": 42.5,
+              "fps": 118,
+              "ETA": "0:08:12",
+              "status": "Processing",
+              "originalfileSizeInGbytes": 8.4,
+              "estSize": 3.1,
+              "job": {
+                "start": 1793990000000
+              }
+            },
+            "w2": {
+              "_id": "w2",
+              "workerType": "healthcheckcpu",
+              "idle": false,
+              "file": "/media/tv/Example Show/Season 01/Example Show S01E02.mkv",
+              "percentage": 80,
+              "fps": 0,
+              "ETA": "0:00:20",
+              "status": "Health check",
+              "originalfileSizeInGbytes": 1.2,
+              "job": {
+                "start": 1793990100000
+              }
+            },
+            "w3": {
+              "_id": "w3",
+              "workerType": "transcodecpu",
+              "idle": true
+            }
+          }
+        },
+        "node-b": {
+          "_id": "node-b",
+          "nodeName": "Example Node B",
+          "nodePaused": true,
+          "workerLimits": {
+            "transcodecpu": 2,
+            "transcodegpu": 0,
+            "healthcheckcpu": 1,
+            "healthcheckgpu": 0
+          },
+          "resStats": {
+            "os": {
+              "cpuPerc": "2",
+              "memUsedGB": "1.1",
+              "memTotalGB": "8"
+            }
+          },
+          "workers": {}
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cruddb",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "collection": "StatisticsJSONDB",
+          "mode": "getById",
+          "docID": "statistics",
+          "obj": {}
+        }
+      },
+      "json": {
+        "totalFileCount": 1240,
+        "totalTranscodeCount": 318,
+        "totalHealthCheckCount": 1190,
+        "sizeDiff": 412.6,
+        "table1Count": 57,
+        "table2Count": 1101,
+        "table3Count": 4,
+        "table4Count": 12,
+        "table5Count": 1180,
+        "table6Count": 2,
+        "table3ViewableCount": 3
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cruddb",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "collection": "LibrarySettingsJSONDB",
+          "mode": "getAll",
+          "docID": "",
+          "obj": {}
+        }
+      },
+      "json": [
+        {
+          "_id": "lib-movies",
+          "name": "Movies",
+          "folder": "/media/movies"
+        },
+        {
+          "_id": "lib-tv",
+          "name": "Series",
+          "folder": "/media/tv"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/stats/get-pies",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "libraryId": "lib-movies"
+        }
+      },
+      "json": {
+        "pieStats": {
+          "totalFiles": 420,
+          "totalTranscodeCount": 201,
+          "sizeDiff": 330.2,
+          "totalHealthCheckCount": 410
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/stats/get-pies",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "libraryId": "lib-tv"
+        }
+      },
+      "json": {
+        "pieStats": {
+          "totalFiles": 820,
+          "totalTranscodeCount": 117,
+          "sizeDiff": 82.4,
+          "totalHealthCheckCount": 780
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/client/status-tables",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "start": 0,
+          "pageSize": 20,
+          "filters": [],
+          "sorts": [],
+          "opts": {
+            "table": "table3"
+          }
+        }
+      },
+      "json": {
+        "array": [
+          {
+            "_id": "/media/movies/Sample Movie (1999)/Sample Movie.mkv",
+            "file": "/media/movies/Sample Movie (1999)/Sample Movie.mkv",
+            "file_size": 4300,
+            "TranscodeDecisionMaker": "Transcode error",
+            "lastTranscodeDate": 1793980000000
+          },
+          {
+            "_id": "/media/tv/Example Show/Season 01/Example Show S01E05.mkv",
+            "file": "/media/tv/Example Show/Season 01/Example Show S01E05.mkv",
+            "file_size": 900,
+            "TranscodeDecisionMaker": "Transcode cancelled",
+            "lastTranscodeDate": 1793970000000
+          }
+        ],
+        "totalCount": 2
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/client/status-tables",
+      "headers": {
+        "x-api-key": "tapi_fixture000000000001"
+      },
+      "body": {
+        "data": {
+          "start": 0,
+          "pageSize": 20,
+          "filters": [],
+          "sorts": [],
+          "opts": {
+            "table": "table6"
+          }
+        }
+      },
+      "json": {
+        "array": [
+          {
+            "_id": "/media/tv/Example Show/Season 01/Example Show S01E07.mkv",
+            "file": "/media/tv/Example Show/Season 01/Example Show S01E07.mkv",
+            "file_size": 1100,
+            "HealthCheck": "Error",
+            "lastHealthCheckDate": 1793985000000
+          }
+        ],
+        "totalCount": 1
+      }
+    },
+    {
+      "path": "*",
+      "status": 401,
+      "json": {
+        "message": "Unauthorized"
+      }
+    }
+  ],
+  "expect": {
+    "version": "2.27.01",
+    "health": []
+  }
+}

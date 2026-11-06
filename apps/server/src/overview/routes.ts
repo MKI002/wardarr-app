@@ -17,6 +17,7 @@ const TABS: Array<{ id: string; needs: Capability | null; role: 'admin' | 'user'
   { id: 'library', needs: 'library', role: 'user' },
   { id: 'indexers', needs: 'indexers', role: 'admin' },
   { id: 'trash', needs: 'trashSync', role: 'admin' },
+  { id: 'tdarr', needs: 'transcoding', role: 'admin' },
   { id: 'map', needs: null, role: 'admin' },
   { id: 'storage', needs: 'storage', role: 'admin' },
   { id: 'settings', needs: null, role: 'user' },

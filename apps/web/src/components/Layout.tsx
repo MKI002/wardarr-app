@@ -18,6 +18,7 @@ const TAB_PATHS: Record<string, string> = {
   calendar: '/calendar',
   indexers: '/indexers',
   trash: '/trash',
+  tdarr: '/tdarr',
   map: '/map',
   storage: '/storage',
   settings: '/settings',
@@ -34,6 +35,7 @@ const ICONS: Record<string, string> = {
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
   calendar: 'M4 6.5h16V20H4zM4 10.5h16M8.5 3.5v5M15.5 3.5v5M8 14.5h3v3H8z',
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
+  tdarr: 'M4 9a8 8 0 0 1 14.5-3.5M20 4v4h-4M20 15a8 8 0 0 1-14.5 3.5M4 20v-4h4M10 9.5v5l4-2.5z',
   map: 'M3 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M10 18a2 2 0 1 0 4 0a2 2 0 1 0-4 0M7 6h10M6 7.7l5 8.6M18 7.7l-5 8.6',
   storage:
     'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zm0 0v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
@@ -97,10 +99,13 @@ export function Layout() {
           <Link to="/" aria-label={t('ui.nav.home')}>
             <Logo />
           </Link>
-          <nav aria-label={t('ui.nav.main')} className="hidden lg:block">
+          <nav
+            aria-label={t('ui.nav.main')}
+            className="hidden min-w-0 overflow-x-auto [scrollbar-width:thin] lg:block"
+          >
             <ul className="flex items-center gap-1">
               {tabs.map((id) => (
-                <li key={id} className="relative">
+                <li key={id} className="relative shrink-0">
                   <Link
                     to={TAB_PATHS[id] ?? '/'}
                     className={`relative z-10 block rounded-lg px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition-colors xl:px-3 ${activeTab(id) ? 'text-text' : 'text-muted hover:text-text'}`}
@@ -119,7 +124,7 @@ export function Layout() {
               ))}
             </ul>
           </nav>
-          <div className="ml-auto">
+          <div className="ml-auto shrink-0">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger
                 className="flex size-9 items-center justify-center rounded-full bg-surface-2 text-sm font-semibold uppercase"

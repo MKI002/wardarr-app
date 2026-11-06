@@ -17,6 +17,7 @@ import { jellyfin } from './media/jellyfin.js';
 import { plex } from './media/plex.js';
 import { seerr } from './requests/seerr.js';
 import { bazarr } from './subtitles/bazarr.js';
+import { tdarr } from './transcoders/tdarr.js';
 
 export const ADAPTERS = [
   sonarr,
@@ -35,6 +36,7 @@ export const ADAPTERS = [
   plex,
   emby,
   seerr,
+  tdarr,
 ] as unknown as readonly AdapterDefinition<never>[];
 
 export {
@@ -54,4 +56,5 @@ export {
   plex,
   emby,
   seerr,
+  tdarr,
 };

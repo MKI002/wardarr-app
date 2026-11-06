@@ -18,7 +18,10 @@ const BADGE: Record<MapTone, Tone> = {
 };
 
 /** Tabs that show more about a product. */
-const TAB_FOR: Record<string, Array<'cleaner' | 'hunting' | 'indexers' | 'library' | 'requests'>> = {
+const TAB_FOR: Record<
+  string,
+  Array<'cleaner' | 'hunting' | 'indexers' | 'library' | 'requests' | 'tdarr'>
+> = {
   sonarr: ['cleaner', 'hunting'],
   radarr: ['cleaner', 'hunting'],
   lidarr: ['cleaner', 'hunting'],
@@ -29,6 +32,7 @@ const TAB_FOR: Record<string, Array<'cleaner' | 'hunting' | 'indexers' | 'librar
   jellyfin: ['library'],
   emby: ['library'],
   seerr: ['requests'],
+  tdarr: ['tdarr'],
 };
 
 function Stat({ label, value }: { label: string; value: string }) {
@@ -121,6 +125,8 @@ export function NodeDetails({
   if (l.speed) stats.push([t('ui.map.stat.speed'), formatSpeed(l.speed)]);
   if (l.streams !== undefined) stats.push([t('ui.map.stat.streams'), String(l.streams)]);
   if (l.transcodes) stats.push([t('ui.map.stat.transcodes'), String(l.transcodes)]);
+  if (l.nodes !== undefined) stats.push([t('ui.map.stat.nodes'), String(l.nodes)]);
+  if (l.workers !== undefined) stats.push([t('ui.map.stat.workers'), String(l.workers)]);
   if (l.indexers !== undefined && node.adapter === 'prowlarr') {
     stats.push([t('ui.map.stat.indexers'), String(l.indexers)]);
     stats.push([t('ui.map.stat.failing'), String(l.failingIndexers ?? 0)]);
@@ -293,7 +299,11 @@ export function NodeDetails({
               <Link
                 key={tab}
                 to={`/${tab}`}
-                search={tab === 'cleaner' || tab === 'hunting' ? { instance: node.instanceId } : {}}
+                search={
+                  tab === 'cleaner' || tab === 'hunting' || tab === 'tdarr'
+                    ? { instance: node.instanceId }
+                    : {}
+                }
                 className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-medium hover:bg-border"
               >
                 {t(`ui.tabs.${tab}`)}

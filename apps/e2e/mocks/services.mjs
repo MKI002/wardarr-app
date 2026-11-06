@@ -13,6 +13,7 @@ import http from 'node:http';
 import net from 'node:net';
 import { createProfileStore } from './profiles.mjs';
 import { INDEXER_APPS, INDEXER_STATS, createStage3 } from './stage3.mjs';
+import { createTdarr } from '../../../scripts/demo/tdarr.mjs';
 
 export const API_KEY = '00000000000000000000000000000001';
 const PORT = Number(process.env.MOCK_PORT ?? 19000);
@@ -282,6 +283,9 @@ function notFound(res) {
   res.end();
 }
 
+// Tdarr with authentication switched on.
+const tdarr = createTdarr({ apiKey: 'tapi_e2e0000000000001' });
+
 http
   .createServer(async (req, res) => {
     const url = new URL(req.url ?? '/', 'http://mock.invalid');
@@ -329,6 +333,8 @@ http
       });
       return json(res, {});
     }
+    // Tdarr checks its own key.
+    if (prefix === 'tdarr') return tdarr(path, req, res);
     if (req.headers['x-api-key'] !== API_KEY) {
       res.writeHead(401);
       return res.end();

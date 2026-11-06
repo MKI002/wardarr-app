@@ -1,5 +1,5 @@
 {
- "capturedAt": "2026-11-06T23:36:41.669Z",
+ "capturedAt": "2026-11-06T23:46:35.994Z",
  "fixtures": {
   "/api/setup/status": {
    "status": 200,
@@ -34,6 +34,7 @@
      "library",
      "indexers",
      "trash",
+     "tdarr",
      "map",
      "storage",
      "settings"
@@ -55,14 +56,16 @@
      "sessions",
      "library",
      "discover",
-     "requests"
+     "requests",
+     "transcoding"
     ],
     "categories": [
      "arr",
      "indexer",
      "downloader",
      "mediaServer",
-     "requests"
+     "requests",
+     "transcoder"
     ]
    }
   },
@@ -79,7 +82,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:36:38.072Z",
+      "checkedAt": "2026-11-06T23:46:32.465Z",
       "errorKind": null
      },
      {
@@ -91,7 +94,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:36:38.082Z",
+      "checkedAt": "2026-11-06T23:46:33.494Z",
       "errorKind": null
      },
      {
@@ -103,7 +106,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:36:38.090Z",
+      "checkedAt": "2026-11-06T23:46:32.484Z",
       "errorKind": null
      },
      {
@@ -115,7 +118,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:36:38.097Z",
+      "checkedAt": "2026-11-06T23:46:32.494Z",
       "errorKind": null
      },
      {
@@ -127,7 +130,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T23:36:38.105Z",
+      "checkedAt": "2026-11-06T23:46:32.502Z",
       "errorKind": null
      },
      {
@@ -139,7 +142,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T23:36:38.114Z",
+      "checkedAt": "2026-11-06T23:46:32.512Z",
       "errorKind": null
      },
      {
@@ -151,7 +154,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T23:36:38.122Z",
+      "checkedAt": "2026-11-06T23:46:32.521Z",
       "errorKind": null
      },
      {
@@ -163,7 +166,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T23:36:38.129Z",
+      "checkedAt": "2026-11-06T23:46:32.529Z",
       "errorKind": null
      },
      {
@@ -175,7 +178,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T23:36:38.254Z",
+      "checkedAt": "2026-11-06T23:46:32.536Z",
       "errorKind": null
      },
      {
@@ -187,7 +190,19 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T23:36:38.144Z",
+      "checkedAt": "2026-11-06T23:46:32.544Z",
+      "errorKind": null
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000012",
+      "name": "Tdarr",
+      "adapter": "tdarr",
+      "adapterName": "Tdarr",
+      "category": "transcoder",
+      "lifecycle": "active",
+      "status": "ok",
+      "version": "2.27.01",
+      "checkedAt": "2026-11-06T23:46:32.552Z",
       "errorKind": null
      }
     ],
@@ -253,7 +268,7 @@
       "speedBytesPerSecond": 12400000,
       "etaSeconds": 74,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T23:11:33.000Z",
+      "addedAt": "2026-11-06T23:21:28.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -268,7 +283,7 @@
       "speedBytesPerSecond": 6100000,
       "etaSeconds": 190,
       "category": "radarr",
-      "addedAt": "2026-11-06T23:28:33.000Z",
+      "addedAt": "2026-11-06T23:38:28.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -283,7 +298,7 @@
       "speedBytesPerSecond": 0,
       "etaSeconds": null,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-06T23:33:33.000Z",
+      "addedAt": "2026-11-06T23:43:28.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -323,7 +338,7 @@
      "freeBytes": 4371847210598,
      "worst": "warning",
      "soonest": {
-      "key": "d3c816c24",
+      "key": "db2946099",
       "label": "/uhd",
       "daysLeft": 24.5
      }
@@ -331,12 +346,12 @@
     "issues": {
      "counts": {
       "critical": 0,
-      "warning": 5,
+      "warning": 7,
       "info": 3
      },
      "needsAttention": [
       {
-       "fingerprint": "disk-filling-up:d3c816c24",
+       "fingerprint": "disk-filling-up:db2946099",
        "severity": "warning",
        "origin": "service",
        "title": {
@@ -425,13 +440,32 @@
          "instances": "Radarr"
         }
        }
+      },
+      {
+       "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.transcodeFailures.title",
+        "params": {
+         "count": 10,
+         "instance": "Tdarr"
+        }
+       },
+       "affected": {
+        "key": "issues.transcodeFailures.affectedBoth",
+        "params": {
+         "transcode": 7,
+         "healthCheck": 3
+        }
+       }
       }
      ],
      "wardarr": 1
     },
     "stats": {
-     "instancesOnline": 10,
-     "instancesTotal": 10,
+     "instancesOnline": 11,
+     "instancesTotal": 11,
      "activeStreams": 3,
      "transcodes": 1,
      "activeDownloads": 3,
@@ -820,6 +854,26 @@
       "discover",
       "requests"
      ]
+    },
+    {
+     "id": "tdarr",
+     "name": "Tdarr",
+     "category": "transcoder",
+     "lifecycle": "active",
+     "homepage": "https://tdarr.io",
+     "fields": [
+      {
+       "key": "apiKey",
+       "kind": "secret",
+       "label": "adapters.fields.apiKey",
+       "help": "adapters.help.apiKeyTdarr",
+       "required": false
+      }
+     ],
+     "capabilities": [
+      "health",
+      "transcoding"
+     ]
     }
    ]
   },
@@ -966,6 +1020,20 @@
       }
      },
      "options": {}
+    },
+    {
+     "id": "00000000-0000-4000-8000-000000000012",
+     "adapter": "tdarr",
+     "name": "Tdarr",
+     "baseUrl": "http://tdarr:8265",
+     "enabled": true,
+     "allowInsecureTls": false,
+     "fields": {
+      "apiKey": {
+       "isSet": false
+      }
+     },
+     "options": {}
     }
    ]
   },
@@ -977,7 +1045,7 @@
      "instanceName": "Sonarr",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T23:36:38.072Z",
+     "checkedAt": "2026-11-06T23:46:32.465Z",
      "items": [
       {
        "id": 51,
@@ -994,7 +1062,7 @@
        "sizeLeftBytes": 850000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T23:11:33.941Z",
+       "added": "2026-11-06T23:21:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1102",
@@ -1022,7 +1090,7 @@
        "sizeLeftBytes": 1900000000,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T23:24:33.941Z",
+       "added": "2026-11-06T23:34:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1103",
@@ -1053,7 +1121,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T22:01:33.941Z",
+       "added": "2026-11-06T22:11:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1200",
@@ -1084,7 +1152,7 @@
        "sizeLeftBytes": 1450000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T14:36:33.941Z",
+       "added": "2026-11-06T14:46:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1306",
@@ -1104,7 +1172,7 @@
      "instanceName": "Sonarr 4K",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-06T23:36:38.082Z",
+     "checkedAt": "2026-11-06T23:46:33.494Z",
      "items": []
     },
     {
@@ -1112,7 +1180,7 @@
      "instanceName": "Radarr",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T23:36:38.090Z",
+     "checkedAt": "2026-11-06T23:46:32.484Z",
      "items": []
     },
     {
@@ -1120,7 +1188,7 @@
      "instanceName": "Radarr 4K",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-06T23:36:38.097Z",
+     "checkedAt": "2026-11-06T23:46:32.494Z",
      "items": [
       {
        "id": 41,
@@ -1140,7 +1208,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T18:36:33.941Z",
+       "added": "2026-11-06T18:46:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:204",
@@ -1169,7 +1237,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T20:36:33.941Z",
+       "added": "2026-11-06T20:46:28.396Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:202",
@@ -1187,7 +1255,7 @@
      "instanceName": "Lidarr",
      "adapter": "lidarr",
      "adapterName": "Lidarr",
-     "checkedAt": "2026-11-06T23:36:38.105Z",
+     "checkedAt": "2026-11-06T23:46:32.502Z",
      "items": [
       {
        "id": 61,
@@ -1207,7 +1275,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T13:36:33.941Z",
+       "added": "2026-11-06T13:46:28.396Z",
        "tags": [],
        "titleKey": "album:301",
        "searchTarget": {
@@ -1236,7 +1304,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T13:06:33.941Z",
+       "added": "2026-11-06T13:16:28.396Z",
        "tags": [],
        "titleKey": "album:302",
        "searchTarget": {
@@ -1265,7 +1333,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T12:36:33.941Z",
+       "added": "2026-11-06T12:46:28.396Z",
        "tags": [],
        "titleKey": "album:303",
        "searchTarget": {
@@ -1289,23 +1357,23 @@
      "displayName": "Demo Admin",
      "role": "admin",
      "disabled": false,
-     "createdAt": "2026-11-06T23:36:34.385Z"
+     "createdAt": "2026-11-06T23:46:28.820Z"
     },
     {
-     "id": "00000000-0000-4000-8000-000000000012",
+     "id": "00000000-0000-4000-8000-000000000013",
      "username": "mira",
      "displayName": "Mira",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T23:36:34.417Z"
+     "createdAt": "2026-11-06T23:46:28.846Z"
     },
     {
-     "id": "00000000-0000-4000-8000-000000000013",
+     "id": "00000000-0000-4000-8000-000000000014",
      "username": "jonas",
      "displayName": "Jonas",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-06T23:36:34.454Z"
+     "createdAt": "2026-11-06T23:46:28.860Z"
     }
    ]
   },
@@ -1314,7 +1382,7 @@
    "body": {
     "channels": [
      {
-      "id": "00000000-0000-4000-8000-000000000014",
+      "id": "00000000-0000-4000-8000-000000000015",
       "name": "Home automation",
       "kind": "webhook",
       "enabled": true,
@@ -1336,7 +1404,7 @@
       "lastError": null
      },
      {
-      "id": "00000000-0000-4000-8000-000000000015",
+      "id": "00000000-0000-4000-8000-000000000016",
       "name": "Phone",
       "kind": "ntfy",
       "enabled": true,
@@ -1446,7 +1514,7 @@
       "monthly": 3,
       "count": 10,
       "reachDays": 37,
-      "estimatedBytes": 352334
+      "estimatedBytes": 370494
      },
      {
       "level": 2,
@@ -1457,7 +1525,7 @@
       "monthly": 7,
       "count": 19,
       "reachDays": 159,
-      "estimatedBytes": 669435
+      "estimatedBytes": 703939
      },
      {
       "level": 3,
@@ -1468,7 +1536,7 @@
       "monthly": 13,
       "count": 33,
       "reachDays": 341,
-      "estimatedBytes": 1162702
+      "estimatedBytes": 1222630
      },
      {
       "level": 4,
@@ -1479,15 +1547,15 @@
       "monthly": 25,
       "count": 74,
       "reachDays": 706,
-      "estimatedBytes": 2607272
+      "estimatedBytes": 2741656
      }
     ],
     "backups": [
      {
-      "id": "wardarr-20261106T233634Z-manual-8b238e",
+      "id": "wardarr-20261106T234629Z-manual-b74ecc",
       "kind": "manual",
-      "createdAt": "2026-11-06T23:36:34.917Z",
-      "size": 35231,
+      "createdAt": "2026-11-06T23:46:29.323Z",
+      "size": 37047,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1498,10 +1566,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T213634Z-scheduled-d00000",
+      "id": "wardarr-20261106T214629Z-scheduled-d00000",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T21:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-06T21:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1516,10 +1584,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T093634Z-scheduled-d00001",
+      "id": "wardarr-20261106T094629Z-scheduled-d00001",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T09:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-06T09:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1530,10 +1598,10 @@
       ]
      },
      {
-      "id": "wardarr-20261105T183634Z-scheduled-d00002",
+      "id": "wardarr-20261105T184629Z-scheduled-d00002",
       "kind": "scheduled",
-      "createdAt": "2026-11-05T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-05T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1544,10 +1612,10 @@
       ]
      },
      {
-      "id": "wardarr-20261104T183634Z-scheduled-d00003",
+      "id": "wardarr-20261104T184629Z-scheduled-d00003",
       "kind": "scheduled",
-      "createdAt": "2026-11-04T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-04T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1558,10 +1626,10 @@
       ]
      },
      {
-      "id": "wardarr-20261103T183634Z-scheduled-d00004",
+      "id": "wardarr-20261103T184629Z-scheduled-d00004",
       "kind": "scheduled",
-      "createdAt": "2026-11-03T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-03T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1572,10 +1640,10 @@
       ]
      },
      {
-      "id": "wardarr-20261102T183634Z-scheduled-d00005",
+      "id": "wardarr-20261102T184629Z-scheduled-d00005",
       "kind": "scheduled",
-      "createdAt": "2026-11-02T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-02T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1586,10 +1654,10 @@
       ]
      },
      {
-      "id": "wardarr-20261101T183634Z-scheduled-d00006",
+      "id": "wardarr-20261101T184629Z-scheduled-d00006",
       "kind": "scheduled",
-      "createdAt": "2026-11-01T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-11-01T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1601,10 +1669,10 @@
       ]
      },
      {
-      "id": "wardarr-20261031T183634Z-scheduled-d00007",
+      "id": "wardarr-20261031T184629Z-scheduled-d00007",
       "kind": "scheduled",
-      "createdAt": "2026-10-31T18:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-10-31T18:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1616,10 +1684,10 @@
       ]
      },
      {
-      "id": "wardarr-20261027T233634Z-scheduled-d00008",
+      "id": "wardarr-20261027T234629Z-scheduled-d00008",
       "kind": "scheduled",
-      "createdAt": "2026-10-27T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-10-27T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1628,10 +1696,10 @@
       "keep": []
      },
      {
-      "id": "wardarr-20261026T213634Z-pre-migration-d00013",
+      "id": "wardarr-20261026T214629Z-pre-migration-d00013",
       "kind": "pre-migration",
-      "createdAt": "2026-10-26T21:36:34.935Z",
-      "size": 35238,
+      "createdAt": "2026-10-26T21:46:29.338Z",
+      "size": 37054,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1642,10 +1710,10 @@
       ]
      },
      {
-      "id": "wardarr-20261020T233634Z-scheduled-d00009",
+      "id": "wardarr-20261020T234629Z-scheduled-d00009",
       "kind": "scheduled",
-      "createdAt": "2026-10-20T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-10-20T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1656,10 +1724,10 @@
       ]
      },
      {
-      "id": "wardarr-20261013T233634Z-scheduled-d0000a",
+      "id": "wardarr-20261013T234629Z-scheduled-d0000a",
       "kind": "scheduled",
-      "createdAt": "2026-10-13T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-10-13T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1670,10 +1738,10 @@
       ]
      },
      {
-      "id": "wardarr-20261006T233634Z-scheduled-d0000b",
+      "id": "wardarr-20261006T234629Z-scheduled-d0000b",
       "kind": "scheduled",
-      "createdAt": "2026-10-06T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-10-06T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1684,10 +1752,10 @@
       ]
      },
      {
-      "id": "wardarr-20260929T233634Z-scheduled-d0000c",
+      "id": "wardarr-20260929T234629Z-scheduled-d0000c",
       "kind": "scheduled",
-      "createdAt": "2026-09-29T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-09-29T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1699,10 +1767,10 @@
       ]
      },
      {
-      "id": "wardarr-20260927T163634Z-manual-d00014",
+      "id": "wardarr-20260927T164629Z-manual-d00014",
       "kind": "manual",
-      "createdAt": "2026-09-27T16:36:34.935Z",
-      "size": 35231,
+      "createdAt": "2026-09-27T16:46:29.338Z",
+      "size": 37047,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1713,10 +1781,10 @@
       ]
      },
      {
-      "id": "wardarr-20260922T233634Z-scheduled-d0000d",
+      "id": "wardarr-20260922T234629Z-scheduled-d0000d",
       "kind": "scheduled",
-      "createdAt": "2026-09-22T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-09-22T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1727,10 +1795,10 @@
       ]
      },
      {
-      "id": "wardarr-20260915T233634Z-scheduled-d0000e",
+      "id": "wardarr-20260915T234629Z-scheduled-d0000e",
       "kind": "scheduled",
-      "createdAt": "2026-09-15T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-09-15T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1741,10 +1809,10 @@
       ]
      },
      {
-      "id": "wardarr-20260829T233634Z-scheduled-d0000f",
+      "id": "wardarr-20260829T234629Z-scheduled-d0000f",
       "kind": "scheduled",
-      "createdAt": "2026-08-29T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-08-29T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1755,10 +1823,10 @@
       ]
      },
      {
-      "id": "wardarr-20260730T233634Z-scheduled-d00010",
+      "id": "wardarr-20260730T234629Z-scheduled-d00010",
       "kind": "scheduled",
-      "createdAt": "2026-07-30T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-07-30T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1769,10 +1837,10 @@
       ]
      },
      {
-      "id": "wardarr-20260630T233634Z-scheduled-d00011",
+      "id": "wardarr-20260630T234629Z-scheduled-d00011",
       "kind": "scheduled",
-      "createdAt": "2026-06-30T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-06-30T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1783,10 +1851,10 @@
       ]
      },
      {
-      "id": "wardarr-20260531T233634Z-scheduled-d00012",
+      "id": "wardarr-20260531T234629Z-scheduled-d00012",
       "kind": "scheduled",
-      "createdAt": "2026-05-31T23:36:34.935Z",
-      "size": 35234,
+      "createdAt": "2026-05-31T23:46:29.338Z",
+      "size": 37050,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1798,10 +1866,10 @@
      }
     ],
     "lastRun": null,
-    "nextRunAt": "2026-11-07T09:36:34.935Z",
+    "nextRunAt": "2026-11-07T09:46:29.338Z",
     "storage": {
-     "usedBytes": 775146,
-     "freeBytes": 30674038784,
+     "usedBytes": 815098,
+     "freeBytes": 30678618112,
      "sameDiskAsData": true
     }
    }
@@ -1815,7 +1883,7 @@
       "instanceName": "Prowlarr",
       "adapterName": "Prowlarr",
       "status": "ok",
-      "checkedAt": "2026-11-06T23:36:38.114Z",
+      "checkedAt": "2026-11-06T23:46:32.512Z",
       "error": null,
       "indexers": [
        {
@@ -1849,7 +1917,7 @@
         "protocol": "torrent",
         "failing": true,
         "disabledUntil": "2099-01-01T00:00:00Z",
-        "mostRecentFailure": "2026-11-06T16:56:33.941Z",
+        "mostRecentFailure": "2026-11-06T17:06:28.396Z",
         "stats": {
          "indexerId": 2,
          "name": "Nightjar",
@@ -1989,7 +2057,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:36:38.072Z",
+      "checkedAt": "2026-11-06T23:46:32.465Z",
       "errorKind": null,
       "webUrl": "http://sonarr:8989",
       "live": {
@@ -2008,7 +2076,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-06T23:36:38.082Z",
+      "checkedAt": "2026-11-06T23:46:33.494Z",
       "errorKind": null,
       "webUrl": "http://sonarr-4k:8989",
       "live": {
@@ -2026,7 +2094,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:36:38.090Z",
+      "checkedAt": "2026-11-06T23:46:32.484Z",
       "errorKind": null,
       "webUrl": "http://radarr:7878",
       "live": {
@@ -2045,7 +2113,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-06T23:36:38.097Z",
+      "checkedAt": "2026-11-06T23:46:32.494Z",
       "errorKind": null,
       "webUrl": "http://radarr-4k:7878",
       "live": {
@@ -2064,7 +2132,7 @@
       "adapterName": "Lidarr",
       "instanceStatus": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-06T23:36:38.105Z",
+      "checkedAt": "2026-11-06T23:46:32.502Z",
       "errorKind": null,
       "webUrl": "http://lidarr:8686",
       "live": {
@@ -2083,7 +2151,7 @@
       "adapterName": "Prowlarr",
       "instanceStatus": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-06T23:36:38.114Z",
+      "checkedAt": "2026-11-06T23:46:32.512Z",
       "errorKind": null,
       "webUrl": "http://prowlarr:9696/",
       "live": {
@@ -2102,7 +2170,7 @@
       "adapterName": "qBittorrent",
       "instanceStatus": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-06T23:36:38.122Z",
+      "checkedAt": "2026-11-06T23:46:32.521Z",
       "errorKind": null,
       "webUrl": "http://qbittorrent:8080/",
       "live": {
@@ -2121,7 +2189,7 @@
       "adapterName": "SABnzbd",
       "instanceStatus": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-06T23:36:38.129Z",
+      "checkedAt": "2026-11-06T23:46:32.529Z",
       "errorKind": null,
       "webUrl": "http://sabnzbd:8080/",
       "live": {
@@ -2140,7 +2208,7 @@
       "adapterName": "Jellyfin",
       "instanceStatus": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-06T23:36:38.254Z",
+      "checkedAt": "2026-11-06T23:46:32.536Z",
       "errorKind": null,
       "webUrl": "http://jellyfin:8096/web/",
       "live": {
@@ -2159,10 +2227,30 @@
       "adapterName": "Seerr",
       "instanceStatus": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-06T23:36:38.144Z",
+      "checkedAt": "2026-11-06T23:46:32.544Z",
       "errorKind": null,
       "webUrl": "http://seerr:5055/",
       "live": {}
+     },
+     {
+      "id": "00000000-0000-4000-8000-000000000012",
+      "type": "instance",
+      "layer": 4,
+      "name": "Tdarr",
+      "adapter": "tdarr",
+      "instanceId": "00000000-0000-4000-8000-000000000012",
+      "status": "ok",
+      "adapterName": "Tdarr",
+      "instanceStatus": "ok",
+      "version": "2.27.01",
+      "checkedAt": "2026-11-06T23:46:32.552Z",
+      "errorKind": null,
+      "webUrl": "http://tdarr:8265/",
+      "live": {
+       "nodes": 3,
+       "workers": 4,
+       "queue": 109
+      }
      },
      {
       "id": "ghost:deluge:deluge:8112",
@@ -2240,6 +2328,22 @@
          "name": "Series",
          "kind": "show",
          "match": "path"
+        },
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000012",
+         "path": "/data/media/movies",
+         "use": "library",
+         "name": "Films",
+         "kind": "other",
+         "match": "path"
+        },
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000012",
+         "path": "/data/media/tv",
+         "use": "library",
+         "name": "Series",
+         "kind": "other",
+         "match": "path"
         }
        ]
       },
@@ -2277,6 +2381,14 @@
          "use": "library",
          "name": "Films",
          "kind": "movie",
+         "match": "path"
+        },
+        {
+         "instanceId": "00000000-0000-4000-8000-000000000012",
+         "path": "/data/media/movies-4k",
+         "use": "library",
+         "name": "Films 4K",
+         "kind": "other",
          "match": "path"
         }
        ]
@@ -2656,6 +2768,18 @@
       "status": "ok"
      },
      {
+      "id": "storage:1>00000000-0000-4000-8000-000000000012:storage",
+      "labels": [],
+      "from": "storage:1",
+      "to": "00000000-0000-4000-8000-000000000012",
+      "kind": "storage",
+      "enabled": true,
+      "match": "path",
+      "confident": true,
+      "use": "library",
+      "status": "ok"
+     },
+     {
       "id": "00000000-0000-4000-8000-000000000003>storage:2:storage",
       "labels": [],
       "from": "00000000-0000-4000-8000-000000000003",
@@ -2690,10 +2814,486 @@
       "confident": true,
       "use": "library",
       "status": "ok"
+     },
+     {
+      "id": "storage:2>00000000-0000-4000-8000-000000000012:storage",
+      "labels": [],
+      "from": "storage:2",
+      "to": "00000000-0000-4000-8000-000000000012",
+      "kind": "storage",
+      "enabled": true,
+      "match": "path",
+      "confident": true,
+      "use": "library",
+      "status": "ok"
      }
     ],
     "unread": [],
-    "readAt": "2026-11-06T23:36:41.285Z"
+    "readAt": "2026-11-06T23:46:35.692Z"
+   }
+  },
+  "/api/tdarr": {
+   "status": 200,
+   "body": {
+    "instances": [
+     {
+      "instanceId": "00000000-0000-4000-8000-000000000012",
+      "instanceName": "Tdarr",
+      "adapter": "tdarr",
+      "adapterName": "Tdarr",
+      "status": "ok",
+      "version": "2.27.01",
+      "compatibility": null,
+      "checkedAt": "2026-11-06T23:46:32.552Z",
+      "errorKind": null,
+      "webUrl": "http://tdarr:8265/",
+      "nodes": [
+       {
+        "id": "node-attic",
+        "name": "Attic mini PC",
+        "paused": false,
+        "workers": [
+         {
+          "id": "w-cpu-1",
+          "kind": "transcode",
+          "gpu": false,
+          "file": "/data/media/movies/The Great Train Robbery (1903)/The Great Train Robbery (1903) Bluray-1080p.mkv",
+          "progress": 0.182,
+          "fps": 27,
+          "eta": "0:24:10",
+          "step": "Processing",
+          "startedAt": "2026-11-06T23:37:28.396Z",
+          "originalBytes": 2254857830,
+          "estimatedBytes": 858993459,
+          "stuckMinutes": null
+         }
+        ],
+        "limits": {
+         "transcodeCpu": 2,
+         "transcodeGpu": 0,
+         "healthCheckCpu": 1,
+         "healthCheckGpu": 0
+        },
+        "cpuPercent": 88.2,
+        "memoryUsedBytes": 7408818586,
+        "memoryTotalBytes": 8589934592
+       },
+       {
+        "id": "node-desk",
+        "name": "Desktop",
+        "paused": true,
+        "workers": [],
+        "limits": {
+         "transcodeCpu": 0,
+         "transcodeGpu": 1,
+         "healthCheckCpu": 1,
+         "healthCheckGpu": 0
+        },
+        "cpuPercent": 6,
+        "memoryUsedBytes": 12133282611,
+        "memoryTotalBytes": 34359738368
+       },
+       {
+        "id": "node-main",
+        "name": "Server node",
+        "paused": false,
+        "workers": [
+         {
+          "id": "w-gpu-1",
+          "kind": "transcode",
+          "gpu": true,
+          "file": "/data/media/movies/Nosferatu (1922)/Nosferatu (1922) Remux-1080p.mkv",
+          "progress": 0.634,
+          "fps": 142,
+          "eta": "0:06:51",
+          "step": "Processing",
+          "startedAt": "2026-11-06T23:32:28.396Z",
+          "originalBytes": 20078972109,
+          "estimatedBytes": 6657199309,
+          "stuckMinutes": null
+         },
+         {
+          "id": "w-gpu-2",
+          "kind": "transcode",
+          "gpu": true,
+          "file": "/data/media/tv/Kestrel Station/Season 01/Kestrel Station S01E02.mkv",
+          "progress": 0.21899999999999997,
+          "fps": 131,
+          "eta": "0:11:30",
+          "step": "Processing",
+          "startedAt": "2026-11-06T23:42:28.396Z",
+          "originalBytes": 3650722202,
+          "estimatedBytes": 1395864371,
+          "stuckMinutes": null
+         },
+         {
+          "id": "w-hc-1",
+          "kind": "healthCheck",
+          "gpu": false,
+          "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E04.mkv",
+          "progress": 0.41,
+          "fps": 0,
+          "eta": "0:00:38",
+          "step": "Health check",
+          "startedAt": "2026-11-06T23:45:28.396Z",
+          "originalBytes": 1825361101,
+          "estimatedBytes": null,
+          "stuckMinutes": null
+         }
+        ],
+        "limits": {
+         "transcodeCpu": 1,
+         "transcodeGpu": 2,
+         "healthCheckCpu": 2,
+         "healthCheckGpu": 0
+        },
+        "cpuPercent": 71.4,
+        "memoryUsedBytes": 10307921510,
+        "memoryTotalBytes": 33500744909
+       }
+      ],
+      "offline": [
+       {
+        "id": "node-garage",
+        "name": "Garage NAS",
+        "lastSeenAt": "2026-11-06T20:46:29.458Z"
+       }
+      ],
+      "totals": {
+       "files": 1452,
+       "transcodes": 611,
+       "healthChecks": 1398,
+       "savedBytes": 788770743910,
+       "queued": {
+        "transcode": 88,
+        "healthCheck": 21
+       },
+       "done": {
+        "transcode": 1342,
+        "healthCheck": 1371
+       },
+       "failed": {
+        "transcode": 7,
+        "healthCheck": 3
+       }
+      },
+      "history": [
+       {
+        "day": "2026-10-08",
+        "transcodes": 0,
+        "healthChecks": 0,
+        "failed": 0,
+        "savedBytes": 0
+       },
+       {
+        "day": "2026-10-09",
+        "transcodes": 15,
+        "healthChecks": 26,
+        "failed": 0,
+        "savedBytes": 23933833852
+       },
+       {
+        "day": "2026-10-10",
+        "transcodes": 41,
+        "healthChecks": 60,
+        "failed": 0,
+        "savedBytes": 50982263024
+       },
+       {
+        "day": "2026-10-11",
+        "transcodes": 38,
+        "healthChecks": 55,
+        "failed": 0,
+        "savedBytes": 58910882214
+       },
+       {
+        "day": "2026-10-12",
+        "transcodes": 25,
+        "healthChecks": 36,
+        "failed": 0,
+        "savedBytes": 22639912862
+       },
+       {
+        "day": "2026-10-13",
+        "transcodes": 20,
+        "healthChecks": 30,
+        "failed": 0,
+        "savedBytes": 33634769260
+       },
+       {
+        "day": "2026-10-14",
+        "transcodes": 24,
+        "healthChecks": 37,
+        "failed": 0,
+        "savedBytes": 29687444455
+       },
+       {
+        "day": "2026-10-15",
+        "transcodes": 26,
+        "healthChecks": 41,
+        "failed": 0,
+        "savedBytes": 33741651454
+       },
+       {
+        "day": "2026-10-16",
+        "transcodes": 21,
+        "healthChecks": 35,
+        "failed": 0,
+        "savedBytes": 17782320507
+       },
+       {
+        "day": "2026-10-17",
+        "transcodes": 31,
+        "healthChecks": 46,
+        "failed": 0,
+        "savedBytes": 28529102842
+       },
+       {
+        "day": "2026-10-18",
+        "transcodes": 34,
+        "healthChecks": 51,
+        "failed": 0,
+        "savedBytes": 37930682242
+       },
+       {
+        "day": "2026-10-19",
+        "transcodes": 15,
+        "healthChecks": 21,
+        "failed": 0,
+        "savedBytes": 23265288046
+       },
+       {
+        "day": "2026-10-20",
+        "transcodes": 19,
+        "healthChecks": 31,
+        "failed": 0,
+        "savedBytes": 23604071377
+       },
+       {
+        "day": "2026-10-21",
+        "transcodes": 24,
+        "healthChecks": 36,
+        "failed": 0,
+        "savedBytes": 39552283945
+       },
+       {
+        "day": "2026-10-22",
+        "transcodes": 25,
+        "healthChecks": 38,
+        "failed": 1,
+        "savedBytes": 35199684719
+       },
+       {
+        "day": "2026-10-23",
+        "transcodes": 18,
+        "healthChecks": 30,
+        "failed": 0,
+        "savedBytes": 13551570690
+       },
+       {
+        "day": "2026-10-24",
+        "transcodes": 37,
+        "healthChecks": 52,
+        "failed": 0,
+        "savedBytes": 61846199683
+       },
+       {
+        "day": "2026-10-25",
+        "transcodes": 42,
+        "healthChecks": 64,
+        "failed": 0,
+        "savedBytes": 49079158905
+       },
+       {
+        "day": "2026-10-26",
+        "transcodes": 16,
+        "healthChecks": 27,
+        "failed": 0,
+        "savedBytes": 26683492942
+       },
+       {
+        "day": "2026-10-27",
+        "transcodes": 23,
+        "healthChecks": 37,
+        "failed": 0,
+        "savedBytes": 38386026744
+       },
+       {
+        "day": "2026-10-28",
+        "transcodes": 26,
+        "healthChecks": 38,
+        "failed": 0,
+        "savedBytes": 42190562224
+       },
+       {
+        "day": "2026-10-29",
+        "transcodes": 25,
+        "healthChecks": 38,
+        "failed": 1,
+        "savedBytes": 21131525168
+       },
+       {
+        "day": "2026-10-30",
+        "transcodes": 21,
+        "healthChecks": 34,
+        "failed": 0,
+        "savedBytes": 16058561295
+       },
+       {
+        "day": "2026-10-31",
+        "transcodes": 34,
+        "healthChecks": 52,
+        "failed": 0,
+        "savedBytes": 25936644159
+       },
+       {
+        "day": "2026-11-01",
+        "transcodes": 37,
+        "healthChecks": 55,
+        "failed": 0,
+        "savedBytes": 44927660309
+       },
+       {
+        "day": "2026-11-02",
+        "transcodes": 19,
+        "healthChecks": 27,
+        "failed": 0,
+        "savedBytes": 18275605429
+       },
+       {
+        "day": "2026-11-03",
+        "transcodes": 16,
+        "healthChecks": 25,
+        "failed": 0,
+        "savedBytes": 21118701000
+       },
+       {
+        "day": "2026-11-04",
+        "transcodes": 20,
+        "healthChecks": 30,
+        "failed": 1,
+        "savedBytes": 19255853799
+       },
+       {
+        "day": "2026-11-05",
+        "transcodes": 24,
+        "healthChecks": 36,
+        "failed": 1,
+        "savedBytes": 30040934871
+       },
+       {
+        "day": "2026-11-06",
+        "transcodes": 14,
+        "healthChecks": 22,
+        "failed": 1,
+        "savedBytes": 14739144123
+       }
+      ],
+      "libraries": [
+       {
+        "id": "lib-films",
+        "name": "Films",
+        "folder": "/data/media/movies",
+        "files": 61,
+        "transcodes": 48,
+        "healthChecks": 60,
+        "savedBytes": 442703754035
+       },
+       {
+        "id": "lib-films-4k",
+        "name": "Films 4K",
+        "folder": "/data/media/movies-4k",
+        "files": 6,
+        "transcodes": 0,
+        "healthChecks": 6,
+        "savedBytes": 0
+       },
+       {
+        "id": "lib-series",
+        "name": "Series",
+        "folder": "/data/media/tv",
+        "files": 1385,
+        "transcodes": 563,
+        "healthChecks": 1332,
+        "savedBytes": 346066989875
+       }
+      ],
+      "failures": [
+       {
+        "file": "/data/media/movies/Intolerance (1916)/Intolerance (1916) Bluray-1080p.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-06T22:54:28.396Z",
+        "sizeBytes": 14889779200
+       },
+       {
+        "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E05.mkv",
+        "kind": "healthCheck",
+        "outcome": "error",
+        "at": "2026-11-06T22:31:28.396Z",
+        "sizeBytes": 1457520640
+       },
+       {
+        "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E03.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-06T20:36:28.396Z",
+        "sizeBytes": 1551892480
+       },
+       {
+        "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E04.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-06T20:35:28.396Z",
+        "sizeBytes": 1583349760
+       },
+       {
+        "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E01.mkv",
+        "kind": "transcode",
+        "outcome": "cancelled",
+        "at": "2026-11-06T08:46:28.396Z",
+        "sizeBytes": 1782579200
+       },
+       {
+        "file": "/data/media/movies/A Trip to the Moon (1902)/A Trip to the Moon (1902) WEBDL-720p.mp4",
+        "kind": "healthCheck",
+        "outcome": "error",
+        "at": "2026-11-06T02:06:28.396Z",
+        "sizeBytes": 429916160
+       },
+       {
+        "file": "/data/media/movies/Nanook of the North (1922)/Nanook of the North (1922) DVD.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-05T17:46:28.396Z",
+        "sizeBytes": 4089446400
+       },
+       {
+        "file": "/data/media/tv/Kestrel Station/Season 01/Kestrel Station S01E01.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-04T22:36:28.396Z",
+        "sizeBytes": 3460300800
+       },
+       {
+        "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E02.mkv",
+        "kind": "healthCheck",
+        "outcome": "error",
+        "at": "2026-11-04T11:46:28.396Z",
+        "sizeBytes": 1803550720
+       },
+       {
+        "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E06.mkv",
+        "kind": "transcode",
+        "outcome": "error",
+        "at": "2026-11-04T03:26:28.396Z",
+        "sizeBytes": 1730150400
+       }
+      ],
+      "detailError": null,
+      "readAt": "2026-11-06T23:46:35.706Z"
+     }
+    ]
    }
   },
   "/api/streams/history?limit=25": {
@@ -2707,9 +3307,9 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T23:36:34.604Z",
+      "startedAt": "2026-11-06T23:46:28.993Z",
       "endedAt": null,
-      "playedMs": 3653,
+      "playedMs": 3544,
       "progress": 46,
       "transcoding": false,
       "resolution": "4K",
@@ -2722,7 +3322,7 @@
       "title": "Lanternfall",
       "subtitle": "S01E03 · The Long Watch",
       "mediaType": "episode",
-      "startedAt": "2026-11-06T23:36:34.604Z",
+      "startedAt": "2026-11-06T23:46:28.993Z",
       "endedAt": null,
       "playedMs": 0,
       "progress": 23,
@@ -2737,9 +3337,9 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-06T23:36:34.604Z",
+      "startedAt": "2026-11-06T23:46:28.993Z",
       "endedAt": null,
-      "playedMs": 3653,
+      "playedMs": 3544,
       "progress": 44,
       "transcoding": false,
       "resolution": "1080p",
@@ -3210,7 +3810,7 @@
       }
      },
      {
-      "userId": "00000000-0000-4000-8000-000000000012",
+      "userId": "00000000-0000-4000-8000-000000000013",
       "username": "mira",
       "displayName": "Mira",
       "role": "user",
@@ -3221,7 +3821,7 @@
       }
      },
      {
-      "userId": "00000000-0000-4000-8000-000000000013",
+      "userId": "00000000-0000-4000-8000-000000000014",
       "username": "jonas",
       "displayName": "Jonas",
       "role": "user",
@@ -3584,14 +4184,37 @@
     "sections": []
    }
   },
+  "/api/instances/00000000-0000-4000-8000-000000000012": {
+   "status": 200,
+   "body": {
+    "id": "00000000-0000-4000-8000-000000000012",
+    "adapter": "tdarr",
+    "name": "Tdarr",
+    "baseUrl": "http://tdarr:8265",
+    "enabled": true,
+    "allowInsecureTls": false,
+    "fields": {
+     "apiKey": {
+      "isSet": false
+     }
+    },
+    "options": {}
+   }
+  },
+  "/api/instances/00000000-0000-4000-8000-000000000012/settings": {
+   "status": 200,
+   "body": {
+    "sections": []
+   }
+  },
   "/api/issues?status=all": {
    "status": 200,
    "body": [
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.528Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.936Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3686,8 +4309,8 @@
     {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.561Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.974Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3793,8 +4416,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.591Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.978Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -3889,8 +4512,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.599Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.990Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4013,8 +4636,8 @@
     {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.599Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.990Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4105,10 +4728,114 @@
      "muted": false
     },
     {
+     "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:46:29.014Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
+      "ruleId": "transcode-failures",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.transcodeFailures.title",
+       "params": {
+        "count": 10,
+        "instance": "Tdarr"
+       }
+      },
+      "affected": {
+       "key": "issues.transcodeFailures.affectedBoth",
+       "params": {
+        "transcode": 7,
+        "healthCheck": 3
+       }
+      },
+      "explanation": {
+       "key": "issues.transcodeFailures.explanationHealth"
+      },
+      "fix": {
+       "key": "issues.transcodeFailures.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "name": "Tdarr",
+        "adapter": "tdarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000012:transcoding"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000012",
+         "name": "Tdarr",
+         "adapter": "tdarr"
+        },
+        "source": "Tdarr.failedFiles",
+        "level": "warning",
+        "message": "7 transcodes and 3 health checks failed"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-transcoding",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openTdarr"
+        },
+        "href": "/tdarr?instance=00000000-0000-4000-8000-000000000012"
+       },
+       {
+        "id": "open-instance",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInstance",
+         "params": {
+          "name": "Tdarr"
+         }
+        },
+        "href": "http://tdarr:8265/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.869Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:29.279Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4199,15 +4926,15 @@
      "muted": false
     },
     {
-     "fingerprint": "disk-filling-up:d3c816c24",
+     "fingerprint": "disk-filling-up:db2946099",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:35.065Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:29.454Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
      "group": {
-      "fingerprint": "disk-filling-up:d3c816c24",
+      "fingerprint": "disk-filling-up:db2946099",
       "ruleId": "disk-filling-up",
       "origin": "service",
       "severity": "warning",
@@ -4267,7 +4994,7 @@
         "label": {
          "key": "issues.action.openStorage"
         },
-        "href": "/storage?disk=d3c816c24"
+        "href": "/storage?disk=db2946099"
        },
        {
         "id": "guide",
@@ -4296,7 +5023,7 @@
          "key": "issues.action.recheck"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d3c816c24"
+         "fingerprint": "disk-filling-up:db2946099"
         }
        },
        {
@@ -4307,7 +5034,117 @@
          "key": "issues.action.mute"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d3c816c24"
+         "fingerprint": "disk-filling-up:db2946099"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    {
+     "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:46:29.465Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
+      "ruleId": "transcode-node-offline",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.transcodeNodeOffline.title",
+       "params": {
+        "node": "Garage NAS",
+        "instance": "Tdarr"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Tdarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.transcodeNodeOffline.explanation",
+       "params": {
+        "node": "Garage NAS",
+        "instance": "Tdarr"
+       }
+      },
+      "fix": {
+       "key": "issues.transcodeNodeOffline.fix",
+       "params": {
+        "node": "Garage NAS"
+       }
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "name": "Tdarr",
+        "adapter": "tdarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000012:transcoding"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000012",
+         "name": "Tdarr",
+         "adapter": "tdarr"
+        },
+        "source": "Tdarr.nodeOffline",
+        "level": "warning",
+        "message": "Node Garage NAS is offline"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-transcoding",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openTdarr"
+        },
+        "href": "/tdarr?instance=00000000-0000-4000-8000-000000000012"
+       },
+       {
+        "id": "open-instance",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInstance",
+         "params": {
+          "name": "Tdarr"
+         }
+        },
+        "href": "http://tdarr:8265/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage"
         }
        }
       ]
@@ -4317,8 +5154,8 @@
     {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:38.193Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:32.601Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4418,8 +5255,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.528Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.936Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4515,7 +5352,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:36:34.528Z"
+      "at": "2026-11-06T23:46:28.936Z"
      }
     ]
    }
@@ -4526,8 +5363,8 @@
     "issue": {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.561Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.974Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4634,7 +5471,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:36:34.561Z"
+      "at": "2026-11-06T23:46:28.974Z"
      }
     ]
    }
@@ -4645,8 +5482,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.591Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.978Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4742,7 +5579,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:36:34.591Z"
+      "at": "2026-11-06T23:46:28.978Z"
      }
     ]
    }
@@ -4753,8 +5590,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.599Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.990Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4878,7 +5715,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:36:34.599Z"
+      "at": "2026-11-06T23:46:28.990Z"
      }
     ]
    }
@@ -4889,8 +5726,8 @@
     "issue": {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.599Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:28.990Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4984,7 +5821,123 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:36:34.599Z"
+      "at": "2026-11-06T23:46:28.990Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/transcode-failures%3A00000000-0000-4000-8000-000000000012": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:46:29.014Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
+      "ruleId": "transcode-failures",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.transcodeFailures.title",
+       "params": {
+        "count": 10,
+        "instance": "Tdarr"
+       }
+      },
+      "affected": {
+       "key": "issues.transcodeFailures.affectedBoth",
+       "params": {
+        "transcode": 7,
+        "healthCheck": 3
+       }
+      },
+      "explanation": {
+       "key": "issues.transcodeFailures.explanationHealth"
+      },
+      "fix": {
+       "key": "issues.transcodeFailures.fix"
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "name": "Tdarr",
+        "adapter": "tdarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000012:transcoding"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000012",
+         "name": "Tdarr",
+         "adapter": "tdarr"
+        },
+        "source": "Tdarr.failedFiles",
+        "level": "warning",
+        "message": "7 transcodes and 3 health checks failed"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-transcoding",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openTdarr"
+        },
+        "href": "/tdarr?instance=00000000-0000-4000-8000-000000000012"
+       },
+       {
+        "id": "open-instance",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInstance",
+         "params": {
+          "name": "Tdarr"
+         }
+        },
+        "href": "http://tdarr:8265/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T23:46:29.014Z"
      }
     ]
    }
@@ -4995,8 +5948,8 @@
     "issue": {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:34.869Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:29.279Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5090,24 +6043,24 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:36:34.869Z"
+      "at": "2026-11-06T23:46:29.279Z"
      }
     ]
    }
   },
-  "/api/issues/disk-filling-up%3Ad3c816c24": {
+  "/api/issues/disk-filling-up%3Adb2946099": {
    "status": 200,
    "body": {
     "issue": {
-     "fingerprint": "disk-filling-up:d3c816c24",
+     "fingerprint": "disk-filling-up:db2946099",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:35.065Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:29.454Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
      "group": {
-      "fingerprint": "disk-filling-up:d3c816c24",
+      "fingerprint": "disk-filling-up:db2946099",
       "ruleId": "disk-filling-up",
       "origin": "service",
       "severity": "warning",
@@ -5167,7 +6120,7 @@
         "label": {
          "key": "issues.action.openStorage"
         },
-        "href": "/storage?disk=d3c816c24"
+        "href": "/storage?disk=db2946099"
        },
        {
         "id": "guide",
@@ -5196,7 +6149,7 @@
          "key": "issues.action.recheck"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d3c816c24"
+         "fingerprint": "disk-filling-up:db2946099"
         }
        },
        {
@@ -5207,7 +6160,7 @@
          "key": "issues.action.mute"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d3c816c24"
+         "fingerprint": "disk-filling-up:db2946099"
         }
        }
       ]
@@ -5218,7 +6171,129 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-06T23:36:35.065Z"
+      "at": "2026-11-06T23:46:29.454Z"
+     }
+    ]
+   }
+  },
+  "/api/issues/transcode-node-offline%3A00000000-0000-4000-8000-000000000012%3Anode-garage": {
+   "status": 200,
+   "body": {
+    "issue": {
+     "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
+     "status": "open",
+     "firstSeenAt": "2026-11-06T23:46:29.465Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
+     "resolvedAt": null,
+     "mutedUntil": null,
+     "mutedForever": false,
+     "group": {
+      "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
+      "ruleId": "transcode-node-offline",
+      "origin": "service",
+      "severity": "warning",
+      "title": {
+       "key": "issues.transcodeNodeOffline.title",
+       "params": {
+        "node": "Garage NAS",
+        "instance": "Tdarr"
+       }
+      },
+      "affected": {
+       "key": "issues.common.instances",
+       "params": {
+        "instances": "Tdarr"
+       }
+      },
+      "explanation": {
+       "key": "issues.transcodeNodeOffline.explanation",
+       "params": {
+        "node": "Garage NAS",
+        "instance": "Tdarr"
+       }
+      },
+      "fix": {
+       "key": "issues.transcodeNodeOffline.fix",
+       "params": {
+        "node": "Garage NAS"
+       }
+      },
+      "instances": [
+       {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "name": "Tdarr",
+        "adapter": "tdarr"
+       }
+      ],
+      "sources": [
+       "service:00000000-0000-4000-8000-000000000012:transcoding"
+      ],
+      "details": [
+       {
+        "instance": {
+         "id": "00000000-0000-4000-8000-000000000012",
+         "name": "Tdarr",
+         "adapter": "tdarr"
+        },
+        "source": "Tdarr.nodeOffline",
+        "level": "warning",
+        "message": "Node Garage NAS is offline"
+       }
+      ],
+      "items": [],
+      "actions": [
+       {
+        "id": "open-transcoding",
+        "kind": "openWardarr",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openTdarr"
+        },
+        "href": "/tdarr?instance=00000000-0000-4000-8000-000000000012"
+       },
+       {
+        "id": "open-instance",
+        "kind": "openLink",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.openInstance",
+         "params": {
+          "name": "Tdarr"
+         }
+        },
+        "href": "http://tdarr:8265/"
+       },
+       {
+        "id": "recheck",
+        "kind": "recheck",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.recheck"
+        },
+        "payload": {
+         "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage"
+        }
+       },
+       {
+        "id": "mute",
+        "kind": "mute",
+        "class": "safe",
+        "label": {
+         "key": "issues.action.mute"
+        },
+        "payload": {
+         "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage"
+        }
+       }
+      ]
+     },
+     "muted": false
+    },
+    "history": [
+     {
+      "type": "opened",
+      "severity": "warning",
+      "at": "2026-11-06T23:46:29.465Z"
      }
     ]
    }
@@ -5229,8 +6304,8 @@
     "issue": {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-06T23:36:38.193Z",
-     "lastSeenAt": "2026-11-06T23:36:38.259Z",
+     "firstSeenAt": "2026-11-06T23:46:32.601Z",
+     "lastSeenAt": "2026-11-06T23:46:33.498Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5326,7 +6401,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-06T23:36:38.193Z"
+      "at": "2026-11-06T23:46:32.601Z"
      }
     ]
    }
@@ -5360,8 +6435,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:36:38.154Z",
-      "nextRunAt": "2026-11-06T23:41:38.154Z",
+      "lastRunAt": "2026-11-06T23:46:32.562Z",
+      "nextRunAt": "2026-11-06T23:51:32.562Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5421,7 +6496,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:36:38.154Z",
+        "nextStrikeAt": "2026-11-07T00:46:32.562Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5518,8 +6593,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:36:38.178Z",
-      "nextRunAt": "2026-11-06T23:41:38.178Z",
+      "lastRunAt": "2026-11-06T23:46:32.588Z",
+      "nextRunAt": "2026-11-06T23:51:32.588Z",
       "error": null,
       "paused": null,
       "downloads": [],
@@ -5551,8 +6626,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:36:38.188Z",
-      "nextRunAt": "2026-11-06T23:41:38.188Z",
+      "lastRunAt": "2026-11-06T23:46:32.596Z",
+      "nextRunAt": "2026-11-06T23:51:32.596Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5568,7 +6643,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:36:38.188Z",
+        "nextStrikeAt": "2026-11-07T00:46:32.596Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5594,7 +6669,7 @@
         "strikes": 0,
         "maxStrikes": 4,
         "nextStrikeAt": null,
-        "waitUntil": "2026-11-13T23:36:38.188Z",
+        "waitUntil": "2026-11-13T23:46:32.596Z",
         "action": {
          "type": "none"
         },
@@ -5632,8 +6707,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-06T23:36:38.210Z",
-      "nextRunAt": "2026-11-06T23:41:38.210Z",
+      "lastRunAt": "2026-11-06T23:46:32.614Z",
+      "nextRunAt": "2026-11-06T23:51:32.614Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -5649,7 +6724,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+        "nextStrikeAt": "2026-11-07T00:46:32.614Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5674,7 +6749,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+        "nextStrikeAt": "2026-11-07T00:46:32.614Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5699,7 +6774,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+        "nextStrikeAt": "2026-11-07T00:46:32.614Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -5723,7 +6798,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:41:38.154Z",
+    "at": "2026-11-06T23:51:32.562Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -5783,7 +6858,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:36:38.154Z",
+       "nextStrikeAt": "2026-11-07T00:46:32.562Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -5823,48 +6898,48 @@
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
        "title": "Lanternfall.S02E01.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:36:38.154Z",
+       "firstSeenAt": "2026-11-06T23:46:32.562Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:36:38.154Z",
+       "lastProgressAt": "2026-11-06T23:46:32.562Z",
        "lastSizeLeft": 850000000,
        "ignored": false
       },
       {
        "key": "sabnzbd_nzo_demo0001",
        "title": "Lanternfall.S02E02.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:36:38.154Z",
+       "firstSeenAt": "2026-11-06T23:46:32.562Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:36:38.154Z",
+       "lastProgressAt": "2026-11-06T23:46:32.562Z",
        "lastSizeLeft": 1900000000,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:36:38.154Z",
+       "firstSeenAt": "2026-11-06T23:46:32.562Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:36:38.154Z",
+       "problemSince": "2026-11-06T23:46:32.562Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:36:38.154Z",
-       "lastProgressAt": "2026-11-06T23:36:38.154Z",
+       "lastStrikeAt": "2026-11-06T23:46:32.562Z",
+       "lastProgressAt": "2026-11-06T23:46:32.562Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-06T23:36:38.154Z",
+       "firstSeenAt": "2026-11-06T23:46:32.562Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:36:38.154Z",
+       "lastProgressAt": "2026-11-06T23:46:32.562Z",
        "lastSizeLeft": 1450000000,
        "ignored": false
       }
@@ -5882,7 +6957,7 @@
      {
       "id": 1,
       "instanceId": "00000000-0000-4000-8000-000000000002",
-      "at": "2026-11-06T23:36:38.159Z",
+      "at": "2026-11-06T23:46:32.567Z",
       "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
       "kind": "strike",
@@ -6100,7 +7175,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:41:38.178Z",
+    "at": "2026-11-06T23:51:32.588Z",
     "plan": {
      "paused": null,
      "downloads": [],
@@ -6211,7 +7286,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:41:38.188Z",
+    "at": "2026-11-06T23:51:32.596Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -6227,7 +7302,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:36:38.188Z",
+       "nextStrikeAt": "2026-11-07T00:46:32.596Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6253,7 +7328,7 @@
        "strikes": 0,
        "maxStrikes": 4,
        "nextStrikeAt": null,
-       "waitUntil": "2026-11-13T23:36:38.188Z",
+       "waitUntil": "2026-11-13T23:46:32.596Z",
        "action": {
         "type": "none"
        },
@@ -6267,24 +7342,24 @@
       {
        "key": "demofail0001",
        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
-       "firstSeenAt": "2026-11-06T23:36:38.188Z",
+       "firstSeenAt": "2026-11-06T23:46:32.596Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:36:38.188Z",
+       "problemSince": "2026-11-06T23:46:32.596Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:36:38.188Z",
-       "lastProgressAt": "2026-11-06T23:36:38.188Z",
+       "lastStrikeAt": "2026-11-06T23:46:32.596Z",
+       "lastProgressAt": "2026-11-06T23:46:32.596Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoimport01",
        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
-       "firstSeenAt": "2026-11-06T23:36:38.188Z",
+       "firstSeenAt": "2026-11-06T23:46:32.596Z",
        "problem": "importReady",
-       "problemSince": "2026-11-06T23:36:38.188Z",
+       "problemSince": "2026-11-06T23:46:32.596Z",
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-06T23:36:38.188Z",
+       "lastProgressAt": "2026-11-06T23:46:32.596Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -6302,7 +7377,7 @@
      {
       "id": 2,
       "instanceId": "00000000-0000-4000-8000-000000000005",
-      "at": "2026-11-06T23:36:38.191Z",
+      "at": "2026-11-06T23:46:32.599Z",
       "downloadKey": "demofail0001",
       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
       "kind": "strike",
@@ -6416,7 +7491,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-06T23:41:38.210Z",
+    "at": "2026-11-06T23:51:32.614Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -6432,7 +7507,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+       "nextStrikeAt": "2026-11-07T00:46:32.614Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6457,7 +7532,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+       "nextStrikeAt": "2026-11-07T00:46:32.614Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6482,7 +7557,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T00:36:38.210Z",
+       "nextStrikeAt": "2026-11-07T00:46:32.614Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -6500,36 +7575,36 @@
       {
        "key": "demoalbum001",
        "title": "The Lamplighters-Night Shift",
-       "firstSeenAt": "2026-11-06T23:36:38.210Z",
+       "firstSeenAt": "2026-11-06T23:46:32.614Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:36:38.210Z",
+       "problemSince": "2026-11-06T23:46:32.614Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
-       "lastProgressAt": "2026-11-06T23:36:38.210Z",
+       "lastStrikeAt": "2026-11-06T23:46:32.614Z",
+       "lastProgressAt": "2026-11-06T23:46:32.614Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum002",
        "title": "The Lamplighters-Harbour Songs",
-       "firstSeenAt": "2026-11-06T23:36:38.210Z",
+       "firstSeenAt": "2026-11-06T23:46:32.614Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:36:38.210Z",
+       "problemSince": "2026-11-06T23:46:32.614Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
-       "lastProgressAt": "2026-11-06T23:36:38.210Z",
+       "lastStrikeAt": "2026-11-06T23:46:32.614Z",
+       "lastProgressAt": "2026-11-06T23:46:32.614Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum003",
        "title": "Marrow & Pine-Low Tide",
-       "firstSeenAt": "2026-11-06T23:36:38.210Z",
+       "firstSeenAt": "2026-11-06T23:46:32.614Z",
        "problem": "failed",
-       "problemSince": "2026-11-06T23:36:38.210Z",
+       "problemSince": "2026-11-06T23:46:32.614Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-06T23:36:38.210Z",
-       "lastProgressAt": "2026-11-06T23:36:38.210Z",
+       "lastStrikeAt": "2026-11-06T23:46:32.614Z",
+       "lastProgressAt": "2026-11-06T23:46:32.614Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -6547,7 +7622,7 @@
      {
       "id": 5,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:36:38.213Z",
+      "at": "2026-11-06T23:46:32.616Z",
       "downloadKey": "demoalbum003",
       "title": "Marrow & Pine-Low Tide",
       "kind": "strike",
@@ -6567,7 +7642,7 @@
      {
       "id": 4,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:36:38.213Z",
+      "at": "2026-11-06T23:46:32.616Z",
       "downloadKey": "demoalbum002",
       "title": "The Lamplighters-Harbour Songs",
       "kind": "strike",
@@ -6587,7 +7662,7 @@
      {
       "id": 3,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-06T23:36:38.213Z",
+      "at": "2026-11-06T23:46:32.616Z",
       "downloadKey": "demoalbum001",
       "title": "The Lamplighters-Night Shift",
       "kind": "strike",
@@ -6740,8 +7815,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:36:38.173Z",
-        "nextRunAt": "2026-11-07T00:36:38.173Z",
+        "lastRunAt": "2026-11-06T23:46:32.583Z",
+        "nextRunAt": "2026-11-07T00:46:32.583Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -6750,8 +7825,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:36:38.175Z",
-        "nextRunAt": "2026-11-07T01:36:38.175Z",
+        "lastRunAt": "2026-11-06T23:46:32.585Z",
+        "nextRunAt": "2026-11-07T01:46:32.585Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -6775,7 +7850,7 @@
           "count": 3
          }
         },
-        "at": "2026-11-06T23:36:38.173Z",
+        "at": "2026-11-06T23:46:32.583Z",
         "manual": false,
         "result": "pending"
        },
@@ -6787,7 +7862,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:36:38.171Z",
+        "at": "2026-11-06T23:46:32.581Z",
         "manual": false,
         "result": "pending"
        }
@@ -6833,7 +7908,7 @@
          "everyMinutes": 60
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T23:36:41.412Z",
+        "nextRunAt": "2026-11-06T23:46:35.803Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -6843,7 +7918,7 @@
          "everyMinutes": 120
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-06T23:36:41.412Z",
+        "nextRunAt": "2026-11-06T23:46:35.803Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -6968,8 +8043,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:36:38.203Z",
-        "nextRunAt": "2026-11-07T00:36:38.203Z",
+        "lastRunAt": "2026-11-06T23:46:32.610Z",
+        "nextRunAt": "2026-11-07T00:46:32.610Z",
         "upcoming": [
          {
           "key": "movie:203",
@@ -6987,7 +8062,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T00:36:38.203Z"
+          "at": "2026-11-07T00:46:32.610Z"
          },
          {
           "key": "movie:202",
@@ -7005,7 +8080,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T00:36:38.203Z"
+          "at": "2026-11-07T00:46:32.610Z"
          }
         ],
         "waiting": 2
@@ -7015,8 +8090,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:36:38.208Z",
-        "nextRunAt": "2026-11-07T01:36:38.208Z",
+        "lastRunAt": "2026-11-06T23:46:32.612Z",
+        "nextRunAt": "2026-11-07T01:46:32.612Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -7037,7 +8112,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:36:38.203Z",
+        "at": "2026-11-06T23:46:32.609Z",
         "manual": false,
         "result": "pending"
        },
@@ -7049,7 +8124,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-06T23:36:38.201Z",
+        "at": "2026-11-06T23:46:32.608Z",
         "manual": false,
         "result": "pending"
        }
@@ -7094,8 +8169,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-06T23:36:38.221Z",
-        "nextRunAt": "2026-11-07T00:36:38.221Z",
+        "lastRunAt": "2026-11-06T23:46:32.633Z",
+        "nextRunAt": "2026-11-07T00:46:32.633Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -7104,8 +8179,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-06T23:36:38.223Z",
-        "nextRunAt": "2026-11-07T01:36:38.223Z",
+        "lastRunAt": "2026-11-06T23:46:32.636Z",
+        "nextRunAt": "2026-11-07T01:46:32.636Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -7647,8 +8722,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T23:01:33.941Z",
-      "updatedAt": "2026-11-06T23:01:33.941Z",
+      "createdAt": "2026-11-06T23:11:28.396Z",
+      "updatedAt": "2026-11-06T23:11:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7669,8 +8744,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:56:33.941Z",
-      "updatedAt": "2026-11-06T20:56:33.941Z",
+      "createdAt": "2026-11-06T21:06:28.396Z",
+      "updatedAt": "2026-11-06T21:06:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7689,8 +8764,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7711,8 +8786,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:36:33.941Z",
-      "updatedAt": "2026-11-05T21:36:33.941Z",
+      "createdAt": "2026-11-05T21:46:28.396Z",
+      "updatedAt": "2026-11-05T21:46:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7731,8 +8806,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:36:33.941Z",
-      "updatedAt": "2026-11-04T21:36:33.941Z",
+      "createdAt": "2026-11-04T21:46:28.396Z",
+      "updatedAt": "2026-11-04T21:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7751,8 +8826,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T23:36:33.941Z",
-      "updatedAt": "2026-11-03T23:36:33.941Z",
+      "createdAt": "2026-11-03T23:46:28.396Z",
+      "updatedAt": "2026-11-03T23:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7774,8 +8849,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T23:36:33.941Z",
-      "updatedAt": "2026-10-31T23:36:33.941Z",
+      "createdAt": "2026-10-31T23:46:28.396Z",
+      "updatedAt": "2026-10-31T23:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7794,8 +8869,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:36:33.941Z",
-      "updatedAt": "2026-10-25T23:36:33.941Z",
+      "createdAt": "2026-10-25T23:46:28.396Z",
+      "updatedAt": "2026-10-25T23:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7814,8 +8889,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T23:36:33.941Z",
-      "updatedAt": "2026-10-22T23:36:33.941Z",
+      "createdAt": "2026-10-22T23:46:28.396Z",
+      "updatedAt": "2026-10-22T23:46:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7844,8 +8919,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7864,8 +8939,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:36:33.941Z",
-      "updatedAt": "2026-10-25T23:36:33.941Z",
+      "createdAt": "2026-10-25T23:46:28.396Z",
+      "updatedAt": "2026-10-25T23:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7893,8 +8968,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-06T23:01:33.941Z",
-      "updatedAt": "2026-11-06T23:01:33.941Z",
+      "createdAt": "2026-11-06T23:11:28.396Z",
+      "updatedAt": "2026-11-06T23:11:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7933,8 +9008,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:56:33.941Z",
-      "updatedAt": "2026-11-06T20:56:33.941Z",
+      "createdAt": "2026-11-06T21:06:28.396Z",
+      "updatedAt": "2026-11-06T21:06:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -7953,8 +9028,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -7975,8 +9050,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:36:33.941Z",
-      "updatedAt": "2026-11-05T21:36:33.941Z",
+      "createdAt": "2026-11-05T21:46:28.396Z",
+      "updatedAt": "2026-11-05T21:46:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -7995,8 +9070,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:36:33.941Z",
-      "updatedAt": "2026-11-04T21:36:33.941Z",
+      "createdAt": "2026-11-04T21:46:28.396Z",
+      "updatedAt": "2026-11-04T21:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8025,8 +9100,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8056,8 +9131,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-06T20:56:33.941Z",
-      "updatedAt": "2026-11-06T20:56:33.941Z",
+      "createdAt": "2026-11-06T21:06:28.396Z",
+      "updatedAt": "2026-11-06T21:06:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8076,8 +9151,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8098,8 +9173,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-05T21:36:33.941Z",
-      "updatedAt": "2026-11-05T21:36:33.941Z",
+      "createdAt": "2026-11-05T21:46:28.396Z",
+      "updatedAt": "2026-11-05T21:46:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -8118,8 +9193,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-04T21:36:33.941Z",
-      "updatedAt": "2026-11-04T21:36:33.941Z",
+      "createdAt": "2026-11-04T21:46:28.396Z",
+      "updatedAt": "2026-11-04T21:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8148,8 +9223,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-06T18:36:33.941Z",
-      "updatedAt": "2026-11-06T18:36:33.941Z",
+      "createdAt": "2026-11-06T18:46:28.396Z",
+      "updatedAt": "2026-11-06T18:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8180,8 +9255,8 @@
        1,
        2
       ],
-      "createdAt": "2026-10-31T23:36:33.941Z",
-      "updatedAt": "2026-10-31T23:36:33.941Z",
+      "createdAt": "2026-10-31T23:46:28.396Z",
+      "updatedAt": "2026-10-31T23:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8200,8 +9275,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:36:33.941Z",
-      "updatedAt": "2026-10-25T23:36:33.941Z",
+      "createdAt": "2026-10-25T23:46:28.396Z",
+      "updatedAt": "2026-10-25T23:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8230,8 +9305,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-25T23:36:33.941Z",
-      "updatedAt": "2026-10-25T23:36:33.941Z",
+      "createdAt": "2026-10-25T23:46:28.396Z",
+      "updatedAt": "2026-10-25T23:46:28.396Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8259,8 +9334,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-22T23:36:33.941Z",
-      "updatedAt": "2026-10-22T23:36:33.941Z",
+      "createdAt": "2026-10-22T23:46:28.396Z",
+      "updatedAt": "2026-10-22T23:46:28.396Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -8297,8 +9372,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-03T23:36:33.941Z",
-      "updatedAt": "2026-11-03T23:36:33.941Z",
+      "createdAt": "2026-11-03T23:46:28.396Z",
+      "updatedAt": "2026-11-03T23:46:28.396Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8326,8 +9401,8 @@
     "guide": {
      "version": "cfd2ca038b4a08ed119940df760cca5ca904a528",
      "date": null,
-     "fetchedAt": "2026-11-06T23:36:34.702Z",
-     "checkedAt": "2026-11-06T23:36:34.702Z",
+     "fetchedAt": "2026-11-06T23:46:29.129Z",
+     "checkedAt": "2026-11-06T23:46:29.129Z",
      "error": null,
      "source": "directory",
      "skipped": [
@@ -8357,13 +9432,13 @@
       "product": "sonarr",
       "version": "4.0.15.2941",
       "status": "degraded",
-      "templateId": "00000000-0000-4000-8000-000000000016",
+      "templateId": "00000000-0000-4000-8000-000000000017",
       "templateName": "Series",
       "guardMode": "notify",
       "lastSyncAt": null,
       "neverSynced": true,
       "state": {
-       "checkedAt": "2026-11-06T23:36:34.873Z",
+       "checkedAt": "2026-11-06T23:46:29.283Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8394,13 +9469,13 @@
       "product": "radarr",
       "version": "5.26.2.10099",
       "status": "degraded",
-      "templateId": "00000000-0000-4000-8000-000000000017",
+      "templateId": "00000000-0000-4000-8000-000000000018",
       "templateName": "Movies HD",
       "guardMode": "auto",
-      "lastSyncAt": "2026-11-06T23:36:34.802Z",
+      "lastSyncAt": "2026-11-06T23:46:29.213Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T23:36:34.849Z",
+       "checkedAt": "2026-11-06T23:46:29.266Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8409,9 +9484,9 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T23:36:34.802Z",
+        "at": "2026-11-06T23:46:29.213Z",
         "status": "ok",
-        "historyId": "00000000-0000-4000-8000-000000000018",
+        "historyId": "00000000-0000-4000-8000-000000000019",
         "error": null
        },
        "pause": null,
@@ -8425,13 +9500,13 @@
       "product": "radarr",
       "version": "5.26.2.10099",
       "status": "degraded",
-      "templateId": "00000000-0000-4000-8000-000000000019",
+      "templateId": "00000000-0000-4000-8000-000000000020",
       "templateName": "Movies 4K",
       "guardMode": "notify",
-      "lastSyncAt": "2026-11-06T23:36:34.831Z",
+      "lastSyncAt": "2026-11-06T23:46:29.245Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-06T23:36:34.863Z",
+       "checkedAt": "2026-11-06T23:46:29.274Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -8440,9 +9515,9 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-06T23:36:34.831Z",
+        "at": "2026-11-06T23:46:29.245Z",
         "status": "ok",
-        "historyId": "00000000-0000-4000-8000-000000000020",
+        "historyId": "00000000-0000-4000-8000-000000000021",
         "error": null
        },
        "pause": null
@@ -8451,7 +9526,7 @@
     ],
     "templates": [
      {
-      "id": "00000000-0000-4000-8000-000000000019",
+      "id": "00000000-0000-4000-8000-000000000020",
       "name": "Movies 4K",
       "product": "radarr",
       "config": {
@@ -8474,11 +9549,11 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:36:34.750Z",
-      "updatedAt": "2026-11-06T23:36:34.750Z"
+      "createdAt": "2026-11-06T23:46:29.166Z",
+      "updatedAt": "2026-11-06T23:46:29.166Z"
      },
      {
-      "id": "00000000-0000-4000-8000-000000000017",
+      "id": "00000000-0000-4000-8000-000000000018",
       "name": "Movies HD",
       "product": "radarr",
       "config": {
@@ -8500,11 +9575,11 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:36:34.745Z",
-      "updatedAt": "2026-11-06T23:36:34.745Z"
+      "createdAt": "2026-11-06T23:46:29.161Z",
+      "updatedAt": "2026-11-06T23:46:29.161Z"
      },
      {
-      "id": "00000000-0000-4000-8000-000000000016",
+      "id": "00000000-0000-4000-8000-000000000017",
       "name": "Series",
       "product": "sonarr",
       "config": {
@@ -8538,8 +9613,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-06T23:36:34.755Z",
-      "updatedAt": "2026-11-06T23:36:34.755Z"
+      "createdAt": "2026-11-06T23:46:29.170Z",
+      "updatedAt": "2026-11-06T23:46:29.170Z"
      }
     ],
     "changelog": []
@@ -8550,10 +9625,10 @@
    "body": {
     "entries": [
      {
-      "id": "00000000-0000-4000-8000-000000000020",
+      "id": "00000000-0000-4000-8000-000000000021",
       "instanceId": "00000000-0000-4000-8000-000000000005",
       "templateName": "Movies 4K",
-      "at": "2026-11-06T23:36:34.831Z",
+      "at": "2026-11-06T23:46:29.245Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -8636,10 +9711,10 @@
       "hasBackup": true
      },
      {
-      "id": "00000000-0000-4000-8000-000000000018",
+      "id": "00000000-0000-4000-8000-000000000019",
       "instanceId": "00000000-0000-4000-8000-000000000004",
       "templateName": "Movies HD",
-      "at": "2026-11-06T23:36:34.802Z",
+      "at": "2026-11-06T23:46:29.213Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -9623,7 +10698,7 @@
    "status": 200,
    "body": {
     "template": {
-     "id": "00000000-0000-4000-8000-000000000016",
+     "id": "00000000-0000-4000-8000-000000000017",
      "name": "Series"
     },
     "neverSynced": true,
@@ -10320,7 +11395,7 @@
    "status": 200,
    "body": {
     "template": {
-     "id": "00000000-0000-4000-8000-000000000017",
+     "id": "00000000-0000-4000-8000-000000000018",
      "name": "Movies HD"
     },
     "neverSynced": false,
@@ -10424,7 +11499,7 @@
    "status": 200,
    "body": {
     "template": {
-     "id": "00000000-0000-4000-8000-000000000019",
+     "id": "00000000-0000-4000-8000-000000000020",
      "name": "Movies 4K"
     },
     "neverSynced": false,
@@ -10543,7 +11618,7 @@
   "/api/storage?days=30": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshedAt": "2026-11-06T23:46:29.450Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -10586,13 +11661,13 @@
     ],
     "disks": [
      {
-      "key": "d3c816c24",
+      "key": "db2946099",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000005",
@@ -10617,22 +11692,22 @@
        "status": "filling",
        "bytesPerDay": 25850306882,
        "daysLeft": 24.5,
-       "fullAt": "2026-12-01T11:46:20.492Z",
-       "earliestAt": "2026-11-30T17:20:06.607Z",
-       "latestAt": "2026-12-02T12:54:16.630Z",
+       "fullAt": "2026-12-01T11:56:14.882Z",
+       "earliestAt": "2026-11-30T17:30:00.978Z",
+       "latestAt": "2026-12-02T13:04:11.020Z",
        "basisDays": 29
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d8824d11d",
+      "key": "dc29b7935",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000004",
@@ -10666,38 +11741,24 @@
        "status": "filling",
        "bytesPerDay": 33207623910,
        "daysLeft": 112.6,
-       "fullAt": "2027-02-27T13:24:12.353Z",
-       "earliestAt": "2027-02-25T14:48:40.508Z",
-       "latestAt": "2027-03-01T11:48:01.406Z",
+       "fullAt": "2027-02-27T13:34:06.743Z",
+       "earliestAt": "2027-02-25T14:58:34.837Z",
+       "latestAt": "2027-03-01T11:57:55.796Z",
        "basisDays": 29
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "dd98521de",
+      "key": "d232e49aa",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000004",
         "path": "/",
         "rootFolders": [],
@@ -10709,6 +11770,20 @@
         "path": "/config",
         "rootFolders": [],
         "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
         "adapter": "radarr"
        },
        {
@@ -10726,20 +11801,6 @@
         "adapter": "sonarr"
        },
        {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/",
         "rootFolders": [],
@@ -10752,6 +11813,20 @@
         "rootFolders": [],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
        }
       ],
       "forecast": {
@@ -10768,7 +11843,7 @@
      }
     ],
     "history": {
-     "d3c816c24": [
+     "db2946099": [
       {
        "day": "2026-10-08",
        "usedBytes": 7405043470266,
@@ -10920,7 +11995,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d8824d11d": [
+     "dc29b7935": [
       {
        "day": "2026-10-08",
        "usedBytes": 12884812435368,
@@ -11072,7 +12147,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "dd98521de": [
+     "d232e49aa": [
       {
        "day": "2026-10-08",
        "usedBytes": 52034160030,
@@ -11230,7 +12305,7 @@
   "/api/storage?days=90": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshedAt": "2026-11-06T23:46:29.450Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -11273,13 +12348,13 @@
     ],
     "disks": [
      {
-      "key": "d3c816c24",
+      "key": "db2946099",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000005",
@@ -11304,22 +12379,22 @@
        "status": "filling",
        "bytesPerDay": 25850306882,
        "daysLeft": 24.5,
-       "fullAt": "2026-12-01T11:46:20.492Z",
-       "earliestAt": "2026-11-30T17:20:06.607Z",
-       "latestAt": "2026-12-02T12:54:16.630Z",
+       "fullAt": "2026-12-01T11:56:14.882Z",
+       "earliestAt": "2026-11-30T17:30:00.978Z",
+       "latestAt": "2026-12-02T13:04:11.020Z",
        "basisDays": 29
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d8824d11d",
+      "key": "dc29b7935",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000004",
@@ -11353,38 +12428,24 @@
        "status": "filling",
        "bytesPerDay": 33207623910,
        "daysLeft": 112.6,
-       "fullAt": "2027-02-27T13:24:12.353Z",
-       "earliestAt": "2027-02-25T14:48:40.508Z",
-       "latestAt": "2027-03-01T11:48:01.406Z",
+       "fullAt": "2027-02-27T13:34:06.743Z",
+       "earliestAt": "2027-02-25T14:58:34.837Z",
+       "latestAt": "2027-03-01T11:57:55.796Z",
        "basisDays": 29
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "dd98521de",
+      "key": "d232e49aa",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000004",
         "path": "/",
         "rootFolders": [],
@@ -11396,6 +12457,20 @@
         "path": "/config",
         "rootFolders": [],
         "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
         "adapter": "radarr"
        },
        {
@@ -11413,20 +12488,6 @@
         "adapter": "sonarr"
        },
        {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/",
         "rootFolders": [],
@@ -11439,6 +12500,20 @@
         "rootFolders": [],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
        }
       ],
       "forecast": {
@@ -11455,7 +12530,7 @@
      }
     ],
     "history": {
-     "d3c816c24": [
+     "db2946099": [
       {
        "day": "2026-08-09",
        "usedBytes": 5890390504348,
@@ -11907,7 +12982,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d8824d11d": [
+     "dc29b7935": [
       {
        "day": "2026-08-09",
        "usedBytes": 11644314621534,
@@ -12359,7 +13434,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "dd98521de": [
+     "d232e49aa": [
       {
        "day": "2026-08-09",
        "usedBytes": 51578509646,
@@ -12817,7 +13892,7 @@
   "/api/storage?days=365": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-06T23:36:35.060Z",
+    "refreshedAt": "2026-11-06T23:46:29.450Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -12860,13 +13935,13 @@
     ],
     "disks": [
      {
-      "key": "d3c816c24",
+      "key": "db2946099",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000005",
@@ -12891,22 +13966,22 @@
        "status": "filling",
        "bytesPerDay": 25850306882,
        "daysLeft": 24.5,
-       "fullAt": "2026-12-01T11:46:20.492Z",
-       "earliestAt": "2026-11-30T17:20:06.607Z",
-       "latestAt": "2026-12-02T12:54:16.630Z",
+       "fullAt": "2026-12-01T11:56:14.882Z",
+       "earliestAt": "2026-11-30T17:30:00.978Z",
+       "latestAt": "2026-12-02T13:04:11.020Z",
        "basisDays": 29
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d8824d11d",
+      "key": "dc29b7935",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
         "instanceId": "00000000-0000-4000-8000-000000000004",
@@ -12940,38 +14015,24 @@
        "status": "filling",
        "bytesPerDay": 33207623910,
        "daysLeft": 112.6,
-       "fullAt": "2027-02-27T13:24:12.353Z",
-       "earliestAt": "2027-02-25T14:48:40.508Z",
-       "latestAt": "2027-03-01T11:48:01.406Z",
+       "fullAt": "2027-02-27T13:34:06.743Z",
+       "earliestAt": "2027-02-25T14:58:34.837Z",
+       "latestAt": "2027-03-01T11:57:55.796Z",
        "basisDays": 29
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "dd98521de",
+      "key": "d232e49aa",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-06T23:36:35.059Z",
+      "lastSeenAt": "2026-11-06T23:46:29.449Z",
       "members": [
        {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000004",
         "path": "/",
         "rootFolders": [],
@@ -12983,6 +14044,20 @@
         "path": "/config",
         "rootFolders": [],
         "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr 4K",
         "adapter": "radarr"
        },
        {
@@ -13000,20 +14075,6 @@
         "adapter": "sonarr"
        },
        {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/",
         "rootFolders": [],
@@ -13026,6 +14087,20 @@
         "rootFolders": [],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
        }
       ],
       "forecast": {
@@ -13042,7 +14117,7 @@
      }
     ],
     "history": {
-     "d3c816c24": [
+     "db2946099": [
       {
        "day": "2026-07-09",
        "usedBytes": 5069524019131,
@@ -13649,7 +14724,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d8824d11d": [
+     "dc29b7935": [
       {
        "day": "2026-07-09",
        "usedBytes": 10610236856565,
@@ -14256,7 +15331,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "dd98521de": [
+     "d232e49aa": [
       {
        "day": "2026-07-09",
        "usedBytes": 52666898235,
@@ -14875,7 +15950,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:36:35.068Z",
+      "refreshedAt": "2026-11-06T23:46:29.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -15105,13 +16180,13 @@
       ]
      ],
      "plays": 16,
-     "playedMs": 35432506,
+     "playedMs": 35432288,
      "transcodes": 5,
      "users": [
       {
        "user": "Mira",
        "plays": 6,
-       "playedMs": 10408853
+       "playedMs": 10408744
       },
       {
        "user": "Jonas",
@@ -15121,7 +16196,7 @@
       {
        "user": "Demo",
        "plays": 5,
-       "playedMs": 10323653
+       "playedMs": 10323544
       }
      ],
      "topTitles": [
@@ -15201,7 +16276,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:36:35.068Z"
+     "refreshedAt": "2026-11-06T23:46:29.460Z"
     },
     "streams": {
      "days": 7,
@@ -15390,7 +16465,7 @@
       ]
      ],
      "plays": 16,
-     "playedMs": 35432506,
+     "playedMs": 35432288,
      "transcodes": 5,
      "topTitles": [
       {
@@ -15457,7 +16532,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:36:35.068Z",
+      "refreshedAt": "2026-11-06T23:46:29.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -15687,18 +16762,18 @@
       ]
      ],
      "plays": 71,
-     "playedMs": 238588906,
+     "playedMs": 238588688,
      "transcodes": 14,
      "users": [
       {
        "user": "Mira",
        "plays": 38,
-       "playedMs": 132038453
+       "playedMs": 132038344
       },
       {
        "user": "Demo",
        "plays": 19,
-       "playedMs": 68174453
+       "playedMs": 68174344
       },
       {
        "user": "Jonas",
@@ -15886,7 +16961,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:36:35.068Z"
+     "refreshedAt": "2026-11-06T23:46:29.460Z"
     },
     "streams": {
      "days": 30,
@@ -16075,7 +17150,7 @@
       ]
      ],
      "plays": 71,
-     "playedMs": 238588906,
+     "playedMs": 238588688,
      "transcodes": 14,
      "topTitles": [
       {
@@ -16245,7 +17320,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:36:35.068Z",
+      "refreshedAt": "2026-11-06T23:46:29.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -16475,18 +17550,18 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339908506,
+     "playedMs": 339908288,
      "transcodes": 18,
      "users": [
       {
        "user": "Mira",
        "plays": 55,
-       "playedMs": 200863853
+       "playedMs": 200863744
       },
       {
        "user": "Demo",
        "plays": 26,
-       "playedMs": 88248653
+       "playedMs": 88248544
       },
       {
        "user": "Jonas",
@@ -16734,7 +17809,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:36:35.068Z"
+     "refreshedAt": "2026-11-06T23:46:29.460Z"
     },
     "streams": {
      "days": 90,
@@ -16923,7 +17998,7 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339908506,
+     "playedMs": 339908288,
      "transcodes": 18,
      "topTitles": [
       {
@@ -17153,7 +18228,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-06T23:36:35.068Z",
+      "refreshedAt": "2026-11-06T23:46:29.460Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -17383,18 +18458,18 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505917106,
+     "playedMs": 505916888,
      "transcodes": 33,
      "users": [
       {
        "user": "Mira",
        "plays": 83,
-       "playedMs": 280464053
+       "playedMs": 280463944
       },
       {
        "user": "Demo",
        "plays": 37,
-       "playedMs": 125508653
+       "playedMs": 125508544
       },
       {
        "user": "Jonas",
@@ -17838,7 +18913,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-06T23:36:35.068Z"
+     "refreshedAt": "2026-11-06T23:46:29.460Z"
     },
     "streams": {
      "days": 365,
@@ -18027,7 +19102,7 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505917106,
+     "playedMs": 505916888,
      "transcodes": 33,
      "topTitles": [
       {
@@ -19181,9 +20256,9 @@
    "status": 200,
    "body": {
     "feed": {
-     "id": "00000000-0000-4000-8000-000000000021",
-     "createdAt": "2026-11-06T23:36:41.615Z",
-     "lastUsedAt": "2026-11-06T23:36:41.618Z"
+     "id": "00000000-0000-4000-8000-000000000022",
+     "createdAt": "2026-11-06T23:46:35.952Z",
+     "lastUsedAt": "2026-11-06T23:46:35.955Z"
     }
    }
   },
@@ -19192,12 +20267,12 @@
    "body": {
     "feeds": [
      {
-      "id": "00000000-0000-4000-8000-000000000021",
+      "id": "00000000-0000-4000-8000-000000000022",
       "userId": "00000000-0000-4000-8000-000000000001",
       "username": "demo",
       "displayName": "Demo Admin",
-      "createdAt": "2026-11-06T23:36:41.615Z",
-      "lastUsedAt": "2026-11-06T23:36:41.618Z"
+      "createdAt": "2026-11-06T23:46:35.952Z",
+      "lastUsedAt": "2026-11-06T23:46:35.955Z"
      }
     ]
    }
@@ -19207,361 +20282,361 @@
    "body": {
     "points": [
      {
-      "at": "2026-11-06T22:37:00.000Z",
+      "at": "2026-11-06T22:47:00.000Z",
       "speed": 48592000,
       "downloads": 3,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:38:00.000Z",
+      "at": "2026-11-06T22:48:00.000Z",
       "speed": 56163283,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:39:00.000Z",
+      "at": "2026-11-06T22:49:00.000Z",
       "speed": 62248972,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:40:00.000Z",
+      "at": "2026-11-06T22:50:00.000Z",
       "speed": 65820625,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:41:00.000Z",
+      "at": "2026-11-06T22:51:00.000Z",
       "speed": 66612115,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:42:00.000Z",
+      "at": "2026-11-06T22:52:00.000Z",
       "speed": 65171834,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:43:00.000Z",
+      "at": "2026-11-06T22:53:00.000Z",
       "speed": 62645877,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:44:00.000Z",
+      "at": "2026-11-06T22:54:00.000Z",
       "speed": 60366385,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:45:00.000Z",
+      "at": "2026-11-06T22:55:00.000Z",
       "speed": 59384477,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:46:00.000Z",
+      "at": "2026-11-06T22:56:00.000Z",
       "speed": 60105556,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:47:00.000Z",
+      "at": "2026-11-06T22:57:00.000Z",
       "speed": 62150023,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T22:48:00.000Z",
+      "at": "2026-11-06T22:58:00.000Z",
       "speed": 64486352,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:49:00.000Z",
+      "at": "2026-11-06T22:59:00.000Z",
       "speed": 65791575,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T22:50:00.000Z",
+      "at": "2026-11-06T23:00:00.000Z",
       "speed": 64917433,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:51:00.000Z",
+      "at": "2026-11-06T23:01:00.000Z",
       "speed": 61304661,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:52:00.000Z",
+      "at": "2026-11-06T23:02:00.000Z",
       "speed": 55205002,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:53:00.000Z",
+      "at": "2026-11-06T23:03:00.000Z",
       "speed": 47634958,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T22:54:00.000Z",
+      "at": "2026-11-06T23:04:00.000Z",
       "speed": 40075308,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:55:00.000Z",
+      "at": "2026-11-06T23:05:00.000Z",
       "speed": 34015748,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:56:00.000Z",
+      "at": "2026-11-06T23:06:00.000Z",
       "speed": 30496042,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:57:00.000Z",
+      "at": "2026-11-06T23:07:00.000Z",
       "speed": 29796248,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:58:00.000Z",
+      "at": "2026-11-06T23:08:00.000Z",
       "speed": 31378584,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T22:59:00.000Z",
+      "at": "2026-11-06T23:09:00.000Z",
       "speed": 34099024,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:00:00.000Z",
+      "at": "2026-11-06T23:10:00.000Z",
       "speed": 36616272,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:01:00.000Z",
+      "at": "2026-11-06T23:11:00.000Z",
       "speed": 37859665,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:02:00.000Z",
+      "at": "2026-11-06T23:12:00.000Z",
       "speed": 37398036,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:03:00.000Z",
+      "at": "2026-11-06T23:13:00.000Z",
       "speed": 35585176,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:04:00.000Z",
+      "at": "2026-11-06T23:14:00.000Z",
       "speed": 33432988,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:05:00.000Z",
+      "at": "2026-11-06T23:15:00.000Z",
       "speed": 32255284,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:06:00.000Z",
+      "at": "2026-11-06T23:16:00.000Z",
       "speed": 33202599,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:07:00.000Z",
+      "at": "2026-11-06T23:17:00.000Z",
       "speed": 36845346,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:08:00.000Z",
+      "at": "2026-11-06T23:18:00.000Z",
       "speed": 42946632,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-06T23:09:00.000Z",
+      "at": "2026-11-06T23:19:00.000Z",
       "speed": 50502516,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-06T23:10:00.000Z",
+      "at": "2026-11-06T23:20:00.000Z",
       "speed": 58037750,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:11:00.000Z",
+      "at": "2026-11-06T23:21:00.000Z",
       "speed": 64059246,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:12:00.000Z",
+      "at": "2026-11-06T23:22:00.000Z",
       "speed": 67516532,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:13:00.000Z",
+      "at": "2026-11-06T23:23:00.000Z",
       "speed": 68116055,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:14:00.000Z",
+      "at": "2026-11-06T23:24:00.000Z",
       "speed": 66385235,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:15:00.000Z",
+      "at": "2026-11-06T23:25:00.000Z",
       "speed": 63466104,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:16:00.000Z",
+      "at": "2026-11-06T23:26:00.000Z",
       "speed": 60709072,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:17:00.000Z",
+      "at": "2026-11-06T23:27:00.000Z",
       "speed": 59204258,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:18:00.000Z",
+      "at": "2026-11-06T23:28:00.000Z",
       "speed": 59408532,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:19:00.000Z",
+      "at": "2026-11-06T23:29:00.000Z",
       "speed": 60993883,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-06T23:20:00.000Z",
+      "at": "2026-11-06T23:30:00.000Z",
       "speed": 62968021,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:21:00.000Z",
+      "at": "2026-11-06T23:31:00.000Z",
       "speed": 64026263,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-06T23:22:00.000Z",
+      "at": "2026-11-06T23:32:00.000Z",
       "speed": 63015659,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:23:00.000Z",
+      "at": "2026-11-06T23:33:00.000Z",
       "speed": 59354357,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:24:00.000Z",
+      "at": "2026-11-06T23:34:00.000Z",
       "speed": 53263931,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T23:25:00.000Z",
+      "at": "2026-11-06T23:35:00.000Z",
       "speed": 45735133,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-06T23:26:00.000Z",
+      "at": "2026-11-06T23:36:00.000Z",
       "speed": 38236967,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:27:00.000Z",
+      "at": "2026-11-06T23:37:00.000Z",
       "speed": 32265205,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:28:00.000Z",
+      "at": "2026-11-06T23:38:00.000Z",
       "speed": 28880428,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:29:00.000Z",
+      "at": "2026-11-06T23:39:00.000Z",
       "speed": 28389250,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:30:00.000Z",
+      "at": "2026-11-06T23:40:00.000Z",
       "speed": 30274389,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:31:00.000Z",
+      "at": "2026-11-06T23:41:00.000Z",
       "speed": 33395754,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:32:00.000Z",
+      "at": "2026-11-06T23:42:00.000Z",
       "speed": 36393891,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:33:00.000Z",
+      "at": "2026-11-06T23:43:00.000Z",
       "speed": 38159334,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:34:00.000Z",
+      "at": "2026-11-06T23:44:00.000Z",
       "speed": 38209613,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:35:00.000Z",
+      "at": "2026-11-06T23:45:00.000Z",
       "speed": 36847016,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-06T23:36:00.000Z",
+      "at": "2026-11-06T23:46:00.000Z",
       "speed": 60740000,
       "downloads": 3,
       "streams": 3
@@ -19654,7 +20729,7 @@
      {
       "day": "2026-11-06",
       "critical": 0,
-      "warning": 5,
+      "warning": 7,
       "info": 3
      }
     ]

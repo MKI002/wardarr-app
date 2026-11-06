@@ -46,6 +46,7 @@ export function nodeSubline(t: T, n: MapNode): string {
     return l.failingIndexers
       ? t('ui.map.live.indexersFailing', { count: l.indexers, failing: l.failingIndexers })
       : t('ui.map.live.indexers', { count: l.indexers });
+  if (l.workers) return t('ui.map.live.workers', { count: l.workers });
   if (l.queue) return t('ui.map.live.queue', { count: l.queue });
   return n.version ? `v${n.version.replace(/^v/i, '')}` : '';
 }
@@ -157,7 +158,7 @@ function Node({
 }) {
   const n = p.node;
   const tone = n.status;
-  const busy = !!(n.live.streams || n.live.downloading);
+  const busy = !!(n.live.streams || n.live.downloading || n.live.workers);
   const glyph = n.type === 'ghost' ? undefined : GLYPH[tone];
   const keyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {

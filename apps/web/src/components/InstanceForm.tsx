@@ -14,6 +14,7 @@ export const CATEGORY_ORDER: AdapterInfo['category'][] = [
   'downloader',
   'mediaServer',
   'requests',
+  'transcoder',
 ];
 
 export function useAdapters() {

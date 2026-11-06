@@ -55,6 +55,9 @@ titles at a gentle pace and lets everyone in the house request something to watc
   release from two instances shown once, and a private iCal link for calendar apps.
 - **Indexer statistics.** Queries, grabs, failures and response times per indexer from
   Prowlarr, and which apps depend on an indexer that is failing.
+- **Tdarr at a glance.** Space saved, nodes and their workers, the queue, transcodes and health
+  checks per day, and the files that failed. A node that goes offline, a burst of failures or a
+  job that stopped moving becomes an issue.
 - **Notifications** by e-mail, ntfy, Discord, Gotify, Telegram or any webhook. New issues
   above a threshold by default; resolved issues and requests waiting for approval when you want
   them. Problems that fix themselves within a minute stay quiet.
@@ -95,6 +98,7 @@ titles at a gentle pace and lets everyone in the house request something to watc
 | Download clients | SABnzbd, NZBGet, qBittorrent, Transmission, Deluge                               |
 | Media servers    | Jellyfin, Plex, Emby                                                             |
 | Requests         | Seerr                                                                            |
+| Transcoding      | Tdarr                                                                            |
 
 Missing one? Adapters are small and self-contained, see the [adapter guide](docs/guide/adapters.md).
 
@@ -198,6 +202,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
 - [Calendar](docs/guide/calendar.md): what the calendar shows and how the iCal link stays private.
+- [Tdarr](docs/guide/tdarr.md): what Wardarr reads from Tdarr and when it raises an issue.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
 - [Live demo](docs/demo.md): how the demo is built and why its films are public domain.
@@ -222,6 +227,6 @@ repository.
 
 [MIT](LICENSE). Copyright The Wardarr Authors.
 
-Wardarr is not affiliated with Sonarr, Radarr, Prowlarr, Seerr, Jellyfin, Plex, Emby or any
+Wardarr is not affiliated with Sonarr, Radarr, Prowlarr, Seerr, Tdarr, Jellyfin, Plex, Emby or any
 other project it connects to. Their logos belong to those projects and are used under their own
 licenses, listed in [NOTICE.md](NOTICE.md).

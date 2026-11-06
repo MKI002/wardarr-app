@@ -15,6 +15,7 @@ import {
   trashSyncPaused,
   trashUnsupported,
 } from './trash.js';
+import { transcodeFailures, transcodeNodeOffline, transcodeNoNodes, transcodeStuck } from './transcoding.js';
 import { unknownMessage } from './unknown.js';
 import { updateAvailable } from './updates.js';
 import { apiCompatibility, mediaCacheRefresh } from './wardarr.js';
@@ -35,6 +36,10 @@ export const RULE_CATALOG: readonly IssueRule[] = [
   attemptsExhausted,
   orphanedDownloads,
   downloadsFailed,
+  transcodeNodeOffline,
+  transcodeNoNodes,
+  transcodeFailures,
+  transcodeStuck,
   mediaCacheRefresh,
   apiCompatibility,
   trashSyncFailed,

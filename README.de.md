@@ -58,6 +58,10 @@ anfragen.
   zwei Instanzen erscheint einmal. Dazu ein privater iCal-Link für Kalender-Apps.
 - **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
   und welche Apps an einem ausfallenden Indexer hängen.
+- **Tdarr auf einen Blick.** Gesparter Platz, Nodes und ihre Worker, die Warteschlange,
+  Transkodierungen und Health-Checks pro Tag und die fehlgeschlagenen Dateien. Ein Node, der
+  offline geht, eine Häufung von Fehlern oder ein Job, der sich nicht mehr bewegt, wird zum
+  Problem im Issue Center.
 - **Benachrichtigungen** per E-Mail, ntfy, Discord, Gotify, Telegram oder an jeden Webhook.
   Standardmäßig neue Probleme ab einer Schwelle; gelöste Probleme und Anfragen, die auf Freigabe
   warten, auf Wunsch. Was sich innerhalb einer Minute selbst erledigt, bleibt still.
@@ -99,6 +103,7 @@ anfragen.
 | Download-Clients | SABnzbd, NZBGet, qBittorrent, Transmission, Deluge                       |
 | Medienserver     | Jellyfin, Plex, Emby                                                     |
 | Anfragen         | Seerr                                                                    |
+| Transkodierung   | Tdarr                                                                    |
 
 Fehlt einer? Adapter sind klein und in sich geschlossen, siehe den
 [Adapter-Leitfaden](docs/guide/adapters.md) (englisch).
@@ -205,6 +210,7 @@ Die Anleitungen sind auf Englisch:
 - [Stack-Map](docs/guide/stack-map.md) (englisch)
 - [Backups](docs/guide/backups.md)
 - [Kalender](docs/guide/calendar.md)
+- [Tdarr](docs/guide/tdarr.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)
 - [Live-Demo](docs/demo.md): wie die Demo entsteht und warum ihre Filme gemeinfrei sind
