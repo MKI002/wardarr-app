@@ -59,7 +59,38 @@ on content (see _Motion_).
 - Cards: `Card` from `components/ui.tsx`. It brings the radius, border and the
   soft pointer glow. Do not nest cards in cards; use `bg-surface-2` blocks.
 - Grids collapse to one column on phones. Keep 16 px gutters, no horizontal
-  page scroll, and leave room for the bottom tab bar.
+  page scroll, and leave room for the bottom tab bar on phones.
+
+## Navigation
+
+Pages live in a sidebar on screens from 1024 px, grouped into four sections
+by the question a person opens Wardarr with:
+
+| Section    | Question                     | Pages                                       |
+| ---------- | ---------------------------- | ------------------------------------------- |
+| Status     | Is everything fine?          | Overview, Issues, Map                       |
+| Media      | What is there to watch?      | Discover, Requests, Library, Calendar       |
+| Automation | What does Wardarr do for me? | Queue Cleaner, Hunting, TRaSH Guides, Tdarr |
+| System     | How is the stack underneath? | Indexers, Indexer insights, Storage, Backup |
+
+Settings and the account menu sit apart at the bottom. The sidebar folds to an
+icon rail and every section folds on its own; both are remembered per browser.
+Phones get a bottom bar with four pages plus "Menu", a sheet with every page
+by section. `Ctrl K`, `⌘K` or `/` opens the command palette for pages,
+settings sections and services.
+
+Adding a page:
+
+1. Add the tab to `TABS` in `apps/server/src/overview/routes.ts` (who may see
+   it and which capability it needs).
+2. Put its id into a section in `GROUPS`, its path into `TAB_PATHS` and a
+   24 px stroke icon into `ICONS` in `apps/web/src/components/nav/model.tsx`.
+   A tab without a section still shows up, at the end of System.
+3. Add `ui.tabs.<id>` in English and German, and a few search words for the
+   palette in `SYNONYMS` (`nav/CommandPalette.tsx`).
+
+Only a page that answers its own question gets an entry. Another view of the
+same thing (a history, a detail list) usually belongs in a tab inside that page.
 
 ## Building blocks
 
