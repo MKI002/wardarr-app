@@ -8,7 +8,7 @@ export type GroupId = 'status' | 'media' | 'automation' | 'system';
 export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
   { id: 'status', tabs: ['overview', 'issues', 'map'] },
   { id: 'media', tabs: ['discover', 'requests', 'library', 'calendar'] },
-  { id: 'automation', tabs: ['cleaner', 'hunting', 'trash'] },
+  { id: 'automation', tabs: ['cleaner', 'hunting', 'trash', 'tdarr'] },
   { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage', 'backup'] },
 ];
 
@@ -23,6 +23,7 @@ export const TAB_PATHS: Record<string, string> = {
   cleaner: '/cleaner',
   hunting: '/hunting',
   trash: '/trash',
+  tdarr: '/tdarr',
   indexers: '/indexers',
   indexerInsights: '/indexer-insights',
   storage: '/storage',
@@ -71,7 +72,7 @@ export function phoneTabs(allowed: string[]): { primary: string[]; rest: boolean
 const ICONS: Record<string, string> = {
   overview: 'M3 12h7V3H3zm0 9h7v-7H3zm11 0h7v-9h-7zm0-18v7h7V3z',
   issues: 'M12 3 2 20h20zm0 6v5m0 3h.01',
-  map: 'M5 5a2 2 0 1 0 0 .01M19 5a2 2 0 1 0 0 .01M12 19a2 2 0 1 0 0 .01M12 10a2 2 0 1 0 0 .01M6.5 6.5l4 2.5M17.5 6.5l-4 2.5M12 12v5',
+  map: 'M3 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M17 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M10 18a2 2 0 1 0 4 0a2 2 0 1 0-4 0M7 6h10M6 7.7l5 8.6M18 7.7l-5 8.6',
   discover: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm3.5 5.5-2 5-5 2 2-5z',
   requests: 'M8 4h8l1 3H7zM5 7h14v13H5zM9 12h6M9 16h4',
   library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',

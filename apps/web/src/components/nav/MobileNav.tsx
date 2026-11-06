@@ -12,7 +12,7 @@ import type { NavBadge } from './state';
 
 const DOT_TONE: Record<Tone, string> = {
   critical: 'bg-critical',
-  warning: 'bg-warning',
+  warning: 'bg-warning-mark',
   info: 'bg-info',
   ok: 'bg-ok',
   neutral: 'bg-muted',
