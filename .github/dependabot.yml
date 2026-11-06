@@ -6,6 +6,16 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     labels: [dependencies]
+    ignore:
+      # Types follow the Node.js major the image runs on (see .nvmrc).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      # A TypeScript major needs typescript-eslint support first.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major', 'version-update:semver-minor']
+      # Playwright is pinned to the browser build CI installs.
+      - dependency-name: '@playwright/test'
+        update-types: ['version-update:semver-major']
     groups:
       production:
         dependency-type: production
