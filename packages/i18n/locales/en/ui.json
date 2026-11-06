@@ -27,7 +27,36 @@
     "skip": "Skip to content",
     "account": "Account menu",
     "logout": "Sign out",
-    "more": "More"
+    "more": "More",
+    "menu": "Menu",
+    "search": "Search",
+    "searchHint": "Jump to a page, setting or service",
+    "ctrlK": "Ctrl K",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "groups": {
+      "status": "Status",
+      "media": "Media",
+      "automation": "Automation",
+      "system": "System",
+      "more": "Wardarr"
+    },
+    "badge": {
+      "issues_one": "{{count}} open issue",
+      "issues_other": "{{count}} open issues"
+    }
+  },
+  "palette": {
+    "title": "Go to",
+    "placeholder": "Search pages, settings and services",
+    "empty": "Nothing matches “{{query}}”.",
+    "move": "move",
+    "open": "open",
+    "groups": {
+      "pages": "Pages",
+      "settings": "Settings",
+      "services": "Services"
+    }
   },
   "tabs": {
     "overview": "Overview",

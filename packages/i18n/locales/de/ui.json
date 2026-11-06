@@ -27,7 +27,36 @@
     "skip": "Zum Inhalt springen",
     "account": "Kontomenü",
     "logout": "Abmelden",
-    "more": "Mehr"
+    "more": "Mehr",
+    "menu": "Menü",
+    "search": "Suchen",
+    "searchHint": "Zu Seite, Einstellung oder Dienst springen",
+    "ctrlK": "Strg K",
+    "collapse": "Seitenleiste einklappen",
+    "expand": "Seitenleiste ausklappen",
+    "groups": {
+      "status": "Lage",
+      "media": "Medien",
+      "automation": "Automatik",
+      "system": "System",
+      "more": "Wardarr"
+    },
+    "badge": {
+      "issues_one": "{{count}} offenes Problem",
+      "issues_other": "{{count}} offene Probleme"
+    }
+  },
+  "palette": {
+    "title": "Springen zu",
+    "placeholder": "Seiten, Einstellungen und Dienste durchsuchen",
+    "empty": "Nichts passt zu „{{query}}“.",
+    "move": "wählen",
+    "open": "öffnen",
+    "groups": {
+      "pages": "Seiten",
+      "settings": "Einstellungen",
+      "services": "Dienste"
+    }
   },
   "tabs": {
     "overview": "Übersicht",
