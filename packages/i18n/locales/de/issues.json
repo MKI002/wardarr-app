@@ -1,0 +1,158 @@
+{
+  "common": {
+    "instances": "{{instances}}"
+  },
+  "action": {
+    "recheck": "Erneut prüfen",
+    "mute": "Stummschalten",
+    "testIndexer": "Indexer testen",
+    "openInProwlarr": "In Prowlarr öffnen",
+    "openInstance": "{{name}} öffnen",
+    "openSettings": "Einstellungen öffnen",
+    "openQueue": "Zur Warteschlange",
+    "openWiki": "Dokumentation öffnen",
+    "reload": "Neu laden",
+    "releaseNotes": "Versionshinweise öffnen",
+    "showSteps": "Schritte zeigen",
+    "openCleaner": "Queue Cleaner öffnen",
+    "reviewImport": "Import prüfen",
+    "openAttempts": "Titel zeigen",
+    "reviewOrphans": "Downloads prüfen"
+  },
+  "indexerUnavailable": {
+    "title": "{{indexer}} ist nicht erreichbar",
+    "titleLongTerm": "{{indexer}} seit mehr als 6 Stunden nicht erreichbar",
+    "explanation_one": "Eine App meldet, dass {{indexer}} immer wieder ausfällt. Suchen über diesen Indexer liefern nichts, bis er wieder funktioniert.",
+    "explanation_other": "{{count}} Apps melden, dass {{indexer}} immer wieder ausfällt. Suchen über diesen Indexer liefern nichts, bis er wieder funktioniert.",
+    "fix": "Teste den Indexer in Prowlarr und prüfe den Status des Anbieters"
+  },
+  "allIndexersUnavailable": {
+    "title": "Alle Indexer von {{instance}} fallen aus",
+    "explanation": "{{instance}} kann gerade nichts suchen und nichts laden.",
+    "fix": "Prüfe die Netzwerkverbindung von {{instance}} und teste dann die Indexer"
+  },
+  "indexerSearch": {
+    "titleRss": "{{instance}} hat keinen Indexer für die RSS-Synchronisierung",
+    "titleSearch": "{{instance}} hat keinen Indexer für Suchen",
+    "explanationRss": "Neue Releases werden nicht automatisch geladen.",
+    "explanationSearch": "Automatische und manuelle Suchen liefern keine Ergebnisse.",
+    "fix": "Aktiviere RSS und Suche bei mindestens einem Indexer in {{instance}}"
+  },
+  "downloadClient": {
+    "title": "{{client}} ist nicht verfügbar",
+    "titleNone": "Kein Download-Client in {{instance}} verfügbar",
+    "explanation": "Die Apps können keine Downloads an {{client}} schicken und seinen Status nicht lesen.",
+    "explanationNone": "Nichts kann geladen werden, bis ein Download-Client funktioniert.",
+    "fix": "Prüfe, ob {{client}} läuft und von den Apps erreichbar ist, und prüfe dann erneut",
+    "fixNone": "Füge einen Download-Client hinzu oder aktiviere einen, und prüfe dann erneut"
+  },
+  "rootFolder": {
+    "title": "Stammordner fehlt in {{instance}}",
+    "affected_one": "1 Ordner: {{folders}}",
+    "affected_other": "{{count}} Ordner: {{folders}}",
+    "explanation": "In einen fehlenden Ordner lassen sich keine neuen Dateien importieren.",
+    "fix": "Prüfe das Volume-Mount und die Rechte des Ordners, und prüfe dann erneut"
+  },
+  "remotePath": {
+    "title": "Download-Pfade passen in {{instance}} nicht zusammen",
+    "explanation": "Der Download-Client meldet Pfade, die die App nicht sieht, deshalb scheitern Importe.",
+    "fix": "Bring die Download-Pfade von App und Download-Client in Einklang",
+    "step1": "Vergleiche den Download-Ordner des Clients mit dem Pfad, den die App in ihrem Container sieht.",
+    "step2": "Binde denselben Ordner in beiden Containern unter demselben Pfad ein, oder lege eine Remote-Path-Zuordnung an.",
+    "step3": "Prüfe dieses Problem erneut."
+  },
+  "update": {
+    "title": "Update verfügbar für {{instances}}",
+    "explanation": "Version {{version}} ist verfügbar.",
+    "explanationNoVersion": "Eine neue Version ist verfügbar.",
+    "fix": "Installiere das Update, wenn es dir passt"
+  },
+  "downloadsFailed": {
+    "title_one": "1 Download in {{instance}} fehlgeschlagen",
+    "title_other": "{{count}} Downloads in {{instance}} fehlgeschlagen",
+    "explanation": "Der Download-Client hat diese Downloads als fehlgeschlagen gemeldet.",
+    "fix": "Der Queue Cleaner kümmert sich darum, oder du handelst jetzt"
+  },
+  "mediaKind": {
+    "episode_one": "1 Folge",
+    "episode_other": "{{count}} Folgen",
+    "movie_one": "1 Film",
+    "movie_other": "{{count}} Filme",
+    "album_one": "1 Album",
+    "album_other": "{{count}} Alben",
+    "book_one": "1 Buch",
+    "book_other": "{{count}} Bücher",
+    "scene_one": "1 Szene",
+    "scene_other": "{{count}} Szenen",
+    "item_one": "1 Eintrag",
+    "item_other": "{{count}} Einträge"
+  },
+  "unreachable": {
+    "title": "{{instance}} ist nicht erreichbar",
+    "explanation": "Wardarr kann keine Verbindung zu dieser Instanz aufbauen.",
+    "explanationTimeout": "Die Instanz hat nicht rechtzeitig geantwortet.",
+    "fix": "Prüfe, ob {{instance}} läuft und ob die Adresse in Wardarr stimmt"
+  },
+  "unauthorized": {
+    "title": "{{instance}} lehnt die Zugangsdaten ab",
+    "explanation": "Der in Wardarr gespeicherte API-Schlüssel oder Login wird nicht akzeptiert.",
+    "fix": "Trage den aktuellen API-Schlüssel oder Login in den Einstellungen der Instanz ein"
+  },
+  "mediaCache": {
+    "title": "Wardarr kann den Cache von {{instance}} nicht aktualisieren",
+    "affectedBoth_one": "1 Bibliothek, Cache seit {{days}} Tagen veraltet",
+    "affectedBoth_other": "{{count}} Bibliotheken, Cache seit {{days}} Tagen veraltet",
+    "affectedLibraries_one": "1 Bibliothek",
+    "affectedLibraries_other": "{{count}} Bibliotheken",
+    "affectedStale": "Cache seit {{days}} Tagen veraltet",
+    "explanation": "Die Bibliotheksstatistik von {{instance}} ist nicht aktuell.",
+    "fix": "Prüfe Erreichbarkeit und Antwortzeit von {{instance}}, und lade dann neu"
+  },
+  "unknown": {
+    "title": "Unbekannte Meldung von {{instances}}",
+    "explanation": "Wardarr hat für diese Meldung noch keine Regel. Der Originaltext steht in den Details.",
+    "fix": "Öffne die Instanz und folge ihrer Dokumentation zu dieser Meldung"
+  },
+  "cleanerPaused": {
+    "title": "Queue Cleaner für {{instance}} pausiert",
+    "explanation": "Wardarr hat ein Problem gefunden, das kein Download von selbst lösen kann. Der Queue Cleaner von {{instance}} wartet und verteilt keine Verwarnungen, damit nichts aus dem falschen Grund entfernt wird. Er macht von selbst weiter, sobald das Problem behoben ist.",
+    "fix": {
+      "diskFull": "Schaffe Platz auf dem Laufwerk der Downloads oder der Bibliothek",
+      "pathMissing": "Prüfe, ob der Download-Pfad existiert und in beiden Containern eingebunden ist",
+      "permissions": "Gib dem *arr-Benutzer Lese- und Schreibrechte auf die Download- und Bibliotheksordner",
+      "rootFolderMissing": "Lege den fehlenden Stammordner wieder an oder verschiebe die Titel in einen vorhandenen",
+      "clientUnreachable": "Prüfe, ob der Download-Client läuft und erreichbar ist"
+    }
+  },
+  "importReady": {
+    "title_one": "1 Download in {{instance}} ist bereit zum Import",
+    "title_other": "{{count}} Downloads in {{instance}} sind bereit zum Import",
+    "affected_one": "1 Download",
+    "affected_other": "{{count}} Downloads",
+    "explanation": "Der automatische Import ist stehen geblieben, aber die Importvorschau findet für jede Datei ein Ziel. Wardarr importiert nie von selbst: Es wartet bis zu einer Woche auf dich und verteilt keine Verwarnungen.",
+    "fix": "Öffne „Import prüfen“, kontrolliere die Ziele und bestätige"
+  },
+  "attemptsExhausted": {
+    "title_one": "1 Titel in {{instance}} wird nicht mehr gesucht",
+    "title_other": "{{count}} Titel in {{instance}} werden nicht mehr gesucht",
+    "affected_one": "1 Titel",
+    "affected_other": "{{count}} Titel",
+    "explanation": "Der Queue Cleaner hat für jeden dieser Titel {{attempts}}-mal einen schlechten Download entfernt. Um deine Indexer zu schonen, sucht er sie nicht mehr, und Hunting überspringt sie.",
+    "fix": "Prüfe das Qualitätsprofil oder das Release, und setze dann die Versuche im Queue Cleaner zurück"
+  },
+  "orphans": {
+    "title_one": "1 Download in {{instance}} gehört zu keiner *arr-Instanz",
+    "title_other": "{{count}} Downloads in {{instance}} gehören zu keiner *arr-Instanz",
+    "affected_one": "1 Download",
+    "affected_other": "{{count}} Downloads",
+    "explanation": "Keine der verbundenen *arr-Instanzen kennt diese Downloads. Vielleicht wurden sie von Hand oder von einem Dienst hinzugefügt, der nicht mit Wardarr verbunden ist. Wardarr löscht sie nie von selbst.",
+    "fix": "Prüfe die Downloads und lösche nur die, die du nicht brauchst"
+  },
+  "apiCompat": {
+    "title": "{{instance}} läuft mit {{product}} {{version}} im Kompatibilitätsmodus",
+    "affected": "API {{api}}",
+    "explanation": "Wardarr wurde mit {{product}} {{version}} noch nicht getestet. Es nutzt weiter API {{api}}, die diese Version noch anbietet.",
+    "explanationNewer": "{{product}} {{version}} bietet API {{newest}} an. Wardarr nutzt weiter API {{api}}, die diese Version noch anbietet, daher funktioniert alles weiter.",
+    "fix": "Gerade nichts zu tun. Aktualisiere Wardarr, wenn eine neue Version erscheint; es wechselt dann von selbst"
+  }
+}

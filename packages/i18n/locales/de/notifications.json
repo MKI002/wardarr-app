@@ -1,0 +1,16 @@
+{
+  "test": {
+    "title": "Testnachricht von Wardarr",
+    "body": "Wenn du das lesen kannst, kommen Benachrichtigungen von Wardarr hier an."
+  },
+  "resolved": {
+    "title": "Behoben: {{title}}",
+    "body": "Wardarr hat erneut geprüft, das Problem ist weg."
+  },
+  "request": {
+    "title": "Neue Anfrage: {{title}}",
+    "body": "{{user}} hat das angefragt. Die Anfrage wartet auf Freigabe.",
+    "body4k": "{{user}} hat das in 4K angefragt. Die Anfrage wartet auf Freigabe.",
+    "unknownTitle": "einen Titel"
+  }
+}

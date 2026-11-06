@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "apiKey": "API-Schlüssel",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "plexToken": "Plex-Token",
+    "rpcPath": "RPC-Pfad"
+  },
+  "help": {
+    "apiKeyArr": "Zu finden unter Settings → General → Security.",
+    "apiKeySeerr": "Zu finden unter Settings → General.",
+    "apiKeySabnzbd": "Zu finden unter Config → General → Security.",
+    "apiKeyJellyfin": "Unter Dashboard → API Keys anlegen.",
+    "apiKeyEmby": "Unter Settings → Advanced → API Keys anlegen.",
+    "plexToken": "Dein X-Plex-Token. Der Plex-Hilfeartikel „Finding an authentication token“ erklärt, wo du ihn findest."
+  },
+  "category": {
+    "arr": "Medienverwaltung",
+    "indexer": "Indexer",
+    "downloader": "Download-Clients",
+    "mediaServer": "Medienserver",
+    "requests": "Anfragen"
+  },
+  "lifecycle": {
+    "upstreamDiscontinued": "Wird nicht mehr weiterentwickelt"
+  }
+}

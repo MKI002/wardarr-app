@@ -369,7 +369,7 @@ function UsersSection() {
 // --------------------------------------------------------------- appearance
 
 function AppearanceSection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { me, refresh } = useSession();
   const prefs = me.preferences;
   const save = useMutation({
@@ -408,7 +408,7 @@ function AppearanceSection() {
         {AVAILABLE_LANGUAGES.length > 1 ? (
           <Choice
             label={t('ui.settings.language')}
-            value={prefs.language ?? 'en'}
+            value={prefs.language ?? (i18n.language === 'de' ? 'de' : 'en')}
             options={AVAILABLE_LANGUAGES.map((l) => [l as 'en' | 'de', t(`ui.languages.${l}`)])}
             onChange={(language) => save.mutate({ language })}
           />

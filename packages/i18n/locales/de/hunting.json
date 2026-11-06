@@ -1,0 +1,35 @@
+{
+  "reason": {
+    "neverSearched": "Fehlt und wurde von Wardarr noch nie gesucht",
+    "upgradeNeverSearched": "Unter dem Qualitätsziel und von Wardarr noch nie gesucht",
+    "searchedBefore_one": "Zuletzt vor 1 Tag gesucht",
+    "searchedBefore_other": "Zuletzt vor {{days}} Tagen gesucht",
+    "seasonPack_one": "1 Folge dieser Staffel fehlt",
+    "seasonPack_other": "{{count}} Folgen dieser Staffel fehlen: eine Staffelsuche",
+    "manual": "Von Hand gesucht"
+  },
+  "pause": {
+    "off": "Hunting ist aus",
+    "indexer": "Pausiert: {{name}}",
+    "queueFull": "Pausiert: {{size}} Downloads in der Warteschlange (Grenze {{limit}})",
+    "budget": "Pausiert: Die Grenze von {{limit}} API-Aufrufen pro Stunde ist erreicht"
+  },
+  "result": {
+    "pending": "Wartet",
+    "nothing": "Nichts gefunden",
+    "grabbed": "Wird geladen",
+    "imported": "Importiert",
+    "failed": "Download fehlgeschlagen"
+  },
+  "pace": {
+    "off": "Aus",
+    "gentle": "Sanft",
+    "normal": "Normal",
+    "fast": "Schnell",
+    "custom": "Eigenes Tempo"
+  },
+  "list": {
+    "missing": "Fehlend",
+    "cutoff": "Upgrades"
+  }
+}
