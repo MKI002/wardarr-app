@@ -157,6 +157,7 @@ describe('notification channels', () => {
     await t.runtime.poll(instanceId);
     await tick();
     expect(sent).toHaveLength(1);
+    expect(String((sent[0]!.request.json as Record<string, unknown>).title)).toContain('nicht erreichbar');
     fakeState.signals = [];
     await t.runtime.poll(instanceId);
     await tick();
