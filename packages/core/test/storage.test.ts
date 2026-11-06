@@ -81,6 +81,27 @@ describe('groupDisks', () => {
     expect(media!.members[0]!.rootFolders).toEqual(['/data/tv']);
   });
 
+  it('ignores trailing slashes and stays fast on paths full of them', () => {
+    const slashes = '/'.repeat(50_000);
+    const started = performance.now();
+    const disks = groupDisks([
+      {
+        instance: sonarr,
+        report: report(
+          [
+            ['/data//', 1 * TiB, 4 * TiB],
+            [`${slashes}x`, 1 * TiB, 2 * TiB],
+          ],
+          ['/data/tv/'],
+        ),
+      },
+    ]);
+    expect(performance.now() - started).toBeLessThan(1000);
+    const data = disks.find((d) => d.totalBytes === 4 * TiB)!;
+    expect(data.label).toBe('/data');
+    expect(data.members[0]!.rootFolders).toEqual(['/data/tv']);
+  });
+
   it('uses a root folder with a size when its mount is not listed', () => {
     const disks = groupDisks([
       {
