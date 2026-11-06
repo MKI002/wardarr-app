@@ -71,9 +71,9 @@ by the question a person opens Wardarr with:
 | Status     | Is everything fine?          | Overview, Issues, Map                       |
 | Media      | What is there to watch?      | Discover, Requests, Library, Calendar       |
 | Automation | What does Wardarr do for me? | Queue Cleaner, Hunting, TRaSH Guides, Tdarr |
-| System     | How is the stack underneath? | Indexers, Indexer insights, Storage, Backup |
+| System     | How is the stack underneath? | Indexers, Indexer insights, Storage         |
 
-Settings and the account menu sit apart at the bottom. The sidebar folds to an
+Settings (with backups) and the account menu sit apart at the bottom. The sidebar folds to an
 icon rail and every section folds on its own; both are remembered per browser.
 Phones get a bottom bar with four pages plus "Menu", a sheet with every page
 by section. `Ctrl K`, `⌘K` or `/` opens the command palette for pages,
