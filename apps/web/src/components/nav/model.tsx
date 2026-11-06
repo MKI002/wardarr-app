@@ -9,7 +9,7 @@ export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
   { id: 'status', tabs: ['overview', 'issues', 'map'] },
   { id: 'media', tabs: ['discover', 'requests', 'library', 'calendar'] },
   { id: 'automation', tabs: ['cleaner', 'hunting', 'trash'] },
-  { id: 'system', tabs: ['indexers', 'storage', 'backup'] },
+  { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage', 'backup'] },
 ];
 
 export const TAB_PATHS: Record<string, string> = {
@@ -24,6 +24,7 @@ export const TAB_PATHS: Record<string, string> = {
   hunting: '/hunting',
   trash: '/trash',
   indexers: '/indexers',
+  indexerInsights: '/indexer-insights',
   storage: '/storage',
   backup: '/backup',
   settings: '/settings',
