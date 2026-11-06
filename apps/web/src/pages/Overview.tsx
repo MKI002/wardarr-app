@@ -28,6 +28,7 @@ import { formatDuration, formatRelative, formatSpeed } from '../lib/format';
 import { tm } from '../lib/i18n';
 import { STATUS_TONE, groupByProduct } from '../lib/instances';
 import { parseRelease } from '../lib/release';
+import { formatBytes } from '@wardarr/i18n';
 import { useSession } from '../lib/session';
 
 const SEVERITY_TONE: Record<string, Tone> = { critical: 'critical', warning: 'warning', info: 'info' };
@@ -154,7 +155,7 @@ function Dashboard({ data }: { data: Data }) {
       </div>
 
       <SectionRule>{t('ui.overview.rightNow')}</SectionRule>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className={`grid gap-4 ${data.storage ? 'sm:grid-cols-2 xl:grid-cols-4' : 'sm:grid-cols-3'}`}>
         <KpiCard
           label={t('ui.overview.streams')}
           tone={stats.activeStreams > 0 ? 'ok' : 'neutral'}
@@ -215,6 +216,7 @@ function Dashboard({ data }: { data: Data }) {
             </div>
           }
         />
+        {data.storage ? <StorageKpi storage={data.storage} /> : null}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -239,6 +241,46 @@ function Dashboard({ data }: { data: Data }) {
         <ServiceTiles instances={data.instances} />
       </section>
     </div>
+  );
+}
+
+/** Free space on the media disks, and the disk that runs full first. */
+function StorageKpi({ storage }: { storage: NonNullable<Data['storage']> }) {
+  const { t, i18n } = useTranslation();
+  const used = storage.totalBytes > 0 ? 1 - storage.freeBytes / storage.totalBytes : 0;
+  const soon = storage.soonest && storage.soonest.daysLeft !== null ? storage.soonest : null;
+  const tone: Tone = storage.worst === 'ok' ? 'ok' : storage.worst;
+  return (
+    <Link
+      to="/storage"
+      search={soon ? { disk: soon.key } : {}}
+      className="block h-full rounded-[var(--radius-card)]"
+    >
+      <KpiCard
+        delay={0.15}
+        label={t('ui.storage.overviewLabel')}
+        tone={tone}
+        value={<Odometer text={formatBytes(storage.freeBytes, i18n.language)} />}
+        sub={
+          soon
+            ? t('ui.storage.overviewSoon', {
+                disk: soon.label,
+                count: Math.max(0, Math.round(soon.daysLeft!)),
+              })
+            : t('ui.storage.overviewFine', { count: storage.disks })
+        }
+        chart={
+          <ProgressRing
+            value={used}
+            size={44}
+            tone={storage.worst === 'ok' ? 'accent' : tone}
+            label={t('ui.storage.overviewChart')}
+          >
+            {Math.round(used * 100)}%
+          </ProgressRing>
+        }
+      />
+    </Link>
   );
 }
 

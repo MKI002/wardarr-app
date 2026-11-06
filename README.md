@@ -46,6 +46,9 @@ titles at a gentle pace and lets everyone in the house request something to watc
 - **Backups with smart retention.** One slider decides how often Wardarr backs itself up and
   how the history thins out with age. A backup before every database update, restore in one
   click, and a passphrase-protected download that moves everything to a new server.
+- **Storage with a forecast.** Every disk your *arr apps use, counted once even when several
+  apps share it, with its history and the day it will be full at the current pace. A disk that
+  fills up soon becomes an issue before downloads stop.
 - **Library and streams.** Library sizes and counts per media server, what is playing right
   now, plays per day, most watched titles and who watched what.
 - **What's coming.** One calendar for every Sonarr, Radarr, Lidarr and Readarr, with the same
@@ -190,6 +193,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Discover and requests](docs/guide/discover-and-requests.md): how requests reach Seerr and
   how users are linked.
 - [TRaSH Guides](docs/guide/trash-guides.md): templates, previews, rollbacks and the guard.
+- [Storage](docs/guide/storage.md): how disks are counted and how the forecast works.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.

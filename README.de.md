@@ -49,6 +49,9 @@ anfragen.
   und wie der Verlauf mit dem Alter ausdünnt. Ein Backup vor jedem Datenbank-Update,
   Wiederherstellen mit einem Klick und ein passwortgeschützter Download, der alles auf einen
   neuen Server mitnimmt.
+- **Speicher mit Prognose.** Jede Platte deiner *arr-Apps, einmal gezählt, auch wenn mehrere
+  Apps sie teilen, mit Verlauf und dem Tag, an dem sie im jetzigen Tempo voll ist. Läuft eine
+  Platte bald voll, wird sie zum Problem, bevor Downloads stehen bleiben.
 - **Bibliothek und Streams.** Größe und Anzahl je Medienserver, was gerade läuft, Wiedergaben
   pro Tag, meistgesehene Titel und wer was geschaut hat.
 - **Was kommt.** Ein Kalender für alle Sonarr, Radarr, Lidarr und Readarr; derselbe Termin aus
@@ -197,6 +200,7 @@ Die Anleitungen sind auf Englisch:
 - [Hunting](docs/guide/hunting.md)
 - [Entdecken und Anfragen](docs/guide/discover-and-requests.md)
 - [TRaSH Guides](docs/guide/trash-guides.md)
+- [Speicher](docs/guide/storage.md)
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Stack-Map](docs/guide/stack-map.md) (englisch)
 - [Backups](docs/guide/backups.md)

@@ -149,6 +149,14 @@ export interface Overview {
     instanceId: string;
     instanceName: string;
   }>;
+  /** Disks of the *arr apps; null when no app reports any. */
+  storage: {
+    disks: number;
+    totalBytes: number;
+    freeBytes: number;
+    worst: 'ok' | 'warning' | 'critical';
+    soonest: { key: string; label: string; daysLeft: number | null } | null;
+  } | null;
   issues: {
     counts: { critical: number; warning: number; info: number };
     needsAttention: Array<{
