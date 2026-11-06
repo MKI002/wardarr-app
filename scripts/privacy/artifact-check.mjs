@@ -67,6 +67,8 @@ const SENSITIVE_TAGS = [
   /UserComment$/i,
   /CameraOwner/i,
 ];
+// Content credentials (C2PA in JUMBF boxes) can name the account or tool that made a file.
+const CONTENT_CREDENTIALS = /^(JUMBF|CBOR):|C2PA/i;
 
 function ipAllowed(a, b, c, d) {
   const parts = [a, b, c, d].map(Number);
@@ -121,6 +123,8 @@ function checkText(file, text) {
   if (file.endsWith('.svg')) {
     if (/sodipodi:docname|inkscape:export-filename|<dc:creator>/i.test(text))
       add(file, 0, 'editor metadata in SVG');
+    // Content credentials (C2PA) can name the account or tool that made a file.
+    if (/<metadata[\s>]|xmlns:c2pa|c2pa:manifest/i.test(text)) add(file, 0, 'embedded metadata in SVG');
   }
 }
 
@@ -154,6 +158,10 @@ function checkImage(file) {
       continue;
     const tag = key.split(':').pop();
     const str = String(value);
+    if (CONTENT_CREDENTIALS.test(key)) {
+      add(file, 0, 'content credentials (C2PA) in image metadata');
+      break;
+    }
     if (SENSITIVE_TAGS.some((re) => re.test(tag))) add(file, 0, `image metadata tag ${tag}`);
     else if (HOME_PATH.test(str)) add(file, 0, `local path in image metadata tag ${tag}`);
     else if ([...str.matchAll(EMAIL)].some((m) => !emailAllowed(m[0])))

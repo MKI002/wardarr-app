@@ -165,35 +165,39 @@ export function ProgressBar({
   );
 }
 
-/** The Wardarr guardian: a small owl inside a shield. */
+/**
+ * The Wardarr guardian ("Schildwache"): a shield with an open eye. With
+ * `glance` the eye looks left and right once, for empty and loading states;
+ * reduced motion keeps it still. `happy={false}` lowers the gaze.
+ */
 export function Guardian({
   size = 64,
   happy = true,
+  glance = false,
   className = '',
 }: {
   size?: number;
   happy?: boolean;
+  glance?: boolean;
   className?: string;
 }) {
+  const reduce = useReducedMotion();
+  const animateIris = glance && !reduce;
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" className={className} aria-hidden>
-      <path d="M32 6 11 14v16c0 13.5 9 23.5 21 27 12-3.5 21-13.5 21-27V14Z" className="fill-accent" />
-      <circle cx="24.5" cy="29" r="6" className="fill-surface" />
-      <circle cx="39.5" cy="29" r="6" className="fill-surface" />
-      <circle cx="25.5" cy="28" r="2.4" className="fill-text" />
-      <circle cx="40.5" cy="28" r="2.4" className="fill-text" />
-      <path d="m30 36 2 3 2-3Z" className="fill-surface" />
-      {happy ? (
-        <path
-          d="M26 44q6 4.5 12 0"
-          className="stroke-surface"
-          strokeWidth="2.6"
-          fill="none"
-          strokeLinecap="round"
-        />
-      ) : (
-        <path d="M26 45h12" className="stroke-surface" strokeWidth="2.6" strokeLinecap="round" />
-      )}
+      <path d="M32 7l20 7.5V30c0 13-8.6 22.6-20 27-11.4-4.4-20-14-20-27V14.5Z" className="fill-accent" />
+      <path
+        d="M17.5 31c3.7-6.4 8.6-9.8 14.5-9.8S42.8 24.6 46.5 31c-3.7 6.4-8.6 9.8-14.5 9.8S21.2 37.4 17.5 31Z"
+        className="fill-bg"
+      />
+      <motion.g
+        initial={false}
+        animate={animateIris ? { x: [0, -4, 4, 0] } : { x: 0, y: happy ? 0 : 2.5 }}
+        transition={animateIris ? { duration: 1.6, ease: 'easeInOut', delay: 0.3 } : spring}
+      >
+        <circle cx="32" cy="31" r="5.6" className="fill-accent" />
+        <circle cx="33.9" cy="29.3" r="1.7" className="fill-text" />
+      </motion.g>
     </svg>
   );
 }
@@ -211,7 +215,7 @@ export function EmptyState({ title, body, action }: { title: string; body?: stri
   return (
     <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
       <motion.div initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={spring}>
-        <Guardian size={56} />
+        <Guardian size={56} glance />
       </motion.div>
       <p className="font-medium">{title}</p>
       {body ? <p className="max-w-sm text-sm text-muted">{body}</p> : null}
