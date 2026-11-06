@@ -30,7 +30,9 @@ export function registerCalendarRoutes(
   deps: { calendar: CalendarService; publicUrl?: string },
 ): void {
   const { calendar } = deps;
-  const base = deps.publicUrl?.replace(/\/+$/, '');
+  // Trailing slashes are trimmed without a regular expression (no backtracking on long runs).
+  let base = deps.publicUrl;
+  while (base?.endsWith('/')) base = base.slice(0, -1);
 
   app.get('/api/calendar', { config: { access: 'user' } }, async (req) => {
     const q = parse(z.object({ start: time.optional(), end: time.optional() }), req.query);
