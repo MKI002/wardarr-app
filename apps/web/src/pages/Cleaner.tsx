@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import type { Msg } from '@wardarr/core';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ConfirmDialog, Dialog } from '../components/Dialog';
@@ -20,6 +20,7 @@ import {
   Tabs,
   TextField,
   Toggle,
+  ViewTransition,
   spring,
   type Tone,
 } from '../components/ui';
@@ -219,30 +220,16 @@ export function CleanerPage() {
                     : undefined,
             ])}
           />
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={`${current.instanceId}:${tab}`}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-            >
-              {tab === 'downloads' ? (
-                <Downloads
-                  inst={current}
-                  review={search.review}
-                  onReview={(review) => setSearch({ review })}
-                />
-              ) : null}
-              {tab === 'preview' ? <Preview inst={current} /> : null}
-              {tab === 'history' ? <History instanceId={current.instanceId} /> : null}
-              {tab === 'attempts' ? <Attempts inst={current} /> : null}
-              {tab === 'orphans' ? (
-                <Orphans orphans={data.data?.orphans ?? []} client={search.client} />
-              ) : null}
-              {tab === 'settings' ? <Settings key={current.instanceId} inst={current} /> : null}
-            </motion.div>
-          </AnimatePresence>
+          <ViewTransition view={`${current.instanceId}:${tab}`}>
+            {tab === 'downloads' ? (
+              <Downloads inst={current} review={search.review} onReview={(review) => setSearch({ review })} />
+            ) : null}
+            {tab === 'preview' ? <Preview inst={current} /> : null}
+            {tab === 'history' ? <History instanceId={current.instanceId} /> : null}
+            {tab === 'attempts' ? <Attempts inst={current} /> : null}
+            {tab === 'orphans' ? <Orphans orphans={data.data?.orphans ?? []} client={search.client} /> : null}
+            {tab === 'settings' ? <Settings key={current.instanceId} inst={current} /> : null}
+          </ViewTransition>
         </>
       ) : null}
     </div>

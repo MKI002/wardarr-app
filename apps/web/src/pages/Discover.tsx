@@ -71,8 +71,9 @@ export function DiscoverPage() {
       void navigate({ search: (s) => ({ ...s, q: q || undefined }), replace: true });
   }, [q, search.q, navigate]);
 
+  const listKey = q ? `search:${q}` : list;
   const pages = useInfiniteQuery({
-    queryKey: ['discover', q ? `search:${q}` : list],
+    queryKey: ['discover', listKey],
     initialPageParam: 1,
     queryFn: ({ pageParam }) =>
       api<DiscoverPage>(
@@ -156,7 +157,10 @@ export function DiscoverPage() {
       ) : items.length === 0 && !pages.isError ? (
         <EmptyState title={t('ui.discover.empty')} body={q ? t('ui.discover.emptySearch') : undefined} />
       ) : (
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        // Keyed by list: a title that is in both lists would otherwise stay put while
+        // the others fade in, so each switch looked different. Now every switch
+        // brings the whole grid in the same way.
+        <ul key={listKey} className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {items.map((item, index) => (
             <motion.li
               key={`${item.mediaType}:${item.tmdbId}`}

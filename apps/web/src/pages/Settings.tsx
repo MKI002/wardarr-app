@@ -21,6 +21,7 @@ import {
   Skeleton,
   StatusDot,
   TextField,
+  ViewTransition,
   spring,
 } from '../components/ui';
 import { api, type AdapterInfo, type Instance, type Preferences } from '../lib/api';
@@ -518,17 +519,7 @@ export function SettingsPage() {
           ))}
         </nav>
       ) : null}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-        >
-          {content[active]}
-        </motion.div>
-      </AnimatePresence>
+      <ViewTransition view={active}>{content[active]}</ViewTransition>
     </div>
   );
 }
