@@ -1,6 +1,7 @@
 // Translation resources. Each JSON file in locales/<lang>/ becomes a top-level
 // key, so `locales/en/issues.json` provides `issues.*`.
 import enAdapters from '../locales/en/adapters.json' with { type: 'json' };
+import enBackups from '../locales/en/backups.json' with { type: 'json' };
 import enCleaner from '../locales/en/cleaner.json' with { type: 'json' };
 import enCommon from '../locales/en/common.json' with { type: 'json' };
 import enHunting from '../locales/en/hunting.json' with { type: 'json' };
@@ -9,6 +10,7 @@ import enNotifications from '../locales/en/notifications.json' with { type: 'jso
 import enTrash from '../locales/en/trash.json' with { type: 'json' };
 import enUi from '../locales/en/ui.json' with { type: 'json' };
 import deAdapters from '../locales/de/adapters.json' with { type: 'json' };
+import deBackups from '../locales/de/backups.json' with { type: 'json' };
 import deCleaner from '../locales/de/cleaner.json' with { type: 'json' };
 import deCommon from '../locales/de/common.json' with { type: 'json' };
 import deHunting from '../locales/de/hunting.json' with { type: 'json' };
@@ -32,6 +34,7 @@ export const resources = {
       hunting: enHunting,
       notifications: enNotifications,
       trash: enTrash,
+      backups: enBackups,
     },
   },
   de: {
@@ -44,6 +47,7 @@ export const resources = {
       hunting: deHunting,
       notifications: deNotifications,
       trash: deTrash,
+      backups: deBackups,
     },
   },
 } as const;

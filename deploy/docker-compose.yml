@@ -11,6 +11,8 @@ services:
     volumes:
       # Database and generated encryption key. Must be writable by 1000:1000.
       - ./wardarr:/data
+      # Optional: Wardarr's own backups on another disk (see WARDARR_BACKUP_DIR).
+      # - /mnt/other-disk/wardarr-backups:/backups
     environment:
       TZ: Etc/UTC
       # Address you open Wardarr at, for links in notifications.
@@ -19,6 +21,8 @@ services:
       # WARDARR_TRUST_PROXY: "true"
       # Secure flag on the session cookie: auto, true or false.
       # WARDARR_COOKIE_SECURE: auto
+      # Folder for Wardarr's own backups. Default: /data/backups.
+      # WARDARR_BACKUP_DIR: /backups
       # 32-byte key (base64 or hex). Generated into /data when not set.
       # WARDARR_SECRET_KEY: ""
       # Timeout for calls to your services, in milliseconds.

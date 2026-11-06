@@ -43,6 +43,9 @@ titles at a gentle pace and lets everyone in the house request something to watc
   and naming for any number of Sonarrs and Radarrs. Every sync shows a field-by-field preview
   and takes a backup you can roll back; a guard reports drift or keeps instances in sync on its
   own, and stops for large changes.
+- **Backups with smart retention.** One slider decides how often Wardarr backs itself up and
+  how the history thins out with age. A backup before every database update, restore in one
+  click, and a passphrase-protected download that moves everything to a new server.
 - **Library and streams.** Library sizes and counts per media server, what is playing right
   now, plays per day, most watched titles and who watched what.
 - **Indexer statistics.** Queries, grabs, failures and response times per indexer from
@@ -149,6 +152,7 @@ Everything else is set in the web interface. These environment variables are opt
 | `WARDARR_PORT`            | `8484`    | Port to listen on.                                                                                                               |
 | `WARDARR_HOST`            | `0.0.0.0` | Address to listen on.                                                                                                            |
 | `WARDARR_DATA_DIR`        | `/data`   | Database and generated key.                                                                                                      |
+| `WARDARR_BACKUP_DIR`      | `backups` | Folder for Wardarr's own backups; `backups` inside the data folder when not set. Put it on another disk if you can.              |
 | `WARDARR_SECRET_KEY`      | generated | 32-byte key (base64 or hex) that encrypts stored credentials. Generated on first start and kept in the data folder when not set. |
 | `WARDARR_PUBLIC_URL`      | none      | Address you open Wardarr at, for links in notifications.                                                                         |
 | `WARDARR_TRUST_PROXY`     | `false`   | Trust `X-Forwarded-*` headers. Turn on behind a reverse proxy.                                                                   |
@@ -186,6 +190,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [TRaSH Guides](docs/guide/trash-guides.md): templates, previews, rollbacks and the guard.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
+- [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.
 - [Live demo](docs/demo.md): how the demo is built and why its films are public domain.

@@ -12,7 +12,8 @@ export interface WardarrEvent {
     | 'hunting.updated'
     | 'library.updated'
     | 'requests.updated'
-    | 'trash.updated';
+    | 'trash.updated'
+    | 'backups.updated';
   audience: Audience;
   data?: unknown;
 }

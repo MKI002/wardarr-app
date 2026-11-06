@@ -37,6 +37,33 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
   return data as T;
 }
 
+/** Sends a file or JSON and receives a file, for backup upload and download. */
+export async function apiBinary(
+  path: string,
+  init: { method: string; body: Blob | object },
+): Promise<{ blob: Blob; filename: string | null; json: unknown }> {
+  const headers: Record<string, string> = {};
+  if (csrfToken) headers['x-csrf-token'] = csrfToken;
+  else headers['x-wardarr-request'] = '1';
+  const isBlob = init.body instanceof Blob;
+  headers['content-type'] = isBlob ? 'application/octet-stream' : 'application/json';
+  const res = await fetch(path, {
+    method: init.method,
+    headers,
+    body: isBlob ? (init.body as Blob) : JSON.stringify(init.body),
+    credentials: 'same-origin',
+  });
+  if (!res.ok) {
+    const data = (await res.json().catch(() => ({}))) as { error?: string; details?: unknown };
+    throw new ApiError(res.status, data.error ?? 'unknown', data.details);
+  }
+  const type = res.headers.get('content-type') ?? '';
+  if (type.includes('application/json')) return { blob: new Blob(), filename: null, json: await res.json() };
+  const disposition = res.headers.get('content-disposition') ?? '';
+  const filename = /filename="([^"]+)"/.exec(disposition)?.[1] ?? null;
+  return { blob: await res.blob(), filename, json: null };
+}
+
 export interface Me {
   user: {
     id: string;

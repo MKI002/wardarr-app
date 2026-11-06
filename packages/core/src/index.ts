@@ -9,3 +9,4 @@ export * from './cleaner/index.js';
 export * from './hunting/index.js';
 export * from './trash/index.js';
 export * from './topology/derive.js';
+export * from './backups/retention.js';

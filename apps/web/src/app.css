@@ -300,3 +300,50 @@ body {
   animation: none;
   opacity: 0;
 }
+
+/* The smart-retention slider: a thick track filled up to the thumb. */
+.retention-slider {
+  appearance: none;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+}
+.retention-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--surface-2) var(--fill));
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.retention-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--surface-2) var(--fill));
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.retention-slider::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+  transition: transform 0.15s ease-out;
+}
+.retention-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+}
+.retention-slider:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.retention-slider:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 999px;
+}

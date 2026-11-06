@@ -1,0 +1,174 @@
+{
+  "title": "Backups",
+  "intro": "Wardarr sichert seine eigenen Daten: Dienste, Benutzer, Einstellungen und Verlauf. Deine Medien und die Dienste selbst gehören nicht dazu.",
+  "hero": {
+    "eyebrow": "Smart Retention",
+    "count_one": "Backup",
+    "count_other": "Backups",
+    "none": "Noch kein Backup. Das erste läuft in ein paar Minuten, oder du erstellst jetzt eines.",
+    "ok": "Das letzte ist von {{last}}, das nächste folgt {{next}}.",
+    "okNoSchedule": "Das letzte ist von {{last}}. Automatische Backups sind aus; vor jedem Datenbank-Update sichert Wardarr trotzdem.",
+    "lowDisk": "Das letzte automatische Backup wurde {{when}} übersprungen: Das Backup-Laufwerk ist fast voll.",
+    "failed": "Das letzte automatische Backup ist {{when}} fehlgeschlagen. Sieh im Log von Wardarr nach.",
+    "backupNow": "Jetzt sichern",
+    "upload": "Backup hochladen"
+  },
+  "insight": {
+    "sameDisk": "Die Backups liegen auf demselben Laufwerk wie die Daten von Wardarr. Lade wichtige Backups herunter oder lege WARDARR_BACKUP_DIR auf ein anderes Laufwerk.",
+    "storage": "{{used}} belegen die Backups, {{free}} sind auf dem Backup-Laufwerk frei."
+  },
+  "retention": {
+    "title": "Wie lange Backups bleiben",
+    "intro": "Ein Regler entscheidet alles: wie oft Wardarr sichert und wie der Verlauf mit dem Alter ausdünnt, so wie es ein sorgfältiger Mensch tun würde.",
+    "slider": "Aufbewahrung",
+    "level": {
+      "0": "Nur Updates",
+      "1": "Sparsam",
+      "2": "Ausgewogen",
+      "3": "Gründlich",
+      "4": "Maximal"
+    },
+    "levelHint": {
+      "0": "Nur vor Datenbank-Updates und Wiederherstellungen",
+      "1": "Täglich, etwa einen Monat zurück",
+      "2": "Zweimal am Tag, etwa ein halbes Jahr zurück",
+      "3": "Viermal am Tag, etwa ein Jahr zurück",
+      "4": "Alle 3 Stunden, etwa zwei Jahre zurück"
+    },
+    "none": "Keine automatischen Backups. Wardarr behält trotzdem die letzten {{count}} Backups vor einem Datenbank-Update oder einer Wiederherstellung.",
+    "every_one": "Jede Stunde ein Backup.",
+    "every_other": "Alle {{count}} Stunden ein Backup.",
+    "keeps": "Wardarr behält {{list}}.",
+    "keepAll_one": "jedes Backup der letzten Stunde",
+    "keepAll_other": "jedes Backup der letzten {{count}} Stunden",
+    "daily_one": "eines pro Tag für {{count}} Tag",
+    "daily_other": "eines pro Tag für {{count}} Tage",
+    "weekly_one": "eines pro Woche für {{count}} Woche",
+    "weekly_other": "eines pro Woche für {{count}} Wochen",
+    "monthly_one": "eines pro Monat für {{count}} Monat",
+    "monthly_other": "eines pro Monat für {{count}} Monate",
+    "statCount": "Backups",
+    "statReach": "Reicht zurück",
+    "statSize": "Platz",
+    "about": "etwa {{value}}",
+    "reach": {
+      "days_one": "{{count}} Tag",
+      "days_other": "{{count}} Tage",
+      "weeks_one": "{{count}} Woche",
+      "weeks_other": "{{count}} Wochen",
+      "months_one": "{{count}} Monat",
+      "months_other": "{{count}} Monate",
+      "years_one": "{{count}} Jahr",
+      "years_other": "{{count}} Jahre"
+    },
+    "timelineLabel": "Zeitleiste: {{planned}} Backups behält diese Stufe über {{reach}}, {{present}} Backups sind jetzt vorhanden.",
+    "rowPlanned": "Auf Dauer",
+    "rowPresent": "Jetzt",
+    "tier": {
+      "recent": "Jedes Backup",
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich",
+      "kept": "Bleibt",
+      "removed": "Fällt beim Speichern weg"
+    },
+    "axis": {
+      "now": "jetzt",
+      "day": "1 Tag",
+      "week": "1 Woche",
+      "month": "1 Monat",
+      "halfYear": "6 Monate",
+      "year": "1 Jahr",
+      "twoYears": "2 Jahre"
+    },
+    "willRemove_one": "Beim Speichern entfernt Wardarr {{count}} älteres Backup, das diese Stufe nicht mehr behält.",
+    "willRemove_other": "Beim Speichern entfernt Wardarr {{count}} ältere Backups, die diese Stufe nicht mehr behält.",
+    "save": "Speichern",
+    "reset": "Zurücksetzen"
+  },
+  "list": {
+    "title": "Gespeicherte Backups",
+    "empty": "Noch keine Backups",
+    "emptyBody": "Das erste automatische Backup läuft ein paar Minuten nach dem Start. Backups, die du erstellst oder hochlädst, erscheinen hier.",
+    "actions": "Aktionen für dieses Backup",
+    "restore": "Wiederherstellen…",
+    "download": "Herunterladen",
+    "downloadProtected": "Mit Passwort herunterladen…",
+    "pin": "Für immer behalten",
+    "unpin": "Smart Retention entscheiden lassen",
+    "delete": "Löschen…",
+    "keptAs": "bleibt als {{reasons}}",
+    "goesSoon": "fällt bei der nächsten Aufräumrunde weg",
+    "version": "Wardarr {{version}}",
+    "showAll": "Alle {{count}} anzeigen",
+    "showLess": "Weniger anzeigen"
+  },
+  "kind": {
+    "scheduled": "Automatisch",
+    "manual": "Manuell",
+    "pre-migration": "Vor Update",
+    "pre-restore": "Vor Wiederherstellung",
+    "uploaded": "Hochgeladen"
+  },
+  "reason": {
+    "pinned": "für immer",
+    "manual": "manuelles Backup",
+    "uploaded": "Upload",
+    "safety": "Sicherheitskopie",
+    "latest": "neuestes Backup",
+    "recent": "aktuelles Backup",
+    "daily": "Tages-Backup",
+    "weekly": "Wochen-Backup",
+    "monthly": "Monats-Backup"
+  },
+  "badge": {
+    "pinned": "Für immer",
+    "encrypted": "Passwort",
+    "older": "Ältere Version",
+    "newer": "Neuere Version",
+    "foreign": "Andere Installation",
+    "otherKey": "Anderer Schlüssel"
+  },
+  "restore": {
+    "title": "Dieses Backup wiederherstellen?",
+    "body": "Wardarr kehrt zum Stand vom {{date}} zurück. Alles, was sich seitdem geändert hat, wird ersetzt. Vorher sichert Wardarr den aktuellen Stand, damit du zurück kannst, und startet dann neu. Alle müssen sich neu anmelden.",
+    "older": "Dieses Backup stammt von einer älteren Wardarr-Version. Wardarr bringt es nach dem Wiederherstellen auf den neuen Stand.",
+    "passphrase": "Passwort dieses Backups",
+    "foreignKey": "Dieses Backup stammt von einer anderen Installation. Wardarr kann die API-Schlüssel und Passwörter deiner Dienste darin nicht lesen.",
+    "acceptForeign": "Trotzdem wiederherstellen; ich gebe die Zugangsdaten der Dienste neu ein",
+    "confirm": "Wiederherstellen und neu starten",
+    "restarting": "Wardarr startet mit dem Backup neu…",
+    "restartingBody": "Das dauert ein paar Sekunden. Die Seite lädt von selbst neu.",
+    "cleared_one": "Gib nach der Anmeldung die Zugangsdaten von {{count}} Dienst neu ein.",
+    "cleared_other": "Gib nach der Anmeldung die Zugangsdaten von {{count}} Diensten neu ein."
+  },
+  "export": {
+    "title": "Mit Passwort herunterladen",
+    "body": "Die Datei wird mit diesem Passwort verschlüsselt und enthält auch den Schlüssel für deine gespeicherten Zugangsdaten. Damit stellt eine neue Installation alles wieder her, auch die API-Schlüssel deiner Dienste. Ohne das Passwort lässt sich die Datei nicht öffnen; niemand kann es wiederherstellen.",
+    "passphrase": "Passwort",
+    "repeat": "Passwort wiederholen",
+    "help": "Mindestens {{count}} Zeichen.",
+    "mismatch": "Die Passwörter stimmen nicht überein.",
+    "submit": "Herunterladen"
+  },
+  "delete": {
+    "title": "Dieses Backup löschen?",
+    "body": "Das Backup vom {{date}} wird endgültig gelöscht.",
+    "confirm": "Löschen"
+  },
+  "uploaded": "Backup hochgeladen.",
+  "created": "Backup erstellt.",
+  "errors": {
+    "notABackup": "Diese Datei ist kein Wardarr-Backup.",
+    "backupCorrupt": "Dieses Backup ist beschädigt und lässt sich nicht verwenden.",
+    "backupTooNew": "Dieses Backup stammt von einer neueren Wardarr-Version. Aktualisiere zuerst Wardarr.",
+    "passphraseRequired": "Gib das Passwort dieses Backups ein.",
+    "wrongPassphrase": "Das Passwort ist falsch.",
+    "keyMismatch": "Dieses Backup stammt von einer anderen Installation. Bestätige, dass du die Zugangsdaten neu eingibst.",
+    "alreadyEncrypted": "Dieses Backup ist schon mit einem Passwort geschützt.",
+    "restartUnavailable": "Wardarr kann sich hier nicht selbst neu starten. Starte den Container neu, um abzuschließen.",
+    "backupUnavailable": "Backups sind gerade nicht verfügbar. Versuche es gleich noch einmal.",
+    "tooLarge": "Diese Datei ist zu groß zum Hochladen.",
+    "demo": "In der Demo nicht verfügbar."
+  }
+}
