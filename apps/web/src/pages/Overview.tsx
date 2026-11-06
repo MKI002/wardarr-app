@@ -212,11 +212,11 @@ function AdminOverview() {
         >
           {t('ui.overview.services')}
         </SectionTitle>
-        <div className="flex flex-col gap-5">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {byCategory.map(({ cat, groups }) => (
             <div key={cat}>
               <h3 className="mb-2 text-xs font-medium text-muted">{t(`adapters.category.${cat}`)}</h3>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col gap-3">
                 {groups.map((g) => (
                   <div key={g.adapter} className="rounded-xl border border-border bg-bg p-3">
                     <div className="mb-2 flex items-center justify-between">
