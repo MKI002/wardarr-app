@@ -126,7 +126,11 @@ export const deluge = defineAdapter({
           etaSeconds: t.eta > 0 ? t.eta : null,
           category: t.label || null,
           addedAt: t.time_added ? new Date(t.time_added * 1000).toISOString() : null,
+          tags: t.label ? [t.label] : [],
         }));
+      },
+      async removeDownload(jobId, opts) {
+        await call('core.remove_torrent', [jobId.toLowerCase(), opts.deleteFiles]);
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

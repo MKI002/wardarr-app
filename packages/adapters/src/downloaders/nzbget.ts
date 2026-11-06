@@ -89,6 +89,10 @@ export const nzbget = defineAdapter({
           };
         });
       },
+      async removeDownload(jobId, opts) {
+        const ok = await rpc<boolean>('editqueue', [opts.deleteFiles ? 'GroupFinalDelete' : 'GroupDelete', '', [Number(jobId)]]);
+        if (!ok) throw new AdapterError('badResponse', 'editqueue failed');
+      },
       webUrl: () => `${ctx.baseUrl}/`,
     };
   },

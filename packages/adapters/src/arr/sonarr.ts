@@ -7,6 +7,7 @@ export const SONARR_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownSeriesItems',
   mediaIdField: 'seriesId',
   mediaKind: 'episode',
+  family: 'series',
 };
 
 export const sonarr = defineAdapter({
@@ -17,7 +18,7 @@ export const sonarr = defineAdapter({
   homepage: 'https://sonarr.tv',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'settings'],
+  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
   mediaKind: 'episode',
   create: (ctx) => createArrInstance(ctx, 'sonarr', () => SONARR_FLAVOR),
 });

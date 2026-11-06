@@ -64,7 +64,13 @@
             "protocol": "torrent",
             "downloadClient": "Example Client",
             "size": 1000,
-            "sizeleft": 400
+            "sizeleft": 400,
+            "movie": {
+              "id": 11,
+              "title": "Example Movie",
+              "hasFile": true,
+              "tags": []
+            }
           },
           {
             "id": 2,
@@ -75,7 +81,9 @@
             "statusMessages": [
               {
                 "title": "Mystery.Film.2023.2160p",
-                "messages": ["Unknown item. Unable to match to an existing item"]
+                "messages": [
+                  "Unknown item. Unable to match to an existing item"
+                ]
               }
             ],
             "downloadId": "FIXTURE0002",
@@ -131,6 +139,59 @@
       }
     },
     {
+      "path": "/api/v3/tag",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": []
+    },
+    {
+      "path": "/api/v3/movie",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "id": 31,
+          "title": "Missing Movie",
+          "year": 2024,
+          "monitored": true,
+          "hasFile": false,
+          "isAvailable": true,
+          "tags": []
+        },
+        {
+          "id": 32,
+          "title": "Future Movie",
+          "year": 2027,
+          "monitored": true,
+          "hasFile": false,
+          "isAvailable": false,
+          "tags": []
+        },
+        {
+          "id": 33,
+          "title": "Owned Movie",
+          "year": 2021,
+          "monitored": true,
+          "hasFile": true,
+          "isAvailable": true,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v3/command",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "id": 2,
+        "name": "MoviesSearch"
+      }
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -171,6 +232,30 @@
         "matched": true,
         "downloadId": "FIXTURE0003"
       }
-    ]
+    ],
+    "queueExtras": {
+      "inLibrary": true,
+      "titleKey": "movie:11"
+    },
+    "wantedMissing": [
+      {
+        "key": "movie:31",
+        "title": "Missing Movie (2024)"
+      }
+    ],
+    "search": {
+      "target": {
+        "kind": "movies",
+        "ids": [
+          31
+        ]
+      },
+      "body": {
+        "name": "MoviesSearch",
+        "movieIds": [
+          31
+        ]
+      }
+    }
   }
 }

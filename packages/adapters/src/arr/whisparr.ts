@@ -10,6 +10,7 @@ export const WHISPARR_V2_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownSeriesItems',
   mediaIdField: 'seriesId',
   mediaKind: 'scene',
+  family: 'series',
 };
 
 export const WHISPARR_V3_FLAVOR: ArrFlavor = {
@@ -17,6 +18,7 @@ export const WHISPARR_V3_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownMovieItems',
   mediaIdField: 'movieId',
   mediaKind: 'scene',
+  family: 'movie',
 };
 
 export function whisparrFlavor(version: string | undefined): ArrFlavor {
@@ -42,7 +44,7 @@ export const whisparr = defineAdapter({
   homepage: 'https://github.com/Whisparr/Whisparr',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'settings'],
+  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
   mediaKind: 'scene',
   create(ctx) {
     const inst = createArrInstance(ctx, 'whisparr', () => detect(ctx));

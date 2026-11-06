@@ -75,7 +75,9 @@
             "statusMessages": [
               {
                 "title": "Unknown Band - Album Two",
-                "messages": ["Unknown item. Unable to match to an existing item"]
+                "messages": [
+                  "Unknown item. Unable to match to an existing item"
+                ]
               }
             ],
             "downloadId": "FIXTURE0002",
@@ -131,6 +133,42 @@
       }
     },
     {
+      "path": "/api/v1/wanted/missing",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "page": 1,
+        "pageSize": 50,
+        "totalRecords": 1,
+        "records": [
+          {
+            "id": 41,
+            "artistId": 5,
+            "title": "Album One",
+            "monitored": true,
+            "releaseDate": "2025-05-01T00:00:00Z",
+            "artist": {
+              "artistName": "Example Artist",
+              "tags": [],
+              "monitored": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/command",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": {
+        "id": 3,
+        "name": "AlbumSearch"
+      }
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -171,6 +209,26 @@
         "matched": true,
         "downloadId": "FIXTURE0003"
       }
-    ]
+    ],
+    "wantedMissing": [
+      {
+        "key": "album:41",
+        "title": "Example Artist \u2013 Album One"
+      }
+    ],
+    "search": {
+      "target": {
+        "kind": "albums",
+        "ids": [
+          41
+        ]
+      },
+      "body": {
+        "name": "AlbumSearch",
+        "albumIds": [
+          41
+        ]
+      }
+    }
   }
 }

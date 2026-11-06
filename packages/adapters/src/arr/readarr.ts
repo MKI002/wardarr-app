@@ -9,6 +9,7 @@ export const READARR_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownAuthorItems',
   mediaIdField: 'bookId',
   mediaKind: 'book',
+  family: 'book',
 };
 
 export const readarr = defineAdapter({
@@ -19,7 +20,7 @@ export const readarr = defineAdapter({
   homepage: 'https://github.com/Readarr/Readarr',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'settings'],
+  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
   mediaKind: 'book',
   create: (ctx) => createArrInstance(ctx, 'readarr', () => READARR_FLAVOR),
 });

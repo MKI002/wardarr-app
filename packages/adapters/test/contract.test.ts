@@ -27,6 +27,14 @@ interface Fixture {
     sessions?: Array<{ title: string; state: string; transcoding: boolean }>;
     downloads?: Array<{ state: string }>;
     indexers?: Array<{ name: string; failing: boolean }>;
+    /** Queue extras of the first matched record. */
+    queueExtras?: { inLibrary?: boolean; tags?: string[]; titleKey?: string };
+    importPreview?: { downloadId: string; files: Array<{ target: string | null; rejections: string[] }> };
+    wantedMissing?: Array<{ key: string; title: string }>;
+    history?: { since: string; events: Array<{ type: string; mediaId: number | null }> };
+    /** A call that must hit a fixture route (method + path). */
+    remove?: { id: string | number; path: string };
+    search?: { target: Record<string, unknown>; body: Record<string, unknown> };
   };
 }
 
@@ -69,6 +77,11 @@ const METHOD_FOR: Partial<Record<(typeof CAPABILITIES)[number], keyof AdapterIns
   downloads: 'downloads',
   indexers: 'indexers',
   settings: 'settings',
+  queueActions: 'removeQueueItem',
+  manualImport: 'importPreview',
+  wanted: 'wanted',
+  search: 'search',
+  history: 'historySince',
 };
 
 describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDef) => {
@@ -148,6 +161,68 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
       ).toEqual(fx.expect.queue);
       const queueCall = http.calls.find((c) => c.path.endsWith('/queue'));
       expect(Object.keys(queueCall!.query ?? {}).some((k) => k.startsWith('includeUnknown'))).toBe(true);
+    });
+  }
+
+  if (fx.expect.queueExtras) {
+    it('reads library state, tags and title keys of queue entries', async () => {
+      const { adapter } = instantiate(def, fx);
+      const first = (await adapter.queue!()).find((i) => i.matched)!;
+      expect({ inLibrary: first.inLibrary, tags: first.tags, titleKey: first.titleKey }).toMatchObject(
+        fx.expect.queueExtras!,
+      );
+    });
+  }
+
+  if (fx.expect.importPreview) {
+    it('reads the manual import preview', async () => {
+      const { adapter } = instantiate(def, fx);
+      const files = await adapter.importPreview!(fx.expect.importPreview!.downloadId);
+      expect(files.map((f) => ({ target: f.target, rejections: f.rejections }))).toEqual(
+        fx.expect.importPreview!.files,
+      );
+    });
+  }
+
+  if (fx.expect.wantedMissing) {
+    it('reads the wanted list', async () => {
+      const { adapter } = instantiate(def, fx);
+      const items = await adapter.wanted!('missing', { monitoredOnly: true, max: 50 });
+      expect(items.map((i) => ({ key: i.key, title: i.title }))).toEqual(fx.expect.wantedMissing);
+    });
+  }
+
+  if (fx.expect.history) {
+    it('reads history events', async () => {
+      const { adapter } = instantiate(def, fx);
+      const events = await adapter.historySince!(fx.expect.history!.since);
+      expect(events.map((e) => ({ type: e.type, mediaId: e.mediaId }))).toEqual(fx.expect.history!.events);
+    });
+  }
+
+  if (fx.expect.remove) {
+    it('removes a queue entry or download job', async () => {
+      const { adapter, http } = instantiate(def, fx);
+      const r = fx.expect.remove!;
+      if (adapter.removeQueueItem) await adapter.removeQueueItem(Number(r.id), { removeFromClient: true, blocklist: true });
+      else await adapter.removeDownload!(String(r.id), { deleteFiles: true });
+      expect(http.calls.some((c) => c.path === r.path && c.method && c.method !== 'GET')).toBe(true);
+    });
+  }
+
+  if (fx.expect.search) {
+    it('starts a search command', async () => {
+      const { adapter, http } = instantiate(def, fx);
+      await adapter.search!(fx.expect.search!.target as never);
+      const call = http.calls.find((c) => c.method === 'POST' && c.path.endsWith('/command'));
+      expect(call?.json).toMatchObject(fx.expect.search!.body);
+    });
+  }
+
+  if (def.capabilities.includes('downloads')) {
+    it('can remove download jobs', () => {
+      const { adapter } = instantiate(def, fx);
+      expect(typeof adapter.removeDownload).toBe('function');
     });
   }
 

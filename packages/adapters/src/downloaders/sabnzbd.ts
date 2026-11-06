@@ -120,6 +120,9 @@ export const sabnzbd = defineAdapter({
           };
         });
       },
+      async removeDownload(jobId, opts) {
+        await call('queue', { name: 'delete', value: jobId, del_files: opts.deleteFiles ? '1' : '0' });
+      },
       webUrl: () => `${ctx.baseUrl}/`,
     };
   },

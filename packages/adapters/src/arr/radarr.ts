@@ -7,6 +7,7 @@ export const RADARR_FLAVOR: ArrFlavor = {
   includeUnknownParam: 'includeUnknownMovieItems',
   mediaIdField: 'movieId',
   mediaKind: 'movie',
+  family: 'movie',
 };
 
 export const radarr = defineAdapter({
@@ -17,7 +18,7 @@ export const radarr = defineAdapter({
   homepage: 'https://radarr.video',
   fields: [apiKeyField],
   credentials: apiKeySchema,
-  capabilities: ['health', 'queue', 'settings'],
+  capabilities: ['health', 'queue', 'queueActions', 'manualImport', 'wanted', 'search', 'history', 'settings'],
   mediaKind: 'movie',
   create: (ctx) => createArrInstance(ctx, 'radarr', () => RADARR_FLAVOR),
 });

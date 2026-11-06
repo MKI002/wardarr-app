@@ -12,6 +12,14 @@
   "routes": [
     {
       "method": "POST",
+      "path": "/api/v2/torrents/delete",
+      "form": {
+        "deleteFiles": "true"
+      },
+      "text": ""
+    },
+    {
+      "method": "POST",
       "path": "/api/v2/auth/login",
       "form": {
         "username": "example-user",
@@ -104,6 +112,10 @@
       {
         "state": "completed"
       }
-    ]
+    ],
+    "remove": {
+      "id": "0000000000000000000000000000000000000001",
+      "path": "/api/v2/torrents/delete"
+    }
   }
 }
