@@ -204,6 +204,8 @@ try {
     WARDARR_PORT: String(PORT),
     WARDARR_HOST: '127.0.0.1',
     WARDARR_LOG_LEVEL: 'warn',
+    // The invented guide data, never the real TRaSH Guides.
+    WARDARR_TRASH_DIR: path.join(root, 'testbed/trash-guides'),
   });
   await waitFor(`${MOCK}/__ready`);
   await waitFor(`${BASE}/healthz`);
@@ -251,6 +253,33 @@ try {
     events: { ...events, issueOpened: 'critical', requestPending: false },
     config: { url: `${MOCK}/hook/wardarr` },
   });
+
+  // TRaSH Guides: three templates, two synced instances, one with a change
+  // made by hand, one waiting for its first sync.
+  const trashTemplate = async (name, product, profiles, extra = {}) => {
+    const catalog = await must('GET', `/api/trash/catalog/${product}`);
+    const config = {
+      profiles: profiles.map((n) => catalog.profiles.find((p) => p.name === n).suggested),
+      qualitySize: catalog.qualitySizes[0]?.trashId ?? null,
+      naming: Object.fromEntries(Object.keys(catalog.naming).map((k) => [k, 'default'])),
+      rename: true,
+      ...extra,
+    };
+    return (await must('POST', '/api/trash/templates', { name, product, config })).template.id;
+  };
+  const trashTemplates = {
+    radarr: await trashTemplate('Movies HD', 'radarr', ['Example HD Bluray + WEB']),
+    'radarr-4k': await trashTemplate('Movies 4K', 'radarr', ['Example UHD Bluray + WEB']),
+    sonarr: await trashTemplate('Series', 'sonarr', ['Example WEB-1080p', '[German] Example WEB-1080p']),
+  };
+  for (const [key, templateId] of Object.entries(trashTemplates)) {
+    await must('PUT', `/api/trash/instances/${ids[key]}/template`, { templateId });
+  }
+  for (const key of ['radarr', 'radarr-4k'])
+    await must('POST', `/api/trash/instances/${ids[key]}/sync`, { confirm: true });
+  await must('PUT', `/api/trash/instances/${ids.radarr}/guard`, { mode: 'auto', confirm: true });
+  await fetch(`${MOCK}/__drift/radarr-4k`, { method: 'POST' });
+  for (const key of Object.keys(trashTemplates)) await must('POST', `/api/trash/instances/${ids[key]}/check`);
 
   seedStreamHistory(ids.jellyfin);
   await must('POST', `/api/library/${ids.jellyfin}/refresh`);
@@ -319,6 +348,12 @@ try {
     await get(`/api/requests/mine?status=${status}&take=20&skip=0`);
   }
 
+  const trash = await get('/api/trash');
+  await get('/api/trash/history?limit=100');
+  for (const product of ['radarr', 'sonarr']) await get(`/api/trash/catalog/${product}`);
+  for (const inst of trash?.instances ?? [])
+    if (inst.templateId) await get(`/api/trash/instances/${encodeURIComponent(inst.id)}/preview`);
+
   for (const days of [7, 30, 90, 365]) {
     await get(`/api/library?days=${days}`);
     await get(`/api/stats?days=${days}`);
@@ -343,6 +378,20 @@ try {
     fields: { apiKey: DEMO_KEY },
   });
   mutations['POST /api/instances/test'] = { status: test.status, body: test.data };
+  const record = async (method, p, body) => {
+    const r = await call(method, p, body);
+    mutations[`${method} ${p}`] = { status: r.status, body: r.data };
+  };
+  const templates = trash?.templates ?? [];
+  const movies = templates.find((x) => x.name === 'Movies HD');
+  if (movies) await record('POST', '/api/trash/resolve', { product: 'radarr', config: movies.config });
+  for (const key of ['radarr', 'radarr-4k', 'sonarr', 'sonarr-4k']) {
+    const id = encodeURIComponent(ids[key]);
+    await record('POST', `/api/trash/instances/${id}/suggest`);
+  }
+  await record('POST', `/api/trash/instances/${encodeURIComponent(ids.radarr)}/release-test`, {
+    title: 'Nosferatu.1922.1080p.BluRay.x264-EXAMPLE',
+  });
 
   // ----------------------------------------------------------- clean up
   let out = JSON.stringify({ capturedAt: new Date().toISOString(), fixtures, mutations }, null, 1);

@@ -1,0 +1,29 @@
+{
+  "name": "[Unwanted] Unwanted Formats (UHD)",
+  "trash_id": "65342dc7cd156666db203441072dd6ea",
+  "trash_description": "Unwanted formats for UHD profiles.",
+  "default": "true",
+  "custom_formats": [
+    {
+      "name": "BR-DISK",
+      "trash_id": "413aadae167017c1de53efde8f5ab0ac",
+      "required": true
+    },
+    {
+      "name": "LQ",
+      "trash_id": "e4eb13a771af7975c0d4c11352bffbc3",
+      "required": true
+    },
+    {
+      "name": "x265 (no HDR/DV)",
+      "trash_id": "56f43935a17a4133caaf6ed382817697",
+      "required": false,
+      "default": true
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example UHD Bluray + WEB": "4b60a7b48461a2ffa0db937e13c84108"
+    }
+  }
+}

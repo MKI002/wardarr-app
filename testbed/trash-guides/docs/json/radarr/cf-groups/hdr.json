@@ -1,0 +1,23 @@
+{
+  "name": "[HDR Formats] HDR",
+  "trash_id": "a52fda891923615bd55075229cbfd147",
+  "trash_description": "For HDR-capable screens.",
+  "default": "true",
+  "custom_formats": [
+    {
+      "name": "HDR",
+      "trash_id": "358032402b7568200a603b5456690ede",
+      "required": true
+    },
+    {
+      "name": "DV",
+      "trash_id": "5f65090fc2ee8bec2198d5aef81eca74",
+      "required": false
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example UHD Bluray + WEB": "4b60a7b48461a2ffa0db937e13c84108"
+    }
+  }
+}

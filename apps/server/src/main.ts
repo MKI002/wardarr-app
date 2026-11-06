@@ -22,6 +22,7 @@ const { app, runtime, sessions, history } = await buildApp({
   webDir,
   httpTimeoutMs: config.httpTimeoutMs,
   publicUrl: config.publicUrl,
+  trashDir: config.trashDir,
 });
 
 const scheduler = new Scheduler(app.log);

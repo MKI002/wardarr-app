@@ -1,0 +1,54 @@
+{
+  "trash_id": "b564657984f7a3e79fac4b4908e67cd8",
+  "name": "[German] Example WEB-1080p",
+  "trash_description": "Invented example profile for German releases.",
+  "trash_url": "https://trash-guides.info/",
+  "group": 11,
+  "trash_score_set": "german",
+  "upgradeAllowed": true,
+  "cutoff": "WEB 1080p",
+  "minFormatScore": 0,
+  "cutoffFormatScore": 10000,
+  "minUpgradeFormatScore": 1,
+  "trash_quality_definition": {
+    "series": "3307876f1299e90b8788815f5e4ae1a8"
+  },
+  "items": [
+    {
+      "name": "WEB 1080p",
+      "allowed": true,
+      "items": ["WEBRip-1080p", "WEBDL-1080p"]
+    },
+    {
+      "name": "HDTV-1080p",
+      "allowed": false
+    },
+    {
+      "name": "WEB 2160p",
+      "allowed": false,
+      "items": ["WEBRip-2160p", "WEBDL-2160p"]
+    },
+    {
+      "name": "WEB 720p",
+      "allowed": false,
+      "items": ["WEBRip-720p", "WEBDL-720p"]
+    },
+    {
+      "name": "HDTV-720p",
+      "allowed": false
+    },
+    {
+      "name": "SDTV",
+      "allowed": false
+    },
+    {
+      "name": "Unknown",
+      "allowed": false
+    }
+  ],
+  "formatItems": {
+    "German DL": "8e92c7fe891b1237e30ac39abd2910a9",
+    "Example Tier 01": "f494ec422c4bfe07c044fecf9c977fc3",
+    "Repack/Proper": "3e22b363a472278a64689c7bc85783f0"
+  }
+}

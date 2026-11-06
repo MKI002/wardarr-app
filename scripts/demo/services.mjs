@@ -6,6 +6,7 @@
 // was checked); everything else (series, users, hosts, keys, indexers,
 // albums) is invented.
 import http from 'node:http';
+import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
 const PORT = Number(process.env.DEMO_MOCK_PORT ?? 19300);
@@ -302,10 +303,32 @@ const ARR = {
   },
 };
 
+/** Custom formats, quality profiles, sizes and naming for the TRaSH Guides tab. */
+const PROFILES = {
+  sonarr: createProfileStore('sonarr', ['HD-1080p', 'Any']),
+  'sonarr-4k': createProfileStore('sonarr', ['Ultra HD', 'Any']),
+  radarr: createProfileStore('radarr', ['HD-1080p', 'Any']),
+  'radarr-4k': createProfileStore('radarr', ['Ultra HD', 'Any']),
+};
+const PROFILE_PATH = /^\/(customformat|qualityprofile|qualitydefinition|config\/naming|language|parse)(\/|$)/;
+
+/** Changes a score by hand, as if someone edited it in the service. */
+function profileDrift(prefix, res) {
+  const profile = PROFILES[prefix]?.state.profiles.find((p) => p.formatItems.some((f) => f.score));
+  const item = profile?.formatItems.find((f) => f.score);
+  if (item) item.score += 25;
+  return json(res, { changed: Boolean(item) });
+}
+
 async function arr(prefix, path, url, req, res) {
   const svc = ARR[prefix];
   if (!svc || !path.startsWith(svc.api)) return json(res, {}, 404);
   const p = path.slice(svc.api.length);
+  if (PROFILES[prefix] && PROFILE_PATH.test(p)) {
+    const body = req.method === 'POST' || req.method === 'PUT' ? await readBody(req) : null;
+    const answer = PROFILES[prefix].handle(req.method, p, url, body);
+    return answer ? json(res, answer.body, answer.status) : json(res, {}, 404);
+  }
   if (req.method !== 'GET') {
     await readBody(req);
     if (p === '/command') return json(res, { id: 1, name: 'Command', status: 'queued' }, 201);
@@ -317,7 +340,7 @@ async function arr(prefix, path, url, req, res) {
   if (p === '/tag') return json(res, [{ id: 1, label: 'wardarr-keep' }]);
   if (p === '/qualityprofile')
     return json(res, [
-      { id: 1, name: prefix.endsWith('4k') ? 'Ultra HD' : 'HD-1080p' },
+      { id: 1, name: 'Lossless' },
       { id: 2, name: 'Any' },
     ]);
   if (p === '/movie') return json(res, svc.movies ?? []);
@@ -781,6 +804,7 @@ http
     const [, prefix = '', ...rest] = url.pathname.split('/');
     const path = `/${rest.join('/')}`;
     if (prefix === '__ready') return json(res, { ok: true });
+    if (prefix === '__drift') return profileDrift(rest[0], res);
     // Notification channels point here while the demo data is captured.
     if (prefix === 'hook' || prefix === 'ntfy') return readBody(req).then(() => json(res, {}));
     if (prefix === 'qbittorrent') return qbittorrent(path, res);

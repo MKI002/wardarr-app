@@ -1,0 +1,20 @@
+{
+  "trash_id": "de3ee14b36b56d6f3e523a5fd09fe274",
+  "trash_scores": {
+    "default": 1750,
+    "german": 1750
+  },
+  "name": "Example Tier 02",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Meadow",
+      "implementation": "ReleaseGroupSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "^(MEADOW)$"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "trash_id": "e4eb13a771af7975c0d4c11352bffbc3",
+  "trash_scores": {
+    "default": -10000
+  },
+  "name": "LQ",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "Example LQ",
+      "implementation": "ReleaseGroupSpecification",
+      "negate": false,
+      "required": false,
+      "fields": {
+        "value": "^(BADGROUP|WORSEGROUP)$"
+      }
+    }
+  ]
+}

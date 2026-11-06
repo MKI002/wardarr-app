@@ -37,7 +37,8 @@
     "discover": "Entdecken",
     "requests": "Anfragen",
     "library": "Bibliothek",
-    "indexers": "Indexer"
+    "indexers": "Indexer",
+    "trash": "TRaSH Guides"
   },
   "errors": {
     "serverUnreachable": "Der Wardarr-Server antwortet nicht.",

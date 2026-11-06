@@ -7,6 +7,14 @@ import { allIndexersUnavailable, indexerSearchUnavailable, indexerUnavailable } 
 import { attemptsExhausted, cleanerPaused, importReady, orphanedDownloads } from './cleaner.js';
 import { downloadsFailed } from './queue.js';
 import { remotePathMapping, rootFolderMissing } from './storage.js';
+import {
+  trashGuideDrift,
+  trashGuideFetchFailed,
+  trashLocalDrift,
+  trashSyncFailed,
+  trashSyncPaused,
+  trashUnsupported,
+} from './trash.js';
 import { unknownMessage } from './unknown.js';
 import { updateAvailable } from './updates.js';
 import { apiCompatibility, mediaCacheRefresh } from './wardarr.js';
@@ -28,6 +36,12 @@ export const RULE_CATALOG: readonly IssueRule[] = [
   downloadsFailed,
   mediaCacheRefresh,
   apiCompatibility,
+  trashSyncFailed,
+  trashSyncPaused,
+  trashGuideDrift,
+  trashLocalDrift,
+  trashUnsupported,
+  trashGuideFetchFailed,
   unknownMessage,
 ] as IssueRule[];
 

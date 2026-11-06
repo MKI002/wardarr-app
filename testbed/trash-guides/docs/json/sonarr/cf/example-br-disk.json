@@ -1,0 +1,19 @@
+{
+  "trash_id": "ac4002fa44d30006a82129608492726e",
+  "trash_scores": {
+    "default": -10000
+  },
+  "name": "BR-DISK",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "BR-DISK",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "^(?!.*\\b(remux)\\b).*\\b(COMPLETE.BLURAY|BD25|BD50)\\b"
+      }
+    }
+  ]
+}

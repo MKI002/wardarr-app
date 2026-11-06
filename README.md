@@ -39,6 +39,10 @@ titles at a gentle pace and lets everyone in the house request something to watc
 - **Discover and request.** Trending and popular titles, search, and requests that go through
   Seerr as the right Seerr user, so its permissions, quotas and approvals stay in charge.
   Standard or 4K, and the admin approves from the same page.
+- **TRaSH Guides, kept in sync.** Templates with TRaSH quality profiles, custom formats, sizes
+  and naming for any number of Sonarrs and Radarrs. Every sync shows a field-by-field preview
+  and takes a backup you can roll back; a guard reports drift or keeps instances in sync on its
+  own, and stops for large changes.
 - **Library and streams.** Library sizes and counts per media server, what is playing right
   now, plays per day, most watched titles and who watched what.
 - **Indexer statistics.** Queries, grabs, failures and response times per indexer from
@@ -145,6 +149,7 @@ Everything else is set in the web interface. These environment variables are opt
 | `WARDARR_COOKIE_SECURE`   | `auto`    | Secure flag on the session cookie; `auto` sets it for HTTPS requests.                                                            |
 | `WARDARR_HTTP_TIMEOUT_MS` | `10000`   | Timeout for calls to your services.                                                                                              |
 | `WARDARR_LOG_LEVEL`       | `info`    | `fatal`, `error`, `warn`, `info`, `debug`, `trace` or `silent`.                                                                  |
+| `WARDARR_TRASH_DIR`       | none      | Local checkout of the TRaSH Guides, used instead of downloading them from GitHub.                                                |
 
 ### Behind a reverse proxy
 
@@ -172,6 +177,7 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
 - [Hunting](docs/guide/hunting.md): pace, limits and results.
 - [Discover and requests](docs/guide/discover-and-requests.md): how requests reach Seerr and
   how users are linked.
+- [TRaSH Guides](docs/guide/trash-guides.md): templates, previews, rollbacks and the guard.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Notifications](docs/guide/notifications.md): channels, events and the webhook format.
 - [Writing an adapter](docs/guide/adapters.md): add support for another service.

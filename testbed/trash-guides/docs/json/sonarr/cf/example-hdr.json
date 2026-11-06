@@ -1,0 +1,19 @@
+{
+  "trash_id": "acba97212e53a38055ce551ebf93c0ed",
+  "trash_scores": {
+    "default": 500
+  },
+  "name": "HDR",
+  "includeCustomFormatWhenRenaming": false,
+  "specifications": [
+    {
+      "name": "HDR",
+      "implementation": "ReleaseTitleSpecification",
+      "negate": false,
+      "required": true,
+      "fields": {
+        "value": "\\bHDR(\\b|\\d)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "[Unwanted] Unwanted Formats (UHD)",
+  "trash_id": "7cbcad2a69ec5e46495a3131399f5774",
+  "trash_description": "Unwanted formats for UHD profiles.",
+  "default": "true",
+  "custom_formats": [
+    {
+      "name": "BR-DISK",
+      "trash_id": "ac4002fa44d30006a82129608492726e",
+      "required": true
+    },
+    {
+      "name": "LQ",
+      "trash_id": "af5a89f18109544bbf9cdf3225e54633",
+      "required": true
+    },
+    {
+      "name": "x265 (no HDR/DV)",
+      "trash_id": "7d76f0ad5c9c14d37f886954151ceab5",
+      "required": false,
+      "default": true
+    }
+  ],
+  "quality_profiles": {
+    "include": {
+      "Example WEB-2160p": "e4220021cd026c68779b53606d234f53"
+    }
+  }
+}

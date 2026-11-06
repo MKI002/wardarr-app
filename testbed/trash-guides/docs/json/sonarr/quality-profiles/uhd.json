@@ -1,0 +1,53 @@
+{
+  "trash_id": "e4220021cd026c68779b53606d234f53",
+  "name": "Example WEB-2160p",
+  "trash_description": "Invented example profile for 2160p releases.",
+  "trash_url": "https://trash-guides.info/",
+  "group": 1,
+  "upgradeAllowed": true,
+  "cutoff": "WEB 2160p",
+  "minFormatScore": 0,
+  "cutoffFormatScore": 10000,
+  "minUpgradeFormatScore": 1,
+  "trash_quality_definition": {
+    "series": "3307876f1299e90b8788815f5e4ae1a8"
+  },
+  "items": [
+    {
+      "name": "WEB 2160p",
+      "allowed": true,
+      "items": ["WEBRip-2160p", "WEBDL-2160p"]
+    },
+    {
+      "name": "WEB 1080p",
+      "allowed": false,
+      "items": ["WEBRip-1080p", "WEBDL-1080p"]
+    },
+    {
+      "name": "HDTV-1080p",
+      "allowed": false
+    },
+    {
+      "name": "WEB 720p",
+      "allowed": false,
+      "items": ["WEBRip-720p", "WEBDL-720p"]
+    },
+    {
+      "name": "HDTV-720p",
+      "allowed": false
+    },
+    {
+      "name": "SDTV",
+      "allowed": false
+    },
+    {
+      "name": "Unknown",
+      "allowed": false
+    }
+  ],
+  "formatItems": {
+    "Example Tier 01": "f494ec422c4bfe07c044fecf9c977fc3",
+    "Example Tier 02": "de3ee14b36b56d6f3e523a5fd09fe274",
+    "Repack/Proper": "3e22b363a472278a64689c7bc85783f0"
+  }
+}

@@ -38,6 +38,9 @@ import { InstanceStore } from './instances/store.js';
 import { registerIssueRoutes } from './issues/routes.js';
 import { IssueService } from './issues/service.js';
 import { registerOverviewRoutes } from './overview/routes.js';
+import { registerTrashRoutes } from './trash/routes.js';
+import { TrashService } from './trash/service.js';
+import type { GuideSource } from './trash/source.js';
 import type { SecretBox } from './security/crypto.js';
 import { redact, redactString } from './security/redact.js';
 import { registerUserRoutes } from './users/routes.js';
@@ -58,6 +61,10 @@ export interface AppOptions {
   publicUrl?: string;
   /** Overrides for notification timing and delivery, for tests. */
   notificationOptions?: NotificationOptions;
+  /** Local checkout of the TRaSH Guides. */
+  trashDir?: string;
+  /** Replaces the TRaSH Guides download, for tests. */
+  trashSource?: GuideSource;
 }
 
 export interface App {
@@ -76,6 +83,7 @@ export interface App {
   requests: RequestService;
   indexers: IndexerService;
   notifications: NotificationService;
+  trash: TrashService;
 }
 
 function isFile(p: string): boolean {
@@ -163,6 +171,10 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
   });
+  const trash = new TrashService(opts.db, runtime, bus, app.log, {
+    source: opts.trashSource,
+    localDir: opts.trashDir,
+  });
   requests.onCreated(
     (req, user) => void notifications.requestPending(req, user.displayName ?? user.username),
   );
@@ -221,6 +233,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerLibraryRoutes(app, { library, history });
   registerIndexerRoutes(app, { indexers });
   registerNotificationRoutes(app, { notifications });
+  registerTrashRoutes(app, { trash });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
   // The web UI bundle contains no data, so it is served without login.
@@ -268,5 +281,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     requests,
     indexers,
     notifications,
+    trash,
   };
 }

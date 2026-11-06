@@ -41,6 +41,10 @@ anfragen.
 - **Entdecken und anfragen.** Trends, Beliebtes und Suche. Anfragen laufen über Seerr als der
   richtige Seerr-Benutzer, damit Rechte, Kontingente und Freigaben dort bleiben. Standard oder
   4K, und Admins geben auf derselben Seite frei.
+- **TRaSH Guides, immer synchron.** Vorlagen mit Qualitätsprofilen, Custom Formats, Größen und
+  Benennung aus den TRaSH Guides für beliebig viele Sonarrs und Radarrs. Jeder Sync zeigt vorher
+  jede Änderung Feld für Feld und legt ein Backup an, das sich zurückrollen lässt; ein Wächter
+  meldet Abweichungen oder hält Instanzen selbst synchron und hält bei großen Änderungen an.
 - **Bibliothek und Streams.** Größe und Anzahl je Medienserver, was gerade läuft, Wiedergaben
   pro Tag, meistgesehene Titel und wer was geschaut hat.
 - **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
@@ -149,6 +153,7 @@ Alles Weitere wird in der Weboberfläche eingestellt. Diese Umgebungsvariablen s
 | `WARDARR_COOKIE_SECURE`   | `auto`    | Secure-Flag am Sitzungs-Cookie; `auto` setzt es bei HTTPS.                                                                                                   |
 | `WARDARR_HTTP_TIMEOUT_MS` | `10000`   | Zeitlimit für Aufrufe an deine Dienste.                                                                                                                      |
 | `WARDARR_LOG_LEVEL`       | `info`    | `fatal`, `error`, `warn`, `info`, `debug`, `trace` oder `silent`.                                                                                            |
+| `WARDARR_TRASH_DIR`       | keiner    | Lokale Kopie der TRaSH Guides, die statt des Downloads von GitHub verwendet wird.                                                                            |
 
 ### Hinter einem Reverse Proxy
 
@@ -178,6 +183,7 @@ Die Anleitungen sind auf Englisch:
 - [Queue Cleaner](docs/guide/queue-cleaner.md)
 - [Hunting](docs/guide/hunting.md)
 - [Entdecken und Anfragen](docs/guide/discover-and-requests.md)
+- [TRaSH Guides](docs/guide/trash-guides.md)
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Benachrichtigungen](docs/guide/notifications.md)
 - [Einen Adapter schreiben](docs/guide/adapters.md)

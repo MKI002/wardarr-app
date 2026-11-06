@@ -1,0 +1,14 @@
+{
+  "custom_formats": [
+    {
+      "70488d840bc7f84094198cf5a25c476e": {
+        "name": "x265 (HD)",
+        "desc": ""
+      },
+      "56f43935a17a4133caaf6ed382817697": {
+        "name": "x265 (no HDR/DV)",
+        "desc": ""
+      }
+    }
+  ]
+}

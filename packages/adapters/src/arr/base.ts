@@ -3,6 +3,12 @@
 import {
   AdapterError,
   type AdapterContext,
+  type ArrCustomFormat,
+  type ArrLanguage,
+  type ArrNaming,
+  type ArrQualityDefinition,
+  type ArrQualityProfile,
+  type ProfileSyncApi,
   type AdapterInstance,
   type MediaKind,
   type QueueItem,
@@ -15,10 +21,12 @@ import {
   compatSignal,
   detectApi,
   detectionCache,
+  majorOf,
   type ApiDetection,
   type VersionProfile,
 } from '../shared/apiVersion.js';
 import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
+import type { HttpResponse } from '@wardarr/core';
 import { FAMILIES, type ArrFamily } from './families.js';
 
 /**
@@ -134,7 +142,11 @@ export function createArrInstance(
   ctx: AdapterContext<{ apiKey: string }>,
   adapterId: string,
   profile: ArrProfile,
-  extra: { webPaths?: Partial<Record<'indexer' | 'queue' | 'settings' | 'system', string>> } = {},
+  extra: {
+    webPaths?: Partial<Record<'indexer' | 'queue' | 'settings' | 'system', string>>;
+    /** Lowest product major version with custom formats; enables `profileSync`. */
+    profileSyncSince?: number;
+  } = {},
 ): AdapterInstance & { flavor(): Promise<ArrFlavor>; detection(): Promise<ApiDetection> } {
   const headers = { 'X-Api-Key': ctx.credentials.apiKey };
   const detection = detectionCache(() => detectApi(ctx, profile));
@@ -165,7 +177,7 @@ export function createArrInstance(
     path: string,
     json?: unknown,
     query?: Record<string, string | number | boolean>,
-  ) => {
+  ): Promise<HttpResponse> => {
     const f = await flavor();
     try {
       const res = await ctx.http.request({ method, path: `${f.apiBase}${path}`, query, headers, json });
@@ -189,9 +201,23 @@ export function createArrInstance(
     ...extra.webPaths,
   };
 
+  const profileSync =
+    extra.profileSyncSince === undefined
+      ? undefined
+      : createProfileSync(get, send, async () => {
+          const d = await detection.get();
+          const major = majorOf(d.productVersion);
+          if (major && major < extra.profileSyncSince!)
+            throw new AdapterError(
+              'unsupported',
+              `${profile.product} ${d.productVersion} has no custom formats`,
+            );
+        });
+
   return {
     flavor,
     detection: () => detection.get(),
+    profileSync,
     async testConnection() {
       let d = await detection.get();
       const status = await get<StatusResource>('/system/status');
@@ -300,4 +326,83 @@ export function createArrInstance(
       return `${ctx.baseUrl}${path}`;
     },
   };
+}
+
+type Get = <T>(path: string, query?: Record<string, string | number | boolean>) => Promise<T>;
+type Send = (
+  method: 'POST' | 'PUT' | 'DELETE',
+  path: string,
+  json?: unknown,
+  query?: Record<string, string | number | boolean>,
+) => Promise<HttpResponse>;
+
+/**
+ * Profile settings of Sonarr (v4 and later) and Radarr: custom formats,
+ * quality profiles, quality definitions and naming. Used by the TRaSH Guides
+ * sync; every write goes through Wardarr's confirmed sync with a backup.
+ */
+function createProfileSync(get: Get, send: Send, ensureSupported: () => Promise<void>): ProfileSyncApi {
+  const guarded =
+    <A extends unknown[], R>(fn: (...args: A) => Promise<R>) =>
+    async (...args: A): Promise<R> => {
+      await ensureSupported();
+      return fn(...args);
+    };
+  const body = <T>(res: HttpResponse): T => res.json<T>();
+  return {
+    ensureSupported,
+    customFormats: guarded(() => get<ArrCustomFormat[]>('/customformat')),
+    createCustomFormat: guarded(async (cf) => body<ArrCustomFormat>(await send('POST', '/customformat', cf))),
+    updateCustomFormat: guarded(async (cf) =>
+      body<ArrCustomFormat>(await send('PUT', `/customformat/${cf.id}`, cf)),
+    ),
+    deleteCustomFormat: guarded(async (id) => {
+      await send('DELETE', `/customformat/${id}`);
+    }),
+    qualityProfiles: guarded(() => get<ArrQualityProfile[]>('/qualityprofile')),
+    qualityProfileSchema: guarded(() => get<ArrQualityProfile>('/qualityprofile/schema')),
+    createQualityProfile: guarded(async (p) =>
+      body<ArrQualityProfile>(await send('POST', '/qualityprofile', p)),
+    ),
+    updateQualityProfile: guarded(async (p) =>
+      body<ArrQualityProfile>(await send('PUT', `/qualityprofile/${p.id}`, p)),
+    ),
+    deleteQualityProfile: guarded(async (id) => {
+      await send('DELETE', `/qualityprofile/${id}`);
+    }),
+    qualityDefinitions: guarded(() => get<ArrQualityDefinition[]>('/qualitydefinition')),
+    updateQualityDefinitions: guarded(async (defs) => {
+      await send('PUT', '/qualitydefinition/update', defs);
+    }),
+    naming: guarded(() => get<ArrNaming>('/config/naming')),
+    updateNaming: guarded(async (naming) => {
+      await send('PUT', `/config/naming/${naming.id ?? 1}`, naming);
+    }),
+    languages: guarded(async () => {
+      const list = await get<Array<{ id: number; name: string }>>('/language');
+      return list.map((l): ArrLanguage => ({ id: l.id, name: l.name }));
+    }),
+    parseRelease: guarded(async (title) => {
+      const res = await get<{
+        title?: string;
+        parsedMovieInfo?: ParsedInfo;
+        parsedEpisodeInfo?: ParsedInfo;
+        customFormats?: Array<{ id: number; name: string }>;
+      }>('/parse', { title });
+      const info = res.parsedMovieInfo ?? res.parsedEpisodeInfo;
+      return {
+        title: res.title ?? title,
+        quality: info?.quality?.quality?.name ?? null,
+        customFormats: (res.customFormats ?? []).map((f) => ({ id: f.id, name: f.name })),
+        languages: (info?.languages ?? []).map((l) => l.name).filter((n): n is string => !!n),
+        releaseGroup: info?.releaseGroup ?? null,
+      };
+    }),
+  };
+}
+
+interface ParsedInfo {
+  quality?: { quality?: { name?: string } };
+  languages?: Array<{ name?: string }>;
+  releaseGroup?: string;
 }

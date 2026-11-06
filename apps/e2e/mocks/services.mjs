@@ -5,11 +5,13 @@
 //   POST /__control/fix?what=...  fixes a problem (indexer, update, queue)
 //   POST /__control/reset         restores the initial scenario
 //   POST /__control/stage2        turns on the Queue Cleaner and Hunting scenario
+//   POST /__control/trash-drift   changes a score in Radarr, as if someone edited it by hand
 //   GET  /__control/calls         changing calls the services received
 //   POST /hook/...                webhook receiver for notifications
 //   SMTP on port 19025            mail server for notifications
 import http from 'node:http';
 import net from 'node:net';
+import { createProfileStore } from './profiles.mjs';
 import { INDEXER_APPS, INDEXER_STATS, createStage3 } from './stage3.mjs';
 
 export const API_KEY = '00000000000000000000000000000001';
@@ -97,6 +99,16 @@ const indexerHealth = (app) =>
         },
       ]
     : [];
+
+/** Profile settings (custom formats, quality profiles, naming) per service. */
+const createProfiles = () => ({
+  sonarr: createProfileStore('sonarr', ['HD-1080p']),
+  'sonarr-4k': createProfileStore('sonarr', ['Ultra HD']),
+  radarr: createProfileStore('radarr', ['HD-1080p']),
+  'radarr-4k': createProfileStore('radarr', ['Ultra HD']),
+});
+let profiles = createProfiles();
+const PROFILE_PATH = /^\/(customformat|qualityprofile|qualitydefinition|config\/naming|language|parse)(\/|$)/;
 
 const SERVICES = {
   sonarr: {
@@ -280,12 +292,19 @@ http
       if (path === '/reset' && req.method === 'POST') {
         state = initial();
         calls = [];
+        profiles = createProfiles();
         return json(res, state);
       }
       if (path === '/stage2' && req.method === 'POST') {
         state.stage2 = true;
         state.indexerBroken = false;
         return json(res, state);
+      }
+      if (path === '/trash-drift' && req.method === 'POST') {
+        const profile = profiles.radarr.state.profiles.find((p) => p.formatItems.some((f) => f.score));
+        const item = profile?.formatItems.find((f) => f.score);
+        if (item) item.score += 5;
+        return json(res, { changed: Boolean(item) });
       }
       if (path === '/fix' && req.method === 'POST') {
         const what = url.searchParams.get('what');
@@ -328,6 +347,12 @@ http
       return json(res, { page: 1, pageSize: 250, totalRecords: records.length, records });
     }
     if (p === '/config/host') return json(res, { port: 8989, urlBase: '', apiKey: API_KEY });
+    if (profiles[prefix] && PROFILE_PATH.test(p)) {
+      const body = req.method === 'POST' || req.method === 'PUT' ? await readBody(req) : null;
+      if (req.method !== 'GET') calls.push({ service: prefix, method: req.method, path: p, body });
+      const answer = profiles[prefix].handle(req.method, p, url, body);
+      return answer ? json(res, answer.body, answer.status) : notFound(res);
+    }
     if (p === '/movie' && req.method === 'POST') {
       if (stage3.radarr(prefix, p, req, res, json, await readBody(req))) return;
     }

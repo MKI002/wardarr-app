@@ -17,7 +17,10 @@
     "openCleaner": "Open Queue Cleaner",
     "reviewImport": "Review import",
     "openAttempts": "Show titles",
-    "reviewOrphans": "Review downloads"
+    "reviewOrphans": "Review downloads",
+    "openTrash": "Open TRaSH Guides",
+    "previewSync": "Preview sync",
+    "openTrashHistory": "Open history"
   },
   "indexerUnavailable": {
     "title": "{{indexer}} is unreachable",
@@ -154,5 +157,47 @@
     "explanation": "Wardarr was not tested with {{product}} {{version}} yet. It keeps using API {{api}}, which this version still offers.",
     "explanationNewer": "{{product}} {{version}} offers API {{newest}}. Wardarr keeps using API {{api}}, which this version still offers, so everything keeps working.",
     "fix": "Nothing to do now. Update Wardarr when a new version is available; it switches by itself"
+  },
+  "trashGuideDrift": {
+    "title": "TRaSH Guides changed for {{instance}}",
+    "affected": "{{count}} settings",
+    "explanation": "The TRaSH Guides or the template \"{{template}}\" changed since the last sync. The instance still has the old values.",
+    "fix": "Open the preview, check the changes and sync"
+  },
+  "trashLocalDrift": {
+    "title": "Settings of {{instance}} differ from the template",
+    "affected": "{{count}} settings",
+    "explanation": "Someone changed settings in {{instance}} that Wardarr manages with the template \"{{template}}\". Wardarr keeps them as they are until you decide.",
+    "fix": "Sync to restore the template, or keep the change as a score override in the template"
+  },
+  "trashSyncPaused": {
+    "title": "Guard of {{instance}} paused",
+    "reason": {
+      "cutoff": "Cutoff would change",
+      "qualities": "Qualities would change",
+      "manyChanges": "Many changes at once",
+      "removals": "Custom formats would be removed",
+      "pingPong": "A setting keeps being changed back"
+    },
+    "explanation": "The guard syncs on its own, but this change is too large or keeps coming back, so it waits for you. Maybe another tool such as Recyclarr manages the same settings.",
+    "fix": "Check the preview and sync by hand, or resume the guard"
+  },
+  "trashSyncFailed": {
+    "title": "Sync of {{instance}} failed",
+    "affected": "{{message}}",
+    "explanation": "The sync stopped at the first error. Everything it changed before is in the backup.",
+    "fix": "Check that the instance is reachable, then sync again or roll back in the history"
+  },
+  "trashUnsupported": {
+    "title": "{{instance}} has no custom formats",
+    "affected": "Version too old",
+    "explanation": "{{instance}} runs a version without custom formats, so the TRaSH Guides cannot be applied.",
+    "fix": "Update to Sonarr v4 or later"
+  },
+  "trashGuideFetch": {
+    "title": "TRaSH Guides could not be updated",
+    "affected": "{{count}} instances",
+    "explanation": "Wardarr could not download the TRaSH Guides. It keeps working with the last version it has.",
+    "fix": "Check the internet access of Wardarr, or the repository in the TRaSH Guides settings"
   }
 }

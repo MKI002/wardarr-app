@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Standard",
+    "profiles": {
+      "hd": "433dc658c9d5c28610bd440085d1b397",
+      "uhd": "4b60a7b48461a2ffa0db937e13c84108"
+    }
+  },
+  {
+    "name": "German",
+    "profiles": {
+      "de": "511da697c8f18baac7424b2b2a46171a"
+    }
+  }
+]
