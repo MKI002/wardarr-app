@@ -1,0 +1,76 @@
+name: Release
+
+# Creates a version tag and a GitHub release with generated notes, then
+# starts CI on the tag, which builds and publishes the container image.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version without the leading v, for example 1.2.0
+        required: true
+        type: string
+      prerelease:
+        description: Mark as a pre-release
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag and release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      VERSION: ${{ inputs.version }}
+      PRERELEASE: ${{ inputs.prerelease }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Check the version
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$VERSION' is not a semantic version like 1.2.0"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
+            echo "::error::Tag v$VERSION already exists"
+            exit 1
+          fi
+      - name: Wait for green CI on this commit
+        run: |
+          for i in $(seq 1 60); do
+            state=$(gh run list --workflow ci.yml --commit "$GITHUB_SHA" --json status,conclusion \
+              --jq 'map(select(.status == "completed")) | (if length == 0 then "pending" elif all(.conclusion == "success") then "success" else "failure" end)')
+            case "$state" in
+              success) exit 0 ;;
+              failure) echo "::error::CI failed on $GITHUB_SHA"; exit 1 ;;
+            esac
+            sleep 30
+          done
+          echo "::error::CI did not finish in time"
+          exit 1
+      - name: Create the release
+        run: |
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); else flags+=(--latest); fi
+          gh release create "v$VERSION" \
+            --target "$GITHUB_SHA" \
+            --title "Wardarr $VERSION" \
+            --generate-notes \
+            "${flags[@]}" \
+            deploy/docker-compose.yml \
+            deploy/unraid/wardarr.xml
+      - name: Build and publish the image
+        run: gh workflow run ci.yml --ref "v$VERSION"

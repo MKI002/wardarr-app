@@ -1,0 +1,35 @@
+# Wardarr with Docker Compose. Copy this file, adjust the volume path and
+# start it with `docker compose up -d`. Every environment variable below is
+# optional; the values shown are the defaults unless noted.
+services:
+  wardarr:
+    image: ghcr.io/mki002/wardarr-app:latest
+    container_name: wardarr
+    restart: unless-stopped
+    ports:
+      - '8484:8484'
+    volumes:
+      # Database and generated encryption key. Must be writable by 1000:1000.
+      - ./wardarr:/data
+    environment:
+      TZ: Etc/UTC
+      # Address you open Wardarr at, for links in notifications.
+      # WARDARR_PUBLIC_URL: https://wardarr.example.com
+      # Turn on behind a reverse proxy that sets X-Forwarded-* headers.
+      # WARDARR_TRUST_PROXY: "true"
+      # Secure flag on the session cookie: auto, true or false.
+      # WARDARR_COOKIE_SECURE: auto
+      # 32-byte key (base64 or hex). Generated into /data when not set.
+      # WARDARR_SECRET_KEY: ""
+      # Timeout for calls to your services, in milliseconds.
+      # WARDARR_HTTP_TIMEOUT_MS: "10000"
+      # fatal, error, warn, info, debug, trace or silent.
+      # WARDARR_LOG_LEVEL: info
+    # Optional hardening; Wardarr needs no extra privileges.
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
