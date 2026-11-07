@@ -34,15 +34,12 @@ export interface StorageMember {
 
 export interface MapNode {
   id: string;
-  type: 'instance' | 'ghost' | 'storage';
+  type: 'instance' | 'storage';
   layer: MapLayer;
   name: string;
-  /** Adapter id for instances, likely product for ghosts. */
+  /** Adapter id for instances, null for storage. */
   adapter: string | null;
   instanceId?: string;
-  /** Ghosts: implementation and address as the reporting service has them. */
-  implementation?: string;
-  address?: string | null;
   storage?: {
     freeBytes: number | null;
     totalBytes: number | null;
@@ -94,15 +91,6 @@ export function layerOf(category: AdapterCategory | 'storage', adapter?: string 
       return 4;
   }
 }
-
-const KIND_LAYER: Record<LinkKind, MapLayer> = {
-  indexers: 1,
-  requests: 1,
-  subtitles: 1,
-  downloads: 2,
-  mediaServer: 4,
-  libraryUpdate: 4,
-};
 
 // ------------------------------------------------------------- addresses
 
@@ -364,34 +352,17 @@ export function deriveStackGraph(instances: TopologyInput[]): StackGraph {
     for (const link of reporter.topology?.links ?? []) {
       // Disabled instances still count as targets: the service is there, Wardarr just does not poll it.
       const hit = matchLink(link, instances, reporter.id);
-      let to: string;
-      if (hit) {
-        to = hit.instance.id;
-      } else {
-        // Not connected to Wardarr: show a ghost, shared by every service that points there.
-        if (!link.enabled) continue;
-        const addr = parseAddress(link.url);
-        const product = link.products[0] ?? null;
-        to = `ghost:${product ?? slug(link.implementation)}:${addr ? `${addr.host}:${addr.port}` : slug(link.name)}`;
-        if (!nodes.has(to))
-          nodes.set(to, {
-            id: to,
-            type: 'ghost',
-            layer: KIND_LAYER[link.kind],
-            name: link.name || link.implementation,
-            adapter: product,
-            implementation: link.implementation,
-            address: addr ? `${addr.host}:${addr.port}` : null,
-          });
-      }
+      // Only services added to Wardarr are drawn: a link to anything else is left out.
+      if (!hit) continue;
+      const to = hit.instance.id;
       addEdge({
         from: reporter.id,
         to,
         kind: link.kind,
         label: link.name,
         enabled: link.enabled,
-        match: hit?.match ?? 'self',
-        confident: hit ? hit.confident : true,
+        match: hit.match,
+        confident: hit.confident,
         ...(link.indexerIds ? { indexerIds: link.indexerIds } : {}),
         ...(link.is4k ? { is4k: true } : {}),
       });

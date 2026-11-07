@@ -870,9 +870,6 @@
     "lonely": "Füge weitere Dienste hinzu, dann zeichnet Wardarr, wie sie verbunden sind.",
     "addService": "Dienst hinzufügen",
     "unread": "Wardarr konnte die Verbindungen von {{list}} nicht lesen. Auf der Karte fehlen vielleicht ein paar Linien.",
-    "ghost": "Nicht in Wardarr",
-    "ghostBody": "Ein anderer Dienst ist so eingerichtet, dass er diesen nutzt, aber er ist noch nicht mit Wardarr verbunden. Füge ihn hinzu, um hier seinen Status zu sehen.",
-    "address": "Adresse",
     "checked": "geprüft {{when}}",
     "connections": "Verbindungen",
     "noLinks": "Dieser Dienst meldet keine Verbindungen zu anderen.",
@@ -887,7 +884,7 @@
     "legend": {
       "reported": "Gemeldet",
       "inferred": "Erschlossen",
-      "off": "Aus oder nicht verbunden",
+      "off": "Verbindung aus",
       "active": "Lädt herunter"
     },
     "kind": {

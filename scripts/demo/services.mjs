@@ -556,7 +556,7 @@ const STACK = {
   'sonarr-4k': { clients: [QBIT], hooks: [], root: '/uhd/media/tv-4k' },
   radarr: { clients: [QBIT, SAB], hooks: [JELLYFIN_HOOK], root: '/data/media/movies' },
   'radarr-4k': { clients: [QBIT], hooks: [JELLYFIN_HOOK], root: '/uhd/media/movies-4k' },
-  // Lidarr also knows a Deluge client that is not connected to Wardarr.
+  // Lidarr also knows a Deluge client that is not added to Wardarr; the map leaves it out.
   lidarr: {
     clients: [SAB, client(3, 'Deluge', 'Deluge', 'deluge', 8112)],
     hooks: [],

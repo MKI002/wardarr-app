@@ -16,13 +16,11 @@ export interface StorageMember {
 
 export interface MapNode {
   id: string;
-  type: 'instance' | 'ghost' | 'storage';
+  type: 'instance' | 'storage';
   layer: number;
   name: string;
   adapter: string | null;
   instanceId?: string;
-  implementation?: string;
-  address?: string | null;
   storage?: {
     freeBytes: number | null;
     totalBytes: number | null;

@@ -139,7 +139,6 @@ export class TopologyService {
     const byId = new Map(snaps.map((s) => [s.row.id, s]));
 
     const nodes = graph.nodes.map((n): MapNodeView => {
-      if (n.type === 'ghost') return { ...n, status: 'unknown', live: {} };
       if (n.type === 'storage') {
         const s = n.storage!;
         const share = s.totalBytes && s.freeBytes !== null ? s.freeBytes / s.totalBytes : null;
@@ -212,7 +211,6 @@ export class TopologyService {
       if (!edge.enabled || ends.includes('off')) view.status = 'off';
       else if (ends.includes('critical')) view.status = 'critical';
       else if (view.failing) view.status = 'warning';
-      else if (to.type === 'ghost') view.status = 'unknown';
       return view;
     });
 

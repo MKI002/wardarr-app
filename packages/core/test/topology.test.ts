@@ -166,14 +166,13 @@ describe('deriveStackGraph', () => {
     expect(edge(g, 'Seerr', 'Jellyfin')?.kind).toBe('mediaServer');
     expect(edge(g, 'Bazarr', 'Sonarr')?.kind).toBe('subtitles');
     expect(edge(g, 'Sonarr', 'qBittorrent')?.kind).toBe('downloads');
-    // An unknown client becomes a ghost in the download column; a disabled one is left out.
-    const ghost = g.nodes.find((n) => n.type === 'ghost');
-    expect(ghost).toMatchObject({ name: 'Aria', implementation: 'Aria2', layer: 2, address: 'aria:6800' });
-    expect(g.nodes.filter((n) => n.type === 'ghost')).toHaveLength(1);
+    // A client that is not added to Wardarr is left out, and so is its link.
+    expect(g.nodes.some((n) => n.name === 'Aria')).toBe(false);
+    expect(g.edges.some((e) => e.to.includes('aria'))).toBe(false);
     expect(g.nodes.find((n) => n.id === 'Bazarr')?.layer).toBe(0);
   });
 
-  it('shares one ghost between services that point at the same address', () => {
+  it('leaves out services that are not added to Wardarr', () => {
     const client = {
       kind: 'downloads' as const,
       products: ['qbittorrent'],
@@ -186,9 +185,8 @@ describe('deriveStackGraph', () => {
       inst('Sonarr', 'sonarr', 'arr', { links: [client] }),
       inst('Radarr', 'radarr', 'arr', { links: [{ ...client, name: 'Torrents' }] }),
     ]);
-    const ghosts = g.nodes.filter((n) => n.type === 'ghost');
-    expect(ghosts).toHaveLength(1);
-    expect(g.edges.filter((e) => e.to === ghosts[0]!.id)).toHaveLength(2);
+    expect(g.nodes.map((n) => n.name).sort()).toEqual(['Radarr', 'Sonarr']);
+    expect(g.edges).toHaveLength(0);
   });
 
   it('puts folders on one disk into one storage node, matched by disk size and free space', () => {
@@ -321,6 +319,6 @@ describe('deriveStackGraph', () => {
     ]);
     expect(g.nodes.some((n) => n.name === 'SAB')).toBe(false);
     expect(edge(g, 'Prowlarr', 'Radarr')).toBeDefined();
-    expect(g.nodes.some((n) => n.type === 'ghost')).toBe(false);
+    expect(g.nodes.every((n) => n.type === 'instance')).toBe(true);
   });
 });

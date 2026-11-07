@@ -870,9 +870,6 @@
     "lonely": "Add more services and Wardarr draws how they connect.",
     "addService": "Add a service",
     "unread": "Wardarr could not read the connections of {{list}}. The map may be missing a few lines.",
-    "ghost": "Not in Wardarr",
-    "ghostBody": "Another service is set up to use this one, but it is not connected to Wardarr yet. Add it to see its status here.",
-    "address": "Address",
     "checked": "checked {{when}}",
     "connections": "Connections",
     "noLinks": "This service reports no connections to others.",
@@ -887,7 +884,7 @@
     "legend": {
       "reported": "Reported",
       "inferred": "Inferred",
-      "off": "Off or not connected",
+      "off": "Link off",
       "active": "Downloading"
     },
     "kind": {

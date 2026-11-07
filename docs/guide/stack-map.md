@@ -44,8 +44,9 @@ Sonarr you added as `http://192.0.2.10:8989`. A line Wardarr had to infer
 (only one instance of the product, or a library matched by media type) is
 dotted.
 
-A service that another one uses but that is not connected to Wardarr shows up
-as a dashed **ghost**, with the address it was found at, so you can add it.
+Only services you added to Wardarr are drawn. When Prowlarr, Sonarr or another
+service still points at something you never added, for example an old download
+client, that link is left out.
 
 ## Storage
 

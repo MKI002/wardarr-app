@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { formatBytes, formatRelative, formatSpeed } from '../../lib/format';
 import { ServiceLogo } from '../ServiceLogo';
-import { Badge, Button, Card, ProgressBar, spring, type Tone } from '../ui';
+import { Badge, Card, ProgressBar, spring, type Tone } from '../ui';
 import { edgeText } from './StackMapCanvas';
 import type { MapEdge, MapNode, MapTone, StackMap, StorageMember } from './types';
 
@@ -117,7 +117,7 @@ export function NodeDetails({
   const { t, i18n } = useTranslation();
   const byId = new Map(map.nodes.map((n) => [n.id, n]));
   const links = map.edges.filter((e) => e.from === node.id || e.to === node.id);
-  const status = node.type === 'ghost' ? t('ui.map.ghost') : t(`ui.map.status.${node.status}`);
+  const status = t(`ui.map.status.${node.status}`);
   const l = node.live;
   const stats: Array<[string, string]> = [];
   if (l.queue !== undefined) stats.push([t('ui.map.stat.queue'), String(l.queue)]);
@@ -155,11 +155,9 @@ export function NodeDetails({
             <p className="text-sm text-muted">
               {node.type === 'storage'
                 ? t('ui.map.storage.title')
-                : node.type === 'ghost'
-                  ? node.implementation
-                  : [node.adapterName, node.version ? `v${node.version.replace(/^v/i, '')}` : null]
-                      .filter(Boolean)
-                      .join(' · ')}
+                : [node.adapterName, node.version ? `v${node.version.replace(/^v/i, '')}` : null]
+                    .filter(Boolean)
+                    .join(' · ')}
             </p>
           </div>
           <button
@@ -188,20 +186,6 @@ export function NodeDetails({
             </span>
           ) : null}
         </div>
-
-        {node.type === 'ghost' ? (
-          <div className="flex flex-col gap-3 text-sm">
-            <p>{t('ui.map.ghostBody')}</p>
-            {node.address ? (
-              <p className="text-muted">
-                {t('ui.map.address')}: <code className="text-text">{node.address}</code>
-              </p>
-            ) : null}
-            <Link to="/settings" search={{ section: 'instances' }}>
-              <Button variant="primary">{t('ui.map.addService')}</Button>
-            </Link>
-          </div>
-        ) : null}
 
         {stats.length ? (
           <div className="grid grid-cols-2 gap-2">
