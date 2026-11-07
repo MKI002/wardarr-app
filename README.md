@@ -139,9 +139,13 @@ a look, and what is streaming, downloading and filling up right now.
     apps share it, with the day it will be full at the current pace. A disk that fills up soon
     becomes an issue before downloads stop.</td>
     <td valign="top"><b>Indexer statistics.</b> Queries, grabs, failures and response times per indexer from
-    Prowlarr, and which apps are left without a working one. <b>Indexer insights</b> show whether
-    each app takes its indexers from Prowlarr, has its own or both, and score every indexer over
-    time.</td>
+    Prowlarr, and which apps are left without a working one.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/indexer-insights.png" alt="Indexer insights: successful searches, where each app gets its indexers from and what is worth a look" /></td>
+    <td valign="top"><b>Indexer insights.</b> Whether each app takes its indexers from Prowlarr, has
+    its own or both, which entries are missing or twice, and how every indexer does over
+    the last day up to the last 90 days.</td>
   </tr>
 </table>
 

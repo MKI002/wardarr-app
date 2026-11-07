@@ -41,6 +41,7 @@ const PAGES = [
   ['trash', '/trash'],
   ['tdarr', '/tdarr'],
   ['indexers', '/indexers'],
+  ['indexer-insights', '/indexer-insights'],
   ['storage', '/storage'],
 ];
 

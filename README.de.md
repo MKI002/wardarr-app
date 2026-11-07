@@ -150,6 +150,12 @@ einen Blick wert ist und was gerade läuft, lädt und sich füllt.
     <td valign="top"><b>Indexer-Statistiken.</b> Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus
     Prowlarr, und welche Apps ohne funktionierenden Indexer dastehen.</td>
   </tr>
+  <tr>
+    <td><img src="docs/screenshots/indexer-insights.png" alt="Indexer-Analyse: erfolgreiche Suchen, woher jede App ihre Indexer bezieht und was einen Blick wert ist" /></td>
+    <td valign="top"><b>Indexer-Analyse.</b> Ob jede App ihre Indexer aus Prowlarr bezieht, eigene hat
+    oder beides, welche Einträge fehlen oder doppelt sind und wie jeder Indexer abschneidet, vom
+    letzten Tag bis zu den letzten 90 Tagen.</td>
+  </tr>
 </table>
 
 In den **Einstellungen** liegen die Dienste, Benutzer, **Benachrichtigungen** (E-Mail, ntfy,
