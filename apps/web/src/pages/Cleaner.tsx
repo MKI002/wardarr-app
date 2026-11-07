@@ -273,7 +273,7 @@ function ModeShield({ mode }: { mode: 'off' | 'dryRun' | 'armed' }) {
   return (
     <span className={`relative grid size-16 shrink-0 place-items-center rounded-2xl ${MODE_TILE[mode]}`}>
       {mode === 'armed' ? (
-        <span className="live-pulse absolute inset-0 rounded-2xl ring-2 ring-critical" aria-hidden />
+        <span className="ring-pulse absolute inset-0 rounded-2xl ring-2 ring-critical" aria-hidden />
       ) : null}
       <motion.svg
         key={mode}
