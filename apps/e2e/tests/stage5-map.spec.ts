@@ -75,7 +75,7 @@ test('Tdarr connects with its API key and reports its version', async () => {
     baseUrl: `${MOCK}/tdarr`,
     fields: { apiKey: TDARR_KEY },
   });
-  expect(await right.json()).toMatchObject({ ok: true, version: '2.27.01' });
+  expect(await right.json()).toMatchObject({ ok: true, version: '3.06.00' });
 
   const created = await post('/api/instances', {
     adapter: 'tdarr',

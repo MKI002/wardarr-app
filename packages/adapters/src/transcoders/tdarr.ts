@@ -22,8 +22,12 @@ import { folder, part } from '../shared/topology.js';
 /** Tdarr reports sizes in gigabytes. */
 const GB = 1024 ** 3;
 
-/** Tdarr majors Wardarr was tested with; others run in compatibility mode. */
-const TESTED_MAJORS = { min: 2, max: 2 };
+/**
+ * Tdarr majors Wardarr was tested with; others run in compatibility mode.
+ * Tdarr 3 is the server rewritten in Rust; it keeps the v2 API and its
+ * `x-api-key` header, but switches authentication on for new installs.
+ */
+const TESTED_MAJORS = { min: 2, max: 3 };
 
 /** Per-library statistics have their own endpoint from this version on. */
 const PIES_ENDPOINT_FROM = [2, 24, 1] as const;

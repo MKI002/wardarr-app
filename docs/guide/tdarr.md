@@ -11,8 +11,11 @@ Several Tdarr servers can be connected; the tab then has one view per server.
 ## Connecting
 
 Add Tdarr under **Settings → Services** with the address of its web UI, for
-example `http://tdarr:8265`. An API key is only needed when authentication is
-switched on in Tdarr; create one under **Tools → API Keys** there.
+example `http://tdarr:8265`. Wardarr supports Tdarr 2 and Tdarr 3.
+
+Tdarr 3 switches authentication on for new installs, so it usually needs an API
+key; an install upgraded from Tdarr 2 keeps its setting. Tdarr 2 needs a key
+only when authentication is on. Create one under **Tools → API Keys** in Tdarr.
 
 ## What Wardarr reads
 
@@ -28,8 +31,9 @@ switched on in Tdarr; create one under **Tools → API Keys** there.
 Libraries and failed files are read when you open the tab, at most every five
 minutes (**Check again** reads them at once). Before 2.24.01, Tdarr keeps the
 numbers per library in its statistics document, and Wardarr reads them from
-there. Tdarr versions other than 2.x run in compatibility mode, which the
-issue center mentions once.
+there. Tdarr 3 is a rewrite of the server that keeps the same API. Versions
+other than 2.x and 3.x run in compatibility mode, which the issue center
+mentions once.
 
 Tdarr only keeps running totals. Wardarr stores them once per day, so the
 history of jobs per day and the space saved trend fill up while Wardarr runs.
