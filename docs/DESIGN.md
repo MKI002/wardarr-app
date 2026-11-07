@@ -117,6 +117,7 @@ accessibility.
 | `InstanceChips`             | `dash.tsx`       | picking one instance of a feature, with logo and a status dot or count                 |
 | `ActionMenu`                | `ActionMenu.tsx` | the rare actions of a row (ignore, delete, open elsewhere) behind a "more" button      |
 | `Choice`                    | `ui.tsx`         | a small set of exclusive options; the selection slides between them                    |
+| `Guardian`                  | `ui.tsx`         | the logo; below 40 px it opens its eye wider and drops the glint by itself             |
 
 ### Choosing a chart
 

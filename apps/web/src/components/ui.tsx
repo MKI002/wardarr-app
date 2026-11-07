@@ -206,10 +206,26 @@ export function ProgressBar({
   );
 }
 
+/** The guardian's outline and eye on a 64 grid, shared by every shield in the app. */
+export const SHIELD_PATH = 'M32 7l20 7.5V30c0 13-8.6 22.6-20 27-11.4-4.4-20-14-20-27V14.5Z';
+export const EYE_PATH =
+  'M17.5 31c3.7-6.4 8.6-9.8 14.5-9.8S42.8 24.6 46.5 31c-3.7 6.4-8.6 9.8-14.5 9.8S21.2 37.4 17.5 31Z';
+
+/** A React id that is safe inside `url(#...)`. */
+export function useSvgId(prefix: string): string {
+  return `${prefix}-${useId().replace(/[^\w-]/g, '')}`;
+}
+
+/** Below this size the guardian drops the glint and opens its eye wider. */
+const GUARDIAN_SMALL = 40;
+
 /**
- * The Wardarr guardian ("Schildwache"): a shield with an open eye. With
- * `glance` the eye looks left and right once, for empty and loading states;
- * reduced motion keeps it still. `happy={false}` lowers the gaze.
+ * The Wardarr guardian ("Schildwache"): a shield with an open eye. The eye is
+ * cut out of the shield, so the card or page behind it shows through. Up to
+ * 40 px the eye is a little larger and the iris solid, so it still reads in
+ * the sidebar and in a browser tab. With `glance` the eye looks left and
+ * right once, for empty and loading states; reduced motion keeps it still.
+ * `happy={false}` lowers the gaze.
  */
 export function Guardian({
   size = 64,
@@ -223,21 +239,23 @@ export function Guardian({
   className?: string;
 }) {
   const reduce = useReducedMotion();
+  const mask = useSvgId('guardian');
   const animateIris = glance && !reduce;
+  const small = size < GUARDIAN_SMALL;
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" className={className} aria-hidden>
-      <path d="M32 7l20 7.5V30c0 13-8.6 22.6-20 27-11.4-4.4-20-14-20-27V14.5Z" className="fill-accent" />
-      <path
-        d="M17.5 31c3.7-6.4 8.6-9.8 14.5-9.8S42.8 24.6 46.5 31c-3.7 6.4-8.6 9.8-14.5 9.8S21.2 37.4 17.5 31Z"
-        className="fill-bg"
-      />
+      <mask id={mask}>
+        <path d={SHIELD_PATH} fill="#fff" />
+        <path d={EYE_PATH} fill="#000" transform={small ? 'matrix(1.1 0 0 1.1 -3.2 -3.1)' : undefined} />
+      </mask>
+      <path d={SHIELD_PATH} mask={`url(#${mask})`} className="fill-accent" />
       <motion.g
         initial={false}
         animate={animateIris ? { x: [0, -4, 4, 0] } : { x: 0, y: happy ? 0 : 2.5 }}
         transition={animateIris ? { duration: 1.6, ease: 'easeInOut', delay: 0.3 } : spring}
       >
-        <circle cx="32" cy="31" r="5.6" className="fill-accent" />
-        <circle cx="33.9" cy="29.3" r="1.7" className="fill-text" />
+        <circle cx="32" cy="31" r={small ? 6.6 : 5.6} className="fill-accent" />
+        {small ? null : <circle cx="33.9" cy="29.3" r="1.7" className="fill-text" />}
       </motion.g>
     </svg>
   );
