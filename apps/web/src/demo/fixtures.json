@@ -1,5 +1,5 @@
 {
- "capturedAt": "2026-11-07T06:47:21.979Z",
+ "capturedAt": "2026-11-07T07:30:06.622Z",
  "fixtures": {
   "/api/setup/status": {
    "status": 200,
@@ -83,7 +83,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-07T06:47:18.350Z",
+      "checkedAt": "2026-11-07T07:30:02.954Z",
       "errorKind": null
      },
      {
@@ -95,7 +95,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-07T06:47:18.358Z",
+      "checkedAt": "2026-11-07T07:30:02.965Z",
       "errorKind": null
      },
      {
@@ -107,7 +107,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-07T06:47:18.366Z",
+      "checkedAt": "2026-11-07T07:30:02.981Z",
       "errorKind": null
      },
      {
@@ -119,7 +119,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-07T06:47:18.373Z",
+      "checkedAt": "2026-11-07T07:30:02.991Z",
       "errorKind": null
      },
      {
@@ -131,7 +131,7 @@
       "lifecycle": "active",
       "status": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-07T06:47:18.381Z",
+      "checkedAt": "2026-11-07T07:30:02.998Z",
       "errorKind": null
      },
      {
@@ -143,7 +143,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-07T06:47:19.485Z",
+      "checkedAt": "2026-11-07T07:30:03.005Z",
       "errorKind": null
      },
      {
@@ -155,7 +155,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-07T06:47:18.395Z",
+      "checkedAt": "2026-11-07T07:30:03.105Z",
       "errorKind": null
      },
      {
@@ -167,7 +167,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-07T06:47:18.790Z",
+      "checkedAt": "2026-11-07T07:30:03.019Z",
       "errorKind": null
      },
      {
@@ -179,7 +179,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-07T06:47:19.724Z",
+      "checkedAt": "2026-11-07T07:30:03.027Z",
       "errorKind": null
      },
      {
@@ -191,7 +191,7 @@
       "lifecycle": "active",
       "status": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-07T06:47:18.420Z",
+      "checkedAt": "2026-11-07T07:30:03.446Z",
       "errorKind": null
      },
      {
@@ -202,8 +202,8 @@
       "category": "transcoder",
       "lifecycle": "active",
       "status": "ok",
-      "version": "2.27.01",
-      "checkedAt": "2026-11-07T06:47:18.426Z",
+      "version": "3.06.00",
+      "checkedAt": "2026-11-07T07:30:03.042Z",
       "errorKind": null
      }
     ],
@@ -269,7 +269,7 @@
       "speedBytesPerSecond": 12400000,
       "etaSeconds": 74,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-07T06:22:13.000Z",
+      "addedAt": "2026-11-07T07:04:58.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -284,7 +284,7 @@
       "speedBytesPerSecond": 6100000,
       "etaSeconds": 190,
       "category": "radarr",
-      "addedAt": "2026-11-07T06:39:13.000Z",
+      "addedAt": "2026-11-07T07:21:58.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -299,7 +299,7 @@
       "speedBytesPerSecond": 0,
       "etaSeconds": null,
       "category": "tv-sonarr",
-      "addedAt": "2026-11-07T06:44:13.000Z",
+      "addedAt": "2026-11-07T07:26:58.000Z",
       "tags": [],
       "instanceId": "00000000-0000-4000-8000-000000000008",
       "instanceName": "qBittorrent"
@@ -339,7 +339,7 @@
      "freeBytes": 4371847210598,
      "worst": "warning",
      "soonest": {
-      "key": "d7e4e1a71",
+      "key": "d478b0bd9",
       "label": "/uhd",
       "daysLeft": 24.7
      }
@@ -352,7 +352,7 @@
      },
      "needsAttention": [
       {
-       "fingerprint": "disk-filling-up:d7e4e1a71",
+       "fingerprint": "disk-filling-up:d478b0bd9",
        "severity": "warning",
        "origin": "service",
        "title": {
@@ -368,6 +368,24 @@
          "free": 633507676160,
          "percent": 7.2,
          "count": 25
+        }
+       }
+      },
+      {
+       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
+       "severity": "warning",
+       "origin": "service",
+       "title": {
+        "key": "issues.downloadsFailed.title",
+        "params": {
+         "count": 3,
+         "instance": "Lidarr"
+        }
+       },
+       "affected": {
+        "key": "issues.mediaKind.album",
+        "params": {
+         "count": 3
         }
        }
       },
@@ -404,24 +422,6 @@
         "key": "issues.mediaKind.episode",
         "params": {
          "count": 1
-        }
-       }
-      },
-      {
-       "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
-       "severity": "warning",
-       "origin": "service",
-       "title": {
-        "key": "issues.downloadsFailed.title",
-        "params": {
-         "count": 3,
-         "instance": "Lidarr"
-        }
-       },
-       "affected": {
-        "key": "issues.mediaKind.album",
-        "params": {
-         "count": 3
         }
        }
       },
@@ -699,6 +699,7 @@
       }
      ],
      "capabilities": [
+      "health",
       "downloads"
      ]
     },
@@ -723,6 +724,7 @@
       }
      ],
      "capabilities": [
+      "health",
       "downloads"
      ]
     },
@@ -754,6 +756,7 @@
       }
      ],
      "capabilities": [
+      "health",
       "downloads"
      ]
     },
@@ -772,6 +775,7 @@
       }
      ],
      "capabilities": [
+      "health",
       "downloads"
      ]
     },
@@ -1046,7 +1050,7 @@
      "instanceName": "Sonarr",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-07T06:47:18.350Z",
+     "checkedAt": "2026-11-07T07:30:02.954Z",
      "items": [
       {
        "id": 51,
@@ -1063,7 +1067,7 @@
        "sizeLeftBytes": 850000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-07T06:22:13.678Z",
+       "added": "2026-11-07T07:04:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1102",
@@ -1091,7 +1095,7 @@
        "sizeLeftBytes": 1900000000,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-07T06:35:13.678Z",
+       "added": "2026-11-07T07:17:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1103",
@@ -1122,7 +1126,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-07T05:12:13.678Z",
+       "added": "2026-11-07T05:54:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1200",
@@ -1153,7 +1157,7 @@
        "sizeLeftBytes": 1450000000,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T21:47:13.678Z",
+       "added": "2026-11-06T22:29:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "episode:1306",
@@ -1173,7 +1177,7 @@
      "instanceName": "Sonarr 4K",
      "adapter": "sonarr",
      "adapterName": "Sonarr",
-     "checkedAt": "2026-11-07T06:47:18.358Z",
+     "checkedAt": "2026-11-07T07:30:02.965Z",
      "items": []
     },
     {
@@ -1181,7 +1185,7 @@
      "instanceName": "Radarr",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-07T06:47:18.366Z",
+     "checkedAt": "2026-11-07T07:30:02.981Z",
      "items": []
     },
     {
@@ -1189,7 +1193,7 @@
      "instanceName": "Radarr 4K",
      "adapter": "radarr",
      "adapterName": "Radarr",
-     "checkedAt": "2026-11-07T06:47:18.373Z",
+     "checkedAt": "2026-11-07T07:30:02.991Z",
      "items": [
       {
        "id": 41,
@@ -1209,7 +1213,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-07T01:47:13.678Z",
+       "added": "2026-11-07T02:29:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:204",
@@ -1238,7 +1242,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-07T03:47:13.678Z",
+       "added": "2026-11-07T04:29:58.097Z",
        "inLibrary": false,
        "tags": [],
        "titleKey": "movie:202",
@@ -1256,7 +1260,7 @@
      "instanceName": "Lidarr",
      "adapter": "lidarr",
      "adapterName": "Lidarr",
-     "checkedAt": "2026-11-07T06:47:18.381Z",
+     "checkedAt": "2026-11-07T07:30:02.998Z",
      "items": [
       {
        "id": 61,
@@ -1276,7 +1280,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "SABnzbd",
        "protocol": "usenet",
-       "added": "2026-11-06T20:47:13.678Z",
+       "added": "2026-11-06T21:29:58.097Z",
        "tags": [],
        "titleKey": "album:301",
        "searchTarget": {
@@ -1305,7 +1309,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T20:17:13.678Z",
+       "added": "2026-11-06T20:59:58.097Z",
        "tags": [],
        "titleKey": "album:302",
        "searchTarget": {
@@ -1334,7 +1338,7 @@
        "sizeLeftBytes": 0,
        "downloadClient": "qBittorrent",
        "protocol": "torrent",
-       "added": "2026-11-06T19:47:13.678Z",
+       "added": "2026-11-06T20:29:58.097Z",
        "tags": [],
        "titleKey": "album:303",
        "searchTarget": {
@@ -1358,7 +1362,7 @@
      "displayName": "Demo Admin",
      "role": "admin",
      "disabled": false,
-     "createdAt": "2026-11-07T06:47:14.106Z"
+     "createdAt": "2026-11-07T07:29:58.557Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000013",
@@ -1366,7 +1370,7 @@
      "displayName": "Mira",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-07T06:47:14.130Z"
+     "createdAt": "2026-11-07T07:29:58.595Z"
     },
     {
      "id": "00000000-0000-4000-8000-000000000014",
@@ -1374,7 +1378,7 @@
      "displayName": "Jonas",
      "role": "user",
      "disabled": false,
-     "createdAt": "2026-11-07T06:47:14.144Z"
+     "createdAt": "2026-11-07T07:29:58.614Z"
     }
    ]
   },
@@ -1515,7 +1519,7 @@
       "monthly": 3,
       "count": 11,
       "reachDays": 38,
-      "estimatedBytes": 424142
+      "estimatedBytes": 424472
      },
      {
       "level": 2,
@@ -1526,7 +1530,7 @@
       "monthly": 7,
       "count": 20,
       "reachDays": 160,
-      "estimatedBytes": 771168
+      "estimatedBytes": 771768
      },
      {
       "level": 3,
@@ -1537,7 +1541,7 @@
       "monthly": 13,
       "count": 33,
       "reachDays": 342,
-      "estimatedBytes": 1272427
+      "estimatedBytes": 1273417
      },
      {
       "level": 4,
@@ -1548,15 +1552,15 @@
       "monthly": 25,
       "count": 74,
       "reachDays": 706,
-      "estimatedBytes": 2853322
+      "estimatedBytes": 2855542
      }
     ],
     "backups": [
      {
-      "id": "wardarr-20261107T064714Z-manual-b20ef3",
+      "id": "wardarr-20261107T072959Z-manual-c1140c",
       "kind": "manual",
-      "createdAt": "2026-11-07T06:47:14.610Z",
-      "size": 38556,
+      "createdAt": "2026-11-07T07:29:59.112Z",
+      "size": 38586,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1567,10 +1571,10 @@
       ]
      },
      {
-      "id": "wardarr-20261107T044714Z-scheduled-d00000",
+      "id": "wardarr-20261107T052959Z-scheduled-d00000",
       "kind": "scheduled",
-      "createdAt": "2026-11-07T04:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-07T05:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1585,10 +1589,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T164714Z-scheduled-d00001",
+      "id": "wardarr-20261106T172959Z-scheduled-d00001",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T16:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-06T17:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1600,10 +1604,10 @@
       ]
      },
      {
-      "id": "wardarr-20261106T014714Z-scheduled-d00002",
+      "id": "wardarr-20261106T022959Z-scheduled-d00002",
       "kind": "scheduled",
-      "createdAt": "2026-11-06T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-06T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1612,10 +1616,10 @@
       "keep": []
      },
      {
-      "id": "wardarr-20261105T014714Z-scheduled-d00003",
+      "id": "wardarr-20261105T022959Z-scheduled-d00003",
       "kind": "scheduled",
-      "createdAt": "2026-11-05T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-05T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1626,10 +1630,10 @@
       ]
      },
      {
-      "id": "wardarr-20261104T014714Z-scheduled-d00004",
+      "id": "wardarr-20261104T022959Z-scheduled-d00004",
       "kind": "scheduled",
-      "createdAt": "2026-11-04T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-04T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1640,10 +1644,10 @@
       ]
      },
      {
-      "id": "wardarr-20261103T014714Z-scheduled-d00005",
+      "id": "wardarr-20261103T022959Z-scheduled-d00005",
       "kind": "scheduled",
-      "createdAt": "2026-11-03T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-03T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1654,10 +1658,10 @@
       ]
      },
      {
-      "id": "wardarr-20261102T014714Z-scheduled-d00006",
+      "id": "wardarr-20261102T022959Z-scheduled-d00006",
       "kind": "scheduled",
-      "createdAt": "2026-11-02T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-02T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1668,10 +1672,10 @@
       ]
      },
      {
-      "id": "wardarr-20261101T014714Z-scheduled-d00007",
+      "id": "wardarr-20261101T022959Z-scheduled-d00007",
       "kind": "scheduled",
-      "createdAt": "2026-11-01T01:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-11-01T02:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1683,10 +1687,10 @@
       ]
      },
      {
-      "id": "wardarr-20261028T064714Z-scheduled-d00008",
+      "id": "wardarr-20261028T072959Z-scheduled-d00008",
       "kind": "scheduled",
-      "createdAt": "2026-10-28T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-10-28T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1697,10 +1701,10 @@
       ]
      },
      {
-      "id": "wardarr-20261027T044714Z-pre-migration-d00013",
+      "id": "wardarr-20261027T052959Z-pre-migration-d00013",
       "kind": "pre-migration",
-      "createdAt": "2026-10-27T04:47:14.627Z",
-      "size": 38563,
+      "createdAt": "2026-10-27T05:29:59.131Z",
+      "size": 38593,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1711,10 +1715,10 @@
       ]
      },
      {
-      "id": "wardarr-20261021T064714Z-scheduled-d00009",
+      "id": "wardarr-20261021T072959Z-scheduled-d00009",
       "kind": "scheduled",
-      "createdAt": "2026-10-21T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-10-21T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1725,10 +1729,10 @@
       ]
      },
      {
-      "id": "wardarr-20261014T064714Z-scheduled-d0000a",
+      "id": "wardarr-20261014T072959Z-scheduled-d0000a",
       "kind": "scheduled",
-      "createdAt": "2026-10-14T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-10-14T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1739,10 +1743,10 @@
       ]
      },
      {
-      "id": "wardarr-20261007T064714Z-scheduled-d0000b",
+      "id": "wardarr-20261007T072959Z-scheduled-d0000b",
       "kind": "scheduled",
-      "createdAt": "2026-10-07T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-10-07T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1753,10 +1757,10 @@
       ]
      },
      {
-      "id": "wardarr-20260930T064714Z-scheduled-d0000c",
+      "id": "wardarr-20260930T072959Z-scheduled-d0000c",
       "kind": "scheduled",
-      "createdAt": "2026-09-30T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-09-30T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1768,10 +1772,10 @@
       ]
      },
      {
-      "id": "wardarr-20260927T234714Z-manual-d00014",
+      "id": "wardarr-20260928T002959Z-manual-d00014",
       "kind": "manual",
-      "createdAt": "2026-09-27T23:47:14.627Z",
-      "size": 38556,
+      "createdAt": "2026-09-28T00:29:59.131Z",
+      "size": 38586,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1782,10 +1786,10 @@
       ]
      },
      {
-      "id": "wardarr-20260923T064714Z-scheduled-d0000d",
+      "id": "wardarr-20260923T072959Z-scheduled-d0000d",
       "kind": "scheduled",
-      "createdAt": "2026-09-23T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-09-23T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1796,10 +1800,10 @@
       ]
      },
      {
-      "id": "wardarr-20260916T064714Z-scheduled-d0000e",
+      "id": "wardarr-20260916T072959Z-scheduled-d0000e",
       "kind": "scheduled",
-      "createdAt": "2026-09-16T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-09-16T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1810,10 +1814,10 @@
       ]
      },
      {
-      "id": "wardarr-20260830T064714Z-scheduled-d0000f",
+      "id": "wardarr-20260830T072959Z-scheduled-d0000f",
       "kind": "scheduled",
-      "createdAt": "2026-08-30T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-08-30T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1824,10 +1828,10 @@
       ]
      },
      {
-      "id": "wardarr-20260731T064714Z-scheduled-d00010",
+      "id": "wardarr-20260731T072959Z-scheduled-d00010",
       "kind": "scheduled",
-      "createdAt": "2026-07-31T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-07-31T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1838,10 +1842,10 @@
       ]
      },
      {
-      "id": "wardarr-20260701T064714Z-scheduled-d00011",
+      "id": "wardarr-20260701T072959Z-scheduled-d00011",
       "kind": "scheduled",
-      "createdAt": "2026-07-01T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-07-01T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1850,10 +1854,10 @@
       "keep": []
      },
      {
-      "id": "wardarr-20260601T064714Z-scheduled-d00012",
+      "id": "wardarr-20260601T072959Z-scheduled-d00012",
       "kind": "scheduled",
-      "createdAt": "2026-06-01T06:47:14.627Z",
-      "size": 38559,
+      "createdAt": "2026-06-01T07:29:59.131Z",
+      "size": 38589,
       "appVersion": "0.1.0",
       "encrypted": false,
       "compatibility": "current",
@@ -1865,10 +1869,10 @@
      }
     ],
     "lastRun": null,
-    "nextRunAt": "2026-11-07T16:47:14.627Z",
+    "nextRunAt": "2026-11-07T17:29:59.131Z",
     "storage": {
-     "usedBytes": 848296,
-     "freeBytes": 30533128192,
+     "usedBytes": 848956,
+     "freeBytes": 30574714880,
      "sameDiskAsData": true
     }
    }
@@ -1882,7 +1886,7 @@
       "instanceName": "Prowlarr",
       "adapterName": "Prowlarr",
       "status": "ok",
-      "checkedAt": "2026-11-07T06:47:19.485Z",
+      "checkedAt": "2026-11-07T07:30:03.005Z",
       "error": null,
       "indexers": [
        {
@@ -1902,12 +1906,12 @@
         "stats": {
          "indexerId": 1,
          "name": "Lantern",
-         "queries": 16458,
+         "queries": 16467,
          "grabs": 1488,
-         "failedQueries": 89,
+         "failedQueries": 90,
          "failedGrabs": 30,
          "averageResponseMs": 333,
-         "rssQueries": 6571,
+         "rssQueries": 6574,
          "authQueries": 0,
          "averageGrabResponseMs": 467
         },
@@ -1927,8 +1931,8 @@
         "enabled": true,
         "protocol": "torrent",
         "failing": true,
-        "disabledUntil": "2026-11-07T08:47:19.488Z",
-        "mostRecentFailure": "2026-11-06T23:47:19.488Z",
+        "disabledUntil": "2026-11-07T09:30:03.007Z",
+        "mostRecentFailure": "2026-11-07T00:30:03.007Z",
         "urls": [
          "https://nightjar.example.invalid/"
         ],
@@ -1939,14 +1943,14 @@
         "stats": {
          "indexerId": 2,
          "name": "Nightjar",
-         "queries": 8720,
+         "queries": 8724,
          "grabs": 28,
-         "failedQueries": 1316,
+         "failedQueries": 1324,
          "failedGrabs": 1,
-         "averageResponseMs": 2746,
-         "rssQueries": 3472,
+         "averageResponseMs": 2750,
+         "rssQueries": 3473,
          "authQueries": 0,
-         "averageGrabResponseMs": 3844
+         "averageGrabResponseMs": 3850
         },
         "apps": [
          "Sonarr",
@@ -1975,14 +1979,14 @@
         "stats": {
          "indexerId": 3,
          "name": "Harbor Light",
-         "queries": 12529,
-         "grabs": 1367,
+         "queries": 12531,
+         "grabs": 1366,
          "failedQueries": 154,
          "failedGrabs": 27,
          "averageResponseMs": 538,
-         "rssQueries": 5016,
+         "rssQueries": 5017,
          "authQueries": 0,
-         "averageGrabResponseMs": 754
+         "averageGrabResponseMs": 753
         },
         "apps": [
          "Sonarr",
@@ -2076,12 +2080,12 @@
         "stats": {
          "indexerId": 6,
          "name": "Driftwood",
-         "queries": 10196,
+         "queries": 10197,
          "grabs": 0,
          "failedQueries": 659,
          "failedGrabs": 0,
          "averageResponseMs": 1408,
-         "rssQueries": 4068,
+         "rssQueries": 4069,
          "authQueries": 0,
          "averageGrabResponseMs": 0
         },
@@ -2197,7 +2201,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "degraded",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-07T06:47:18.350Z",
+      "checkedAt": "2026-11-07T07:30:02.954Z",
       "errorKind": null,
       "webUrl": "http://sonarr:8989",
       "live": {
@@ -2216,7 +2220,7 @@
       "adapterName": "Sonarr",
       "instanceStatus": "ok",
       "version": "4.0.15.2941",
-      "checkedAt": "2026-11-07T06:47:18.358Z",
+      "checkedAt": "2026-11-07T07:30:02.965Z",
       "errorKind": null,
       "webUrl": "http://sonarr-4k:8989",
       "live": {
@@ -2234,7 +2238,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-07T06:47:18.366Z",
+      "checkedAt": "2026-11-07T07:30:02.981Z",
       "errorKind": null,
       "webUrl": "http://radarr:7878",
       "live": {
@@ -2253,7 +2257,7 @@
       "adapterName": "Radarr",
       "instanceStatus": "degraded",
       "version": "5.26.2.10099",
-      "checkedAt": "2026-11-07T06:47:18.373Z",
+      "checkedAt": "2026-11-07T07:30:02.991Z",
       "errorKind": null,
       "webUrl": "http://radarr-4k:7878",
       "live": {
@@ -2272,7 +2276,7 @@
       "adapterName": "Lidarr",
       "instanceStatus": "degraded",
       "version": "2.13.3.4711",
-      "checkedAt": "2026-11-07T06:47:18.381Z",
+      "checkedAt": "2026-11-07T07:30:02.998Z",
       "errorKind": null,
       "webUrl": "http://lidarr:8686",
       "live": {
@@ -2291,7 +2295,7 @@
       "adapterName": "Prowlarr",
       "instanceStatus": "ok",
       "version": "2.0.5.5160",
-      "checkedAt": "2026-11-07T06:47:19.485Z",
+      "checkedAt": "2026-11-07T07:30:03.005Z",
       "errorKind": null,
       "webUrl": "http://prowlarr:9696/",
       "live": {
@@ -2310,7 +2314,7 @@
       "adapterName": "qBittorrent",
       "instanceStatus": "ok",
       "version": "v5.1.2",
-      "checkedAt": "2026-11-07T06:47:18.395Z",
+      "checkedAt": "2026-11-07T07:30:03.105Z",
       "errorKind": null,
       "webUrl": "http://qbittorrent:8080/",
       "live": {
@@ -2329,7 +2333,7 @@
       "adapterName": "SABnzbd",
       "instanceStatus": "ok",
       "version": "4.5.3",
-      "checkedAt": "2026-11-07T06:47:18.790Z",
+      "checkedAt": "2026-11-07T07:30:03.019Z",
       "errorKind": null,
       "webUrl": "http://sabnzbd:8080/",
       "live": {
@@ -2348,7 +2352,7 @@
       "adapterName": "Jellyfin",
       "instanceStatus": "ok",
       "version": "10.10.7",
-      "checkedAt": "2026-11-07T06:47:19.724Z",
+      "checkedAt": "2026-11-07T07:30:03.027Z",
       "errorKind": null,
       "webUrl": "http://jellyfin:8096/web/",
       "live": {
@@ -2367,7 +2371,7 @@
       "adapterName": "Seerr",
       "instanceStatus": "ok",
       "version": "2.7.3",
-      "checkedAt": "2026-11-07T06:47:18.420Z",
+      "checkedAt": "2026-11-07T07:30:03.446Z",
       "errorKind": null,
       "webUrl": "http://seerr:5055/",
       "live": {}
@@ -2382,8 +2386,8 @@
       "status": "ok",
       "adapterName": "Tdarr",
       "instanceStatus": "ok",
-      "version": "2.27.01",
-      "checkedAt": "2026-11-07T06:47:18.426Z",
+      "version": "3.06.00",
+      "checkedAt": "2026-11-07T07:30:03.042Z",
       "errorKind": null,
       "webUrl": "http://tdarr:8265/",
       "live": {
@@ -3009,7 +3013,7 @@
      }
     ],
     "unread": [],
-    "readAt": "2026-11-07T06:47:21.554Z"
+    "readAt": "2026-11-07T07:30:06.194Z"
    }
   },
   "/api/tdarr": {
@@ -3022,9 +3026,9 @@
       "adapter": "tdarr",
       "adapterName": "Tdarr",
       "status": "ok",
-      "version": "2.27.01",
+      "version": "3.06.00",
       "compatibility": null,
-      "checkedAt": "2026-11-07T06:47:18.426Z",
+      "checkedAt": "2026-11-07T07:30:03.042Z",
       "errorKind": null,
       "webUrl": "http://tdarr:8265/",
       "nodes": [
@@ -3042,7 +3046,7 @@
           "fps": 27,
           "eta": "0:24:10",
           "step": "Processing",
-          "startedAt": "2026-11-07T06:38:13.678Z",
+          "startedAt": "2026-11-07T07:20:58.097Z",
           "originalBytes": 2254857830,
           "estimatedBytes": 858993459,
           "stuckMinutes": null
@@ -3087,7 +3091,7 @@
           "fps": 142,
           "eta": "0:06:51",
           "step": "Processing",
-          "startedAt": "2026-11-07T06:33:13.678Z",
+          "startedAt": "2026-11-07T07:15:58.097Z",
           "originalBytes": 20078972109,
           "estimatedBytes": 6657199309,
           "stuckMinutes": null
@@ -3101,7 +3105,7 @@
           "fps": 131,
           "eta": "0:11:30",
           "step": "Processing",
-          "startedAt": "2026-11-07T06:43:13.678Z",
+          "startedAt": "2026-11-07T07:25:58.097Z",
           "originalBytes": 3650722202,
           "estimatedBytes": 1395864371,
           "stuckMinutes": null
@@ -3115,7 +3119,7 @@
           "fps": 0,
           "eta": "0:00:38",
           "step": "Health check",
-          "startedAt": "2026-11-07T06:46:13.678Z",
+          "startedAt": "2026-11-07T07:28:58.097Z",
           "originalBytes": 1825361101,
           "estimatedBytes": null,
           "stuckMinutes": null
@@ -3136,7 +3140,7 @@
        {
         "id": "node-garage",
         "name": "Garage NAS",
-        "lastSeenAt": "2026-11-07T03:47:14.757Z"
+        "lastSeenAt": "2026-11-07T04:29:59.305Z"
        }
       ],
       "totals": {
@@ -3403,75 +3407,75 @@
         "file": "/data/media/movies/Intolerance (1916)/Intolerance (1916) Bluray-1080p.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-07T05:55:13.678Z",
+        "at": "2026-11-07T06:37:58.097Z",
         "sizeBytes": 14889779200
        },
        {
         "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E05.mkv",
         "kind": "healthCheck",
         "outcome": "error",
-        "at": "2026-11-07T05:32:13.678Z",
+        "at": "2026-11-07T06:14:58.097Z",
         "sizeBytes": 1457520640
        },
        {
         "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E03.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-07T03:37:13.678Z",
+        "at": "2026-11-07T04:19:58.097Z",
         "sizeBytes": 1551892480
        },
        {
         "file": "/data/media/tv/The Salt Archive/Season 01/The Salt Archive S01E04.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-07T03:36:13.678Z",
+        "at": "2026-11-07T04:18:58.097Z",
         "sizeBytes": 1583349760
        },
        {
         "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E01.mkv",
         "kind": "transcode",
         "outcome": "cancelled",
-        "at": "2026-11-06T15:47:13.678Z",
+        "at": "2026-11-06T16:29:58.097Z",
         "sizeBytes": 1782579200
        },
        {
         "file": "/data/media/movies/A Trip to the Moon (1902)/A Trip to the Moon (1902) WEBDL-720p.mp4",
         "kind": "healthCheck",
         "outcome": "error",
-        "at": "2026-11-06T09:07:13.678Z",
+        "at": "2026-11-06T09:49:58.097Z",
         "sizeBytes": 429916160
        },
        {
         "file": "/data/media/movies/Nanook of the North (1922)/Nanook of the North (1922) DVD.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-06T00:47:13.678Z",
+        "at": "2026-11-06T01:29:58.097Z",
         "sizeBytes": 4089446400
        },
        {
         "file": "/data/media/tv/Kestrel Station/Season 01/Kestrel Station S01E01.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-05T05:37:13.678Z",
+        "at": "2026-11-05T06:19:58.097Z",
         "sizeBytes": 3460300800
        },
        {
         "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E02.mkv",
         "kind": "healthCheck",
         "outcome": "error",
-        "at": "2026-11-04T18:47:13.678Z",
+        "at": "2026-11-04T19:29:58.097Z",
         "sizeBytes": 1803550720
        },
        {
         "file": "/data/media/tv/Lanternfall/Season 01/Lanternfall S01E06.mkv",
         "kind": "transcode",
         "outcome": "error",
-        "at": "2026-11-04T10:27:13.678Z",
+        "at": "2026-11-04T11:09:58.097Z",
         "sizeBytes": 1730150400
        }
       ],
       "detailError": null,
-      "readAt": "2026-11-07T06:47:21.569Z"
+      "readAt": "2026-11-07T07:30:06.209Z"
      }
     ]
    }
@@ -3487,9 +3491,9 @@
       "title": "A Trip to the Moon",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-07T06:47:14.263Z",
+      "startedAt": "2026-11-07T07:29:58.758Z",
       "endedAt": null,
-      "playedMs": 5463,
+      "playedMs": 4271,
       "progress": 46,
       "transcoding": false,
       "resolution": "4K",
@@ -3502,7 +3506,7 @@
       "title": "Lanternfall",
       "subtitle": "S01E03 · The Long Watch",
       "mediaType": "episode",
-      "startedAt": "2026-11-07T06:47:14.263Z",
+      "startedAt": "2026-11-07T07:29:58.758Z",
       "endedAt": null,
       "playedMs": 0,
       "progress": 23,
@@ -3517,9 +3521,9 @@
       "title": "Nosferatu",
       "subtitle": null,
       "mediaType": "movie",
-      "startedAt": "2026-11-07T06:47:14.263Z",
+      "startedAt": "2026-11-07T07:29:58.758Z",
       "endedAt": null,
-      "playedMs": 5463,
+      "playedMs": 4271,
       "progress": 44,
       "transcoding": false,
       "resolution": "1080p",
@@ -4393,8 +4397,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.225Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.696Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4489,8 +4493,8 @@
     {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.248Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.739Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4596,8 +4600,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.258Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.755Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4692,8 +4696,8 @@
     {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.277Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.769Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4816,8 +4820,8 @@
     {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.277Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.769Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -4910,8 +4914,8 @@
     {
      "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.290Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.787Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5014,8 +5018,8 @@
     {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.557Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.058Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5106,15 +5110,15 @@
      "muted": false
     },
     {
-     "fingerprint": "disk-filling-up:d7e4e1a71",
+     "fingerprint": "disk-filling-up:d478b0bd9",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.753Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.300Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
      "group": {
-      "fingerprint": "disk-filling-up:d7e4e1a71",
+      "fingerprint": "disk-filling-up:d478b0bd9",
       "ruleId": "disk-filling-up",
       "origin": "service",
       "severity": "warning",
@@ -5145,20 +5149,20 @@
       },
       "instances": [
        {
-        "id": "00000000-0000-4000-8000-000000000005",
-        "name": "Radarr 4K",
-        "adapter": "radarr"
+        "id": "00000000-0000-4000-8000-000000000003",
+        "name": "Sonarr 4K",
+        "adapter": "sonarr"
        }
       ],
       "sources": [
-       "service:00000000-0000-4000-8000-000000000005:storage"
+       "service:00000000-0000-4000-8000-000000000003:storage"
       ],
       "details": [
        {
         "instance": {
-         "id": "00000000-0000-4000-8000-000000000005",
-         "name": "Radarr 4K",
-         "adapter": "radarr"
+         "id": "00000000-0000-4000-8000-000000000003",
+         "name": "Sonarr 4K",
+         "adapter": "sonarr"
         },
         "source": "Storage.disk",
         "level": "warning",
@@ -5174,7 +5178,7 @@
         "label": {
          "key": "issues.action.openStorage"
         },
-        "href": "/storage?disk=d7e4e1a71"
+        "href": "/storage?disk=d478b0bd9"
        },
        {
         "id": "guide",
@@ -5203,7 +5207,7 @@
          "key": "issues.action.recheck"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d7e4e1a71"
+         "fingerprint": "disk-filling-up:d478b0bd9"
         }
        },
        {
@@ -5214,7 +5218,7 @@
          "key": "issues.action.mute"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d7e4e1a71"
+         "fingerprint": "disk-filling-up:d478b0bd9"
         }
        }
       ]
@@ -5224,8 +5228,8 @@
     {
      "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.843Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.392Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5334,8 +5338,8 @@
     {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:18.470Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:30:03.093Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5435,8 +5439,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000002",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.225Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.696Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5532,7 +5536,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.225Z"
+      "at": "2026-11-07T07:29:58.696Z"
      }
     ]
    }
@@ -5543,8 +5547,8 @@
     "issue": {
      "fingerprint": "indexer-unavailable:nightjar",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.248Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.739Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5651,7 +5655,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.248Z"
+      "at": "2026-11-07T07:29:58.739Z"
      }
     ]
    }
@@ -5662,8 +5666,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.258Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.755Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5759,7 +5763,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.258Z"
+      "at": "2026-11-07T07:29:58.755Z"
      }
     ]
    }
@@ -5770,8 +5774,8 @@
     "issue": {
      "fingerprint": "downloads-failed:00000000-0000-4000-8000-000000000006",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.277Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.769Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -5895,7 +5899,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.277Z"
+      "at": "2026-11-07T07:29:58.769Z"
      }
     ]
    }
@@ -5906,8 +5910,8 @@
     "issue": {
      "fingerprint": "update-available:lidarr:2.14.1.4800",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.277Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.769Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -6001,7 +6005,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-07T06:47:14.277Z"
+      "at": "2026-11-07T07:29:58.769Z"
      }
     ]
    }
@@ -6012,8 +6016,8 @@
     "issue": {
      "fingerprint": "transcode-failures:00000000-0000-4000-8000-000000000012",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.290Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:58.787Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -6117,7 +6121,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.290Z"
+      "at": "2026-11-07T07:29:58.787Z"
      }
     ]
    }
@@ -6128,8 +6132,8 @@
     "issue": {
      "fingerprint": "trash-local-drift:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.557Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.058Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -6223,24 +6227,24 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-07T06:47:14.557Z"
+      "at": "2026-11-07T07:29:59.058Z"
      }
     ]
    }
   },
-  "/api/issues/disk-filling-up%3Ad7e4e1a71": {
+  "/api/issues/disk-filling-up%3Ad478b0bd9": {
    "status": 200,
    "body": {
     "issue": {
-     "fingerprint": "disk-filling-up:d7e4e1a71",
+     "fingerprint": "disk-filling-up:d478b0bd9",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.753Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.300Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
      "group": {
-      "fingerprint": "disk-filling-up:d7e4e1a71",
+      "fingerprint": "disk-filling-up:d478b0bd9",
       "ruleId": "disk-filling-up",
       "origin": "service",
       "severity": "warning",
@@ -6271,20 +6275,20 @@
       },
       "instances": [
        {
-        "id": "00000000-0000-4000-8000-000000000005",
-        "name": "Radarr 4K",
-        "adapter": "radarr"
+        "id": "00000000-0000-4000-8000-000000000003",
+        "name": "Sonarr 4K",
+        "adapter": "sonarr"
        }
       ],
       "sources": [
-       "service:00000000-0000-4000-8000-000000000005:storage"
+       "service:00000000-0000-4000-8000-000000000003:storage"
       ],
       "details": [
        {
         "instance": {
-         "id": "00000000-0000-4000-8000-000000000005",
-         "name": "Radarr 4K",
-         "adapter": "radarr"
+         "id": "00000000-0000-4000-8000-000000000003",
+         "name": "Sonarr 4K",
+         "adapter": "sonarr"
         },
         "source": "Storage.disk",
         "level": "warning",
@@ -6300,7 +6304,7 @@
         "label": {
          "key": "issues.action.openStorage"
         },
-        "href": "/storage?disk=d7e4e1a71"
+        "href": "/storage?disk=d478b0bd9"
        },
        {
         "id": "guide",
@@ -6329,7 +6333,7 @@
          "key": "issues.action.recheck"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d7e4e1a71"
+         "fingerprint": "disk-filling-up:d478b0bd9"
         }
        },
        {
@@ -6340,7 +6344,7 @@
          "key": "issues.action.mute"
         },
         "payload": {
-         "fingerprint": "disk-filling-up:d7e4e1a71"
+         "fingerprint": "disk-filling-up:d478b0bd9"
         }
        }
       ]
@@ -6351,7 +6355,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.753Z"
+      "at": "2026-11-07T07:29:59.300Z"
      }
     ]
    }
@@ -6362,8 +6366,8 @@
     "issue": {
      "fingerprint": "transcode-node-offline:00000000-0000-4000-8000-000000000012:node-garage",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:14.843Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:29:59.392Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -6473,7 +6477,7 @@
      {
       "type": "opened",
       "severity": "warning",
-      "at": "2026-11-07T06:47:14.843Z"
+      "at": "2026-11-07T07:29:59.392Z"
      }
     ]
    }
@@ -6484,8 +6488,8 @@
     "issue": {
      "fingerprint": "cleaner-import-ready:00000000-0000-4000-8000-000000000005",
      "status": "open",
-     "firstSeenAt": "2026-11-07T06:47:18.470Z",
-     "lastSeenAt": "2026-11-07T06:47:19.729Z",
+     "firstSeenAt": "2026-11-07T07:30:03.093Z",
+     "lastSeenAt": "2026-11-07T07:30:04.967Z",
      "resolvedAt": null,
      "mutedUntil": null,
      "mutedForever": false,
@@ -6581,7 +6585,7 @@
      {
       "type": "opened",
       "severity": "info",
-      "at": "2026-11-07T06:47:18.470Z"
+      "at": "2026-11-07T07:30:03.093Z"
      }
     ]
    }
@@ -6615,8 +6619,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-07T06:47:18.435Z",
-      "nextRunAt": "2026-11-07T06:52:18.435Z",
+      "lastRunAt": "2026-11-07T07:30:03.054Z",
+      "nextRunAt": "2026-11-07T07:35:03.054Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -6676,7 +6680,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T07:47:18.435Z",
+        "nextStrikeAt": "2026-11-07T08:30:03.054Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -6773,8 +6777,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-07T06:47:18.456Z",
-      "nextRunAt": "2026-11-07T06:52:18.456Z",
+      "lastRunAt": "2026-11-07T07:30:03.079Z",
+      "nextRunAt": "2026-11-07T07:35:03.079Z",
       "error": null,
       "paused": null,
       "downloads": [],
@@ -6806,8 +6810,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-07T06:47:18.466Z",
-      "nextRunAt": "2026-11-07T06:52:18.466Z",
+      "lastRunAt": "2026-11-07T07:30:03.087Z",
+      "nextRunAt": "2026-11-07T07:35:03.087Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -6823,7 +6827,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T07:47:18.466Z",
+        "nextStrikeAt": "2026-11-07T08:30:03.087Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -6849,7 +6853,7 @@
         "strikes": 0,
         "maxStrikes": 4,
         "nextStrikeAt": null,
-        "waitUntil": "2026-11-14T06:47:18.466Z",
+        "waitUntil": "2026-11-14T07:30:03.087Z",
         "action": {
          "type": "none"
         },
@@ -6887,8 +6891,8 @@
        ],
        "whitelist": []
       },
-      "lastRunAt": "2026-11-07T06:47:18.484Z",
-      "nextRunAt": "2026-11-07T06:52:18.484Z",
+      "lastRunAt": "2026-11-07T07:30:03.107Z",
+      "nextRunAt": "2026-11-07T07:35:03.107Z",
       "error": null,
       "paused": null,
       "downloads": [
@@ -6904,7 +6908,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+        "nextStrikeAt": "2026-11-07T08:30:03.107Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -6929,7 +6933,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+        "nextStrikeAt": "2026-11-07T08:30:03.107Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -6954,7 +6958,7 @@
         "rule": "failed",
         "strikes": 1,
         "maxStrikes": 4,
-        "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+        "nextStrikeAt": "2026-11-07T08:30:03.107Z",
         "waitUntil": null,
         "action": {
          "type": "strike"
@@ -6978,7 +6982,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000002/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-07T06:52:18.435Z",
+    "at": "2026-11-07T07:35:03.054Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -7038,7 +7042,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T07:47:18.435Z",
+       "nextStrikeAt": "2026-11-07T08:30:03.054Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -7078,48 +7082,48 @@
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00000",
        "title": "Lanternfall.S02E01.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-07T06:47:18.435Z",
+       "firstSeenAt": "2026-11-07T07:30:03.054Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-07T06:47:18.435Z",
+       "lastProgressAt": "2026-11-07T07:30:03.054Z",
        "lastSizeLeft": 850000000,
        "ignored": false
       },
       {
        "key": "sabnzbd_nzo_demo0001",
        "title": "Lanternfall.S02E02.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-07T06:47:18.435Z",
+       "firstSeenAt": "2026-11-07T07:30:03.054Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-07T06:47:18.435Z",
+       "lastProgressAt": "2026-11-07T07:30:03.054Z",
        "lastSizeLeft": 1900000000,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
        "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-07T06:47:18.435Z",
+       "firstSeenAt": "2026-11-07T07:30:03.054Z",
        "problem": "failed",
-       "problemSince": "2026-11-07T06:47:18.435Z",
+       "problemSince": "2026-11-07T07:30:03.054Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-07T06:47:18.435Z",
-       "lastProgressAt": "2026-11-07T06:47:18.435Z",
+       "lastStrikeAt": "2026-11-07T07:30:03.054Z",
+       "lastProgressAt": "2026-11-07T07:30:03.054Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00054",
        "title": "The.Salt.Archive.S02E06.1080p.WEB.H264",
-       "firstSeenAt": "2026-11-07T06:47:18.435Z",
+       "firstSeenAt": "2026-11-07T07:30:03.054Z",
        "problem": null,
        "problemSince": null,
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-07T06:47:18.435Z",
+       "lastProgressAt": "2026-11-07T07:30:03.054Z",
        "lastSizeLeft": 1450000000,
        "ignored": false
       }
@@ -7137,7 +7141,7 @@
      {
       "id": 1,
       "instanceId": "00000000-0000-4000-8000-000000000002",
-      "at": "2026-11-07T06:47:18.440Z",
+      "at": "2026-11-07T07:30:03.059Z",
       "downloadKey": "d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m0d3m00053",
       "title": "Kestrel.Station.S01E03.1080p.WEB.H264",
       "kind": "strike",
@@ -7355,7 +7359,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000004/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-07T06:52:18.456Z",
+    "at": "2026-11-07T07:35:03.079Z",
     "plan": {
      "paused": null,
      "downloads": [],
@@ -7466,7 +7470,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000005/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-07T06:52:18.466Z",
+    "at": "2026-11-07T07:35:03.087Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -7482,7 +7486,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T07:47:18.466Z",
+       "nextStrikeAt": "2026-11-07T08:30:03.087Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -7508,7 +7512,7 @@
        "strikes": 0,
        "maxStrikes": 4,
        "nextStrikeAt": null,
-       "waitUntil": "2026-11-14T06:47:18.466Z",
+       "waitUntil": "2026-11-14T07:30:03.087Z",
        "action": {
         "type": "none"
        },
@@ -7522,24 +7526,24 @@
       {
        "key": "demofail0001",
        "title": "Intolerance.1916.Restored.2160p.WEB.H265",
-       "firstSeenAt": "2026-11-07T06:47:18.466Z",
+       "firstSeenAt": "2026-11-07T07:30:03.087Z",
        "problem": "failed",
-       "problemSince": "2026-11-07T06:47:18.466Z",
+       "problemSince": "2026-11-07T07:30:03.087Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-07T06:47:18.466Z",
-       "lastProgressAt": "2026-11-07T06:47:18.466Z",
+       "lastStrikeAt": "2026-11-07T07:30:03.087Z",
+       "lastProgressAt": "2026-11-07T07:30:03.087Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoimport01",
        "title": "A.Trip.to.the.Moon.1902.Hand.Colored.2160p.WEB",
-       "firstSeenAt": "2026-11-07T06:47:18.466Z",
+       "firstSeenAt": "2026-11-07T07:30:03.087Z",
        "problem": "importReady",
-       "problemSince": "2026-11-07T06:47:18.466Z",
+       "problemSince": "2026-11-07T07:30:03.087Z",
        "strikes": 0,
        "lastStrikeAt": null,
-       "lastProgressAt": "2026-11-07T06:47:18.466Z",
+       "lastProgressAt": "2026-11-07T07:30:03.087Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -7557,7 +7561,7 @@
      {
       "id": 2,
       "instanceId": "00000000-0000-4000-8000-000000000005",
-      "at": "2026-11-07T06:47:18.469Z",
+      "at": "2026-11-07T07:30:03.091Z",
       "downloadKey": "demofail0001",
       "title": "Intolerance.1916.Restored.2160p.WEB.H265",
       "kind": "strike",
@@ -7671,7 +7675,7 @@
   "/api/cleaner/00000000-0000-4000-8000-000000000006/preview": {
    "status": 200,
    "body": {
-    "at": "2026-11-07T06:52:18.484Z",
+    "at": "2026-11-07T07:35:03.107Z",
     "plan": {
      "paused": null,
      "downloads": [
@@ -7687,7 +7691,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+       "nextStrikeAt": "2026-11-07T08:30:03.107Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -7712,7 +7716,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+       "nextStrikeAt": "2026-11-07T08:30:03.107Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -7737,7 +7741,7 @@
        "rule": "failed",
        "strikes": 1,
        "maxStrikes": 4,
-       "nextStrikeAt": "2026-11-07T07:47:18.484Z",
+       "nextStrikeAt": "2026-11-07T08:30:03.107Z",
        "waitUntil": null,
        "action": {
         "type": "none"
@@ -7755,36 +7759,36 @@
       {
        "key": "demoalbum001",
        "title": "The Lamplighters-Night Shift",
-       "firstSeenAt": "2026-11-07T06:47:18.484Z",
+       "firstSeenAt": "2026-11-07T07:30:03.107Z",
        "problem": "failed",
-       "problemSince": "2026-11-07T06:47:18.484Z",
+       "problemSince": "2026-11-07T07:30:03.107Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-07T06:47:18.484Z",
-       "lastProgressAt": "2026-11-07T06:47:18.484Z",
+       "lastStrikeAt": "2026-11-07T07:30:03.107Z",
+       "lastProgressAt": "2026-11-07T07:30:03.107Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum002",
        "title": "The Lamplighters-Harbour Songs",
-       "firstSeenAt": "2026-11-07T06:47:18.484Z",
+       "firstSeenAt": "2026-11-07T07:30:03.107Z",
        "problem": "failed",
-       "problemSince": "2026-11-07T06:47:18.484Z",
+       "problemSince": "2026-11-07T07:30:03.107Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-07T06:47:18.484Z",
-       "lastProgressAt": "2026-11-07T06:47:18.484Z",
+       "lastStrikeAt": "2026-11-07T07:30:03.107Z",
+       "lastProgressAt": "2026-11-07T07:30:03.107Z",
        "lastSizeLeft": 0,
        "ignored": false
       },
       {
        "key": "demoalbum003",
        "title": "Marrow & Pine-Low Tide",
-       "firstSeenAt": "2026-11-07T06:47:18.484Z",
+       "firstSeenAt": "2026-11-07T07:30:03.107Z",
        "problem": "failed",
-       "problemSince": "2026-11-07T06:47:18.484Z",
+       "problemSince": "2026-11-07T07:30:03.107Z",
        "strikes": 1,
-       "lastStrikeAt": "2026-11-07T06:47:18.484Z",
-       "lastProgressAt": "2026-11-07T06:47:18.484Z",
+       "lastStrikeAt": "2026-11-07T07:30:03.107Z",
+       "lastProgressAt": "2026-11-07T07:30:03.107Z",
        "lastSizeLeft": 0,
        "ignored": false
       }
@@ -7802,7 +7806,7 @@
      {
       "id": 5,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-07T06:47:18.487Z",
+      "at": "2026-11-07T07:30:03.113Z",
       "downloadKey": "demoalbum003",
       "title": "Marrow & Pine-Low Tide",
       "kind": "strike",
@@ -7822,7 +7826,7 @@
      {
       "id": 4,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-07T06:47:18.487Z",
+      "at": "2026-11-07T07:30:03.113Z",
       "downloadKey": "demoalbum002",
       "title": "The Lamplighters-Harbour Songs",
       "kind": "strike",
@@ -7842,7 +7846,7 @@
      {
       "id": 3,
       "instanceId": "00000000-0000-4000-8000-000000000006",
-      "at": "2026-11-07T06:47:18.486Z",
+      "at": "2026-11-07T07:30:03.113Z",
       "downloadKey": "demoalbum001",
       "title": "The Lamplighters-Night Shift",
       "kind": "strike",
@@ -7995,8 +7999,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-07T06:47:18.452Z",
-        "nextRunAt": "2026-11-07T07:47:18.452Z",
+        "lastRunAt": "2026-11-07T07:30:03.074Z",
+        "nextRunAt": "2026-11-07T08:30:03.074Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -8005,8 +8009,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-07T06:47:18.454Z",
-        "nextRunAt": "2026-11-07T08:47:18.454Z",
+        "lastRunAt": "2026-11-07T07:30:03.077Z",
+        "nextRunAt": "2026-11-07T09:30:03.077Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -8030,7 +8034,7 @@
           "count": 3
          }
         },
-        "at": "2026-11-07T06:47:18.452Z",
+        "at": "2026-11-07T07:30:03.074Z",
         "manual": false,
         "result": "pending"
        },
@@ -8042,7 +8046,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-07T06:47:18.450Z",
+        "at": "2026-11-07T07:30:03.072Z",
         "manual": false,
         "result": "pending"
        }
@@ -8088,7 +8092,7 @@
          "everyMinutes": 60
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-07T06:47:21.678Z",
+        "nextRunAt": "2026-11-07T07:30:06.322Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -8098,7 +8102,7 @@
          "everyMinutes": 120
         },
         "lastRunAt": null,
-        "nextRunAt": "2026-11-07T06:47:21.678Z",
+        "nextRunAt": "2026-11-07T07:30:06.322Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -8223,8 +8227,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-07T06:47:18.480Z",
-        "nextRunAt": "2026-11-07T07:47:18.480Z",
+        "lastRunAt": "2026-11-07T07:30:03.102Z",
+        "nextRunAt": "2026-11-07T08:30:03.102Z",
         "upcoming": [
          {
           "key": "movie:203",
@@ -8242,7 +8246,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T07:47:18.480Z"
+          "at": "2026-11-07T08:30:03.102Z"
          },
          {
           "key": "movie:202",
@@ -8260,7 +8264,7 @@
           "reason": {
            "key": "hunting.reason.neverSearched"
           },
-          "at": "2026-11-07T07:47:18.480Z"
+          "at": "2026-11-07T08:30:03.102Z"
          }
         ],
         "waiting": 2
@@ -8270,8 +8274,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-07T06:47:18.482Z",
-        "nextRunAt": "2026-11-07T08:47:18.482Z",
+        "lastRunAt": "2026-11-07T07:30:03.104Z",
+        "nextRunAt": "2026-11-07T09:30:03.104Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -8292,7 +8296,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-07T06:47:18.480Z",
+        "at": "2026-11-07T07:30:03.102Z",
         "manual": false,
         "result": "pending"
        },
@@ -8304,7 +8308,7 @@
         "reason": {
          "key": "hunting.reason.neverSearched"
         },
-        "at": "2026-11-07T06:47:18.479Z",
+        "at": "2026-11-07T07:30:03.101Z",
         "manual": false,
         "result": "pending"
        }
@@ -8349,8 +8353,8 @@
          "count": 2,
          "everyMinutes": 60
         },
-        "lastRunAt": "2026-11-07T06:47:18.493Z",
-        "nextRunAt": "2026-11-07T07:47:18.493Z",
+        "lastRunAt": "2026-11-07T07:30:03.122Z",
+        "nextRunAt": "2026-11-07T08:30:03.122Z",
         "upcoming": [],
         "waiting": 0
        },
@@ -8359,8 +8363,8 @@
          "count": 1,
          "everyMinutes": 120
         },
-        "lastRunAt": "2026-11-07T06:47:18.495Z",
-        "nextRunAt": "2026-11-07T08:47:18.495Z",
+        "lastRunAt": "2026-11-07T07:30:03.124Z",
+        "nextRunAt": "2026-11-07T09:30:03.124Z",
         "upcoming": [],
         "waiting": 0
        }
@@ -8902,8 +8906,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-07T06:12:13.678Z",
-      "updatedAt": "2026-11-07T06:12:13.678Z",
+      "createdAt": "2026-11-07T06:54:58.097Z",
+      "updatedAt": "2026-11-07T06:54:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -8924,8 +8928,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-07T04:07:13.678Z",
-      "updatedAt": "2026-11-07T04:07:13.678Z",
+      "createdAt": "2026-11-07T04:49:58.097Z",
+      "updatedAt": "2026-11-07T04:49:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -8944,8 +8948,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -8966,8 +8970,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-06T04:47:13.678Z",
-      "updatedAt": "2026-11-06T04:47:13.678Z",
+      "createdAt": "2026-11-06T05:29:58.097Z",
+      "updatedAt": "2026-11-06T05:29:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -8986,8 +8990,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-05T04:47:13.678Z",
-      "updatedAt": "2026-11-05T04:47:13.678Z",
+      "createdAt": "2026-11-05T05:29:58.097Z",
+      "updatedAt": "2026-11-05T05:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9006,8 +9010,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-04T06:47:13.678Z",
-      "updatedAt": "2026-11-04T06:47:13.678Z",
+      "createdAt": "2026-11-04T07:29:58.097Z",
+      "updatedAt": "2026-11-04T07:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9029,8 +9033,8 @@
        1,
        2
       ],
-      "createdAt": "2026-11-01T06:47:13.678Z",
-      "updatedAt": "2026-11-01T06:47:13.678Z",
+      "createdAt": "2026-11-01T07:29:58.097Z",
+      "updatedAt": "2026-11-01T07:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9049,8 +9053,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-26T06:47:13.678Z",
-      "updatedAt": "2026-10-26T06:47:13.678Z",
+      "createdAt": "2026-10-26T07:29:58.097Z",
+      "updatedAt": "2026-10-26T07:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9069,8 +9073,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-23T06:47:13.678Z",
-      "updatedAt": "2026-10-23T06:47:13.678Z",
+      "createdAt": "2026-10-23T07:29:58.097Z",
+      "updatedAt": "2026-10-23T07:29:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -9099,8 +9103,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9119,8 +9123,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-26T06:47:13.678Z",
-      "updatedAt": "2026-10-26T06:47:13.678Z",
+      "createdAt": "2026-10-26T07:29:58.097Z",
+      "updatedAt": "2026-10-26T07:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9148,8 +9152,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-07T06:12:13.678Z",
-      "updatedAt": "2026-11-07T06:12:13.678Z",
+      "createdAt": "2026-11-07T06:54:58.097Z",
+      "updatedAt": "2026-11-07T06:54:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -9188,8 +9192,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-07T04:07:13.678Z",
-      "updatedAt": "2026-11-07T04:07:13.678Z",
+      "createdAt": "2026-11-07T04:49:58.097Z",
+      "updatedAt": "2026-11-07T04:49:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9208,8 +9212,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9230,8 +9234,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-06T04:47:13.678Z",
-      "updatedAt": "2026-11-06T04:47:13.678Z",
+      "createdAt": "2026-11-06T05:29:58.097Z",
+      "updatedAt": "2026-11-06T05:29:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -9250,8 +9254,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-05T04:47:13.678Z",
-      "updatedAt": "2026-11-05T04:47:13.678Z",
+      "createdAt": "2026-11-05T05:29:58.097Z",
+      "updatedAt": "2026-11-05T05:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9280,8 +9284,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9311,8 +9315,8 @@
       "seasons": [
        1
       ],
-      "createdAt": "2026-11-07T04:07:13.678Z",
-      "updatedAt": "2026-11-07T04:07:13.678Z",
+      "createdAt": "2026-11-07T04:49:58.097Z",
+      "updatedAt": "2026-11-07T04:49:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9331,8 +9335,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9353,8 +9357,8 @@
       "seasons": [
        2
       ],
-      "createdAt": "2026-11-06T04:47:13.678Z",
-      "updatedAt": "2026-11-06T04:47:13.678Z",
+      "createdAt": "2026-11-06T05:29:58.097Z",
+      "updatedAt": "2026-11-06T05:29:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -9373,8 +9377,8 @@
       "posterPath": "/demo-great-train-robbery.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-11-05T04:47:13.678Z",
-      "updatedAt": "2026-11-05T04:47:13.678Z",
+      "createdAt": "2026-11-05T05:29:58.097Z",
+      "updatedAt": "2026-11-05T05:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9403,8 +9407,8 @@
       "posterPath": "/demo-intolerance.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-07T01:47:13.678Z",
-      "updatedAt": "2026-11-07T01:47:13.678Z",
+      "createdAt": "2026-11-07T02:29:58.097Z",
+      "updatedAt": "2026-11-07T02:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9435,8 +9439,8 @@
        1,
        2
       ],
-      "createdAt": "2026-11-01T06:47:13.678Z",
-      "updatedAt": "2026-11-01T06:47:13.678Z",
+      "createdAt": "2026-11-01T07:29:58.097Z",
+      "updatedAt": "2026-11-01T07:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9455,8 +9459,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-26T06:47:13.678Z",
-      "updatedAt": "2026-10-26T06:47:13.678Z",
+      "createdAt": "2026-10-26T07:29:58.097Z",
+      "updatedAt": "2026-10-26T07:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9485,8 +9489,8 @@
       "posterPath": "/demo-nosferatu.jpg",
       "is4k": false,
       "seasons": [],
-      "createdAt": "2026-10-26T06:47:13.678Z",
-      "updatedAt": "2026-10-26T06:47:13.678Z",
+      "createdAt": "2026-10-26T07:29:58.097Z",
+      "updatedAt": "2026-10-26T07:29:58.097Z",
       "requestedBy": {
        "id": 1,
        "name": "Demo Admin"
@@ -9514,8 +9518,8 @@
       "posterPath": "/demo-trip-to-the-moon.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-10-23T06:47:13.678Z",
-      "updatedAt": "2026-10-23T06:47:13.678Z",
+      "createdAt": "2026-10-23T07:29:58.097Z",
+      "updatedAt": "2026-10-23T07:29:58.097Z",
       "requestedBy": {
        "id": 3,
        "name": "Jonas"
@@ -9552,8 +9556,8 @@
       "posterPath": "/demo-nanook.jpg",
       "is4k": true,
       "seasons": [],
-      "createdAt": "2026-11-04T06:47:13.678Z",
-      "updatedAt": "2026-11-04T06:47:13.678Z",
+      "createdAt": "2026-11-04T07:29:58.097Z",
+      "updatedAt": "2026-11-04T07:29:58.097Z",
       "requestedBy": {
        "id": 2,
        "name": "Mira"
@@ -9581,8 +9585,8 @@
     "guide": {
      "version": "cfd2ca038b4a08ed119940df760cca5ca904a528",
      "date": null,
-     "fetchedAt": "2026-11-07T06:47:14.401Z",
-     "checkedAt": "2026-11-07T06:47:14.401Z",
+     "fetchedAt": "2026-11-07T07:29:58.883Z",
+     "checkedAt": "2026-11-07T07:29:58.883Z",
      "error": null,
      "source": "directory",
      "skipped": [
@@ -9618,7 +9622,7 @@
       "lastSyncAt": null,
       "neverSynced": true,
       "state": {
-       "checkedAt": "2026-11-07T06:47:14.562Z",
+       "checkedAt": "2026-11-07T07:29:59.061Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -9652,10 +9656,10 @@
       "templateId": "00000000-0000-4000-8000-000000000018",
       "templateName": "Movies HD",
       "guardMode": "auto",
-      "lastSyncAt": "2026-11-07T06:47:14.498Z",
+      "lastSyncAt": "2026-11-07T07:29:58.986Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-07T06:47:14.544Z",
+       "checkedAt": "2026-11-07T07:29:59.046Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -9664,7 +9668,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-07T06:47:14.498Z",
+        "at": "2026-11-07T07:29:58.986Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000019",
         "error": null
@@ -9683,10 +9687,10 @@
       "templateId": "00000000-0000-4000-8000-000000000020",
       "templateName": "Movies 4K",
       "guardMode": "notify",
-      "lastSyncAt": "2026-11-07T06:47:14.528Z",
+      "lastSyncAt": "2026-11-07T07:29:59.024Z",
       "neverSynced": false,
       "state": {
-       "checkedAt": "2026-11-07T06:47:14.553Z",
+       "checkedAt": "2026-11-07T07:29:59.054Z",
        "error": null,
        "counts": {
         "guide": 0,
@@ -9695,7 +9699,7 @@
        },
        "removable": 0,
        "lastSync": {
-        "at": "2026-11-07T06:47:14.528Z",
+        "at": "2026-11-07T07:29:59.024Z",
         "status": "ok",
         "historyId": "00000000-0000-4000-8000-000000000021",
         "error": null
@@ -9729,8 +9733,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-07T06:47:14.439Z",
-      "updatedAt": "2026-11-07T06:47:14.439Z"
+      "createdAt": "2026-11-07T07:29:58.933Z",
+      "updatedAt": "2026-11-07T07:29:58.933Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000018",
@@ -9755,8 +9759,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-07T06:47:14.435Z",
-      "updatedAt": "2026-11-07T06:47:14.435Z"
+      "createdAt": "2026-11-07T07:29:58.929Z",
+      "updatedAt": "2026-11-07T07:29:58.929Z"
      },
      {
       "id": "00000000-0000-4000-8000-000000000017",
@@ -9793,8 +9797,8 @@
        },
        "rename": true
       },
-      "createdAt": "2026-11-07T06:47:14.444Z",
-      "updatedAt": "2026-11-07T06:47:14.444Z"
+      "createdAt": "2026-11-07T07:29:58.938Z",
+      "updatedAt": "2026-11-07T07:29:58.938Z"
      }
     ],
     "changelog": []
@@ -9808,7 +9812,7 @@
       "id": "00000000-0000-4000-8000-000000000021",
       "instanceId": "00000000-0000-4000-8000-000000000005",
       "templateName": "Movies 4K",
-      "at": "2026-11-07T06:47:14.528Z",
+      "at": "2026-11-07T07:29:59.024Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -9894,7 +9898,7 @@
       "id": "00000000-0000-4000-8000-000000000019",
       "instanceId": "00000000-0000-4000-8000-000000000004",
       "templateName": "Movies HD",
-      "at": "2026-11-07T06:47:14.498Z",
+      "at": "2026-11-07T07:29:58.986Z",
       "actor": "00000000-0000-4000-8000-000000000001",
       "kind": "sync",
       "status": "ok",
@@ -11798,13 +11802,12 @@
   "/api/indexer-insights?range=24h": {
    "status": 200,
    "body": {
-    "generatedAt": "2026-11-07T06:47:21.818Z",
+    "generatedAt": "2026-11-07T07:30:06.450Z",
     "range": "24h",
-    "from": "2026-11-06T07:00:00.000Z",
-    "to": "2026-11-07T07:00:00.000Z",
+    "from": "2026-11-06T08:00:00.000Z",
+    "to": "2026-11-07T08:00:00.000Z",
     "stepMs": 3600000,
     "points": [
-     "2026-11-06T07:00:00.000Z",
      "2026-11-06T08:00:00.000Z",
      "2026-11-06T09:00:00.000Z",
      "2026-11-06T10:00:00.000Z",
@@ -11827,12 +11830,13 @@
      "2026-11-07T03:00:00.000Z",
      "2026-11-07T04:00:00.000Z",
      "2026-11-07T05:00:00.000Z",
-     "2026-11-07T06:00:00.000Z"
+     "2026-11-07T06:00:00.000Z",
+     "2026-11-07T07:00:00.000Z"
     ],
     "collection": {
      "running": false,
-     "lastRunAt": "2026-11-07T06:47:14.763Z",
-     "since": "2026-11-05T07:00:00.000Z",
+     "lastRunAt": "2026-11-07T07:29:59.311Z",
+     "since": "2026-11-05T08:00:00.000Z",
      "errors": []
     },
     "prowlarrs": [
@@ -12355,15 +12359,15 @@
        }
       ],
       "metrics": {
-       "queries": 547,
-       "rssQueries": 218,
-       "grabs": 45,
+       "queries": 554,
+       "rssQueries": 221,
+       "grabs": 44,
        "failedQueries": 1,
        "failedGrabs": 0,
-       "successRate": 0.9981718464351006,
-       "grabRate": 13.677811550151976,
-       "averageResponseMs": 331,
-       "averageGrabResponseMs": 453,
+       "successRate": 0.9981949458483754,
+       "grabRate": 13.213213213213212,
+       "averageResponseMs": 334,
+       "averageGrabResponseMs": 457,
        "uptime": 1,
        "outages": 0,
        "downMs": 0,
@@ -12377,14 +12381,13 @@
        "score": 100
       },
       "previous": {
-       "queries": 537,
-       "grabs": 47,
-       "successRate": 0.994413407821229,
-       "averageResponseMs": 328
+       "queries": 535,
+       "grabs": 48,
+       "successRate": 0.994392523364486,
+       "averageResponseMs": 327
       },
       "series": {
        "queries": [
-        16,
         20,
         20,
         24,
@@ -12407,10 +12410,10 @@
         11,
         11,
         14,
-        20
+        20,
+        23
        ],
        "grabs": [
-        2,
         2,
         2,
         3,
@@ -12433,10 +12436,10 @@
         1,
         1,
         2,
-        2
+        2,
+        1
        ],
        "failed": [
-        0,
         0,
         0,
         0,
@@ -12459,10 +12462,10 @@
         0,
         0,
         0,
+        0,
         0
        ],
        "responseMs": [
-        275,
         286,
         266,
         286,
@@ -12485,11 +12488,12 @@
         298,
         276,
         300,
-        374
+        374,
+        375
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-06T07:00:00.000Z"
+      "observedFrom": "2026-11-06T08:00:00.000Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:3",
@@ -12523,15 +12527,15 @@
        }
       ],
       "metrics": {
-       "queries": 433,
-       "rssQueries": 175,
-       "grabs": 51,
+       "queries": 435,
+       "rssQueries": 176,
+       "grabs": 50,
        "failedQueries": 9,
        "failedGrabs": 0,
-       "successRate": 0.9792147806004619,
-       "grabRate": 19.767441860465116,
-       "averageResponseMs": 553,
-       "averageGrabResponseMs": 777,
+       "successRate": 0.9793103448275862,
+       "grabRate": 19.305019305019304,
+       "averageResponseMs": 555,
+       "averageGrabResponseMs": 782,
        "uptime": 1,
        "outages": 0,
        "downMs": 0,
@@ -12545,14 +12549,13 @@
        "score": 96
       },
       "previous": {
-       "queries": 437,
+       "queries": 431,
        "grabs": 50,
-       "successRate": 0.9816933638443935,
-       "averageResponseMs": 560
+       "successRate": 0.9837587006960556,
+       "averageResponseMs": 553
       },
       "series": {
        "queries": [
-        13,
         16,
         18,
         21,
@@ -12575,11 +12578,11 @@
         7,
         9,
         13,
-        10
+        10,
+        15
        ],
        "grabs": [
         2,
-        2,
         1,
         1,
         3,
@@ -12601,13 +12604,13 @@
         1,
         1,
         2,
+        1,
         1
        ],
        "failed": [
         0,
         0,
         0,
-        0,
         1,
         1,
         1,
@@ -12619,6 +12622,7 @@
         0,
         0,
         1,
+        0,
         0,
         0,
         0,
@@ -12630,7 +12634,6 @@
         0
        ],
        "responseMs": [
-        449,
         494,
         481,
         511,
@@ -12653,11 +12656,12 @@
         417,
         460,
         574,
-        431
+        431,
+        521
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-06T07:00:00.000Z"
+      "observedFrom": "2026-11-06T08:00:00.000Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:5",
@@ -12679,14 +12683,14 @@
        }
       ],
       "metrics": {
-       "queries": 107,
-       "rssQueries": 44,
+       "queries": 106,
+       "rssQueries": 43,
        "grabs": 4,
        "failedQueries": 0,
        "failedGrabs": 0,
        "successRate": 1,
        "grabRate": 6.349206349206349,
-       "averageResponseMs": 762,
+       "averageResponseMs": 758,
        "averageGrabResponseMs": 1218,
        "uptime": 1,
        "outages": 0,
@@ -12701,14 +12705,13 @@
        "score": 94
       },
       "previous": {
-       "queries": 114,
+       "queries": 113,
        "grabs": 2,
        "successRate": 1,
-       "averageResponseMs": 794
+       "averageResponseMs": 788
       },
       "series": {
        "queries": [
-        4,
         4,
         6,
         5,
@@ -12731,11 +12734,11 @@
         2,
         2,
         3,
+        3,
         3
        ],
        "grabs": [
         0,
-        0,
         1,
         0,
         1,
@@ -12745,6 +12748,7 @@
         0,
         1,
         1,
+        0,
         0,
         0,
         0,
@@ -12786,7 +12790,6 @@
         0
        ],
        "responseMs": [
-        784,
         627,
         917,
         708,
@@ -12809,11 +12812,12 @@
         663,
         673,
         715,
-        629
+        629,
+        655
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-06T07:00:00.000Z"
+      "observedFrom": "2026-11-06T08:00:00.000Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:6",
@@ -12835,14 +12839,14 @@
        }
       ],
       "metrics": {
-       "queries": 332,
-       "rssQueries": 132,
+       "queries": 336,
+       "rssQueries": 134,
        "grabs": 0,
-       "failedQueries": 22,
+       "failedQueries": 23,
        "failedGrabs": 0,
-       "successRate": 0.9337349397590361,
+       "successRate": 0.9315476190476191,
        "grabRate": 0,
-       "averageResponseMs": 1387,
+       "averageResponseMs": 1400,
        "averageGrabResponseMs": null,
        "uptime": 1,
        "outages": 0,
@@ -12854,17 +12858,16 @@
        "importRate": null,
        "medianImportMinutes": null,
        "grabbedBytes": 0,
-       "score": 86
+       "score": 85
       },
       "previous": {
-       "queries": 332,
+       "queries": 331,
        "grabs": 0,
-       "successRate": 0.9427710843373494,
-       "averageResponseMs": 1385
+       "successRate": 0.945619335347432,
+       "averageResponseMs": 1382
       },
       "series": {
        "queries": [
-        10,
         17,
         17,
         16,
@@ -12887,7 +12890,8 @@
         8,
         9,
         10,
-        12
+        12,
+        14
        ],
        "grabs": [
         0,
@@ -12916,7 +12920,6 @@
         0
        ],
        "failed": [
-        0,
         1,
         1,
         1,
@@ -12939,10 +12942,10 @@
         1,
         1,
         1,
+        1,
         1
        ],
        "responseMs": [
-        1125,
         1630,
         1453,
         1267,
@@ -12965,11 +12968,12 @@
         1477,
         1516,
         1512,
-        1492
+        1492,
+        1495
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-06T07:00:00.000Z"
+      "observedFrom": "2026-11-06T08:00:00.000Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:2",
@@ -12995,18 +12999,18 @@
        }
       ],
       "metrics": {
-       "queries": 287,
-       "rssQueries": 115,
+       "queries": 291,
+       "rssQueries": 116,
        "grabs": 0,
-       "failedQueries": 74,
+       "failedQueries": 81,
        "failedGrabs": 0,
-       "successRate": 0.7421602787456446,
+       "successRate": 0.7216494845360825,
        "grabRate": 0,
-       "averageResponseMs": 3539,
+       "averageResponseMs": 3631,
        "averageGrabResponseMs": null,
-       "uptime": 0.7056629274264121,
+       "uptime": 0.7020594056363315,
        "outages": 1,
-       "downMs": 25207562,
+       "downMs": 25207696,
        "arrGrabs": 1,
        "imported": 0,
        "failedDownloads": 1,
@@ -13014,17 +13018,16 @@
        "importRate": null,
        "medianImportMinutes": null,
        "grabbedBytes": 4584000000,
-       "score": 59
+       "score": 58
       },
       "previous": {
-       "queries": 294,
+       "queries": 292,
        "grabs": 0,
-       "successRate": 0.846938775510204,
-       "averageResponseMs": 2713
+       "successRate": 0.8493150684931507,
+       "averageResponseMs": 2699
       },
       "series": {
        "queries": [
-        9,
         11,
         12,
         19,
@@ -13047,7 +13050,8 @@
         7,
         8,
         6,
-        8
+        8,
+        13
        ],
        "grabs": [
         0,
@@ -13078,7 +13082,6 @@
        "failed": [
         1,
         1,
-        1,
         4,
         3,
         3,
@@ -13093,16 +13096,16 @@
         2,
         1,
         1,
-        8,
+        1,
         3,
         3,
         8,
         9,
         3,
-        6
+        6,
+        15
        ],
        "responseMs": [
-        2276,
         2499,
         2311,
         3207,
@@ -13119,6 +13122,7 @@
         2927,
         2626,
         2155,
+        2806,
         7800,
         7800,
         7800,
@@ -13130,11 +13134,11 @@
       },
       "downtime": [
        {
-        "start": "2026-11-06T23:47:14.256Z",
-        "end": "2026-11-07T06:47:21.818Z"
+        "start": "2026-11-07T00:29:58.754Z",
+        "end": "2026-11-07T07:30:06.450Z"
        }
       ],
-      "observedFrom": "2026-11-06T07:00:00.000Z"
+      "observedFrom": "2026-11-06T08:00:00.000Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:9",
@@ -13593,7 +13597,7 @@
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-07T06:47:14.269Z"
+      "observedFrom": "2026-11-07T07:29:58.763Z"
      },
      {
       "key": "d:pausedsite",
@@ -13901,24 +13905,23 @@
      }
     ],
     "totals": {
-     "queries": 1706,
-     "grabs": 100,
-     "failedQueries": 106,
-     "successRate": 0.9378663540445487,
-     "averageResponseMs": 1160,
+     "queries": 1722,
+     "grabs": 98,
+     "failedQueries": 114,
+     "successRate": 0.9337979094076655,
+     "averageResponseMs": 1181,
      "arrGrabs": 10,
      "imported": 8,
      "importRate": 0.8888888888888888,
      "failing": 1,
      "previous": {
-      "queries": 1714,
-      "grabs": 99,
-      "successRate": 0.956242707117853,
-      "averageResponseMs": 1032
+      "queries": 1702,
+      "grabs": 100,
+      "successRate": 0.9576968272620446,
+      "averageResponseMs": 1027
      },
      "series": {
       "queries": [
-       52,
        68,
        73,
        85,
@@ -13941,10 +13944,10 @@
        35,
        39,
        46,
-       53
+       53,
+       68
       ],
       "grabs": [
-       4,
        4,
        4,
        4,
@@ -13967,10 +13970,10 @@
        2,
        2,
        4,
-       3
+       3,
+       2
       ],
       "failed": [
-       1,
        2,
        2,
        5,
@@ -13987,16 +13990,16 @@
        4,
        2,
        2,
-       9,
+       2,
        4,
        3,
        9,
        10,
        4,
-       7
+       7,
+       16
       ],
       "responseMs": [
-       867,
        1049,
        985,
        1204,
@@ -14013,35 +14016,36 @@
        1136,
        1018,
        942,
-       2185,
+       1186,
        1633,
        1608,
        2113,
        2168,
        1646,
-       1773
+       1773,
+       2070
       ]
      }
     },
     "callers": [
      {
       "name": "Sonarr",
-      "queries": 785,
-      "grabs": 46
+      "queries": 792,
+      "grabs": 45
      },
      {
       "name": "Radarr",
-      "queries": 648,
-      "grabs": 39
+      "queries": 654,
+      "grabs": 38
      },
      {
       "name": "Lidarr",
-      "queries": 155,
+      "queries": 156,
       "grabs": 7
      },
      {
       "name": "Prowlarr",
-      "queries": 122,
+      "queries": 123,
       "grabs": 2
      }
     ],
@@ -14185,7 +14189,7 @@
        39,
        46,
        53,
-       67,
+       68,
        67,
        79,
        95,
@@ -14249,8 +14253,8 @@
       "tone": "warning",
       "params": {
        "name": "Nightjar",
-       "percent": 26,
-       "queries": 287
+       "percent": 28,
+       "queries": 291
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:2"
@@ -14294,7 +14298,7 @@
       "tone": "info",
       "params": {
        "name": "Driftwood",
-       "queries": 200
+       "queries": 202
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:6"
@@ -14304,7 +14308,7 @@
       "tone": "info",
       "params": {
        "name": "Nightjar",
-       "ms": 3539
+       "ms": 3631
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:2"
@@ -14366,7 +14370,7 @@
   "/api/indexer-insights?range=7d": {
    "status": 200,
    "body": {
-    "generatedAt": "2026-11-07T06:47:21.857Z",
+    "generatedAt": "2026-11-07T07:30:06.474Z",
     "range": "7d",
     "from": "2026-10-31T12:00:00.000Z",
     "to": "2026-11-07T12:00:00.000Z",
@@ -14403,7 +14407,7 @@
     ],
     "collection": {
      "running": false,
-     "lastRunAt": "2026-11-07T06:47:14.763Z",
+     "lastRunAt": "2026-11-07T07:29:59.311Z",
      "since": "2026-10-25T00:00:00.000Z",
      "errors": []
     },
@@ -14927,13 +14931,13 @@
        }
       ],
       "metrics": {
-       "queries": 3720,
-       "rssQueries": 1486,
-       "grabs": 342,
+       "queries": 3743,
+       "rssQueries": 1495,
+       "grabs": 343,
        "failedQueries": 17,
        "failedGrabs": 0,
-       "successRate": 0.9954301075268818,
-       "grabRate": 15.308863025962399,
+       "successRate": 0.995458188618755,
+       "grabRate": 15.258007117437721,
        "averageResponseMs": 334,
        "averageGrabResponseMs": 467,
        "uptime": 1,
@@ -14951,7 +14955,7 @@
       "previous": {
        "queries": 3573,
        "grabs": 320,
-       "successRate": 0.9907640638119227,
+       "successRate": 0.9904841869577385,
        "averageResponseMs": 340
       },
       "series": {
@@ -14983,7 +14987,7 @@
         206,
         133,
         74,
-        20
+        43
        ],
        "grabs": [
         20,
@@ -15013,7 +15017,7 @@
         15,
         10,
         7,
-        2
+        3
        ],
        "failed": [
         1,
@@ -15073,7 +15077,7 @@
         344,
         338,
         313,
-        374
+        375
        ]
       },
       "downtime": [],
@@ -15111,13 +15115,13 @@
        }
       ],
       "metrics": {
-       "queries": 2861,
-       "rssQueries": 1143,
-       "grabs": 321,
+       "queries": 2876,
+       "rssQueries": 1149,
+       "grabs": 322,
        "failedQueries": 46,
        "failedGrabs": 0,
-       "successRate": 0.9839217056973086,
-       "grabRate": 18.68451688009313,
+       "successRate": 0.9840055632823366,
+       "grabRate": 18.645049218297626,
        "averageResponseMs": 545,
        "averageGrabResponseMs": 767,
        "uptime": 1,
@@ -15167,7 +15171,7 @@
         172,
         103,
         56,
-        10
+        25
        ],
        "grabs": [
         18,
@@ -15197,7 +15201,7 @@
         23,
         11,
         7,
-        1
+        2
        ],
        "failed": [
         5,
@@ -15257,7 +15261,7 @@
         598,
         564,
         498,
-        431
+        485
        ]
       },
       "downtime": [],
@@ -15451,14 +15455,14 @@
        }
       ],
       "metrics": {
-       "queries": 2303,
-       "rssQueries": 920,
+       "queries": 2317,
+       "rssQueries": 926,
        "grabs": 0,
-       "failedQueries": 151,
+       "failedQueries": 152,
        "failedGrabs": 0,
-       "successRate": 0.934433347807208,
+       "successRate": 0.9343979283556323,
        "grabRate": 0,
-       "averageResponseMs": 1411,
+       "averageResponseMs": 1412,
        "averageGrabResponseMs": null,
        "uptime": 1,
        "outages": 0,
@@ -15507,7 +15511,7 @@
         104,
         82,
         51,
-        12
+        26
        ],
        "grabs": [
         0,
@@ -15567,7 +15571,7 @@
         6,
         5,
         5,
-        1
+        2
        ],
        "responseMs": [
         1486,
@@ -15597,7 +15601,7 @@
         1220,
         1446,
         1491,
-        1492
+        1494
        ]
       },
       "downtime": [],
@@ -15791,13 +15795,13 @@
        }
       ],
       "metrics": {
-       "queries": 759,
-       "rssQueries": 310,
+       "queries": 762,
+       "rssQueries": 311,
        "grabs": 17,
        "failedQueries": 7,
        "failedGrabs": 0,
-       "successRate": 0.9907773386034255,
-       "grabRate": 3.78619153674833,
+       "successRate": 0.9908136482939632,
+       "grabRate": 3.7694013303769403,
        "averageResponseMs": 785,
        "averageGrabResponseMs": 1170,
        "uptime": 1,
@@ -15847,7 +15851,7 @@
         41,
         23,
         14,
-        3
+        6
        ],
        "grabs": [
         3,
@@ -15937,7 +15941,7 @@
         786,
         713,
         736,
-        629
+        642
        ]
       },
       "downtime": [],
@@ -15967,18 +15971,18 @@
        }
       ],
       "metrics": {
-       "queries": 1955,
-       "rssQueries": 777,
+       "queries": 1968,
+       "rssQueries": 782,
        "grabs": 4,
-       "failedQueries": 335,
+       "failedQueries": 344,
        "failedGrabs": 0,
-       "successRate": 0.8286445012787724,
-       "grabRate": 0.3395585738539898,
-       "averageResponseMs": 2872,
+       "successRate": 0.8252032520325203,
+       "grabRate": 0.33726812816188867,
+       "averageResponseMs": 2890,
        "averageGrabResponseMs": 3993,
-       "uptime": 0.9385579706126691,
+       "uptime": 0.9388254774785233,
        "outages": 2,
-       "downMs": 36007601,
+       "downMs": 36007720,
        "arrGrabs": 6,
        "imported": 4,
        "failedDownloads": 2,
@@ -16023,7 +16027,7 @@
         108,
         62,
         39,
-        8
+        21
        ],
        "grabs": [
         2,
@@ -16066,8 +16070,8 @@
         12,
         15,
         9,
-        19,
-        11,
+        15,
+        16,
         14,
         12,
         6,
@@ -16082,8 +16086,8 @@
         11,
         16,
         8,
-        34,
-        6
+        27,
+        21
        ],
        "responseMs": [
         2791,
@@ -16096,8 +16100,8 @@
         2801,
         2676,
         2514,
-        5241,
-        2705,
+        4429,
+        3283,
         2638,
         2894,
         2742,
@@ -16112,18 +16116,18 @@
         2737,
         2787,
         2459,
-        7800,
+        6776,
         7800
        ]
       },
       "downtime": [
        {
-        "start": "2026-11-03T02:47:15.347Z",
-        "end": "2026-11-03T05:47:15.347Z"
+        "start": "2026-11-03T03:29:59.951Z",
+        "end": "2026-11-03T06:29:59.951Z"
        },
        {
-        "start": "2026-11-06T23:47:14.256Z",
-        "end": "2026-11-07T06:47:21.857Z"
+        "start": "2026-11-07T00:29:58.754Z",
+        "end": "2026-11-07T07:30:06.474Z"
        }
       ],
       "observedFrom": "2026-10-31T12:00:00.000Z"
@@ -16465,7 +16469,7 @@
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-07T06:47:14.269Z"
+      "observedFrom": "2026-11-07T07:29:58.763Z"
      },
      {
       "key": "d:pausedsite",
@@ -16637,11 +16641,11 @@
      }
     ],
     "totals": {
-     "queries": 11598,
-     "grabs": 684,
-     "failedQueries": 556,
-     "successRate": 0.9520607001207104,
-     "averageResponseMs": 1057,
+     "queries": 11666,
+     "grabs": 686,
+     "failedQueries": 566,
+     "successRate": 0.9514829418823932,
+     "averageResponseMs": 1061,
      "arrGrabs": 69,
      "imported": 59,
      "importRate": 0.8676470588235294,
@@ -16649,7 +16653,7 @@
      "previous": {
       "queries": 10927,
       "grabs": 633,
-      "successRate": 0.9564381806534273,
+      "successRate": 0.9563466642262286,
       "averageResponseMs": 1025
      },
      "series": {
@@ -16681,7 +16685,7 @@
        631,
        403,
        234,
-       53
+       121
       ],
       "grabs": [
        43,
@@ -16711,7 +16715,7 @@
        40,
        21,
        14,
-       3
+       5
       ],
       "failed": [
        34,
@@ -16724,8 +16728,8 @@
        20,
        35,
        14,
-       22,
-       19,
+       18,
+       24,
        28,
        21,
        9,
@@ -16740,8 +16744,8 @@
        18,
        29,
        15,
-       39,
-       7
+       32,
+       23
       ],
       "responseMs": [
        1085,
@@ -16754,8 +16758,8 @@
        1059,
        1031,
        986,
-       1431,
-       1010,
+       1299,
+       1112,
        1041,
        1071,
        1015,
@@ -16770,30 +16774,30 @@
        1070,
        1005,
        969,
-       1887,
-       1773
+       1716,
+       1940
       ]
      }
     },
     "callers": [
      {
       "name": "Sonarr",
-      "queries": 5334,
-      "grabs": 307
+      "queries": 5365,
+      "grabs": 308
      },
      {
       "name": "Radarr",
-      "queries": 4406,
-      "grabs": 271
+      "queries": 4432,
+      "grabs": 272
      },
      {
       "name": "Lidarr",
-      "queries": 1042,
+      "queries": 1048,
       "grabs": 42
      },
      {
       "name": "Prowlarr",
-      "queries": 815,
+      "queries": 820,
       "grabs": 7
      }
     ],
@@ -16937,7 +16941,7 @@
        39,
        46,
        53,
-       0,
+       68,
        0,
        0,
        0,
@@ -17035,7 +17039,7 @@
       "tone": "info",
       "params": {
        "name": "Driftwood",
-       "queries": 1383
+       "queries": 1391
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:6"
@@ -17097,7 +17101,7 @@
   "/api/indexer-insights?range=30d": {
    "status": 200,
    "body": {
-    "generatedAt": "2026-11-07T06:47:21.866Z",
+    "generatedAt": "2026-11-07T07:30:06.486Z",
     "range": "30d",
     "from": "2026-10-09T00:00:00.000Z",
     "to": "2026-11-08T00:00:00.000Z",
@@ -17136,7 +17140,7 @@
     ],
     "collection": {
      "running": false,
-     "lastRunAt": "2026-11-07T06:47:14.763Z",
+     "lastRunAt": "2026-11-07T07:29:59.311Z",
      "since": "2026-10-08T00:00:00.000Z",
      "errors": []
     },
@@ -17660,16 +17664,16 @@
        }
       ],
       "metrics": {
-       "queries": 15996,
-       "rssQueries": 6385,
-       "grabs": 1444,
-       "failedQueries": 88,
+       "queries": 16019,
+       "rssQueries": 6394,
+       "grabs": 1445,
+       "failedQueries": 89,
        "failedGrabs": 22,
-       "successRate": 0.994498624656164,
-       "grabRate": 15.024451149724275,
+       "successRate": 0.9944440976340596,
+       "grabRate": 15.012987012987015,
        "averageResponseMs": 333,
        "averageGrabResponseMs": 466,
-       "uptime": 0.9985770986447384,
+       "uptime": 0.9985785395323353,
        "outages": 1,
        "downMs": 3600000,
        "arrGrabs": 104,
@@ -17718,7 +17722,7 @@
         560,
         548,
         539,
-        94
+        117
        ],
        "grabs": [
         51,
@@ -17750,7 +17754,7 @@
         53,
         49,
         44,
-        9
+        10
        ],
        "failed": [
         3,
@@ -17771,7 +17775,7 @@
         3,
         3,
         4,
-        16,
+        17,
         1,
         4,
         4,
@@ -17803,7 +17807,7 @@
         328,
         335,
         343,
-        350,
+        348,
         339,
         341,
         341,
@@ -17814,13 +17818,13 @@
         340,
         334,
         327,
-        326
+        336
        ]
       },
       "downtime": [
        {
-        "start": "2026-10-27T20:47:15.347Z",
-        "end": "2026-10-27T21:47:15.347Z"
+        "start": "2026-10-27T21:29:59.951Z",
+        "end": "2026-10-27T22:29:59.951Z"
        }
       ],
       "observedFrom": "2026-10-09T00:00:00.000Z"
@@ -17857,13 +17861,13 @@
        }
       ],
       "metrics": {
-       "queries": 12157,
-       "rssQueries": 4868,
-       "grabs": 1327,
+       "queries": 12172,
+       "rssQueries": 4874,
+       "grabs": 1328,
        "failedQueries": 147,
        "failedGrabs": 22,
-       "successRate": 0.98790820103644,
-       "grabRate": 18.20551515982988,
+       "successRate": 0.9879231022017746,
+       "grabRate": 18.196766237325296,
        "averageResponseMs": 538,
        "averageGrabResponseMs": 754,
        "uptime": 1,
@@ -17915,7 +17919,7 @@
         410,
         435,
         438,
-        66
+        81
        ],
        "grabs": [
         47,
@@ -17947,7 +17951,7 @@
         47,
         47,
         54,
-        8
+        9
        ],
        "failed": [
         6,
@@ -18011,7 +18015,7 @@
         532,
         559,
         559,
-        488
+        494
        ]
       },
       "downtime": [],
@@ -18037,13 +18041,13 @@
        }
       ],
       "metrics": {
-       "queries": 3307,
-       "rssQueries": 1325,
+       "queries": 3310,
+       "rssQueries": 1326,
        "grabs": 88,
        "failedQueries": 33,
        "failedGrabs": 0,
-       "successRate": 0.9900211672210463,
-       "grabRate": 4.439959636730576,
+       "successRate": 0.9900302114803625,
+       "grabRate": 4.435483870967742,
        "averageResponseMs": 792,
        "averageGrabResponseMs": 1129,
        "uptime": 1,
@@ -18095,7 +18099,7 @@
         114,
         114,
         111,
-        17
+        20
        ],
        "grabs": [
         5,
@@ -18191,7 +18195,7 @@
         795,
         789,
         778,
-        717
+        708
        ]
       },
       "downtime": [],
@@ -18217,12 +18221,12 @@
        }
       ],
       "metrics": {
-       "queries": 9897,
-       "rssQueries": 3949,
+       "queries": 9911,
+       "rssQueries": 3955,
        "grabs": 0,
-       "failedQueries": 638,
+       "failedQueries": 639,
        "failedGrabs": 0,
-       "successRate": 0.9355360210164696,
+       "successRate": 0.9355261830289577,
        "grabRate": 0,
        "averageResponseMs": 1407,
        "averageGrabResponseMs": null,
@@ -18275,7 +18279,7 @@
         335,
         343,
         321,
-        63
+        77
        ],
        "grabs": [
         0,
@@ -18339,7 +18343,7 @@
         21,
         23,
         17,
-        6
+        7
        ],
        "responseMs": [
         1373,
@@ -18371,7 +18375,7 @@
         1392,
         1419,
         1348,
-        1491
+        1492
        ]
       },
       "downtime": [],
@@ -18753,18 +18757,18 @@
        }
       ],
       "metrics": {
-       "queries": 8485,
-       "rssQueries": 3379,
+       "queries": 8498,
+       "rssQueries": 3384,
        "grabs": 28,
-       "failedQueries": 1285,
+       "failedQueries": 1294,
        "failedGrabs": 0,
-       "successRate": 0.8485562757807896,
-       "grabRate": 0.5483744614179397,
-       "averageResponseMs": 2750,
+       "successRate": 0.8477288773829137,
+       "grabRate": 0.5475166210402815,
+       "averageResponseMs": 2755,
        "averageGrabResponseMs": 3816,
-       "uptime": 0.985767978592019,
+       "uptime": 0.9857823423421495,
        "outages": 2,
-       "downMs": 36007610,
+       "downMs": 36007732,
        "arrGrabs": 40,
        "imported": 23,
        "failedDownloads": 17,
@@ -18811,7 +18815,7 @@
         290,
         292,
         290,
-        47
+        60
        ],
        "grabs": [
         1,
@@ -18871,11 +18875,11 @@
         48,
         38,
         43,
-        56,
+        57,
         43,
         45,
         41,
-        40
+        48
        ],
        "responseMs": [
         2671,
@@ -18903,21 +18907,21 @@
         2798,
         2610,
         2669,
-        3061,
+        3105,
         2730,
         2693,
         2698,
-        7800
+        7134
        ]
       },
       "downtime": [
        {
-        "start": "2026-11-03T02:47:15.347Z",
-        "end": "2026-11-03T05:47:15.347Z"
+        "start": "2026-11-03T03:29:59.951Z",
+        "end": "2026-11-03T06:29:59.951Z"
        },
        {
-        "start": "2026-11-06T23:47:14.256Z",
-        "end": "2026-11-07T06:47:21.866Z"
+        "start": "2026-11-07T00:29:58.754Z",
+        "end": "2026-11-07T07:30:06.486Z"
        }
       ],
       "observedFrom": "2026-10-09T00:00:00.000Z"
@@ -19275,7 +19279,7 @@
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-07T06:47:14.269Z"
+      "observedFrom": "2026-11-07T07:29:58.763Z"
      },
      {
       "key": "d:pausedsite",
@@ -19455,11 +19459,11 @@
      }
     ],
     "totals": {
-     "queries": 49842,
-     "grabs": 2887,
-     "failedQueries": 2191,
-     "successRate": 0.9560410898439068,
-     "averageResponseMs": 1038,
+     "queries": 49910,
+     "grabs": 2889,
+     "failedQueries": 2202,
+     "successRate": 0.9558805850530956,
+     "averageResponseMs": 1039,
      "arrGrabs": 288,
      "imported": 246,
      "importRate": 0.8571428571428571,
@@ -19501,7 +19505,7 @@
        1709,
        1732,
        1699,
-       287
+       355
       ],
       "grabs": [
        104,
@@ -19533,7 +19537,7 @@
        104,
        98,
        102,
-       17
+       19
       ],
       "failed": [
        67,
@@ -19554,18 +19558,18 @@
        77,
        75,
        65,
-       84,
+       85,
        73,
        74,
        73,
        84,
        69,
        78,
-       90,
+       91,
        74,
        79,
        68,
-       46
+       55
       ],
       "responseMs": [
        1017,
@@ -19593,33 +19597,33 @@
        1063,
        1010,
        1022,
-       1094,
+       1102,
        1028,
        1033,
        1014,
-       1866
+       1793
       ]
      }
     },
     "callers": [
      {
       "name": "Sonarr",
-      "queries": 22925,
-      "grabs": 1321
+      "queries": 22956,
+      "grabs": 1322
      },
      {
       "name": "Radarr",
-      "queries": 18937,
-      "grabs": 1111
+      "queries": 18963,
+      "grabs": 1112
      },
      {
       "name": "Lidarr",
-      "queries": 4483,
+      "queries": 4489,
       "grabs": 239
      },
      {
       "name": "Prowlarr",
-      "queries": 3496,
+      "queries": 3501,
       "grabs": 159
      }
     ],
@@ -19763,7 +19767,7 @@
        79,
        88,
        104,
-       67,
+       135,
        67,
        79,
        95,
@@ -19861,7 +19865,7 @@
       "tone": "info",
       "params": {
        "name": "Driftwood",
-       "queries": 5948
+       "queries": 5956
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:6"
@@ -19923,7 +19927,7 @@
   "/api/indexer-insights?range=90d": {
    "status": 200,
    "body": {
-    "generatedAt": "2026-11-07T06:47:21.875Z",
+    "generatedAt": "2026-11-07T07:30:06.499Z",
     "range": "90d",
     "from": "2026-08-10T00:00:00.000Z",
     "to": "2026-11-08T00:00:00.000Z",
@@ -20022,7 +20026,7 @@
     ],
     "collection": {
      "running": false,
-     "lastRunAt": "2026-11-07T06:47:14.763Z",
+     "lastRunAt": "2026-11-07T07:29:59.311Z",
      "since": "2026-10-08T00:00:00.000Z",
      "errors": []
     },
@@ -20546,16 +20550,16 @@
        }
       ],
       "metrics": {
-       "queries": 16548,
-       "rssQueries": 6607,
-       "grabs": 1497,
-       "failedQueries": 89,
+       "queries": 16571,
+       "rssQueries": 6616,
+       "grabs": 1498,
+       "failedQueries": 90,
        "failedGrabs": 23,
-       "successRate": 0.9946217065506405,
-       "grabRate": 15.058847198470978,
+       "successRate": 0.9945688250558204,
+       "grabRate": 15.047714716223004,
        "averageResponseMs": 334,
        "averageGrabResponseMs": 467,
-       "uptime": 0.9986111146090447,
+       "uptime": 0.9986111146197614,
        "outages": 1,
        "downMs": 3600000,
        "arrGrabs": 107,
@@ -20664,7 +20668,7 @@
         560,
         548,
         539,
-        94
+        117
        ],
        "grabs": [
         0,
@@ -20756,7 +20760,7 @@
         53,
         49,
         44,
-        9
+        10
        ],
        "failed": [
         0,
@@ -20837,7 +20841,7 @@
         3,
         3,
         4,
-        16,
+        17,
         1,
         4,
         4,
@@ -20929,7 +20933,7 @@
         328,
         335,
         343,
-        350,
+        348,
         339,
         341,
         341,
@@ -20940,16 +20944,16 @@
         340,
         334,
         327,
-        326
+        336
        ]
       },
       "downtime": [
        {
-        "start": "2026-10-27T20:47:15.347Z",
-        "end": "2026-10-27T21:47:15.347Z"
+        "start": "2026-10-27T21:29:59.951Z",
+        "end": "2026-10-27T22:29:59.951Z"
        }
       ],
-      "observedFrom": "2026-10-08T06:47:15.347Z"
+      "observedFrom": "2026-10-08T07:29:59.951Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:3",
@@ -20983,13 +20987,13 @@
        }
       ],
       "metrics": {
-       "queries": 12591,
-       "rssQueries": 5042,
-       "grabs": 1374,
+       "queries": 12606,
+       "rssQueries": 5048,
+       "grabs": 1375,
        "failedQueries": 154,
        "failedGrabs": 23,
-       "successRate": 0.9877690413787626,
-       "grabRate": 18.201086236587628,
+       "successRate": 0.987783595113438,
+       "grabRate": 18.192643556496428,
        "averageResponseMs": 538,
        "averageGrabResponseMs": 755,
        "uptime": 1,
@@ -21101,7 +21105,7 @@
         410,
         435,
         438,
-        66
+        81
        ],
        "grabs": [
         0,
@@ -21193,7 +21197,7 @@
         47,
         47,
         54,
-        8
+        9
        ],
        "failed": [
         0,
@@ -21377,11 +21381,11 @@
         532,
         559,
         559,
-        488
+        494
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-10-08T06:47:15.347Z"
+      "observedFrom": "2026-10-08T07:29:59.951Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:5",
@@ -21403,13 +21407,13 @@
        }
       ],
       "metrics": {
-       "queries": 3420,
-       "rssQueries": 1371,
+       "queries": 3423,
+       "rssQueries": 1372,
        "grabs": 93,
        "failedQueries": 33,
        "failedGrabs": 0,
-       "successRate": 0.9903508771929824,
-       "grabRate": 4.538799414348463,
+       "successRate": 0.9903593339176161,
+       "grabRate": 4.534373476352998,
        "averageResponseMs": 792,
        "averageGrabResponseMs": 1128,
        "uptime": 1,
@@ -21521,7 +21525,7 @@
         114,
         114,
         111,
-        17
+        20
        ],
        "grabs": [
         0,
@@ -21797,11 +21801,11 @@
         795,
         789,
         778,
-        717
+        708
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-10-08T06:47:15.347Z"
+      "observedFrom": "2026-10-08T07:29:59.951Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:6",
@@ -21823,14 +21827,14 @@
        }
       ],
       "metrics": {
-       "queries": 10244,
-       "rssQueries": 4086,
+       "queries": 10258,
+       "rssQueries": 4092,
        "grabs": 0,
-       "failedQueries": 662,
+       "failedQueries": 663,
        "failedGrabs": 0,
-       "successRate": 0.9353768059351816,
+       "successRate": 0.9353675180347046,
        "grabRate": 0,
-       "averageResponseMs": 1408,
+       "averageResponseMs": 1409,
        "averageGrabResponseMs": null,
        "uptime": 1,
        "outages": 0,
@@ -21941,7 +21945,7 @@
         335,
         343,
         321,
-        63
+        77
        ],
        "grabs": [
         0,
@@ -22125,7 +22129,7 @@
         21,
         23,
         17,
-        6
+        7
        ],
        "responseMs": [
         null,
@@ -22217,11 +22221,11 @@
         1392,
         1419,
         1348,
-        1491
+        1492
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-10-08T06:47:15.347Z"
+      "observedFrom": "2026-10-08T07:29:59.951Z"
      },
      {
       "key": "d:kettle",
@@ -23079,18 +23083,18 @@
        }
       ],
       "metrics": {
-       "queries": 8763,
-       "rssQueries": 3490,
+       "queries": 8776,
+       "rssQueries": 3495,
        "grabs": 28,
-       "failedQueries": 1323,
+       "failedQueries": 1332,
        "failedGrabs": 0,
-       "successRate": 0.8490243067442657,
-       "grabRate": 0.5310070168784373,
-       "averageResponseMs": 2746,
+       "successRate": 0.8482224247948952,
+       "grabRate": 0.5302026131414505,
+       "averageResponseMs": 2750,
        "averageGrabResponseMs": 3816,
-       "uptime": 0.9861082066688375,
+       "uptime": 0.9861081581650387,
        "outages": 2,
-       "downMs": 36007619,
+       "downMs": 36007745,
        "arrGrabs": 40,
        "imported": 23,
        "failedDownloads": 17,
@@ -23197,7 +23201,7 @@
         290,
         292,
         290,
-        47
+        60
        ],
        "grabs": [
         0,
@@ -23377,11 +23381,11 @@
         48,
         38,
         43,
-        56,
+        57,
         43,
         45,
         41,
-        40
+        48
        ],
        "responseMs": [
         null,
@@ -23469,24 +23473,24 @@
         2798,
         2610,
         2669,
-        3061,
+        3105,
         2730,
         2693,
         2698,
-        7800
+        7134
        ]
       },
       "downtime": [
        {
-        "start": "2026-11-03T02:47:15.347Z",
-        "end": "2026-11-03T05:47:15.347Z"
+        "start": "2026-11-03T03:29:59.951Z",
+        "end": "2026-11-03T06:29:59.951Z"
        },
        {
-        "start": "2026-11-06T23:47:14.256Z",
-        "end": "2026-11-07T06:47:21.875Z"
+        "start": "2026-11-07T00:29:58.754Z",
+        "end": "2026-11-07T07:30:06.499Z"
        }
       ],
-      "observedFrom": "2026-10-08T06:47:15.347Z"
+      "observedFrom": "2026-10-08T07:29:59.951Z"
      },
      {
       "key": "p:00000000-0000-4000-8000-000000000007:9",
@@ -24321,7 +24325,7 @@
        ]
       },
       "downtime": [],
-      "observedFrom": "2026-11-07T06:47:14.269Z"
+      "observedFrom": "2026-11-07T07:29:58.763Z"
      },
      {
       "key": "d:pausedsite",
@@ -24741,11 +24745,11 @@
      }
     ],
     "totals": {
-     "queries": 51566,
-     "grabs": 2992,
-     "failedQueries": 2261,
-     "successRate": 0.9561532792925571,
-     "averageResponseMs": 1037,
+     "queries": 51634,
+     "grabs": 2994,
+     "failedQueries": 2272,
+     "successRate": 0.9559979858232948,
+     "averageResponseMs": 1038,
      "arrGrabs": 293,
      "imported": 250,
      "importRate": 0.8561643835616438,
@@ -24847,7 +24851,7 @@
        1709,
        1732,
        1699,
-       287
+       355
       ],
       "grabs": [
        0,
@@ -24939,7 +24943,7 @@
        104,
        98,
        102,
-       17
+       19
       ],
       "failed": [
        0,
@@ -25020,18 +25024,18 @@
        77,
        75,
        65,
-       84,
+       85,
        73,
        74,
        73,
        84,
        69,
        78,
-       90,
+       91,
        74,
        79,
        68,
-       46
+       55
       ],
       "responseMs": [
        null,
@@ -25119,33 +25123,33 @@
        1063,
        1010,
        1022,
-       1094,
+       1102,
        1028,
        1033,
        1014,
-       1866
+       1793
       ]
      }
     },
     "callers": [
      {
       "name": "Sonarr",
-      "queries": 23718,
-      "grabs": 1369
+      "queries": 23749,
+      "grabs": 1370
      },
      {
       "name": "Radarr",
-      "queries": 19592,
-      "grabs": 1151
+      "queries": 19618,
+      "grabs": 1152
      },
      {
       "name": "Lidarr",
-      "queries": 4638,
+      "queries": 4644,
       "grabs": 248
      },
      {
       "name": "Prowlarr",
-      "queries": 3617,
+      "queries": 3622,
       "grabs": 166
      }
     ],
@@ -25289,7 +25293,7 @@
        79,
        88,
        104,
-       67,
+       135,
        67,
        79,
        95,
@@ -25387,7 +25391,7 @@
       "tone": "info",
       "params": {
        "name": "Driftwood",
-       "queries": 6158
+       "queries": 6166
       },
       "url": "http://prowlarr:9696/",
       "trackerKey": "p:00000000-0000-4000-8000-000000000007:6"
@@ -25449,7 +25453,7 @@
   "/api/storage?days=30": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-07T06:47:14.747Z",
+    "refreshedAt": "2026-11-07T07:30:04.963Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -25492,23 +25496,14 @@
     ],
     "disks": [
      {
-      "key": "d7e4e1a71",
+      "key": "d478b0bd9",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/uhd",
-        "rootFolders": [
-         "/uhd/media/movies-4k"
-        ],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/uhd",
@@ -25517,38 +25512,38 @@
         ],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 25650995895,
        "daysLeft": 24.7,
-       "fullAt": "2026-12-01T23:31:12.491Z",
-       "earliestAt": "2026-12-01T05:36:14.901Z",
-       "latestAt": "2026-12-03T05:28:26.567Z",
+       "fullAt": "2026-12-02T00:14:02.707Z",
+       "earliestAt": "2026-12-01T06:19:05.117Z",
+       "latestAt": "2026-12-03T06:11:16.783Z",
        "basisDays": 29.4
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d0b98401f",
+      "key": "d8e38d8c6",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000002",
-        "path": "/data",
-        "rootFolders": [
-         "/data/media/tv"
-        ],
-        "instanceName": "Sonarr",
-        "adapter": "sonarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000006",
         "path": "/data",
@@ -25566,30 +25561,81 @@
         ],
         "instanceName": "Radarr",
         "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 33273784726,
        "daysLeft": 112.4,
-       "fullAt": "2027-02-27T15:12:32.179Z",
-       "earliestAt": "2027-02-26T05:46:07.372Z",
-       "latestAt": "2027-03-01T04:30:37.692Z",
+       "fullAt": "2027-02-27T15:55:22.395Z",
+       "earliestAt": "2027-02-26T06:28:57.588Z",
+       "latestAt": "2027-03-01T05:13:27.908Z",
        "basisDays": 29.4
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "d455c39c1",
+      "key": "dd0d31ced",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
        {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
         "instanceId": "00000000-0000-4000-8000-000000000005",
         "path": "/",
         "rootFolders": [],
@@ -25616,48 +25662,6 @@
         "rootFolders": [],
         "instanceName": "Sonarr",
         "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
        }
       ],
       "forecast": {
@@ -25674,7 +25678,7 @@
      }
     ],
     "history": {
-     "d7e4e1a71": [
+     "d478b0bd9": [
       {
        "day": "2026-10-08",
        "usedBytes": 7398962238391,
@@ -25831,7 +25835,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d0b98401f": [
+     "d8e38d8c6": [
       {
        "day": "2026-10-08",
        "usedBytes": 12875874034584,
@@ -25988,7 +25992,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "d455c39c1": [
+     "dd0d31ced": [
       {
        "day": "2026-10-08",
        "usedBytes": 53243016912,
@@ -26151,7 +26155,7 @@
   "/api/storage?days=90": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-07T06:47:14.747Z",
+    "refreshedAt": "2026-11-07T07:30:04.963Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -26194,23 +26198,14 @@
     ],
     "disks": [
      {
-      "key": "d7e4e1a71",
+      "key": "d478b0bd9",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/uhd",
-        "rootFolders": [
-         "/uhd/media/movies-4k"
-        ],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/uhd",
@@ -26219,38 +26214,38 @@
         ],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 25650995895,
        "daysLeft": 24.7,
-       "fullAt": "2026-12-01T23:31:12.491Z",
-       "earliestAt": "2026-12-01T05:36:14.901Z",
-       "latestAt": "2026-12-03T05:28:26.567Z",
+       "fullAt": "2026-12-02T00:14:02.707Z",
+       "earliestAt": "2026-12-01T06:19:05.117Z",
+       "latestAt": "2026-12-03T06:11:16.783Z",
        "basisDays": 29.4
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d0b98401f",
+      "key": "d8e38d8c6",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000002",
-        "path": "/data",
-        "rootFolders": [
-         "/data/media/tv"
-        ],
-        "instanceName": "Sonarr",
-        "adapter": "sonarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000006",
         "path": "/data",
@@ -26268,30 +26263,81 @@
         ],
         "instanceName": "Radarr",
         "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 33273784726,
        "daysLeft": 112.4,
-       "fullAt": "2027-02-27T15:12:32.179Z",
-       "earliestAt": "2027-02-26T05:46:07.372Z",
-       "latestAt": "2027-03-01T04:30:37.692Z",
+       "fullAt": "2027-02-27T15:55:22.395Z",
+       "earliestAt": "2027-02-26T06:28:57.588Z",
+       "latestAt": "2027-03-01T05:13:27.908Z",
        "basisDays": 29.4
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "d455c39c1",
+      "key": "dd0d31ced",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
        {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
         "instanceId": "00000000-0000-4000-8000-000000000005",
         "path": "/",
         "rootFolders": [],
@@ -26318,48 +26364,6 @@
         "rootFolders": [],
         "instanceName": "Sonarr",
         "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
        }
       ],
       "forecast": {
@@ -26376,7 +26380,7 @@
      }
     ],
     "history": {
-     "d7e4e1a71": [
+     "d478b0bd9": [
       {
        "day": "2026-08-09",
        "usedBytes": 5876677420182,
@@ -26833,7 +26837,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d0b98401f": [
+     "d8e38d8c6": [
       {
        "day": "2026-08-09",
        "usedBytes": 11634818286958,
@@ -27290,7 +27294,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "d455c39c1": [
+     "dd0d31ced": [
       {
        "day": "2026-08-09",
        "usedBytes": 52775785762,
@@ -27753,7 +27757,7 @@
   "/api/storage?days=365": {
    "status": 200,
    "body": {
-    "refreshedAt": "2026-11-07T06:47:14.747Z",
+    "refreshedAt": "2026-11-07T07:30:04.963Z",
     "refreshing": false,
     "settings": {
      "warnDays": 30,
@@ -27796,23 +27800,14 @@
     ],
     "disks": [
      {
-      "key": "d7e4e1a71",
+      "key": "d478b0bd9",
       "label": "/uhd",
       "media": true,
       "totalBytes": 8796093022208,
       "freeBytes": 633507676160,
       "usedBytes": 8162585346048,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000005",
-        "path": "/uhd",
-        "rootFolders": [
-         "/uhd/media/movies-4k"
-        ],
-        "instanceName": "Radarr 4K",
-        "adapter": "radarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000003",
         "path": "/uhd",
@@ -27821,38 +27816,38 @@
         ],
         "instanceName": "Sonarr 4K",
         "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000005",
+        "path": "/uhd",
+        "rootFolders": [
+         "/uhd/media/movies-4k"
+        ],
+        "instanceName": "Radarr 4K",
+        "adapter": "radarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 25650995895,
        "daysLeft": 24.7,
-       "fullAt": "2026-12-01T23:31:12.491Z",
-       "earliestAt": "2026-12-01T05:36:14.901Z",
-       "latestAt": "2026-12-03T05:28:26.567Z",
+       "fullAt": "2026-12-02T00:14:02.707Z",
+       "earliestAt": "2026-12-01T06:19:05.117Z",
+       "latestAt": "2026-12-03T06:11:16.783Z",
        "basisDays": 29.4
       },
       "level": "warning",
       "reason": "forecast"
      },
      {
-      "key": "d0b98401f",
+      "key": "d8e38d8c6",
       "label": "/data",
       "media": true,
       "totalBytes": 17592186044416,
       "freeBytes": 3738339534438,
       "usedBytes": 13853846509978,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000002",
-        "path": "/data",
-        "rootFolders": [
-         "/data/media/tv"
-        ],
-        "instanceName": "Sonarr",
-        "adapter": "sonarr"
-       },
        {
         "instanceId": "00000000-0000-4000-8000-000000000006",
         "path": "/data",
@@ -27870,30 +27865,81 @@
         ],
         "instanceName": "Radarr",
         "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000002",
+        "path": "/data",
+        "rootFolders": [
+         "/data/media/tv"
+        ],
+        "instanceName": "Sonarr",
+        "adapter": "sonarr"
        }
       ],
       "forecast": {
        "status": "filling",
        "bytesPerDay": 33273784726,
        "daysLeft": 112.4,
-       "fullAt": "2027-02-27T15:12:32.179Z",
-       "earliestAt": "2027-02-26T05:46:07.372Z",
-       "latestAt": "2027-03-01T04:30:37.692Z",
+       "fullAt": "2027-02-27T15:55:22.395Z",
+       "earliestAt": "2027-02-26T06:28:57.588Z",
+       "latestAt": "2027-03-01T05:13:27.908Z",
        "basisDays": 29.4
       },
       "level": "ok",
       "reason": null
      },
      {
-      "key": "d455c39c1",
+      "key": "dd0d31ced",
       "label": "/",
       "media": false,
       "totalBytes": 128849018880,
       "freeBytes": 76235669504,
       "usedBytes": 52613349376,
-      "lastSeenAt": "2026-11-07T06:47:14.746Z",
+      "lastSeenAt": "2026-11-07T07:30:04.961Z",
       "members": [
        {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000003",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Sonarr 4K",
+        "adapter": "sonarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000006",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Lidarr",
+        "adapter": "lidarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
+        "instanceId": "00000000-0000-4000-8000-000000000004",
+        "path": "/config",
+        "rootFolders": [],
+        "instanceName": "Radarr",
+        "adapter": "radarr"
+       },
+       {
         "instanceId": "00000000-0000-4000-8000-000000000005",
         "path": "/",
         "rootFolders": [],
@@ -27920,48 +27966,6 @@
         "rootFolders": [],
         "instanceName": "Sonarr",
         "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000006",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Lidarr",
-        "adapter": "lidarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000003",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Sonarr 4K",
-        "adapter": "sonarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
-       },
-       {
-        "instanceId": "00000000-0000-4000-8000-000000000004",
-        "path": "/config",
-        "rootFolders": [],
-        "instanceName": "Radarr",
-        "adapter": "radarr"
        }
       ],
       "forecast": {
@@ -27978,7 +27982,7 @@
      }
     ],
     "history": {
-     "d7e4e1a71": [
+     "d478b0bd9": [
       {
        "day": "2026-07-10",
        "usedBytes": 5086814462420,
@@ -28585,7 +28589,7 @@
        "totalBytes": 8796093022208
       }
      ],
-     "d0b98401f": [
+     "d8e38d8c6": [
       {
        "day": "2026-07-10",
        "usedBytes": 10624211905504,
@@ -29192,7 +29196,7 @@
        "totalBytes": 17592186044416
       }
      ],
-     "d455c39c1": [
+     "dd0d31ced": [
       {
        "day": "2026-07-10",
        "usedBytes": 51669280127,
@@ -29811,7 +29815,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-07T06:47:14.758Z",
+      "refreshedAt": "2026-11-07T07:29:59.307Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -29994,8 +29998,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -30041,13 +30045,13 @@
       ]
      ],
      "plays": 18,
-     "playedMs": 36936126,
+     "playedMs": 36933742,
      "transcodes": 6,
      "users": [
       {
        "user": "Mira",
        "plays": 6,
-       "playedMs": 10410663
+       "playedMs": 10409471
       },
       {
        "user": "Jonas",
@@ -30057,7 +30061,7 @@
       {
        "user": "Demo",
        "plays": 6,
-       "playedMs": 11045463
+       "playedMs": 11044271
       }
      ],
      "topTitles": [
@@ -30146,7 +30150,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-07T06:47:14.758Z"
+     "refreshedAt": "2026-11-07T07:29:59.307Z"
     },
     "streams": {
      "days": 7,
@@ -30288,8 +30292,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -30335,7 +30339,7 @@
       ]
      ],
      "plays": 18,
-     "playedMs": 36936126,
+     "playedMs": 36933742,
      "transcodes": 6,
      "topTitles": [
       {
@@ -30411,7 +30415,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-07T06:47:14.758Z",
+      "refreshedAt": "2026-11-07T07:29:59.307Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -30594,8 +30598,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -30641,18 +30645,18 @@
       ]
      ],
      "plays": 73,
-     "playedMs": 243987126,
+     "playedMs": 243984742,
      "transcodes": 14,
      "users": [
       {
        "user": "Mira",
        "plays": 40,
-       "playedMs": 137434863
+       "playedMs": 137433671
       },
       {
        "user": "Demo",
        "plays": 19,
-       "playedMs": 68176263
+       "playedMs": 68175071
       },
       {
        "user": "Jonas",
@@ -30844,7 +30848,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-07T06:47:14.758Z"
+     "refreshedAt": "2026-11-07T07:29:59.307Z"
     },
     "streams": {
      "days": 30,
@@ -30986,8 +30990,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -31033,7 +31037,7 @@
       ]
      ],
      "plays": 73,
-     "playedMs": 243987126,
+     "playedMs": 243984742,
      "transcodes": 14,
      "topTitles": [
       {
@@ -31207,7 +31211,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-07T06:47:14.758Z",
+      "refreshedAt": "2026-11-07T07:29:59.307Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -31390,8 +31394,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -31437,18 +31441,18 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339912126,
+     "playedMs": 339909742,
      "transcodes": 18,
      "users": [
       {
        "user": "Mira",
        "plays": 55,
-       "playedMs": 200865663
+       "playedMs": 200864471
       },
       {
        "user": "Demo",
        "plays": 26,
-       "playedMs": 88250463
+       "playedMs": 88249271
       },
       {
        "user": "Jonas",
@@ -31696,7 +31700,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-07T06:47:14.758Z"
+     "refreshedAt": "2026-11-07T07:29:59.307Z"
     },
     "streams": {
      "days": 90,
@@ -31838,8 +31842,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -31885,7 +31889,7 @@
       ]
      ],
      "plays": 99,
-     "playedMs": 339912126,
+     "playedMs": 339909742,
      "transcodes": 18,
      "topTitles": [
       {
@@ -32115,7 +32119,7 @@
       "instanceName": "Jellyfin",
       "adapter": "jellyfin",
       "adapterName": "Jellyfin",
-      "refreshedAt": "2026-11-07T06:47:14.758Z",
+      "refreshedAt": "2026-11-07T07:29:59.307Z",
       "error": null,
       "refreshing": false,
       "libraries": [
@@ -32298,8 +32302,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -32345,18 +32349,18 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505920726,
+     "playedMs": 505918342,
      "transcodes": 33,
      "users": [
       {
        "user": "Mira",
        "plays": 83,
-       "playedMs": 280465863
+       "playedMs": 280464671
       },
       {
        "user": "Demo",
        "plays": 37,
-       "playedMs": 125510463
+       "playedMs": 125509271
       },
       {
        "user": "Jonas",
@@ -32800,7 +32804,7 @@
       "SD": 4
      },
      "sizeBytes": 686600000000,
-     "refreshedAt": "2026-11-07T06:47:14.758Z"
+     "refreshedAt": "2026-11-07T07:29:59.307Z"
     },
     "streams": {
      "days": 365,
@@ -32942,8 +32946,8 @@
        0,
        0,
        0,
-       3,
        0,
+       3,
        0,
        0,
        0,
@@ -32989,7 +32993,7 @@
       ]
      ],
      "plays": 153,
-     "playedMs": 505920726,
+     "playedMs": 505918342,
      "transcodes": 33,
      "topTitles": [
       {
@@ -34176,8 +34180,8 @@
    "body": {
     "feed": {
      "id": "00000000-0000-4000-8000-000000000022",
-     "createdAt": "2026-11-07T06:47:21.930Z",
-     "lastUsedAt": "2026-11-07T06:47:21.934Z"
+     "createdAt": "2026-11-07T07:30:06.569Z",
+     "lastUsedAt": "2026-11-07T07:30:06.572Z"
     }
    }
   },
@@ -34190,8 +34194,8 @@
       "userId": "00000000-0000-4000-8000-000000000001",
       "username": "demo",
       "displayName": "Demo Admin",
-      "createdAt": "2026-11-07T06:47:21.930Z",
-      "lastUsedAt": "2026-11-07T06:47:21.934Z"
+      "createdAt": "2026-11-07T07:30:06.569Z",
+      "lastUsedAt": "2026-11-07T07:30:06.572Z"
      }
     ]
    }
@@ -34201,361 +34205,361 @@
    "body": {
     "points": [
      {
-      "at": "2026-11-07T05:48:00.000Z",
+      "at": "2026-11-07T06:31:00.000Z",
       "speed": 48592000,
       "downloads": 3,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:49:00.000Z",
+      "at": "2026-11-07T06:32:00.000Z",
       "speed": 56163283,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:50:00.000Z",
+      "at": "2026-11-07T06:33:00.000Z",
       "speed": 62248972,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:51:00.000Z",
+      "at": "2026-11-07T06:34:00.000Z",
       "speed": 65820625,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:52:00.000Z",
+      "at": "2026-11-07T06:35:00.000Z",
       "speed": 66612115,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:53:00.000Z",
+      "at": "2026-11-07T06:36:00.000Z",
       "speed": 65171834,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:54:00.000Z",
+      "at": "2026-11-07T06:37:00.000Z",
       "speed": 62645877,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:55:00.000Z",
+      "at": "2026-11-07T06:38:00.000Z",
       "speed": 60366385,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:56:00.000Z",
+      "at": "2026-11-07T06:39:00.000Z",
       "speed": 59384477,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:57:00.000Z",
+      "at": "2026-11-07T06:40:00.000Z",
       "speed": 60105556,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:58:00.000Z",
+      "at": "2026-11-07T06:41:00.000Z",
       "speed": 62150023,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T05:59:00.000Z",
+      "at": "2026-11-07T06:42:00.000Z",
       "speed": 64486352,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:00:00.000Z",
+      "at": "2026-11-07T06:43:00.000Z",
       "speed": 65791575,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:01:00.000Z",
+      "at": "2026-11-07T06:44:00.000Z",
       "speed": 64917433,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:02:00.000Z",
+      "at": "2026-11-07T06:45:00.000Z",
       "speed": 61304661,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:03:00.000Z",
+      "at": "2026-11-07T06:46:00.000Z",
       "speed": 55205002,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:04:00.000Z",
+      "at": "2026-11-07T06:47:00.000Z",
       "speed": 47634958,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-07T06:05:00.000Z",
+      "at": "2026-11-07T06:48:00.000Z",
       "speed": 40075308,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:06:00.000Z",
+      "at": "2026-11-07T06:49:00.000Z",
       "speed": 34015748,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:07:00.000Z",
+      "at": "2026-11-07T06:50:00.000Z",
       "speed": 30496042,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:08:00.000Z",
+      "at": "2026-11-07T06:51:00.000Z",
       "speed": 29796248,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:09:00.000Z",
+      "at": "2026-11-07T06:52:00.000Z",
       "speed": 31378584,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:10:00.000Z",
+      "at": "2026-11-07T06:53:00.000Z",
       "speed": 34099024,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:11:00.000Z",
+      "at": "2026-11-07T06:54:00.000Z",
       "speed": 36616272,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:12:00.000Z",
+      "at": "2026-11-07T06:55:00.000Z",
       "speed": 37859665,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:13:00.000Z",
+      "at": "2026-11-07T06:56:00.000Z",
       "speed": 37398036,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:14:00.000Z",
+      "at": "2026-11-07T06:57:00.000Z",
       "speed": 35585176,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:15:00.000Z",
+      "at": "2026-11-07T06:58:00.000Z",
       "speed": 33432988,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:16:00.000Z",
+      "at": "2026-11-07T06:59:00.000Z",
       "speed": 32255284,
       "downloads": 2,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:17:00.000Z",
+      "at": "2026-11-07T07:00:00.000Z",
       "speed": 33202599,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:18:00.000Z",
+      "at": "2026-11-07T07:01:00.000Z",
       "speed": 36845346,
       "downloads": 2,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:19:00.000Z",
+      "at": "2026-11-07T07:02:00.000Z",
       "speed": 42946632,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-07T06:20:00.000Z",
+      "at": "2026-11-07T07:03:00.000Z",
       "speed": 50502516,
       "downloads": 3,
       "streams": 0
      },
      {
-      "at": "2026-11-07T06:21:00.000Z",
+      "at": "2026-11-07T07:04:00.000Z",
       "speed": 58037750,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:22:00.000Z",
+      "at": "2026-11-07T07:05:00.000Z",
       "speed": 64059246,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:23:00.000Z",
+      "at": "2026-11-07T07:06:00.000Z",
       "speed": 67516532,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:24:00.000Z",
+      "at": "2026-11-07T07:07:00.000Z",
       "speed": 68116055,
       "downloads": 5,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:25:00.000Z",
+      "at": "2026-11-07T07:08:00.000Z",
       "speed": 66385235,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:26:00.000Z",
+      "at": "2026-11-07T07:09:00.000Z",
       "speed": 63466104,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:27:00.000Z",
+      "at": "2026-11-07T07:10:00.000Z",
       "speed": 60709072,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:28:00.000Z",
+      "at": "2026-11-07T07:11:00.000Z",
       "speed": 59204258,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:29:00.000Z",
+      "at": "2026-11-07T07:12:00.000Z",
       "speed": 59408532,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:30:00.000Z",
+      "at": "2026-11-07T07:13:00.000Z",
       "speed": 60993883,
       "downloads": 4,
       "streams": 1
      },
      {
-      "at": "2026-11-07T06:31:00.000Z",
+      "at": "2026-11-07T07:14:00.000Z",
       "speed": 62968021,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:32:00.000Z",
+      "at": "2026-11-07T07:15:00.000Z",
       "speed": 64026263,
       "downloads": 4,
       "streams": 2
      },
      {
-      "at": "2026-11-07T06:33:00.000Z",
+      "at": "2026-11-07T07:16:00.000Z",
       "speed": 63015659,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:34:00.000Z",
+      "at": "2026-11-07T07:17:00.000Z",
       "speed": 59354357,
       "downloads": 4,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:35:00.000Z",
+      "at": "2026-11-07T07:18:00.000Z",
       "speed": 53263931,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-07T06:36:00.000Z",
+      "at": "2026-11-07T07:19:00.000Z",
       "speed": 45735133,
       "downloads": 3,
       "streams": 4
      },
      {
-      "at": "2026-11-07T06:37:00.000Z",
+      "at": "2026-11-07T07:20:00.000Z",
       "speed": 38236967,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:38:00.000Z",
+      "at": "2026-11-07T07:21:00.000Z",
       "speed": 32265205,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:39:00.000Z",
+      "at": "2026-11-07T07:22:00.000Z",
       "speed": 28880428,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:40:00.000Z",
+      "at": "2026-11-07T07:23:00.000Z",
       "speed": 28389250,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:41:00.000Z",
+      "at": "2026-11-07T07:24:00.000Z",
       "speed": 30274389,
       "downloads": 1,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:42:00.000Z",
+      "at": "2026-11-07T07:25:00.000Z",
       "speed": 33395754,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:43:00.000Z",
+      "at": "2026-11-07T07:26:00.000Z",
       "speed": 36393891,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:44:00.000Z",
+      "at": "2026-11-07T07:27:00.000Z",
       "speed": 38159334,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:45:00.000Z",
+      "at": "2026-11-07T07:28:00.000Z",
       "speed": 38209613,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:46:00.000Z",
+      "at": "2026-11-07T07:29:00.000Z",
       "speed": 36847016,
       "downloads": 2,
       "streams": 3
      },
      {
-      "at": "2026-11-07T06:47:00.000Z",
+      "at": "2026-11-07T07:30:00.000Z",
       "speed": 60740000,
       "downloads": 3,
       "streams": 3

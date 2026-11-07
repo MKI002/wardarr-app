@@ -23,7 +23,7 @@ function worker(id, type, file, percentage, fps, eta, startedMinutesAgo, sizeGb,
  * Builds the mock. `now` fixes the clock, so job start times stay stable
  * between captures.
  */
-export function createTdarr({ now = Date.now(), version = '2.27.01', apiKey = '' } = {}) {
+export function createTdarr({ now = Date.now(), version = '3.06.00', apiKey = '' } = {}) {
   const movies = '/data/media/movies';
   const tv = '/data/media/tv';
   const nodes = {
@@ -225,7 +225,14 @@ export function createTdarr({ now = Date.now(), version = '2.27.01', apiKey = ''
   return async function handle(path, req, res) {
     if (apiKey && req.headers['x-api-key'] !== apiKey) return send(res, 401, { message: 'Unauthorized' });
     if (path === '/api/v2/status')
-      return send(res, 200, { status: 'good', isProduction: true, os: 'linux', version, uptime: 512_000 });
+      return send(res, 200, {
+        status: 'good',
+        isProduction: true,
+        os: 'linux',
+        version,
+        uptime: 512_000,
+        serverEngine: 'rust',
+      });
     if (path === '/api/v2/get-nodes') return send(res, 200, nodes);
     if (req.method !== 'POST') return send(res, 404, {});
     const data = (await body(req)).data ?? {};

@@ -13,7 +13,7 @@
     "apiKeyJellyfin": "Unter Dashboard → API Keys anlegen.",
     "apiKeyEmby": "Unter Settings → Advanced → API Keys anlegen.",
     "plexToken": "Dein X-Plex-Token. Der Plex-Hilfeartikel „Finding an authentication token“ erklärt, wo du ihn findest.",
-    "apiKeyTdarr": "Nur nötig, wenn in Tdarr die Anmeldung aktiv ist. Unter Tools → API Keys anlegen."
+    "apiKeyTdarr": "Tdarr 3 schaltet die Anmeldung bei neuen Installationen ein, dort braucht es meist einen Schlüssel; Tdarr 2 nur bei aktiver Anmeldung. Unter Tools → API Keys anlegen."
   },
   "category": {
     "arr": "Medienverwaltung",

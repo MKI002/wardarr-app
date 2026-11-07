@@ -128,10 +128,26 @@ describe('tdarr adapter', () => {
     ]);
   });
 
+  it('supports Tdarr 3 with authentication on', async () => {
+    const v3 = withVersion('3.06.00').map((r) =>
+      r.path === '/api/v2/status' ? { ...r, json: { ...(r.json as object), serverEngine: 'rust' } } : r,
+    );
+    const { adapter } = make(v3);
+    const result = await adapter.testConnection();
+    expect(result).toMatchObject({ version: '3.06.00', product: 'Tdarr' });
+    expect(result).not.toHaveProperty('compatibility');
+    expect(await adapter.health!()).toEqual([]);
+    expect((await adapter.transcoding!()).nodes.length).toBeGreaterThan(0);
+    expect(await adapter.transcodeLibraries!()).toHaveLength(2);
+
+    const { adapter: wrong } = make(v3, 'tapi_wrong0000000001');
+    await expect(wrong.testConnection()).rejects.toMatchObject({ kind: 'unauthorized' });
+  });
+
   it('runs an untested major version in compatibility mode', async () => {
-    const { adapter } = make(withVersion('3.01.00'));
+    const { adapter } = make(withVersion('4.00.00'));
     expect(await adapter.testConnection()).toMatchObject({
-      version: '3.01.00',
+      version: '4.00.00',
       compatibility: 'untestedVersion',
     });
     const signals = await adapter.health!();
@@ -161,7 +177,7 @@ describe('tdarr adapter', () => {
     });
     await adapter.transcodeLibraries!();
     expect(http.calls.some((c) => c.path === '/api/v2/stats/get-pies')).toBe(true);
-    version = '3.00.00';
+    version = '4.00.00';
     await adapter.transcoding!();
     expect(await adapter.health!()).toHaveLength(1);
   });
