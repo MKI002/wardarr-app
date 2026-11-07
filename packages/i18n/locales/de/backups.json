@@ -38,15 +38,6 @@
     "none": "Keine automatischen Backups. Wardarr behält trotzdem die letzten {{count}} Backups vor einem Datenbank-Update oder einer Wiederherstellung.",
     "every_one": "Jede Stunde ein Backup.",
     "every_other": "Alle {{count}} Stunden ein Backup.",
-    "keeps": "Wardarr behält {{list}}.",
-    "keepAll_one": "jedes Backup der letzten Stunde",
-    "keepAll_other": "jedes Backup der letzten {{count}} Stunden",
-    "daily_one": "eines pro Tag für {{count}} Tag",
-    "daily_other": "eines pro Tag für {{count}} Tage",
-    "weekly_one": "eines pro Woche für {{count}} Woche",
-    "weekly_other": "eines pro Woche für {{count}} Wochen",
-    "monthly_one": "eines pro Monat für {{count}} Monat",
-    "monthly_other": "eines pro Monat für {{count}} Monate",
     "statCount": "Backups",
     "statReach": "Reicht zurück",
     "statSize": "Platz",
@@ -61,30 +52,17 @@
       "years_one": "{{count}} Jahr",
       "years_other": "{{count}} Jahre"
     },
-    "timelineLabel": "Zeitleiste: {{planned}} Backups behält diese Stufe über {{reach}}, {{present}} Backups sind jetzt vorhanden.",
-    "rowPlanned": "Auf Dauer",
-    "rowPresent": "Jetzt",
-    "tier": {
-      "recent": "Jedes Backup",
-      "daily": "Täglich",
-      "weekly": "Wöchentlich",
-      "monthly": "Monatlich",
-      "kept": "Bleibt",
-      "removed": "Fällt beim Speichern weg"
-    },
-    "axis": {
-      "now": "jetzt",
-      "day": "1 Tag",
-      "week": "1 Woche",
-      "month": "1 Monat",
-      "halfYear": "6 Monate",
-      "year": "1 Jahr",
-      "twoYears": "2 Jahre"
-    },
     "willRemove_one": "Beim Speichern entfernt Wardarr {{count}} älteres Backup, das diese Stufe nicht mehr behält.",
     "willRemove_other": "Beim Speichern entfernt Wardarr {{count}} ältere Backups, die diese Stufe nicht mehr behält.",
     "save": "Speichern",
-    "reset": "Zurücksetzen"
+    "reset": "Zurücksetzen",
+    "today": "Heute",
+    "thinning": "Jedes neue Backup bleibt, je weiter zurück, desto weniger.",
+    "timelineLabel_one": "Zeitleiste: {{count}} Backup über {{reach}}, jetzt dicht beieinander und mit dem Alter immer seltener.",
+    "timelineLabel_other": "Zeitleiste: {{count}} Backups über {{reach}}, jetzt dicht beieinander und mit dem Alter immer seltener.",
+    "timelineHint": "Jede Pille ist ein Backup, so wie es aussieht, wenn diese Stufe eine Weile gelaufen ist. Dicht beieinander verschmelzen sie zu einer längeren Pille.",
+    "groupTip_one": "{{count}} Backup, {{from}} bis {{to}}",
+    "groupTip_other": "{{count}} Backups, {{from}} bis {{to}}"
   },
   "list": {
     "title": "Gespeicherte Backups",
@@ -97,7 +75,6 @@
     "pin": "Für immer behalten",
     "unpin": "Smart Retention entscheiden lassen",
     "delete": "Löschen…",
-    "keptAs": "bleibt als {{reasons}}",
     "goesSoon": "fällt bei der nächsten Aufräumrunde weg",
     "version": "Wardarr {{version}}",
     "showAll": "Alle {{count}} anzeigen",
@@ -109,17 +86,6 @@
     "pre-migration": "Vor Update",
     "pre-restore": "Vor Wiederherstellung",
     "uploaded": "Hochgeladen"
-  },
-  "reason": {
-    "pinned": "für immer",
-    "manual": "manuelles Backup",
-    "uploaded": "Upload",
-    "safety": "Sicherheitskopie",
-    "latest": "neuestes Backup",
-    "recent": "aktuelles Backup",
-    "daily": "Tages-Backup",
-    "weekly": "Wochen-Backup",
-    "monthly": "Monats-Backup"
   },
   "badge": {
     "pinned": "Für immer",

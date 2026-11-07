@@ -38,15 +38,6 @@
     "none": "No automatic backups. Wardarr still keeps the last {{count}} backups made before a database update or a restore.",
     "every_one": "A backup every hour.",
     "every_other": "A backup every {{count}} hours.",
-    "keeps": "Wardarr keeps {{list}}.",
-    "keepAll_one": "every backup of the last hour",
-    "keepAll_other": "every backup of the last {{count}} hours",
-    "daily_one": "one per day for {{count}} day",
-    "daily_other": "one per day for {{count}} days",
-    "weekly_one": "one per week for {{count}} week",
-    "weekly_other": "one per week for {{count}} weeks",
-    "monthly_one": "one per month for {{count}} month",
-    "monthly_other": "one per month for {{count}} months",
     "statCount": "Backups",
     "statReach": "Reaches back",
     "statSize": "Space",
@@ -61,30 +52,17 @@
       "years_one": "{{count}} year",
       "years_other": "{{count}} years"
     },
-    "timelineLabel": "Timeline: {{planned}} backups kept by this level over {{reach}}, {{present}} backups present now.",
-    "rowPlanned": "In the long run",
-    "rowPresent": "Now",
-    "tier": {
-      "recent": "Every backup",
-      "daily": "Daily",
-      "weekly": "Weekly",
-      "monthly": "Monthly",
-      "kept": "Kept",
-      "removed": "Removed on save"
-    },
-    "axis": {
-      "now": "now",
-      "day": "1 day",
-      "week": "1 week",
-      "month": "1 month",
-      "halfYear": "6 months",
-      "year": "1 year",
-      "twoYears": "2 years"
-    },
     "willRemove_one": "Saving removes {{count}} older backup that this level no longer keeps.",
     "willRemove_other": "Saving removes {{count}} older backups that this level no longer keeps.",
     "save": "Save",
-    "reset": "Undo"
+    "reset": "Undo",
+    "today": "Today",
+    "thinning": "Every recent backup is kept; the further back, the fewer remain.",
+    "timelineLabel_one": "Timeline: {{count}} backup kept over {{reach}}, close together now and thinning out with age.",
+    "timelineLabel_other": "Timeline: {{count}} backups kept over {{reach}}, close together now and thinning out with age.",
+    "timelineHint": "Each pill is a backup, as it looks once this level has run for a while. Close together, they join into one longer pill.",
+    "groupTip_one": "{{count}} backup, {{from}} to {{to}}",
+    "groupTip_other": "{{count}} backups, {{from}} to {{to}}"
   },
   "list": {
     "title": "Stored backups",
@@ -97,7 +75,6 @@
     "pin": "Keep forever",
     "unpin": "Let smart retention decide",
     "delete": "Delete…",
-    "keptAs": "kept as {{reasons}}",
     "goesSoon": "removed at the next cleanup",
     "version": "Wardarr {{version}}",
     "showAll": "Show all {{count}}",
@@ -109,17 +86,6 @@
     "pre-migration": "Before update",
     "pre-restore": "Before restore",
     "uploaded": "Uploaded"
-  },
-  "reason": {
-    "pinned": "kept forever",
-    "manual": "manual backup",
-    "uploaded": "upload",
-    "safety": "safety copy",
-    "latest": "newest backup",
-    "recent": "recent backup",
-    "daily": "daily backup",
-    "weekly": "weekly backup",
-    "monthly": "monthly backup"
   },
   "badge": {
     "pinned": "Kept forever",
