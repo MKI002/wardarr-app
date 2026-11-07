@@ -89,225 +89,214 @@ function saveBlob(blob: Blob, name: string) {
 
 // ---------------------------------------------------------------- timeline
 
-const HOUR = 3_600_000;
-const AXIS_DAYS = 731;
-const AXIS: Array<[string, number]> = [
-  ['now', 0],
-  ['day', 1],
-  ['week', 7],
-  ['month', 30],
-  ['halfYear', 182],
-  ['year', 365],
-  ['twoYears', 730],
-];
+const DAY = 86_400_000;
+const PILL_W = 6;
+const PILL_H = 22;
+const ROW_Y = 16;
+const AXIS_Y = ROW_Y + PILL_H / 2 + 22;
+const H = AXIS_Y + 4;
 
-/** Log scale: hours near now get room, years fold together. */
-function axisX(ageMs: number, width: number): number {
-  const f = (h: number) => Math.log1p(h / 3);
-  const max = f(AXIS_DAYS * 24);
-  const pos = Math.min(1, f(Math.max(0, ageMs) / HOUR) / max);
-  return width - 8 - pos * (width - 16);
+/** Calendar marks under the timeline: weeks, months or quarters, by span. */
+function calendarMarks(start: number, end: number, lang: string) {
+  const days = (end - start) / DAY;
+  const marks: Array<{ at: number; label: string }> = [];
+  if (days <= 75) {
+    const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short' });
+    const d = new Date(end);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    for (; d.getTime() > start; d.setDate(d.getDate() - 7))
+      marks.push({ at: d.getTime(), label: fmt.format(d) });
+    return marks;
+  }
+  const every = days <= 430 ? 1 : 3;
+  const month = new Intl.DateTimeFormat(lang, { month: 'short' });
+  const monthYear = new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric' });
+  const d = new Date(end);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(1);
+  for (; d.getTime() > start; d.setMonth(d.getMonth() - 1)) {
+    if (d.getMonth() % every !== 0) continue;
+    const label = every === 1 && d.getMonth() !== 0 ? month.format(d) : monthYear.format(d);
+    marks.push({ at: d.getTime(), label });
+  }
+  return marks;
 }
 
-/** Axis ticks; labels that would collide with the one to their right are left out. */
-function axisLabels(width: number) {
-  let lastX = Number.POSITIVE_INFINITY;
-  return AXIS.map(([key, days]) => {
-    const x = axisX(days * 86_400_000, width);
-    const label = lastX - x >= 44;
-    if (label) lastX = x;
-    return { key, x, label };
-  });
+/** Rough label width at 11px, enough to keep labels from touching. */
+const labelWidth = (s: string) => s.length * 6.2 + 12;
+
+/** Keeps the labels that fit, from the right, without touching each other. */
+function fitMarks(marks: Array<{ at: number; label: string }>, x: (at: number) => number, right: number) {
+  const out: Array<{ at: number; label: string; x: number }> = [];
+  for (const m of marks) {
+    const mx = x(m.at);
+    const half = labelWidth(m.label) / 2;
+    if (mx + half > right || mx - half < 0) continue;
+    right = mx - half;
+    out.push({ ...m, x: mx });
+  }
+  return out;
 }
 
-type Tier = 'recent' | 'daily' | 'weekly' | 'monthly';
-const TIER_TINT: Record<Tier, number> = { recent: 100, daily: 78, weekly: 60, monthly: 46 };
-
-function tierOf(reasons: KeepReason[]): Tier {
-  if (reasons.includes('recent') || reasons.includes('latest')) return 'recent';
-  if (reasons.includes('daily')) return 'daily';
-  if (reasons.includes('weekly')) return 'weekly';
-  return 'monthly';
+interface PillGroup {
+  x0: number;
+  x1: number;
+  count: number;
+  newest: string;
+  oldest: string;
 }
 
-function Timeline({
-  policy,
-  backups,
-  removing,
-}: {
-  policy: RetentionPolicy;
-  backups: BackupInfo[];
-  removing: Set<string>;
-}) {
-  const { t } = useTranslation();
+/**
+ * Backups closer than `gap` share one pill that stretches over them, so a busy
+ * stretch reads as one solid run instead of a smudge. Input is newest first.
+ */
+function groupPills(points: Array<{ at: string; x: number }>, gap: number): PillGroup[] {
+  const out: PillGroup[] = [];
+  for (const p of points) {
+    const last = out.at(-1);
+    if (last && last.x0 - p.x < gap) {
+      last.x0 = p.x;
+      last.count += 1;
+      last.oldest = p.at;
+    } else out.push({ x0: p.x, x1: p.x, count: 1, newest: p.at, oldest: p.at });
+  }
+  return out;
+}
+
+/**
+ * What a level keeps in the long run, on a plain calendar: today on the right,
+ * one line per backup. Recent backups stand close together, older ones thin out.
+ */
+function Timeline({ policy }: { policy: RetentionPolicy }) {
+  const { t, i18n } = useTranslation();
   const calm = useCalm();
   const reach = useReach();
-  const [ref, width] = useWidth<HTMLDivElement>();
-  const now = useMemo(() => new Date(), []);
-  const sim = useMemo(() => simulateRetention(policy, now), [policy, now]);
-  const [hover, setHover] = useState<{ x: number; y: number; text: string } | null>(null);
   const date = useLocaleDate();
-  const w = Math.max(width, 240);
-  const ROW1 = 22;
-  const ROW2 = 58;
-  const H = 96;
+  const [ref, width] = useWidth<HTMLDivElement>();
+  const nowDate = useMemo(() => new Date(), []);
+  const now = nowDate.getTime();
+  const sim = useMemo(() => simulateRetention(policy, nowDate), [policy, nowDate]);
+  const [hover, setHover] = useState<number | null>(null);
+
+  const span = Math.max(sim.reachDays, 7) * DAY * 1.06;
+  const start = now - span;
+  const x = (at: number) => PILL_W / 2 + ((at - start) / span) * (width - PILL_W);
+  const pills = groupPills(
+    sim.points.map((p) => ({ at: p.createdAt, x: x(Date.parse(p.createdAt)) })),
+    PILL_W + 3,
+  );
+
+  const todayLabel = t('backups.retention.today');
+  const marks = fitMarks(calendarMarks(start, now, i18n.language), x, width - labelWidth(todayLabel));
+
+  const nearest = (px: number) => {
+    const i = pills.findIndex((p) => px >= p.x0 - PILL_W && px <= p.x1 + PILL_W);
+    return i < 0 ? null : i;
+  };
+  const shown = hover === null ? undefined : pills[hover];
+  const day = new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium' });
 
   return (
     <div className="flex flex-col gap-3">
       <div
+        ref={ref}
         className="relative"
         role="img"
         aria-label={t('backups.retention.timelineLabel', {
-          planned: sim.points.length,
+          count: sim.points.length,
           reach: reach(sim.reachDays),
-          present: backups.length,
         })}
+        onPointerMove={(e) => setHover(nearest(e.clientX - e.currentTarget.getBoundingClientRect().left))}
+        onPointerLeave={() => setHover(null)}
       >
-        <div className="grid grid-cols-[auto_1fr] gap-x-3">
-          <div className="flex flex-col pt-[14px] text-[11px] leading-none text-muted" aria-hidden>
-            <span className="h-9">{t('backups.retention.rowPlanned')}</span>
-            <span>{t('backups.retention.rowPresent')}</span>
-          </div>
-          <div ref={ref} className="min-w-0">
-            <svg width="100%" height={H} viewBox={`0 0 ${w} ${H}`} className="block overflow-visible">
-              {axisLabels(w).map(({ key, x, label }) => {
-                return (
-                  <g key={key}>
-                    <line x1={x} x2={x} y1={6} y2={H - 18} stroke="var(--border)" strokeWidth={1} />
-                    {label ? (
-                      <text
-                        x={x}
-                        y={H - 4}
-                        textAnchor={key === 'now' ? 'end' : key === 'twoYears' ? 'start' : 'middle'}
-                        className="fill-[var(--muted)] text-[10px]"
-                      >
-                        {t(`backups.retention.axis.${key}`)}
-                      </text>
-                    ) : null}
-                  </g>
-                );
-              })}
-              <line x1={8} x2={w - 8} y1={ROW1} y2={ROW1} stroke="var(--border)" strokeWidth={1} />
-              <line x1={8} x2={w - 8} y1={ROW2} y2={ROW2} stroke="var(--border)" strokeWidth={1} />
-              {sim.points.map((p, i) => {
-                const tier = tierOf(p.reasons);
-                const x = axisX(now.getTime() - Date.parse(p.createdAt), w);
-                return (
-                  <motion.circle
-                    key={`${policy.level}-${i}`}
-                    cy={ROW1}
-                    r={4}
-                    fill={tint('accent', TIER_TINT[tier])}
-                    stroke="var(--surface)"
-                    strokeWidth={1.5}
-                    initial={calm ? false : { cx: w - 8, scale: 0 }}
-                    animate={{ cx: x, scale: 1 }}
-                    transition={{ ...spring, delay: calm ? 0 : Math.min(0.5, i * 0.012) }}
-                  />
-                );
-              })}
-              {backups.map((b, i) => {
-                const x = axisX(now.getTime() - Date.parse(b.createdAt), w);
-                const gone = removing.has(b.id);
-                const auto = b.kind === 'scheduled';
-                return (
-                  <motion.rect
-                    key={b.id}
-                    x={x - 2}
-                    y={ROW2 - 8}
-                    width={4}
-                    height={16}
-                    rx={2}
-                    tabIndex={0}
-                    aria-label={`${t(`backups.kind.${b.kind}`)}, ${date(b.createdAt)}`}
-                    fill={gone ? 'var(--surface)' : auto ? toneColor('accent') : tint('neutral', 70)}
-                    stroke={gone ? toneColor('critical') : 'none'}
-                    strokeWidth={gone ? 1.5 : 0}
-                    className="cursor-default outline-none focus-visible:stroke-[var(--text)]"
-                    style={{ originY: 0.5 }}
-                    initial={calm ? false : { scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ ...spring, delay: calm ? 0 : 0.1 + i * 0.02 }}
-                    onMouseEnter={() =>
-                      setHover({
-                        x,
-                        y: ROW2 - 10,
-                        text: `${t(`backups.kind.${b.kind}`)} · ${date(b.createdAt)}`,
-                      })
-                    }
-                    onFocus={() =>
-                      setHover({
-                        x,
-                        y: ROW2 - 10,
-                        text: `${t(`backups.kind.${b.kind}`)} · ${date(b.createdAt)}`,
-                      })
-                    }
-                    onMouseLeave={() => setHover(null)}
-                    onBlur={() => setHover(null)}
-                  />
-                );
-              })}
-            </svg>
-          </div>
-        </div>
-        {hover ? (
+        {width > 0 ? (
+          <svg width={width} height={H} className="block overflow-visible">
+            {marks.map((m) => (
+              <g key={m.at}>
+                <line x1={m.x} x2={m.x} y1={2} y2={AXIS_Y - 14} stroke="var(--border)" strokeWidth={1} />
+                <text x={m.x} y={AXIS_Y} textAnchor="middle" className="fill-[var(--muted)] text-[11px]">
+                  {m.label}
+                </text>
+              </g>
+            ))}
+            <line x1={0} x2={width} y1={ROW_Y} y2={ROW_Y} stroke="var(--border)" strokeWidth={1} />
+            <text x={width} y={AXIS_Y} textAnchor="end" className="fill-[var(--muted)] text-[11px]">
+              {todayLabel}
+            </text>
+            {pills.map((p, i) => (
+              <motion.rect
+                key={i}
+                y={ROW_Y - PILL_H / 2}
+                height={PILL_H}
+                rx={PILL_W / 2}
+                fill={toneColor('accent')}
+                style={{ originY: 0.5 }}
+                initial={calm ? false : { x: width - PILL_W, width: PILL_W, scaleY: 0 }}
+                animate={{
+                  x: p.x0 - PILL_W / 2,
+                  width: p.x1 - p.x0 + PILL_W,
+                  scaleY: hover === i ? 1.25 : 1,
+                }}
+                transition={
+                  calm ? { duration: 0 } : { ...spring, delay: hover === null ? Math.min(0.4, i * 0.015) : 0 }
+                }
+              />
+            ))}
+            {pills.map((p, i) =>
+              p.x1 - p.x0 + PILL_W >= 30 ? (
+                <motion.text
+                  key={`n${i}`}
+                  y={ROW_Y + 4}
+                  textAnchor="middle"
+                  className="pointer-events-none fill-[var(--surface)] text-[11px] font-semibold tabular-nums"
+                  initial={calm ? false : { x: (p.x0 + p.x1) / 2, opacity: 0 }}
+                  animate={{ x: (p.x0 + p.x1) / 2, opacity: 1 }}
+                  transition={calm ? { duration: 0 } : spring}
+                >
+                  {p.count}
+                </motion.text>
+              ) : null,
+            )}
+          </svg>
+        ) : (
+          <div style={{ height: H }} />
+        )}
+        {shown ? (
           <div
             role="tooltip"
-            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-border bg-surface px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg"
-            style={{ left: `calc(${Math.min(Math.max(hover.x / w, 0.15), 0.85) * 100}% )`, top: hover.y }}
+            className="pointer-events-none absolute -top-2 z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-border bg-surface px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg"
+            style={{ left: Math.min(Math.max((shown.x0 + shown.x1) / 2, 100), width - 100) }}
           >
-            {hover.text}
+            {shown.count === 1
+              ? date(shown.newest)
+              : t('backups.retention.groupTip', {
+                  count: shown.count,
+                  from: day.format(new Date(shown.oldest)),
+                  to: day.format(new Date(shown.newest)),
+                })}
           </div>
         ) : null}
       </div>
-      <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted">
-        {(['recent', 'daily', 'weekly', 'monthly'] as const).map((tier) => (
-          <li key={tier} className="flex items-center gap-1.5">
-            <span
-              className="size-2.5 rounded-full"
-              style={{ background: tint('accent', TIER_TINT[tier]) }}
-              aria-hidden
-            />
-            {t(`backups.retention.tier.${tier}`)}
-          </li>
-        ))}
-        <li className="flex items-center gap-1.5">
-          <span className="h-3 w-1 rounded-sm" style={{ background: tint('neutral', 70) }} aria-hidden />
-          {t('backups.kind.manual')}
-        </li>
-        {removing.size > 0 ? (
-          <li className="flex items-center gap-1.5">
-            <span className="h-3 w-1 rounded-sm border border-critical" aria-hidden />
-            {t('backups.retention.tier.removed')}
-          </li>
-        ) : null}
-      </ul>
+      <p className="text-xs text-muted">{t('backups.retention.timelineHint')}</p>
     </div>
   );
 }
 
 // --------------------------------------------------------------- retention
 
-function retentionSentence(
-  t: (k: string, o?: Record<string, unknown>) => string,
-  p: RetentionPolicy,
-  lang: string,
-) {
+function retentionSentence(t: (k: string, o?: Record<string, unknown>) => string, p: RetentionPolicy) {
   if (p.intervalHours === null) return t('backups.retention.none', { count: 3 });
-  const parts: string[] = [];
-  if (p.keepAllHours > 0) parts.push(t('backups.retention.keepAll', { count: p.keepAllHours }));
-  if (p.daily > 0) parts.push(t('backups.retention.daily', { count: p.daily }));
-  if (p.weekly > 0) parts.push(t('backups.retention.weekly', { count: p.weekly }));
-  if (p.monthly > 0) parts.push(t('backups.retention.monthly', { count: p.monthly }));
-  const list = new Intl.ListFormat(lang, { type: 'conjunction' }).format(parts);
-  return `${t('backups.retention.every', { count: p.intervalHours })} ${t('backups.retention.keeps', { list })}`;
+  return `${t('backups.retention.every', { count: p.intervalHours })} ${t('backups.retention.thinning')}`;
 }
 
 function RetentionCard({ data }: { data: BackupOverview }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const client = useQueryClient();
   const reach = useReach();
   const sliderId = useId();
+  const [stopsRef, stopsWidth] = useWidth<HTMLDivElement>();
+  const narrow = stopsWidth > 0 && (stopsWidth - 24) / 4 < 96;
   const [level, setLevel] = useState<RetentionLevel>(data.level);
   const dirty = level !== data.level;
   const info = data.levels.find((l) => l.level === level) ?? data.levels[2]!;
@@ -346,34 +335,43 @@ function RetentionCard({ data }: { data: BackupOverview }) {
         <label htmlFor={sliderId} className="sr-only">
           {t('backups.retention.slider')}
         </label>
-        <input
-          id={sliderId}
-          type="range"
-          min={0}
-          max={4}
-          step={1}
-          value={level}
-          aria-valuetext={`${t(`backups.retention.level.${level}`)}: ${t(`backups.retention.levelHint.${level}`)}`}
-          onChange={(e) => setLevel(Number(e.target.value) as RetentionLevel)}
-          className="retention-slider w-full"
-          style={{ ['--fill' as string]: `${(level / 4) * 100}%` }}
-        />
-        <div className="grid grid-cols-5 text-center text-xs">
-          {LEVELS.map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setLevel(l)}
-              className={`rounded-md px-1 py-1 first:text-left last:text-right ${l === level ? 'font-semibold text-text' : 'text-muted hover:text-text'}`}
-            >
-              {t(`backups.retention.level.${l}`)}
-            </button>
-          ))}
+        <div className="px-6">
+          <input
+            id={sliderId}
+            type="range"
+            min={0}
+            max={4}
+            step={1}
+            value={level}
+            aria-valuetext={`${t(`backups.retention.level.${level}`)}: ${t(`backups.retention.levelHint.${level}`)}`}
+            onChange={(e) => setLevel(Number(e.target.value) as RetentionLevel)}
+            className="retention-slider block w-full"
+            style={{ ['--stop' as string]: level / 4 }}
+          />
+          {/* Each label sits exactly under its stop: the thumb is 24px wide, so stop
+              i is at 12px + (width - 24px) * i / 4. On narrow screens only the
+              chosen level is named, so the names never run into each other. */}
+          <div ref={stopsRef} className="relative h-10 text-xs">
+            {LEVELS.map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setLevel(l)}
+                className={`absolute top-0 flex w-max min-w-8 -translate-x-1/2 flex-col items-center gap-1.5 px-1 text-center leading-tight ${l === level ? 'font-semibold text-text' : 'text-muted hover:text-text'}`}
+                style={{ left: `calc(12px + (100% - 24px) * ${l / 4})` }}
+              >
+                <span className={`h-1.5 w-px ${l <= level ? 'bg-accent' : 'bg-border'}`} aria-hidden />
+                <span className={narrow && l !== level ? 'sr-only' : undefined}>
+                  {t(`backups.retention.level.${l}`)}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="flex flex-col gap-4 rounded-xl bg-surface-2 p-4">
-        <p className="text-sm leading-relaxed">{retentionSentence(t, policy, i18n.language)}</p>
+        <p className="text-sm leading-relaxed">{retentionSentence(t, policy)}</p>
         {stats.length ? (
           <dl className="grid grid-cols-3 gap-3">
             {stats.map(([label, value]) => (
@@ -386,7 +384,7 @@ function RetentionCard({ data }: { data: BackupOverview }) {
         ) : null}
       </div>
 
-      <Timeline policy={policy} backups={data.backups} removing={removing} />
+      {policy.intervalHours !== null ? <Timeline policy={policy} /> : null}
 
       {dirty ? (
         <motion.div
@@ -521,9 +519,6 @@ function KindIcon({ kind }: { kind: BackupKind }) {
   );
 }
 
-/** The one reason shown per backup, most telling first. */
-const REASON_ORDER: KeepReason[] = ['safety', 'latest', 'monthly', 'weekly', 'daily', 'recent'];
-
 function BackupRow({
   backup,
   index,
@@ -545,7 +540,6 @@ function BackupRow({
       api(`/api/backups/${encodeURIComponent(backup.id)}/pin`, { method: 'PUT', body: { pinned } }),
     onSuccess: () => void client.invalidateQueries({ queryKey: ['backups'] }),
   });
-  const reason = REASON_ORDER.find((r) => backup.keep.includes(r));
   const restorable = backup.compatibility === 'current' || backup.compatibility === 'older';
 
   return (
@@ -613,11 +607,7 @@ function BackupRow({
           t(`backups.kind.${backup.kind}`),
           formatBytes(backup.size),
           t('backups.list.version', { version: backup.appVersion }),
-          backup.keep.length === 0
-            ? t('backups.list.goesSoon')
-            : reason
-              ? t('backups.list.keptAs', { reasons: t(`backups.reason.${reason}`) })
-              : null,
+          backup.keep.length === 0 ? t('backups.list.goesSoon') : null,
         ]
           .filter(Boolean)
           .join(' · ')}
