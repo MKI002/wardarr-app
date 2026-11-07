@@ -54,11 +54,17 @@ const TYPES = {
   '.webmanifest': 'application/manifest+json',
 };
 
+// Serve only the files the build produced; every other path gets the app
+// shell, so a request path never reaches the file system.
+const FILES = new Map(
+  fs
+    .readdirSync(site, { recursive: true })
+    .map((rel) => path.join(site, rel))
+    .filter((file) => fs.statSync(file).isFile())
+    .map((file) => ['/' + path.relative(site, file).split(path.sep).join('/'), file]),
+);
 const server = http.createServer((req, res) => {
-  let file = path.join(site, decodeURIComponent((req.url ?? '/').split('?')[0]));
-  if (!file.startsWith(site) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
-    file = path.join(site, 'index.html');
-  }
+  const file = FILES.get((req.url ?? '/').split('?')[0]) ?? path.join(site, 'index.html');
   res.writeHead(200, { 'content-type': TYPES[path.extname(file)] ?? 'application/octet-stream' });
   fs.createReadStream(file).pipe(res);
 });
