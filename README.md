@@ -2,16 +2,21 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/wardarr-lockup-on-dark.svg" />
-  <img src="docs/assets/wardarr-lockup-on-light.svg" alt="Wardarr" width="300" />
+  <img src="docs/assets/wardarr-lockup-on-light.svg" alt="Wardarr" width="280" />
 </picture>
 
-**One calm place for your whole media stack.**
+### One calm place for your whole media stack.
 
-A self-hosted control center for the \*arr apps, download clients, media servers and Seerr.
-Wardarr groups problems by their cause, cleans the download queue carefully, hunts for missing
-titles at a gentle pace and lets everyone in the house request something to watch.
+Wardarr keeps watch over your \*arr apps, download clients, media servers, Seerr and Tdarr,
+so you don't have to. It groups problems by their cause, cleans the download queue with care,
+hunts for missing titles at a gentle pace and lets everyone at home ask for something to watch.
 
-[**Live demo**](https://mki002.github.io/wardarr-app/) · [Install](#install) · [Features](#features) · [Configuration](#configuration) · [Guides](#guides) · [Deutsch](README.de.md)
+<a href="https://mki002.github.io/wardarr-app/"><b>Try the live demo</b></a> ·
+<a href="#install">Install</a> ·
+<a href="#a-tour">Tour</a> ·
+<a href="#configuration">Configuration</a> ·
+<a href="#guides">Guides</a> ·
+<a href="README.de.md">Deutsch</a>
 
 [![CI](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml/badge.svg)](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MKI002/wardarr-app?color=5b45e0&label=release)](https://github.com/MKI002/wardarr-app/releases)
@@ -19,86 +24,155 @@ titles at a gentle pace and lets everyone in the house request something to watc
 [![Live demo](https://img.shields.io/badge/demo-live-5b45e0)](https://mki002.github.io/wardarr-app/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-5b45e0.svg)](LICENSE)
 
-<img src="docs/screenshots/overview.png" alt="Wardarr overview: services grouped by kind, open issues, what is playing and downloading" />
+<br />
 
-<sub>All screenshots show the invented test setup. Every title, user and number is made up.</sub>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/hero-light.png" />
+  <img src="docs/assets/hero-dark.png" alt="Wardarr on a desktop and a phone: the overview with every service on a radar, the issues worth a look, and the library on the phone" />
+</picture>
+
+<sub>Every screenshot shows the invented demo setup. Titles, users and numbers are made up; the films are in the public domain.</sub>
 
 </div>
 
-## Features
+## Why Wardarr
 
-- **Issues by cause, not by message.** When one indexer fails, Sonarr, Radarr and Radarr 4K
-  all complain. Wardarr shows that as one issue with the instances it affects, the fix and a
-  link to the right settings page. Mute what you know about; resolved issues stay in the
-  history.
-- **A queue cleaner that asks first.** It starts in dry run and shows what it would do. Stuck,
-  failed and stalled downloads collect strikes before anything is removed, clean imports wait
-  for your "Review import", and arming it is a deliberate step.
-- **Hunting at a calm pace.** Missing titles and upgrades are searched a few at a time, with a
-  budget for API calls, a pause when indexers are down and a list of what comes next and why.
-- **Discover and request.** Trending and popular titles, search, and requests that go through
-  Seerr as the right Seerr user, so its permissions, quotas and approvals stay in charge.
-  Standard or 4K, and the admin approves from the same page.
-- **TRaSH Guides, kept in sync.** Templates with TRaSH quality profiles, custom formats, sizes
-  and naming for any number of Sonarrs and Radarrs. Every sync shows a field-by-field preview
-  and takes a backup you can roll back; a guard reports drift or keeps instances in sync on its
-  own, and stops for large changes.
-- **Backups with smart retention.** One slider decides how often Wardarr backs itself up and
-  how the history thins out with age. A backup before every database update, restore in one
-  click, and a passphrase-protected download that moves everything to a new server.
-- **Storage with a forecast.** Every disk your *arr apps use, counted once even when several
-  apps share it, with its history and the day it will be full at the current pace. A disk that
-  fills up soon becomes an issue before downloads stop.
-- **Library and streams.** Library sizes and counts per media server, what is playing right
-  now, plays per day, most watched titles and who watched what.
-- **What's coming.** One calendar for every Sonarr, Radarr, Lidarr and Readarr, with the same
-  release from two instances shown once, and a private iCal link for calendar apps.
-- **Indexer statistics.** Queries, grabs, failures and response times per indexer from
-  Prowlarr, and which apps depend on an indexer that is failing.
-- **Tdarr at a glance.** Space saved, nodes and their workers, the queue, transcodes and health
-  checks per day, and the files that failed. A node that goes offline, a burst of failures or a
-  job that stopped moving becomes an issue.
-- **Notifications** by e-mail, ntfy, Discord, Gotify, Telegram or any webhook. New issues
-  above a threshold by default; resolved issues and requests waiting for approval when you want
-  them. Problems that fix themselves within a minute stay quiet.
-- **Knows your versions.** Wardarr detects the version and API of each service and keeps
-  talking to it correctly after an update. When a product moves beyond what was tested, it
-  says so and switches to a careful compatibility mode.
-- **Several instances per product.** Two Sonarrs, a 4K Radarr, two media servers: all fine.
-- **Made for the couch and the phone.** Dark and light themes that follow your system,
-  installable as an app, fully usable on a phone and with the keyboard, in English and German.
+A media stack is a dozen apps that each know a little. When one indexer fails, three of them
+complain in three different places. Wardarr reads them all, works out what actually went wrong
+and tells you in one sentence, with the fix one click away. Everything else it does follows
+the same idea: **show what matters at a glance, explain the rest when asked, and never act
+behind your back.**
 
-## Screenshots
+- **Calm by default.** Problems that fix themselves within a minute stay quiet. The queue
+  cleaner starts in dry run, hunting has a budget, and every TRaSH sync shows a preview first.
+- **Made for your setup.** Two Sonarrs, a 4K Radarr, three media servers: every product can be
+  connected as often as you like. Wardarr detects each service's version and API and keeps up
+  when you update.
+- **Yours.** One container, one SQLite file, no cloud account, no telemetry, no calls home.
 
-|                                                              |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![Issue Center](docs/screenshots/issues.png)                 | ![Queue Cleaner](docs/screenshots/cleaner.png)               |
-| **Issue Center** with one entry per cause                    | **Queue Cleaner** in dry run, with strikes and the next step |
-| ![Discover](docs/screenshots/discover.png)                   | ![Library](docs/screenshots/library.png)                     |
-| **Discover** what is in the library, on its way or requested | **Library** statistics and plays over time                   |
-| ![Requests](docs/screenshots/requests.png)                   | ![Notifications](docs/screenshots/notifications.png)         |
-| **Requests** to approve, decline or retry                    | **Notifications** per channel and threshold                  |
+## A tour
 
-<p align="center">
-  <img src="docs/screenshots/map.png" alt="Stack map: every connected service, the links between them and the shared storage" />
-  <br />
-  <sub>The <b>stack map</b> draws your stack from what the services report about each other.</sub>
-</p>
+The sidebar groups Wardarr's pages by the question you open it with.
 
-<p align="center">
-  <img src="docs/screenshots/phone.png" width="280" alt="Wardarr on a phone" />
-</p>
+### Status: is everything fine?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/issues.png" alt="Issue Center with one entry per cause, the trend of the last 14 days and the most affected services" /></td>
+    <td width="50%"><img src="docs/screenshots/map.png" alt="Stack map: every service, how they connect and the disks they share" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Issues by cause, not by message.</b> One failing indexer becomes one issue with the
+    instances it affects, the fix and a link to the right settings page. Mute what you know
+    about; resolved issues stay in the history.</td>
+    <td valign="top"><b>A map of your stack</b>, drawn from what the services report about each other:
+    which app sends to which download client, which disk they share, and where it breaks.</td>
+  </tr>
+</table>
+
+The **overview** puts it all on one screen: every service as a blip on the radar, what is worth
+a look, and what is streaming, downloading and filling up right now.
+
+### Media: what is there to watch?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/discover.png" alt="Discover: trending films and series, marked when they are in the library, on their way or requested" /></td>
+    <td width="50%"><img src="docs/screenshots/library.png" alt="Library: hours watched, plays per day, when people watch and the most watched titles" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Discover and request.</b> Trending, popular and search. Requests go through Seerr as
+    the right Seerr user, so its permissions, quotas and approvals stay in charge. Standard or
+    4K, and admins approve on the same page.</td>
+    <td valign="top"><b>Library and streams.</b> Sizes and counts per media server, what is playing right
+    now, plays per day, when people watch and the most watched titles.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/calendar.png" alt="Calendar: releases of the next days from every Sonarr, Radarr, Lidarr and Readarr" /></td>
+    <td><img src="docs/screenshots/requests.png" alt="Requests waiting for approval, approved, on their way and available" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>What's coming.</b> One calendar for every Sonarr, Radarr, Lidarr and Readarr, the
+    same release from two instances shown once, and a private iCal link for your calendar app.</td>
+    <td valign="top"><b>Requests</b> to approve, decline, adjust or retry, with every step from waiting to
+    available.</td>
+  </tr>
+</table>
+
+### Automation: what does Wardarr do for me?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/cleaner.png" alt="Queue Cleaner in dry run with the downloads it watches and their strikes" /></td>
+    <td width="50%"><img src="docs/screenshots/hunting.png" alt="Hunting: calls left this hour, the searches planned for the next 24 hours and the results" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>A queue cleaner that asks first.</b> It starts in dry run and shows what it would do.
+    Stuck, failed and stalled downloads collect strikes before anything is removed, clean
+    imports wait for your "Review import", and arming it is a deliberate step.</td>
+    <td valign="top"><b>Hunting at a calm pace.</b> Missing titles and upgrades are searched a few at a time,
+    within a budget of API calls, with a pause when indexers are down and a list of what comes
+    next and why.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/trash.png" alt="TRaSH Guides: instances in sync, templates and the guard mode per instance" /></td>
+    <td><img src="docs/screenshots/tdarr.png" alt="Tdarr: space saved, nodes and workers, transcodes, health checks and failures per day" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>TRaSH Guides, kept in sync.</b> Quality profiles, custom formats, sizes and naming for
+    any number of Sonarrs and Radarrs. Every sync shows a field-by-field preview and takes a
+    backup you can roll back; a guard reports drift or fixes it, and stops for large changes.</td>
+    <td valign="top"><b>Tdarr at a glance.</b> Space saved, nodes and their workers, the queue, and the files
+    that failed. A node that goes offline or a job that stops moving becomes an issue.</td>
+  </tr>
+</table>
+
+### System: how is the stack underneath?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/storage.png" alt="Storage: the tightest disk with its forecast, free space on every disk and the daily growth" /></td>
+    <td width="50%"><img src="docs/screenshots/indexers.png" alt="Indexers from Prowlarr with status, queries, grabs and response times" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Storage with a forecast.</b> Every disk your apps use, counted once even when several
+    apps share it, with the day it will be full at the current pace. A disk that fills up soon
+    becomes an issue before downloads stop.</td>
+    <td valign="top"><b>Indexer statistics.</b> Queries, grabs, failures and response times per indexer from
+    Prowlarr, and which apps are left without a working one.</td>
+  </tr>
+</table>
+
+Under **Settings** live the services, users, **notifications** (e-mail, ntfy, Discord, Gotify,
+Telegram or any webhook; new issues by default, everything else when you want it) and
+**backups** with smart retention: one slider for how often and how long, a backup before every
+database update, restore in one click and a passphrase-protected download for moving to a new
+server.
+
+### Everywhere
+
+<table>
+  <tr>
+    <td width="64%"><img src="docs/screenshots/palette.png" alt="Command palette opened with Ctrl K, searching for Radarr" /></td>
+    <td width="18%"><img src="docs/screenshots/phone-dark.png" alt="Wardarr overview on a phone in the dark theme" /></td>
+    <td width="18%"><img src="docs/screenshots/phone-light.png" alt="Wardarr overview on a phone in the light theme" /></td>
+  </tr>
+</table>
+
+Press <kbd>Ctrl</kbd> <kbd>K</kbd> (or <kbd>⌘</kbd> <kbd>K</kbd>, or <kbd>/</kbd>) to jump to any
+page, setting or service. Dark and light themes follow your system, the app installs on your
+phone and works fully with a keyboard, in English and German.
 
 ## Supported services
 
-| Kind             | Services                                                                         |
-| ---------------- | -------------------------------------------------------------------------------- |
-| Media management | Sonarr, Radarr, Lidarr, Whisparr, Readarr (no longer developed upstream), Bazarr |
-| Indexers         | Prowlarr                                                                         |
-| Download clients | SABnzbd, NZBGet, qBittorrent, Transmission, Deluge                               |
-| Media servers    | Jellyfin, Plex, Emby                                                             |
-| Requests         | Seerr                                                                            |
-| Transcoding      | Tdarr                                                                            |
+| Kind             | Services                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Media management | <img src="apps/web/src/assets/logos/sonarr.svg" height="16" alt="" /> Sonarr · <img src="apps/web/src/assets/logos/radarr.svg" height="16" alt="" /> Radarr · <img src="apps/web/src/assets/logos/lidarr.svg" height="16" alt="" /> Lidarr · <img src="apps/web/src/assets/logos/whisparr.svg" height="16" alt="" /> Whisparr · <img src="apps/web/src/assets/logos/readarr.svg" height="16" alt="" /> Readarr (no longer developed upstream) · <img src="apps/web/src/assets/logos/bazarr.png" height="16" alt="" /> Bazarr |
+| Indexers         | <img src="apps/web/src/assets/logos/prowlarr.svg" height="16" alt="" /> Prowlarr                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Download clients | <img src="apps/web/src/assets/logos/sabnzbd.svg" height="16" alt="" /> SABnzbd · <img src="apps/web/src/assets/logos/nzbget.svg" height="16" alt="" /> NZBGet · <img src="apps/web/src/assets/logos/qbittorrent.svg" height="16" alt="" /> qBittorrent · <img src="apps/web/src/assets/logos/transmission.svg" height="16" alt="" /> Transmission · <img src="apps/web/src/assets/logos/deluge.png" height="16" alt="" /> Deluge                                                                                             |
+| Media servers    | <img src="apps/web/src/assets/logos/jellyfin.svg" height="16" alt="" /> Jellyfin · <img src="apps/web/src/assets/logos/plex.svg" height="16" alt="" /> Plex · <img src="apps/web/src/assets/logos/emby.png" height="16" alt="" /> Emby                                                                                                                                                                                                                                                                                       |
+| Requests         | <img src="apps/web/src/assets/logos/seerr.svg" height="16" alt="" /> Seerr                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Transcoding      | Tdarr                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 Missing one? Adapters are small and self-contained, see the [adapter guide](docs/guide/adapters.md).
 
@@ -221,7 +295,10 @@ pnpm dev
 checks. A local setup with invented services lives in [testbed/](testbed/README.md). Read
 [CONTRIBUTING.md](CONTRIBUTING.md) before you open a pull request; the
 [privacy guard](docs/privacy-guard.md) explains the hooks that keep personal data out of the
-repository.
+repository, and [docs/DESIGN.md](docs/DESIGN.md) how Wardarr looks, moves and speaks.
+
+The screenshots in this README come from the demo build, so they never show a real library:
+`pnpm --filter @wardarr/web build:demo && node scripts/screenshots/capture.mjs`.
 
 ## License
 
