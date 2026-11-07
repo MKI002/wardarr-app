@@ -2,17 +2,22 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/wardarr-lockup-on-dark.svg" />
-  <img src="docs/assets/wardarr-lockup-on-light.svg" alt="Wardarr" width="300" />
+  <img src="docs/assets/wardarr-lockup-on-light.svg" alt="Wardarr" width="280" />
 </picture>
 
-**Ein ruhiger Ort für deinen ganzen Medien-Stack.**
+### Ein ruhiger Ort für deinen ganzen Medien-Stack.
 
-Eine selbst gehostete Zentrale für die \*arr-Apps, Download-Clients, Medienserver und Seerr.
-Wardarr fasst Probleme nach ihrer Ursache zusammen, räumt die Download-Warteschlange mit Bedacht
-auf, sucht fehlende Titel in ruhigem Tempo und lässt alle im Haushalt etwas zum Anschauen
-anfragen.
+Wardarr hält Wache über deine \*arr-Apps, Download-Clients, Medienserver, Seerr und Tdarr,
+damit du es nicht musst. Es fasst Probleme nach ihrer Ursache zusammen, räumt die
+Download-Warteschlange mit Bedacht auf, sucht fehlende Titel in ruhigem Tempo und lässt alle
+zu Hause etwas zum Anschauen anfragen.
 
-[**Live-Demo**](https://mki002.github.io/wardarr-app/) · [Installation](#installation) · [Funktionen](#funktionen) · [Einstellungen](#einstellungen) · [Anleitungen](#anleitungen) · [English](README.md)
+<a href="https://mki002.github.io/wardarr-app/"><b>Live-Demo ausprobieren</b></a> ·
+<a href="#installation">Installation</a> ·
+<a href="#ein-rundgang">Rundgang</a> ·
+<a href="#einstellungen">Einstellungen</a> ·
+<a href="#anleitungen">Anleitungen</a> ·
+<a href="README.md">English</a>
 
 [![CI](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml/badge.svg)](https://github.com/MKI002/wardarr-app/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/MKI002/wardarr-app?color=5b45e0&label=release)](https://github.com/MKI002/wardarr-app/releases)
@@ -20,90 +25,164 @@ anfragen.
 [![Live-Demo](https://img.shields.io/badge/demo-live-5b45e0)](https://mki002.github.io/wardarr-app/)
 [![Lizenz: MIT](https://img.shields.io/badge/license-MIT-5b45e0.svg)](LICENSE)
 
-<img src="docs/screenshots/overview.png" alt="Wardarr-Übersicht: Dienste nach Art gruppiert, offene Probleme, was gerade läuft und lädt" />
+<br />
 
-<sub>Alle Screenshots zeigen die erfundene Testumgebung. Titel, Benutzer und Zahlen sind ausgedacht.</sub>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/hero-light.png" />
+  <img src="docs/assets/hero-dark.png" alt="Wardarr auf Desktop und Handy: die Übersicht mit allen Diensten auf dem Radar, die Probleme, die einen Blick wert sind, und die Bibliothek auf dem Handy" />
+</picture>
+
+<sub>Alle Screenshots zeigen die erfundene Demo-Umgebung. Titel, Benutzer und Zahlen sind ausgedacht; die Filme sind gemeinfrei. Die Oberfläche gibt es auch auf Deutsch.</sub>
 
 </div>
 
-## Funktionen
+## Warum Wardarr
 
-- **Probleme nach Ursache, nicht nach Meldung.** Fällt ein Indexer aus, beschweren sich
-  Sonarr, Radarr und Radarr 4K. Wardarr zeigt das als ein Problem mit den betroffenen
-  Instanzen, der Lösung und einem Link zur passenden Einstellungsseite. Bekanntes lässt sich
-  stummschalten, gelöste Probleme bleiben im Verlauf.
-- **Ein Queue Cleaner, der erst fragt.** Er startet im Probelauf und zeigt, was er tun würde.
-  Hängende, fehlgeschlagene und stockende Downloads sammeln Strikes, bevor etwas entfernt wird,
-  saubere Importe warten auf dein „Import prüfen“, und Scharfschalten ist ein bewusster Schritt.
-- **Hunting in ruhigem Tempo.** Fehlende Titel und Upgrades werden in kleinen Portionen
-  gesucht, mit einem Budget für API-Aufrufe, einer Pause, wenn Indexer ausfallen, und einer
-  Liste, was als Nächstes kommt und warum.
-- **Entdecken und anfragen.** Trends, Beliebtes und Suche. Anfragen laufen über Seerr als der
-  richtige Seerr-Benutzer, damit Rechte, Kontingente und Freigaben dort bleiben. Standard oder
-  4K, und Admins geben auf derselben Seite frei.
-- **TRaSH Guides, immer synchron.** Vorlagen mit Qualitätsprofilen, Custom Formats, Größen und
-  Benennung aus den TRaSH Guides für beliebig viele Sonarrs und Radarrs. Jeder Sync zeigt vorher
-  jede Änderung Feld für Feld und legt ein Backup an, das sich zurückrollen lässt; ein Wächter
-  meldet Abweichungen oder hält Instanzen selbst synchron und hält bei großen Änderungen an.
-- **Backups mit Smart Retention.** Ein Regler entscheidet, wie oft Wardarr sich selbst sichert
-  und wie der Verlauf mit dem Alter ausdünnt. Ein Backup vor jedem Datenbank-Update,
-  Wiederherstellen mit einem Klick und ein passwortgeschützter Download, der alles auf einen
-  neuen Server mitnimmt.
-- **Speicher mit Prognose.** Jede Platte deiner *arr-Apps, einmal gezählt, auch wenn mehrere
-  Apps sie teilen, mit Verlauf und dem Tag, an dem sie im jetzigen Tempo voll ist. Läuft eine
-  Platte bald voll, wird sie zum Problem, bevor Downloads stehen bleiben.
-- **Bibliothek und Streams.** Größe und Anzahl je Medienserver, was gerade läuft, Wiedergaben
-  pro Tag, meistgesehene Titel und wer was geschaut hat.
-- **Was kommt.** Ein Kalender für alle Sonarr, Radarr, Lidarr und Readarr; derselbe Termin aus
-  zwei Instanzen erscheint einmal. Dazu ein privater iCal-Link für Kalender-Apps.
-- **Indexer-Statistiken.** Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus Prowlarr,
-  und welche Apps an einem ausfallenden Indexer hängen.
-- **Tdarr auf einen Blick.** Gesparter Platz, Nodes und ihre Worker, die Warteschlange,
-  Transkodierungen und Health-Checks pro Tag und die fehlgeschlagenen Dateien. Ein Node, der
-  offline geht, eine Häufung von Fehlern oder ein Job, der sich nicht mehr bewegt, wird zum
-  Problem im Issue Center.
-- **Benachrichtigungen** per E-Mail, ntfy, Discord, Gotify, Telegram oder an jeden Webhook.
-  Standardmäßig neue Probleme ab einer Schwelle; gelöste Probleme und Anfragen, die auf Freigabe
-  warten, auf Wunsch. Was sich innerhalb einer Minute selbst erledigt, bleibt still.
-- **Kennt deine Versionen.** Wardarr erkennt Version und API jedes Dienstes und spricht nach
-  einem Update weiter richtig mit ihm. Geht ein Produkt über das Getestete hinaus, sagt Wardarr
-  das und wechselt in einen vorsichtigen Kompatibilitätsmodus.
-- **Mehrere Instanzen je Produkt.** Zwei Sonarr, ein 4K-Radarr, zwei Medienserver: alles kein
-  Problem.
-- **Fürs Sofa und fürs Handy.** Dunkles und helles Design nach Systemeinstellung, als App
-  installierbar, auf dem Handy und mit der Tastatur voll bedienbar, auf Deutsch und Englisch.
+Ein Medien-Stack besteht aus einem Dutzend Apps, die jede ein bisschen wissen. Fällt ein
+Indexer aus, beschweren sich drei von ihnen an drei verschiedenen Stellen. Wardarr liest sie
+alle, findet heraus, was wirklich passiert ist, und sagt es dir in einem Satz, die Lösung einen
+Klick entfernt. Alles andere folgt derselben Idee: **auf einen Blick zeigen, was zählt, den
+Rest auf Nachfrage erklären und nie hinter deinem Rücken handeln.**
 
-## Screenshots
+- **Ruhig von Haus aus.** Was sich innerhalb einer Minute selbst erledigt, bleibt still. Der
+  Queue Cleaner startet im Probelauf, Hunting hat ein Budget, und jeder TRaSH-Sync zeigt
+  vorher eine Vorschau.
+- **Für dein Setup gemacht.** Zwei Sonarr, ein 4K-Radarr, drei Medienserver: Jedes Produkt
+  lässt sich beliebig oft verbinden. Wardarr erkennt Version und API jedes Dienstes und zieht
+  nach einem Update mit.
+- **Deins.** Ein Container, eine SQLite-Datei, kein Cloud-Konto, keine Telemetrie, kein
+  Nach-Hause-Telefonieren.
 
-|                                                           |                                                                  |
-| --------------------------------------------------------- | ---------------------------------------------------------------- |
-| ![Probleme](docs/screenshots/issues.png)                  | ![Queue Cleaner](docs/screenshots/cleaner.png)                   |
-| **Probleme** mit einem Eintrag je Ursache                 | **Queue Cleaner** im Probelauf, mit Strikes und nächstem Schritt |
-| ![Entdecken](docs/screenshots/discover.png)               | ![Bibliothek](docs/screenshots/library.png)                      |
-| **Entdecken**, was schon da, unterwegs oder angefragt ist | **Bibliothek** mit Statistiken und Wiedergaben                   |
-| ![Anfragen](docs/screenshots/requests.png)                | ![Benachrichtigungen](docs/screenshots/notifications.png)        |
-| **Anfragen** freigeben, ablehnen oder neu senden          | **Benachrichtigungen** je Kanal und Schwelle                     |
+## Ein Rundgang
 
-<p align="center">
-  <img src="docs/screenshots/map.png" alt="Stack-Map: alle verbundenen Dienste, ihre Verbindungen und der gemeinsame Speicher" />
-  <br />
-  <sub>Die <b>Stack-Map</b> zeichnet deinen Stack aus dem, was die Dienste voneinander melden.</sub>
-</p>
+Die Seitenleiste ordnet Wardarrs Seiten nach der Frage, mit der du es öffnest.
 
-<p align="center">
-  <img src="docs/screenshots/phone.png" width="280" alt="Wardarr auf dem Handy" />
-</p>
+### Status: Ist alles in Ordnung?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/issues.png" alt="Issue Center mit einem Eintrag je Ursache, dem Verlauf der letzten 14 Tage und den am stärksten betroffenen Diensten" /></td>
+    <td width="50%"><img src="docs/screenshots/map.png" alt="Stack-Karte: alle Dienste, wie sie verbunden sind und welche Platten sie teilen" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Probleme nach Ursache, nicht nach Meldung.</b> Ein ausgefallener Indexer wird zu
+    einem Problem mit den betroffenen Instanzen, der Lösung und einem Link zur passenden
+    Einstellungsseite. Bekanntes lässt sich stummschalten, gelöste Probleme bleiben im
+    Verlauf.</td>
+    <td valign="top"><b>Eine Karte deines Stacks</b>, gezeichnet aus dem, was die Dienste übereinander
+    melden: welche App an welchen Download-Client schickt, welche Platte sie teilen und wo es
+    hakt.</td>
+  </tr>
+</table>
+
+Die **Übersicht** zeigt alles auf einem Bildschirm: jeden Dienst als Punkt auf dem Radar, was
+einen Blick wert ist und was gerade läuft, lädt und sich füllt.
+
+### Medien: Was gibt es zu sehen?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/discover.png" alt="Entdecken: Filme und Serien im Trend, markiert, wenn sie schon da, unterwegs oder angefragt sind" /></td>
+    <td width="50%"><img src="docs/screenshots/library.png" alt="Bibliothek: geschaute Stunden, Wiedergaben pro Tag, wann geschaut wird und die meistgesehenen Titel" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Entdecken und anfragen.</b> Trends, Beliebtes und Suche. Anfragen laufen über Seerr
+    als der richtige Seerr-Benutzer, damit Rechte, Kontingente und Freigaben dort bleiben.
+    Standard oder 4K, und Admins geben auf derselben Seite frei.</td>
+    <td valign="top"><b>Bibliothek und Streams.</b> Größe und Anzahl je Medienserver, was gerade läuft,
+    Wiedergaben pro Tag, wann geschaut wird und die meistgesehenen Titel.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/calendar.png" alt="Kalender: Erscheinungstermine der nächsten Tage aus allen Sonarr, Radarr, Lidarr und Readarr" /></td>
+    <td><img src="docs/screenshots/requests.png" alt="Anfragen, die auf Freigabe warten, freigegeben, unterwegs und verfügbar sind" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Was kommt.</b> Ein Kalender für alle Sonarr, Radarr, Lidarr und Readarr; derselbe
+    Termin aus zwei Instanzen erscheint einmal. Dazu ein privater iCal-Link für deine
+    Kalender-App.</td>
+    <td valign="top"><b>Anfragen</b> freigeben, ablehnen, anpassen oder neu senden, mit jedem Schritt von
+    „wartet“ bis „verfügbar“.</td>
+  </tr>
+</table>
+
+### Automatik: Was erledigt Wardarr für mich?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/cleaner.png" alt="Queue Cleaner im Probelauf mit den beobachteten Downloads und ihren Strikes" /></td>
+    <td width="50%"><img src="docs/screenshots/hunting.png" alt="Hunting: verbleibende Aufrufe dieser Stunde, die geplanten Suchen der nächsten 24 Stunden und die Ergebnisse" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Ein Queue Cleaner, der erst fragt.</b> Er startet im Probelauf und zeigt, was er tun
+    würde. Hängende, fehlgeschlagene und stockende Downloads sammeln Strikes, bevor etwas
+    entfernt wird, saubere Importe warten auf dein „Import prüfen“, und Scharfschalten ist ein
+    bewusster Schritt.</td>
+    <td valign="top"><b>Hunting in ruhigem Tempo.</b> Fehlende Titel und Upgrades werden in kleinen
+    Portionen gesucht, mit einem Budget für API-Aufrufe, einer Pause, wenn Indexer ausfallen,
+    und einer Liste, was als Nächstes kommt und warum.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/trash.png" alt="TRaSH Guides: synchrone Instanzen, Vorlagen und der Wächter-Modus je Instanz" /></td>
+    <td><img src="docs/screenshots/tdarr.png" alt="Tdarr: gesparter Platz, Nodes und Worker, Transkodierungen, Health-Checks und Fehler pro Tag" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>TRaSH Guides, immer synchron.</b> Qualitätsprofile, Custom Formats, Größen und
+    Benennung für beliebig viele Sonarr und Radarr. Jeder Sync zeigt vorher jede Änderung Feld
+    für Feld und legt ein Backup zum Zurückrollen an; ein Wächter meldet Abweichungen oder
+    behebt sie und hält bei großen Änderungen an.</td>
+    <td valign="top"><b>Tdarr auf einen Blick.</b> Gesparter Platz, Nodes und ihre Worker, die
+    Warteschlange und die fehlgeschlagenen Dateien. Ein Node, der offline geht, oder ein Job,
+    der sich nicht mehr bewegt, wird zum Problem.</td>
+  </tr>
+</table>
+
+### System: Wie steht es um den Unterbau?
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/storage.png" alt="Speicher: die knappste Platte mit Prognose, freier Platz auf allen Platten und das tägliche Wachstum" /></td>
+    <td width="50%"><img src="docs/screenshots/indexers.png" alt="Indexer aus Prowlarr mit Status, Abfragen, Grabs und Antwortzeiten" /></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Speicher mit Prognose.</b> Jede Platte deiner Apps, einmal gezählt, auch wenn mehrere
+    Apps sie teilen, mit dem Tag, an dem sie im jetzigen Tempo voll ist. Läuft eine Platte bald
+    voll, wird sie zum Problem, bevor Downloads stehen bleiben.</td>
+    <td valign="top"><b>Indexer-Statistiken.</b> Abfragen, Grabs, Fehler und Antwortzeiten je Indexer aus
+    Prowlarr, und welche Apps ohne funktionierenden Indexer dastehen.</td>
+  </tr>
+</table>
+
+In den **Einstellungen** liegen die Dienste, Benutzer, **Benachrichtigungen** (E-Mail, ntfy,
+Discord, Gotify, Telegram oder jeder Webhook; standardmäßig neue Probleme, alles andere auf
+Wunsch) und **Backups** mit Smart Retention: ein Regler für wie oft und wie lange, ein Backup
+vor jedem Datenbank-Update, Wiederherstellen mit einem Klick und ein passwortgeschützter
+Download für den Umzug auf einen neuen Server.
+
+### Überall
+
+<table>
+  <tr>
+    <td width="64%"><img src="docs/screenshots/palette.png" alt="Befehlspalette, mit Strg K geöffnet, Suche nach Radarr" /></td>
+    <td width="18%"><img src="docs/screenshots/phone-dark.png" alt="Wardarr-Übersicht auf dem Handy im dunklen Design" /></td>
+    <td width="18%"><img src="docs/screenshots/phone-light.png" alt="Wardarr-Übersicht auf dem Handy im hellen Design" /></td>
+  </tr>
+</table>
+
+Mit <kbd>Strg</kbd> <kbd>K</kbd> (oder <kbd>⌘</kbd> <kbd>K</kbd> oder <kbd>/</kbd>) springst du
+zu jeder Seite, Einstellung und jedem Dienst. Dunkles und helles Design folgen deinem System,
+die App lässt sich aufs Handy installieren und vollständig mit der Tastatur bedienen, auf
+Deutsch und Englisch.
 
 ## Unterstützte Dienste
 
-| Art              | Dienste                                                                  |
-| ---------------- | ------------------------------------------------------------------------ |
-| Medienverwaltung | Sonarr, Radarr, Lidarr, Whisparr, Readarr (upstream eingestellt), Bazarr |
-| Indexer          | Prowlarr                                                                 |
-| Download-Clients | SABnzbd, NZBGet, qBittorrent, Transmission, Deluge                       |
-| Medienserver     | Jellyfin, Plex, Emby                                                     |
-| Anfragen         | Seerr                                                                    |
-| Transkodierung   | Tdarr                                                                    |
+| Art              | Dienste                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Medienverwaltung | <img src="apps/web/src/assets/logos/sonarr.svg" height="16" alt="" /> Sonarr · <img src="apps/web/src/assets/logos/radarr.svg" height="16" alt="" /> Radarr · <img src="apps/web/src/assets/logos/lidarr.svg" height="16" alt="" /> Lidarr · <img src="apps/web/src/assets/logos/whisparr.svg" height="16" alt="" /> Whisparr · <img src="apps/web/src/assets/logos/readarr.svg" height="16" alt="" /> Readarr (upstream eingestellt) · <img src="apps/web/src/assets/logos/bazarr.png" height="16" alt="" /> Bazarr |
+| Indexer          | <img src="apps/web/src/assets/logos/prowlarr.svg" height="16" alt="" /> Prowlarr                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Download-Clients | <img src="apps/web/src/assets/logos/sabnzbd.svg" height="16" alt="" /> SABnzbd · <img src="apps/web/src/assets/logos/nzbget.svg" height="16" alt="" /> NZBGet · <img src="apps/web/src/assets/logos/qbittorrent.svg" height="16" alt="" /> qBittorrent · <img src="apps/web/src/assets/logos/transmission.svg" height="16" alt="" /> Transmission · <img src="apps/web/src/assets/logos/deluge.png" height="16" alt="" /> Deluge                                                                                     |
+| Medienserver     | <img src="apps/web/src/assets/logos/jellyfin.svg" height="16" alt="" /> Jellyfin · <img src="apps/web/src/assets/logos/plex.svg" height="16" alt="" /> Plex · <img src="apps/web/src/assets/logos/emby.png" height="16" alt="" /> Emby                                                                                                                                                                                                                                                                               |
+| Anfragen         | <img src="apps/web/src/assets/logos/seerr.svg" height="16" alt="" /> Seerr                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Transkodierung   | Tdarr                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 Fehlt einer? Adapter sind klein und in sich geschlossen, siehe den
 [Adapter-Leitfaden](docs/guide/adapters.md) (englisch).
@@ -218,7 +297,8 @@ Die Anleitungen sind auf Englisch:
 
 ## Entwicklung
 
-Siehe [README.md](README.md#development) und [CONTRIBUTING.md](CONTRIBUTING.md).
+Siehe [README.md](README.md#development), [CONTRIBUTING.md](CONTRIBUTING.md) und den
+[Design-Leitfaden](docs/DESIGN.md) (englisch).
 
 ## Lizenz
 
