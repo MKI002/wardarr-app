@@ -226,6 +226,18 @@ async function mutate(method: string, path: string, init: RequestInit | undefine
 
   if (path.startsWith('/api/backups')) return backupMutation(method, path, input);
 
+  // The priority watchdog: settings change in memory, a run shows the recorded preview.
+  if (path === '/api/indexer-insights/priorities') {
+    const view = obj(body(path));
+    const next = { ...view, config: { ...obj(view.config), ...input } };
+    answers.set(path, ok(next));
+    return ok(next);
+  }
+  if (path === '/api/indexer-insights/priorities/run') {
+    const view = obj(body('/api/indexer-insights/priorities'));
+    return ok({ run: view.lastRun ?? null, view });
+  }
+
   const issue = path.match(/^\/api\/issues\/([^/]+)\/(mute|unmute|recheck)$/);
   if (issue) {
     const fp = decodeURIComponent(issue[1]!);

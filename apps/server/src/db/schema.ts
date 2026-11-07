@@ -414,6 +414,37 @@ export const indexerSourceDaily = sqliteTable(
   },
   (t) => [primaryKey({ columns: [t.instanceId, t.day] })],
 );
+
+/** Settings and last run of the indexer priority watchdog. A single row with id 1. */
+export const indexerPrioritySettings = sqliteTable('indexer_priority_settings', {
+  id: integer('id').primaryKey(),
+  config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  state: text('state', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  updatedAt: text('updated_at').notNull().default(now),
+});
+
+/** Every priority the watchdog wrote, or would have written in preview mode. */
+export const indexerPriorityLog = sqliteTable(
+  'indexer_priority_log',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    at: text('at').notNull(),
+    /** `prowlarr` or `app`. */
+    target: text('target').notNull(),
+    instanceId: text('instance_id')
+      .notNull()
+      .references(() => instances.id, { onDelete: 'cascade' }),
+    indexerId: integer('indexer_id').notNull(),
+    indexerName: text('indexer_name').notNull(),
+    fromPriority: integer('from_priority'),
+    toPriority: integer('to_priority').notNull(),
+    score: real('score'),
+    preview: integer('preview', { mode: 'boolean' }).notNull().default(false),
+    error: text('error'),
+  },
+  (t) => [index('indexer_priority_log_at').on(t.at)],
+);
+
 /**
  * Calendar feed links (iCal). The link carries a random token; the database
  * holds only its SHA-256. One link per user; a new link replaces the old one.

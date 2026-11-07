@@ -145,7 +145,8 @@ a look, and what is streaming, downloading and filling up right now.
     <td><img src="docs/screenshots/indexer-insights.png" alt="Indexer insights: successful searches, where each app gets its indexers from and what is worth a look" /></td>
     <td valign="top"><b>Indexer insights.</b> Whether each app takes its indexers from Prowlarr, has
     its own or both, which entries are missing or twice, and how every indexer does over
-    the last day up to the last 90 days.</td>
+    the last day up to the last 90 days. An optional daily watchdog turns the scores into
+    indexer priorities in Prowlarr, and in the apps Prowlarr does not keep in sync.</td>
   </tr>
 </table>
 

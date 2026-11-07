@@ -25,6 +25,7 @@ interface IndexerResource {
   enable: boolean;
   protocol?: string;
   privacy?: string;
+  priority?: number;
   indexerUrls?: string[];
   fields?: Array<{ name?: string; value?: unknown }>;
   capabilities?: { categories?: Array<{ id?: number; subCategories?: Array<{ id?: number }> }> };
@@ -175,8 +176,21 @@ export const prowlarr = defineAdapter({
                 ? i.privacy
                 : undefined,
             categories: categoriesOf(i),
+            ...(typeof i.priority === 'number' ? { priority: i.priority } : {}),
           };
         });
+      },
+      async setIndexerPriority(indexerId, priority) {
+        const resource = await get<IndexerResource>(`/indexer/${indexerId}`);
+        if (resource.priority === priority) return;
+        const res = await ctx.http.request({
+          method: 'PUT',
+          path: `${await base()}/indexer/${indexerId}`,
+          query: { forceSave: 'true' },
+          headers,
+          json: { ...resource, priority },
+        });
+        ensureOk(res);
       },
       async indexerStats() {
         // Prowlarr sums its whole history here, which takes a while on a

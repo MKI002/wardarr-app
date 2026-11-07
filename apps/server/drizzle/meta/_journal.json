@@ -64,6 +64,13 @@
       "when": 1794034024621,
       "tag": "0008_indexer_insights",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1794061602415,
+      "tag": "0009_indexer_priorities",
+      "breakpoints": true
     }
   ]
 }

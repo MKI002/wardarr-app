@@ -100,6 +100,41 @@ a button to try again. Prowlarr adds up its whole history for the all-time
 statistics, which can take a while on a large database, so Wardarr gives that
 call up to a minute and does not count a slow answer as an outage.
 
+## Priority watchdog
+
+Prowlarr and the apps try indexers with a lower priority number first (1 to
+50, default 25). The watchdog sets these numbers from the scores, so the
+indexers that work best are asked first. It is off until you turn it on.
+
+- **Once a day** it scores every indexer over the last 30 days. The best
+  scored indexer gets the first value of the range (default 10), the weakest
+  the last (default 40), the rest in between, in steps of 5.
+- **Nothing changes without a reason.** A priority that already matches is
+  not written. A priority that sits on a step stays while the score moves less
+  than one step, so an indexer near a boundary does not flip every day.
+- **Preview first.** In preview mode it only lists what it would change.
+  Switch to "Set priorities" when the plan looks right. "Preview now" or
+  "Run now" runs it at once.
+- **What changed** lists every priority each run set or would set, with
+  errors.
+
+### Where priorities have to be set
+
+Whether a priority set in Prowlarr reaches an app depends on the app's sync
+level in Prowlarr (Settings → Apps):
+
+| Sync level            | What happens                                                          |
+| --------------------- | --------------------------------------------------------------------- |
+| Full sync             | Prowlarr passes every priority change on. Nothing to do in the app.   |
+| Add and remove only   | Prowlarr only creates and deletes entries. Set priorities in the app. |
+| Disabled              | Prowlarr does not touch the app. Set priorities in the app.           |
+| Indexer added by hand | Prowlarr does not know it. Set its priority in the app.               |
+
+The watchdog shows each app's sync level. With **Also set them in apps** it
+writes priorities in the apps too, for every entry Prowlarr does not keep in
+sync. Entries from a Full sync app are always left to Prowlarr, since its next
+sync would overwrite them.
+
 ## Access
 
 The tab is for admins. It shows up once Prowlarr or an app with indexers is

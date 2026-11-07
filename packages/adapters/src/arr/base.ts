@@ -398,6 +398,14 @@ export function createArrInstance(
       return list.map(normalizeArrIndexer);
     },
 
+    async setIndexerPriority(indexerId, priority) {
+      // The whole resource goes back as read: secret fields come masked and
+      // the app keeps their stored value.
+      const resource = await get<IndexerResource>(`/indexer/${indexerId}`);
+      if (resource.priority === priority) return;
+      await send('PUT', `/indexer/${indexerId}`, { ...resource, priority }, { forceSave: true });
+    },
+
     async historySince(since) {
       const f = await flavor();
       const records = await get<Array<Record<string, unknown>>>('/history/since', { date: since });

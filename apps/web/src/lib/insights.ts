@@ -254,3 +254,76 @@ export function successTone(rate: number | null): 'ok' | 'warning' | 'critical' 
   if (rate < 0.8) return 'warning';
   return 'ok';
 }
+
+// ------------------------------------------------------ priority watchdog
+// Mirrors apps/server/src/indexers/insights/priorities.ts.
+
+export type PriorityReason =
+  'change' | 'same' | 'close' | 'noScore' | 'disabled' | 'prowlarrSyncs' | 'appsOff';
+export type SyncLevel = 'fullSync' | 'addOnly' | 'disabled';
+
+export interface PriorityItem {
+  target: 'prowlarr' | 'app';
+  instanceId: string;
+  instanceName: string;
+  indexerId: number;
+  indexerName: string;
+  key: string;
+  score: number | null;
+  current: number | null;
+  planned: number | null;
+  reason: PriorityReason;
+  syncLevel?: SyncLevel | null;
+  source?: 'prowlarr' | 'direct';
+}
+
+export interface WatchdogConfig {
+  enabled: boolean;
+  mode: 'preview' | 'apply';
+  best: number;
+  worst: number;
+  step: number;
+  includeApps: boolean;
+}
+
+export interface WatchdogRun {
+  at: string;
+  trigger: 'schedule' | 'manual';
+  mode: 'preview' | 'apply';
+  changed: number;
+  failed: number;
+}
+
+export interface WatchdogLogEntry {
+  at: string;
+  target: 'prowlarr' | 'app';
+  instanceId: string;
+  instanceName: string | null;
+  indexerId: number;
+  indexerName: string;
+  from: number | null;
+  to: number;
+  score: number | null;
+  preview: boolean;
+  error: string | null;
+}
+
+export interface WatchdogView {
+  config: WatchdogConfig;
+  lastRun: WatchdogRun | null;
+  nextRunAt: string | null;
+  available: boolean;
+  items: PriorityItem[];
+  apps: Array<{
+    instanceId: string;
+    instanceName: string;
+    adapter: string;
+    mode: AppMode;
+    syncLevel: SyncLevel | null;
+    prowlarrName: string | null;
+  }>;
+  log: WatchdogLogEntry[];
+}
+
+export const PRIORITY_MIN = 1;
+export const PRIORITY_MAX = 50;

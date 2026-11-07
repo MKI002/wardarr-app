@@ -132,6 +132,26 @@ test('the indexer insights tab shows sources, numbers and what needs a look', as
   await page.getByRole('tab', { name: '30 days' }).click();
   await expect(page).toHaveURL(/range=30d/);
   await expect(table).toBeVisible();
+
+  // The priority watchdog starts off and plans priorities from the scores.
+  const daily = page.getByRole('switch', { name: 'Run every day' });
+  await expect(daily).toHaveAttribute('aria-checked', 'false');
+  await expect(
+    main.getByRole('listitem', { name: /^ExampleIndexer, score \d+: priority 25 becomes 10$/ }),
+  ).toBeVisible();
+  // Prowlarr syncs Radarr fully, so Radarr is left to Prowlarr.
+  await expect(
+    main.getByText('Prowlarr passes every priority change on. Nothing to do in the app.').first(),
+  ).toBeVisible();
+  await daily.click();
+  await expect(daily).toHaveAttribute('aria-checked', 'true');
+  // A preview writes nothing and logs what it would change.
+  await page.getByRole('button', { name: 'Preview now' }).click();
+  await expect(main.getByText('Last preview', { exact: false })).toBeVisible();
+  await expect(main.getByText('Nothing yet.', { exact: false })).toHaveCount(0);
+  await daily.click();
+  await expect(daily).toHaveAttribute('aria-checked', 'false');
+
   // Nothing may stay half faded after the charts came in.
   await settled(page);
 });

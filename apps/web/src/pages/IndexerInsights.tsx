@@ -19,6 +19,7 @@ import {
 } from '../components/charts';
 import { InsightRow, KpiCard, MiniBars, Odometer, PageHeader, SectionRule } from '../components/dash';
 import { IndexerTable, OutageBoard, SpeedMap } from '../components/insights/compare';
+import { PrioritySection } from '../components/insights/priorities';
 import { AppSourceCard, SourceMatrix, sourceCounts } from '../components/insights/sources';
 import { IssueIcon } from '../components/IssueIcon';
 import { Button, Card, EmptyState, Guardian, InlineError, Skeleton, spring } from '../components/ui';
@@ -263,6 +264,11 @@ function Dashboard({
           <IndexerTable report={report} open={open} onToggle={(key) => setOpen(open === key ? null : key)} />
         </section>
       ) : null}
+
+      <section className="flex flex-col gap-4">
+        <SectionRule>{t('insights.sections.priorities')}</SectionRule>
+        <PrioritySection />
+      </section>
 
       <section className="flex flex-col gap-4">
         <SectionRule>{t('insights.sections.time')}</SectionRule>

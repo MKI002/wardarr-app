@@ -94,7 +94,8 @@
     "compare": "Compare indexers",
     "time": "Over time",
     "outages": "Outages",
-    "who": "Who searches"
+    "who": "Who searches",
+    "priorities": "Priorities"
   },
   "app": {
     "mode": {
@@ -206,5 +207,95 @@
     "collect": "Some data could not be read: {{list}}"
   },
   "fromIndexers": "Analysis and history",
-  "sourcesPending": "Reading which app gets which indexer…"
+  "sourcesPending": "Reading which app gets which indexer…",
+  "priorities": {
+    "title": "Priority watchdog",
+    "state": {
+      "off_one": "Off. With the current scores it would change 1 priority.",
+      "off_other": "Off. With the current scores it would change {{count}} priorities.",
+      "settled": "Every priority matches the scores. Nothing to change.",
+      "preview_one": "Preview: 1 priority would change at the next run, {{when}}. Nothing is written.",
+      "preview_other": "Preview: {{count}} priorities would change at the next run, {{when}}. Nothing is written.",
+      "apply_one": "1 priority changes at the next run, {{when}}.",
+      "apply_other": "{{count}} priorities change at the next run, {{when}}."
+    },
+    "lastRun": {
+      "preview_one": "Last preview {{when}}: 1 change planned.",
+      "preview_other": "Last preview {{when}}: {{count}} changes planned.",
+      "apply_one": "Last run {{when}}: 1 priority set.",
+      "apply_other": "Last run {{when}}: {{count}} priorities set.",
+      "failed_one": "1 could not be set.",
+      "failed_other": "{{count}} could not be set."
+    },
+    "runPreview": "Preview now",
+    "runApply": "Run now",
+    "enabled": "Run every day",
+    "enabledHelp": "Scores the indexers over the last 30 days and sets matching priorities. A priority that is already right is left alone.",
+    "mode": {
+      "label": "What it does",
+      "preview": "Preview only",
+      "apply": "Set priorities"
+    },
+    "noScores": "No indexer has a score yet. Scores appear once Wardarr has seen searches or grabs.",
+    "indexer": "Indexer and score",
+    "priority": "Priority",
+    "rowChange": "{{name}}, score {{score}}: priority {{from}} becomes {{to}}",
+    "rowKeep": "{{name}}, score {{score}}: priority stays {{value}}",
+    "reason": {
+      "close": "The score moved less than one step, so the priority stays."
+    },
+    "unscored": "Not scored yet: {{list}}.",
+    "disabled": "Off in Prowlarr: {{list}}.",
+    "tuning": {
+      "title": "Range and steps",
+      "body": "The best scored indexer gets the first value, the weakest the second, the rest in between. Lower numbers are tried first.",
+      "best": "Best indexer",
+      "worst": "Weakest indexer",
+      "step": "Step",
+      "stepHelp": "Priorities move in these steps, so small score changes change nothing.",
+      "invalid": "Use whole numbers from 1 to 50, the best below the weakest, and a step from 1 to 10.",
+      "save": "Save"
+    },
+    "apps": {
+      "title": "Where priorities have to be set",
+      "intro": "Prowlarr passes priorities on only to apps it syncs fully. Everything else is set in the app.",
+      "none": "No Sonarr, Radarr or other app is connected.",
+      "followProwlarr_one": "1 entry follows Prowlarr",
+      "followProwlarr_other": "{{count}} entries follow Prowlarr",
+      "setHere_one": "1 entry is set here",
+      "setHere_other": "{{count}} entries are set here",
+      "untouched_one": "1 entry is left alone",
+      "untouched_other": "{{count}} entries are left alone"
+    },
+    "sync": {
+      "fullSync": "Full sync",
+      "fullSyncBody": "{{prowlarr}} passes every priority change on. Nothing to do in the app.",
+      "addOnly": "Add and remove only",
+      "addOnlyBody": "{{prowlarr}} only adds and removes indexers here. Priorities have to be set in the app.",
+      "disabled": "Sync off",
+      "disabledBody": "{{prowlarr}} does not sync with this app. Priorities have to be set in the app.",
+      "none": "Own indexers",
+      "noneBody": "This app does not get its indexers from Prowlarr. Priorities have to be set in the app."
+    },
+    "includeApps": "Also set them in apps",
+    "includeAppsHelp": "For apps Prowlarr does not keep in sync and for indexers added by hand in an app.",
+    "log": {
+      "title": "What changed",
+      "empty": "Nothing yet. Each run lists every priority it set or would set.",
+      "preview": "Preview",
+      "inApp": "in {{app}}",
+      "done": "Set",
+      "failed": "Failed: {{reason}}",
+      "error": {
+        "unreachable": "not reachable",
+        "timeout": "no answer in time",
+        "unauthorized": "API key refused",
+        "notFound": "indexer not found",
+        "badResponse": "unexpected answer",
+        "blocked": "blocked",
+        "unsupported": "not supported"
+      }
+    },
+    "scaleNote": "Lower numbers are asked first. The shaded band from {{best}} to {{worst}} is where the watchdog places indexers; a ring marks today's value."
+  }
 }

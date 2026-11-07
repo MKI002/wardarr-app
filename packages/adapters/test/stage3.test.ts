@@ -1,5 +1,6 @@
 // Discover, requests, library and indexer statistics against invented data.
 import { describe, expect, it } from 'vitest';
+import { sonarr } from '../src/arr/sonarr.js';
 import { prowlarr } from '../src/indexers/prowlarr.js';
 import { jellyfin } from '../src/media/jellyfin.js';
 import { plex } from '../src/media/plex.js';
@@ -427,5 +428,63 @@ describe('Prowlarr statistics and apps', () => {
       ['Lidarr', [], null],
     ]);
     expect(JSON.stringify(apps)).not.toContain('apiKey');
+  });
+});
+
+describe('Indexer priorities', () => {
+  const H = { 'X-Api-Key': KEY };
+  // Secrets come back masked; the PUT sends them back as they are.
+  const indexer = (priority: number) => ({
+    id: 7,
+    name: 'ExampleIndexer',
+    enable: true,
+    priority,
+    fields: [{ name: 'apiKey', value: '********' }],
+    tags: [],
+  });
+
+  it('sets a Prowlarr priority and keeps everything else', async () => {
+    const { adapter, http } = make(prowlarr, { apiKey: KEY }, [
+      { path: '/api/v1/system/status', headers: H, json: { version: '2.0.5.5160' } },
+      { path: '/api/v1/indexer/7', headers: H, json: indexer(25) },
+      {
+        method: 'PUT',
+        path: '/api/v1/indexer/7',
+        headers: H,
+        query: { forceSave: 'true' },
+        body: { priority: 10, fields: indexer(25).fields },
+        json: indexer(10),
+      },
+    ]);
+    await adapter.setIndexerPriority!(7, 10);
+    expect(http.calls.filter((c) => c.method === 'PUT')).toHaveLength(1);
+  });
+
+  it('does not write a Prowlarr priority that is already set', async () => {
+    const { adapter, http } = make(prowlarr, { apiKey: KEY }, [
+      { path: '/api/v1/system/status', headers: H, json: { version: '2.0.5.5160' } },
+      { path: '/api/v1/indexer/7', headers: H, json: indexer(10) },
+    ]);
+    await adapter.setIndexerPriority!(7, 10);
+    expect(http.calls.some((c) => c.method === 'PUT')).toBe(false);
+  });
+
+  it('sets a priority in an *arr app', async () => {
+    const { adapter, http } = make(sonarr, { apiKey: KEY }, [
+      { path: '/api', headers: H, json: { current: 'v3', deprecated: [] } },
+      { path: '/api/v3/system/status', headers: H, json: { appName: 'Sonarr', version: '4.0.15.2941' } },
+      { path: '/api/v3/indexer/7', headers: H, json: indexer(25) },
+      {
+        method: 'PUT',
+        path: '/api/v3/indexer/7',
+        headers: H,
+        query: { forceSave: 'true' },
+        body: { priority: 40, name: 'ExampleIndexer' },
+        json: indexer(40),
+      },
+    ]);
+    await adapter.setIndexerPriority!(7, 40);
+    const put = http.calls.find((c) => c.method === 'PUT');
+    expect(put?.path).toBe('/api/v3/indexer/7');
   });
 });
