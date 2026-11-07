@@ -30,7 +30,6 @@ function truncate(s: string, n: number): string {
 
 /** The short second line under a node: what it is doing right now. */
 export function nodeSubline(t: T, n: MapNode): string {
-  if (n.type === 'ghost') return t('ui.map.ghost');
   if (n.type === 'storage') {
     const s = n.storage!;
     if (s.freeBytes === null) return t('ui.map.storage.noSpace');
@@ -52,7 +51,7 @@ export function nodeSubline(t: T, n: MapNode): string {
 }
 
 export function nodeLabel(t: T, n: MapNode): string {
-  const status = n.type === 'ghost' ? t('ui.map.ghost') : t(`ui.map.status.${n.status}`);
+  const status = t(`ui.map.status.${n.status}`);
   return `${n.name}, ${status}, ${nodeSubline(t, n)}`;
 }
 
@@ -91,7 +90,7 @@ function NodeGlyph({ node, dim }: { node: MapNode; dim: boolean }) {
         width={30}
         height={30}
         style={{
-          filter: node.type === 'ghost' || dim ? 'grayscale(1)' : undefined,
+          filter: dim ? 'grayscale(1)' : undefined,
           transition: 'filter 150ms',
         }}
         preserveAspectRatio="xMidYMid meet"
@@ -159,7 +158,7 @@ function Node({
   const n = p.node;
   const tone = n.status;
   const busy = !!(n.live.streams || n.live.downloading || n.live.workers);
-  const glyph = n.type === 'ghost' ? undefined : GLYPH[tone];
+  const glyph = GLYPH[tone];
   const keyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -211,9 +210,9 @@ function Node({
         <circle
           r={NODE_R + 3}
           fill="none"
-          stroke={n.type === 'ghost' ? mix('var(--muted)', 70) : mix(TONE_VAR[tone], dim ? 45 : 100)}
-          strokeWidth={n.type === 'ghost' ? 1.5 : 2.5}
-          strokeDasharray={n.type === 'ghost' || tone === 'off' ? '4 4' : undefined}
+          stroke={mix(TONE_VAR[tone], dim ? 45 : 100)}
+          strokeWidth={2.5}
+          strokeDasharray={tone === 'off' ? '4 4' : undefined}
           style={{ transition: 'stroke 150ms' }}
         />
       )}

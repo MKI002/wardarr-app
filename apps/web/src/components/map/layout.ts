@@ -64,15 +64,15 @@ interface Item {
   next: string[];
 }
 
-function rank(n: MapNode): [number, number, string] {
+function rank(n: MapNode): [number, string] {
   const p = PRODUCT_ORDER.indexOf(n.adapter ?? '');
-  return [n.type === 'ghost' ? 1 : 0, p === -1 ? PRODUCT_ORDER.length : p, n.name.toLowerCase()];
+  return [p === -1 ? PRODUCT_ORDER.length : p, n.name.toLowerCase()];
 }
 
 function compareNodes(a: MapNode, b: MapNode): number {
-  const [a1, a2, a3] = rank(a);
-  const [b1, b2, b3] = rank(b);
-  return a1 - b1 || a2 - b2 || a3.localeCompare(b3) || a.id.localeCompare(b.id);
+  const [a1, a2] = rank(a);
+  const [b1, b2] = rank(b);
+  return a1 - b1 || a2.localeCompare(b2) || a.id.localeCompare(b.id);
 }
 
 /** How many nodes fit side by side in a row of the vertical layout. */
