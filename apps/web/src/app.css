@@ -141,14 +141,21 @@ body::after {
   }
 }
 
-/* Rolling digits: each digit is a column 0-9 that slides into place. */
-.odo-col {
+/* Rolling digits: each digit is a column 0-9 that slides into place. Units
+   and separators get the same 1em box, so they sit on the digits' baseline. */
+.odo-col,
+.odo-ch {
   display: inline-block;
+  height: 1em;
+  line-height: 1;
+}
+.odo-ch {
+  white-space: pre;
+}
+.odo-col {
   text-align: center;
   font-variant-numeric: tabular-nums;
-  height: 1em;
   overflow: hidden;
-  line-height: 1;
 }
 .odo-col > span {
   display: flex;

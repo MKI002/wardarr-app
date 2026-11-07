@@ -66,7 +66,7 @@ export function Odometer({ text, className = '' }: { text: string; className?: s
           const key = chars.length - i;
           if (!/\d/.test(ch)) {
             return (
-              <span key={`c${key}`} className="whitespace-pre">
+              <span key={`c${key}`} className="odo-ch">
                 {ch}
               </span>
             );
