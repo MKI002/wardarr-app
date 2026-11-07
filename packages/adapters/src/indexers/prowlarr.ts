@@ -14,6 +14,9 @@ import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
 import { link, stripCredentials } from '../shared/topology.js';
 
 /** Prowlarr v1 and v2 speak API v1. */
+/** Statistics are summed over Prowlarr's history and can be slow. */
+const STATS_TIMEOUT_MS = 60_000;
+
 export const PROWLARR_PROFILE: VersionProfile = { apis: ['v1'], testedMajors: { min: 1, max: 2 } };
 
 interface IndexerResource {
@@ -110,9 +113,11 @@ export const prowlarr = defineAdapter({
     const headers = { 'X-Api-Key': ctx.credentials.apiKey };
     const detection = detectionCache(() => detectApi(ctx, PROWLARR_PROFILE));
     const base = async () => (await detection.get()).apiBase;
-    const get = async <T>(path: string, query?: Record<string, string>) => {
+    const get = async <T>(path: string, query?: Record<string, string>, timeoutMs?: number) => {
       try {
-        return jsonOf<T>(await ctx.http.request({ path: `${await base()}${path}`, query, headers }));
+        return jsonOf<T>(
+          await ctx.http.request({ path: `${await base()}${path}`, query, headers, timeoutMs }),
+        );
       } catch (err) {
         if (err instanceof AdapterError && err.kind === 'notFound') detection.reset();
         throw err;
@@ -174,12 +179,18 @@ export const prowlarr = defineAdapter({
         });
       },
       async indexerStats() {
-        const res = await get<IndexerStatsResponse>('/indexerstats');
+        // Prowlarr sums its whole history here, which takes a while on a
+        // large database. Callers read it in the background.
+        const res = await get<IndexerStatsResponse>('/indexerstats', undefined, STATS_TIMEOUT_MS);
         return (res.indexers ?? []).map(statsOf);
       },
       /** Prowlarr counts its own history, so any past window can be read. */
       async indexerStatsWindow(start, end): Promise<IndexerStatsWindow> {
-        const res = await get<IndexerStatsResponse>('/indexerstats', { startDate: start, endDate: end });
+        const res = await get<IndexerStatsResponse>(
+          '/indexerstats',
+          { startDate: start, endDate: end },
+          STATS_TIMEOUT_MS,
+        );
         return {
           indexers: (res.indexers ?? []).map(statsOf),
           userAgents: (res.userAgents ?? [])

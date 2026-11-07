@@ -53,7 +53,12 @@ function useInsights(range: InsightsRange) {
     queryKey: ['indexerInsights', range],
     queryFn: () =>
       api<InsightsReport>(`/api/indexer-insights?range=${range}&tz=${encodeURIComponent(TIME_ZONE)}`),
-    refetchInterval: 5 * 60_000,
+    // The server answers from stored data and reads new data in the background;
+    // poll faster while it does, in case the update event is missed.
+    refetchInterval: (query) => {
+      const c = query.state.data?.collection;
+      return c?.running || c?.sourcesPending ? 3_000 : 5 * 60_000;
+    },
     placeholderData: (prev) => prev,
   });
 }
@@ -97,7 +102,7 @@ export function IndexerInsightsPage() {
             {since ? (
               <span className="normal-case tracking-normal">· {t('insights.since', { date: since })}</span>
             ) : null}
-            {report?.collection.running || refresh.isPending ? (
+            {report?.collection.running || report?.collection.sourcesPending || refresh.isPending ? (
               <LiveDot tone="accent" label={t('insights.collecting')} />
             ) : null}
           </span>
@@ -110,7 +115,7 @@ export function IndexerInsightsPage() {
               value={range}
               onChange={(r) => void navigate({ search: { range: r === '7d' ? undefined : r } })}
             />
-            <Button busy={refresh.isPending} onClick={() => refresh.mutate()}>
+            <Button busy={refresh.isPending || !!report?.collection.running} onClick={() => refresh.mutate()}>
               {t('insights.refresh')}
             </Button>
           </>
@@ -124,7 +129,7 @@ export function IndexerInsightsPage() {
         data.isPending ? (
           <InsightsSkeleton />
         ) : null
-      ) : report.apps.length === 0 && report.prowlarrs.length === 0 ? (
+      ) : report.apps.length === 0 && report.prowlarrs.length === 0 && !report.collection.sourcesPending ? (
         <Card>
           <EmptyState
             title={t('insights.empty.title')}
@@ -223,6 +228,21 @@ function Dashboard({
       </div>
 
       <Kpis report={report} />
+
+      {report.collection.sourcesPending && report.apps.length === 0 ? (
+        <section className="flex flex-col gap-4" aria-busy>
+          <SectionRule>{t('insights.sections.sources')}</SectionRule>
+          <p className="flex items-center gap-2 text-sm text-muted" role="status">
+            <LiveDot tone="accent" label={t('insights.collecting')} />
+            {t('insights.sourcesPending')}
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <Skeleton key={i} className="h-40 rounded-[var(--radius-card)]" />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {report.apps.length > 0 ? (
         <section className="flex flex-col gap-4">

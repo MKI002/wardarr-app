@@ -758,7 +758,12 @@
     "avgResponse": "Avg. response",
     "list": "All indexers",
     "checked": "checked {{when}}",
-    "perIndexer": "{{queries}} queries · {{grabs}} grabs · {{ms}} ms"
+    "perIndexer": "{{queries}} queries · {{grabs}} grabs · {{ms}} ms",
+    "refreshing": "Updating statistics",
+    "statsFrom": "statistics {{when}}",
+    "statsStale": "These are the statistics from {{when}}. Prowlarr did not answer this time: {{reason}}",
+    "statsPending": "Reading statistics from Prowlarr. The list is already up to date.",
+    "indexerRefreshing": "Updating the numbers for {{name}}"
   },
   "notifications": {
     "intro": "Wardarr tells you about new problems, when they are fixed and when a request waits for approval. A problem that fixes itself within a minute stays quiet.",

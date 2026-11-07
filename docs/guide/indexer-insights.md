@@ -88,6 +88,18 @@ outage strip stays grey.
 Time ranges are 24 hours, 7, 30 and 90 days; each number compares with the
 range before it.
 
+## Never waiting for a service
+
+Both indexer pages open at once with what Wardarr already has. On the
+Indexers page that is the last statistics Prowlarr gave (kept across
+restarts); here it is the stored history. Anything newer is read in the
+background: each indexer shows a turning arc while its numbers are read, and
+the page fills in on its own when they arrive. If Prowlarr is too slow or
+unreachable, the older numbers stay, with a note saying how old they are and
+a button to try again. Prowlarr adds up its whole history for the all-time
+statistics, which can take a while on a large database, so Wardarr gives that
+call up to a minute and does not count a slow answer as an outage.
+
 ## Access
 
 The tab is for admins. It shows up once Prowlarr or an app with indexers is

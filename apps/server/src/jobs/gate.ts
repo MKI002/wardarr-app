@@ -26,7 +26,12 @@ export class InstanceGate {
     return this.now() < this.openUntil;
   }
 
-  async run<T>(fn: () => Promise<T>): Promise<T> {
+  /**
+   * Runs `fn` inside the limit. With `trip: false` a timeout does not count
+   * towards opening the circuit: heavy reads such as all-time statistics may
+   * be slow without the instance being down.
+   */
+  async run<T>(fn: () => Promise<T>, opts: { trip?: boolean } = {}): Promise<T> {
     if (this.isOpen) throw new AdapterError('unreachable', 'circuit open after repeated failures');
     if (this.active >= this.opts.concurrency) {
       await new Promise<void>((resolve) => this.waiting.push(resolve));
@@ -37,7 +42,10 @@ export class InstanceGate {
       this.failures = 0;
       return result;
     } catch (err) {
-      if (err instanceof AdapterError && (err.kind === 'unreachable' || err.kind === 'timeout')) {
+      const counts =
+        err instanceof AdapterError &&
+        (err.kind === 'unreachable' || (err.kind === 'timeout' && opts.trip !== false));
+      if (counts) {
         this.failures++;
         if (this.failures >= this.opts.failureThreshold) this.openUntil = this.now() + this.opts.openMs;
       }

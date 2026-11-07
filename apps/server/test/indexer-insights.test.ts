@@ -171,6 +171,16 @@ describe('indexer insights', () => {
     expect((await get('/api/capabilities')).json().tabs).toContain('indexerInsights');
   });
 
+  it('answers before anything was read and reads the sources in the background', async () => {
+    const r = (await get('/api/indexer-insights?range=7d')).json();
+    expect(r.collection.sourcesPending).toBe(true);
+    expect(r.apps).toEqual([]);
+    expect(r.prowlarrs.map((p: { instanceName: string }) => p.instanceName)).toEqual(['Prowlarr']);
+    const snap = await t.indexerInsights.refreshSources();
+    expect(snap.analysis.arrs).toHaveLength(1);
+    expect((await get('/api/indexer-insights?range=7d')).json().collection.sourcesPending).toBe(false);
+  });
+
   it('backfills 30 days of Prowlarr statistics, per day first and per hour for the last week', async () => {
     const res = await t.app.inject({ method: 'POST', url: '/api/indexer-insights/collect', headers: admin });
     expect(res.statusCode).toBe(200);
@@ -229,6 +239,13 @@ describe('indexer insights', () => {
     const kinds = r.insights.map((i: { kind: string }) => i.kind);
     expect(kinds[0]).toBe('failing');
     expect(kinds).toEqual(expect.arrayContaining(['duplicate', 'highFailRate', 'slow', 'mixed']));
+  });
+
+  it('starts an update without waiting for it', async () => {
+    const r = (await get('/api/indexer-insights?range=7d&refresh=1')).json();
+    expect(r.collection.running).toBe(true);
+    await t.indexerInsights.collect();
+    expect((await get('/api/indexer-insights?range=7d')).json().collection.running).toBe(false);
   });
 
   it('reads again without counting twice', async () => {

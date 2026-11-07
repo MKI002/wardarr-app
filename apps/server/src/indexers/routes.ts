@@ -7,7 +7,7 @@ import type { IndexerService } from './service.js';
 export function registerIndexerRoutes(app: FastifyInstance, deps: { indexers: IndexerService }): void {
   app.get('/api/indexers', async (req) => {
     const q = parse(z.object({ refresh: z.enum(['1']).optional() }), req.query);
-    return { instances: await deps.indexers.list(q.refresh === '1') };
+    return { instances: deps.indexers.list(q.refresh === '1') };
   });
 
   app.post<{ Params: { instance: string; indexerId: string } }>(

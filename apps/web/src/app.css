@@ -243,6 +243,16 @@ body {
   animation: ring-pulse 2.2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
 }
 
+/* An arc that circles an item while its numbers are being read again. */
+@keyframes scan-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.scan-spin {
+  animation: scan-spin 1.1s cubic-bezier(0.45, 0.1, 0.55, 0.9) infinite;
+}
+
 /* Menus pop out of their trigger. */
 @keyframes menu-pop {
   from {
@@ -260,6 +270,7 @@ body {
   .skeleton,
   .live-pulse,
   .ring-pulse,
+  .scan-spin,
   .flow-stripes,
   body::before,
   body::after {
@@ -278,6 +289,7 @@ body {
 :root[data-motion='reduce'] .skeleton,
 :root[data-motion='reduce'] .live-pulse,
 :root[data-motion='reduce'] .ring-pulse,
+:root[data-motion='reduce'] .scan-spin,
 :root[data-motion='reduce'] .flow-stripes,
 :root[data-motion='reduce'] body::before,
 :root[data-motion='reduce'] body::after {

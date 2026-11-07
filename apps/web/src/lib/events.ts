@@ -10,7 +10,7 @@ const INVALIDATES: Record<string, string[][]> = {
   'requests.updated': [['requests'], ['discover']],
   'instances.updated': [['instances'], ['overview'], ['capabilities'], ['trash'], ['topology']],
   'trash.updated': [['trash']],
-  'indexers.updated': [['indexerInsights']],
+  'indexers.updated': [['indexers'], ['indexerInsights']],
   'backups.updated': [['backups']],
   'storage.updated': [['storage'], ['overview']],
 };
