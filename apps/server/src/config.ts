@@ -49,8 +49,16 @@ export interface Config {
   trashDir: string | undefined;
 }
 
+/**
+ * Container UIs such as Unraid pass every field of their template, so an
+ * option left blank arrives as an empty string. Treat it as not set.
+ */
+function withoutBlankValues(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
+  return Object.fromEntries(Object.entries(env).filter(([, value]) => value?.trim()));
+}
+
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
-  const parsed = schema.parse(env);
+  const parsed = schema.parse(withoutBlankValues(env));
   return {
     port: parsed.WARDARR_PORT,
     host: parsed.WARDARR_HOST,

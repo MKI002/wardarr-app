@@ -222,6 +222,13 @@ docker run -d --name wardarr --restart unless-stopped \
 Add the template from [deploy/unraid/wardarr.xml](deploy/unraid/wardarr.xml) under
 **Docker → Template repositories**, or copy it to `/boot/config/plugins/dockerMan/templates-user/`.
 The appdata folder becomes `/data`; the template runs Wardarr as `99:100`, the usual Unraid owner of appdata.
+Create the folder with that owner before the first start, because Docker creates a missing one as `root`:
+
+```sh
+mkdir -p /mnt/user/appdata/wardarr && chown 99:100 /mnt/user/appdata/wardarr
+```
+
+Fields you leave blank in the template count as not set.
 
 ### First start
 

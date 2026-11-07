@@ -233,6 +233,13 @@ docker run -d --name wardarr --restart unless-stopped \
 Die Vorlage [deploy/unraid/wardarr.xml](deploy/unraid/wardarr.xml) unter
 **Docker → Template repositories** hinzufügen oder nach
 `/boot/config/plugins/dockerMan/templates-user/` kopieren. Der Appdata-Ordner wird zu `/data`; die Vorlage startet Wardarr als `99:100`, dem üblichen Unraid-Besitzer von Appdata.
+Lege den Ordner vor dem ersten Start mit diesem Besitzer an, denn Docker legt einen fehlenden Ordner als `root` an:
+
+```sh
+mkdir -p /mnt/user/appdata/wardarr && chown 99:100 /mnt/user/appdata/wardarr
+```
+
+Felder, die du in der Vorlage leer lässt, gelten als nicht gesetzt.
 
 ### Erster Start
 
