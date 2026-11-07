@@ -144,6 +144,8 @@ const fakeMedia = defineAdapter({
   },
 });
 
+const prowlarr = { statsFail: false };
+
 const indexers: IndexerInfo[] = [
   { id: 7, name: 'Example Indexer', enabled: true, protocol: 'torrent', failing: true },
   { id: 8, name: 'Other Indexer', enabled: true, protocol: 'usenet', failing: false },
@@ -160,17 +162,20 @@ const fakeProwlarr = defineAdapter({
       testConnection: async () => ({ version: '2.0.0' }),
       indexers: async () => indexers,
       testIndexer: async (id: number) => ({ ok: id === 8 }),
-      indexerStats: async () => [
-        {
-          indexerId: 7,
-          name: 'Example Indexer',
-          queries: 10,
-          grabs: 2,
-          failedQueries: 5,
-          failedGrabs: 0,
-          averageResponseMs: 900,
-        },
-      ],
+      indexerStats: async () => {
+        if (prowlarr.statsFail) throw new AdapterError('timeout', 'slow');
+        return [
+          {
+            indexerId: 7,
+            name: 'Example Indexer',
+            queries: 10,
+            grabs: 2,
+            failedQueries: 5,
+            failedGrabs: 0,
+            averageResponseMs: 900,
+          },
+        ];
+      },
       indexerApps: async () => [
         { id: 1, name: 'Series', implementation: 'Sonarr', baseUrl: null, enabled: true, indexerIds: [7] },
         { id: 2, name: 'Films', implementation: 'Radarr', baseUrl: null, enabled: true, indexerIds: [7, 8] },
@@ -436,13 +441,37 @@ describe('stream history and library', () => {
 });
 
 describe('indexers', () => {
+  it('answers at once and reads the statistics in the background', async () => {
+    const first = (await call(admin, 'GET', '/api/indexers')).json().instances[0];
+    expect(first).toMatchObject({ refreshing: true, statsAt: null });
+    expect(first.indexers.map((i: { name: string }) => i.name)).toEqual(['Example Indexer', 'Other Indexer']);
+    await t.indexers.settled();
+  });
+
   it('shows statistics and the apps a failing indexer leaves without indexers', async () => {
     const res = (await call(admin, 'GET', '/api/indexers')).json();
     const inst = res.instances[0];
+    expect(inst).toMatchObject({ refreshing: false, error: null });
+    expect(inst.statsAt).toEqual(expect.any(String));
     const failing = inst.indexers.find((i: { id: number }) => i.id === 7);
     expect(failing).toMatchObject({ failing: true, apps: ['Series', 'Films'], stranded: ['Series'] });
     expect(failing.stats.failedQueries).toBe(5);
     expect(inst.apps.find((a: { name: string }) => a.name === 'Films').failing).toEqual(['Example Indexer']);
+  });
+
+  it('keeps the last statistics when Prowlarr is too slow', async () => {
+    prowlarr.statsFail = true;
+    try {
+      const busy = (await call(admin, 'GET', '/api/indexers?refresh=1')).json().instances[0];
+      expect(busy.refreshing).toBe(true);
+      await t.indexers.settled();
+      const inst = (await call(admin, 'GET', '/api/indexers')).json().instances[0];
+      expect(inst).toMatchObject({ refreshing: false, error: 'timeout' });
+      expect(inst.statsAt).toEqual(expect.any(String));
+      expect(inst.indexers.find((i: { id: number }) => i.id === 7).stats.failedQueries).toBe(5);
+    } finally {
+      prowlarr.statsFail = false;
+    }
   });
 
   it('tests an indexer', async () => {

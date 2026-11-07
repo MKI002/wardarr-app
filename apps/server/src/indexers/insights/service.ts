@@ -459,9 +459,42 @@ export class IndexerInsightsService {
 
   // --------------------------------------------------------------- report
 
-  async report(range: InsightsRange, timeZone: string, refresh = false): Promise<InsightsReport> {
-    if (refresh) await this.collect();
-    const sources = await this.refreshSources(refresh);
+  /** Starts a background read of the sources and tells the page when it is done. */
+  private refreshSourcesInBackground(): void {
+    if (this.sourcesInflight) return;
+    this.refreshSources(true).then(
+      () => this.bus.publish({ type: 'indexers.updated', audience: 'admin' }),
+      (err: unknown) => this.log.warn({ err }, 'indexer sources failed'),
+    );
+  }
+
+  /**
+   * What the page shows before the first read finished: the indexers from the
+   * last poll and no apps yet.
+   */
+  private provisionalSources(): SourcesSnapshot {
+    const prowlarrs = this.prowlarrInstances().map(({ row, snapshot }) => ({
+      instanceId: row.id,
+      instanceName: row.name,
+      baseUrl: row.baseUrl,
+      indexers: snapshot.indexers ?? [],
+      apps: [],
+      error: null,
+    }));
+    return { at: 0, analysis: analyzeSources(prowlarrs, []), prowlarrs, arrs: [] };
+  }
+
+  /**
+   * Builds the report from what is stored. It never waits for a service:
+   * `refresh` and old sources start reads in the background, and an
+   * `indexers.updated` event follows when they are done.
+   */
+  report(range: InsightsRange, timeZone: string, refresh = false): InsightsReport {
+    if (refresh) void this.collect();
+    const stale = !this.sources || this.now().getTime() - this.sources.at >= SOURCES_TTL_MS;
+    // A running collection reads the sources at its end.
+    if (stale && !this.isCollecting) this.refreshSourcesInBackground();
+    const sources = this.sources ?? this.provisionalSources();
     const states = [...this.prowlarrInstances(), ...this.arrInstances()].map(({ row }) => ({
       instanceId: row.id,
       ...this.state(row.id),
@@ -471,6 +504,7 @@ export class IndexerInsightsService {
       timeZone,
       now: this.now().getTime(),
       sources,
+      sourcesPending: this.sources === null,
       states,
       collecting: this.isCollecting,
       prowlarrWebUrl: (id) => this.runtime.adapter(id)?.adapter.webUrl?.() ?? null,

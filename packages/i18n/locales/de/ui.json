@@ -758,7 +758,12 @@
     "avgResponse": "Antwortzeit im Schnitt",
     "list": "Alle Indexer",
     "checked": "geprüft {{when}}",
-    "perIndexer": "{{queries}} Anfragen · {{grabs}} Grabs · {{ms}} ms"
+    "perIndexer": "{{queries}} Anfragen · {{grabs}} Grabs · {{ms}} ms",
+    "refreshing": "Statistik wird aktualisiert",
+    "statsFrom": "Statistik {{when}}",
+    "statsStale": "Das ist die Statistik von {{when}}. Prowlarr hat diesmal nicht geantwortet: {{reason}}",
+    "statsPending": "Die Statistik wird aus Prowlarr gelesen. Die Liste ist schon aktuell.",
+    "indexerRefreshing": "Die Zahlen für {{name}} werden aktualisiert"
   },
   "notifications": {
     "intro": "Wardarr meldet neue Probleme, wenn sie behoben sind und wenn eine Anfrage auf Freigabe wartet. Ein Problem, das sich innerhalb einer Minute selbst löst, bleibt still.",

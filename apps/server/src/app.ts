@@ -190,7 +190,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const history = new StreamHistoryService(opts.db, runtime);
   const library = new LibraryService(features, runtime, bus, app.log);
   const requests = new RequestService(opts.db, runtime, users, bus);
-  const indexers = new IndexerService(runtime);
+  const indexers = new IndexerService(runtime, { features, bus });
   const trend = new TrendSampler(runtime);
   const topology = new TopologyService(runtime);
   const transcoding = new TranscodingService(opts.db, runtime);

@@ -205,5 +205,6 @@
   "errors": {
     "collect": "Einige Daten konnten nicht gelesen werden: {{list}}"
   },
-  "fromIndexers": "Analyse und Verlauf"
+  "fromIndexers": "Analyse und Verlauf",
+  "sourcesPending": "Wardarr liest, welche App welchen Indexer bekommt …"
 }

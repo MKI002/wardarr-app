@@ -205,5 +205,6 @@
   "errors": {
     "collect": "Some data could not be read: {{list}}"
   },
-  "fromIndexers": "Analysis and history"
+  "fromIndexers": "Analysis and history",
+  "sourcesPending": "Reading which app gets which indexer…"
 }

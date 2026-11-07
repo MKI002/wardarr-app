@@ -121,6 +121,8 @@ export interface InsightsReport {
   points: string[];
   collection: {
     running: boolean;
+    /** Which app gets which indexer is still being read. */
+    sourcesPending: boolean;
     lastRunAt: string | null;
     /** Earliest stored data point; the history grows from here. */
     since: string | null;
@@ -192,6 +194,8 @@ interface BuildContext {
   timeZone: string;
   now: number;
   sources: SourcesSnapshot;
+  /** The sources were not read yet; apps follow once they are. */
+  sourcesPending?: boolean;
   states: Array<{ instanceId: string; lastRunAt: string | null; error: string | null }>;
   collecting: boolean;
   prowlarrWebUrl: (instanceId: string) => string | null;
@@ -619,6 +623,7 @@ export function buildReport(db: Db, ctx: BuildContext): InsightsReport {
     points: Array.from({ length: points }, (_, i) => iso(from + i * step)),
     collection: {
       running: ctx.collecting,
+      sourcesPending: ctx.sourcesPending ?? false,
       lastRunAt:
         ctx.states
           .map((s) => s.lastRunAt)

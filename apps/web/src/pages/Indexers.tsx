@@ -5,7 +5,7 @@ import { Link } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { ActionMenu } from '../components/ActionMenu';
-import { ProgressRing, Ring, toneColor, useCalm } from '../components/charts';
+import { LiveDot, ProgressRing, Ring, toneColor, useCalm } from '../components/charts';
 import { Odometer, PageHeader, SectionRule } from '../components/dash';
 import { ServiceLogo } from '../components/ServiceLogo';
 import {
@@ -50,6 +50,10 @@ interface ProwlarrView {
   status: string;
   checkedAt: string | null;
   error: string | null;
+  /** When the statistics shown were read; older servers leave it out. */
+  statsAt?: string | null;
+  /** Fresh statistics are being read in the background. */
+  refreshing?: boolean;
   indexers: IndexerRow[];
   apps: Array<{
     id: number;
@@ -64,15 +68,18 @@ interface ProwlarrView {
 export function IndexersPage() {
   const { t } = useTranslation();
   const client = useQueryClient();
+  // The server answers at once with the last known numbers and reads new ones
+  // in the background; an event (or this faster poll as a fallback) brings them in.
   const data = useQuery({
     queryKey: ['indexers'],
     queryFn: () => api<{ instances: ProwlarrView[] }>('/api/indexers'),
-    refetchInterval: 60_000,
+    refetchInterval: (query) => (query.state.data?.instances.some((i) => i.refreshing) ? 3_000 : 60_000),
   });
   const reload = useMutation({
     mutationFn: () => api<{ instances: ProwlarrView[] }>('/api/indexers?refresh=1'),
     onSuccess: (fresh) => client.setQueryData(['indexers'], fresh),
   });
+  const refreshing = reload.isPending || !!data.data?.instances.some((i) => i.refreshing);
 
   return (
     <div className="flex flex-col gap-6">
@@ -88,7 +95,7 @@ export function IndexersPage() {
             >
               {t('insights.fromIndexers')} →
             </Link>
-            <Button busy={reload.isPending} onClick={() => reload.mutate()}>
+            <Button busy={refreshing} onClick={() => reload.mutate()}>
               {t('ui.indexers.reload')}
             </Button>
           </div>
@@ -110,6 +117,7 @@ export function IndexersPage() {
             key={inst.instanceId}
             inst={inst}
             showName={(data.data?.instances.length ?? 0) > 1}
+            onRetry={() => reload.mutate()}
           />
         ))
       )}
@@ -124,8 +132,18 @@ function appTone(app: ProwlarrView['apps'][number]): Tone {
   return app.failing.length ? 'warning' : 'ok';
 }
 
-function ProwlarrSection({ inst, showName }: { inst: ProwlarrView; showName: boolean }) {
+function ProwlarrSection({
+  inst,
+  showName,
+  onRetry,
+}: {
+  inst: ProwlarrView;
+  showName: boolean;
+  onRetry: () => void;
+}) {
   const { t, i18n } = useTranslation();
+  const refreshing = !!inst.refreshing;
+  const statsAt = inst.statsAt ?? null;
   const sorted = [...inst.indexers].sort(
     (a, b) =>
       Number(b.failing) - Number(a.failing) ||
@@ -135,16 +153,45 @@ function ProwlarrSection({ inst, showName }: { inst: ProwlarrView; showName: boo
   return (
     <section className="flex flex-col gap-4">
       {showName ? <SectionRule>{inst.instanceName}</SectionRule> : null}
-      {inst.error ? (
-        <InlineError
-          message={t('ui.indexers.statsFailed', { reason: t(`ui.instance.testFailed.${inst.error}`) })}
-        />
+      {inst.error && !refreshing ? (
+        statsAt ? (
+          <StaleNote
+            message={t('ui.indexers.statsStale', {
+              when: formatRelative(statsAt, i18n.language),
+              reason: t(`ui.instance.testFailed.${inst.error}`),
+            })}
+            onRetry={onRetry}
+          />
+        ) : (
+          <InlineError
+            message={t('ui.indexers.statsFailed', { reason: t(`ui.instance.testFailed.${inst.error}`) })}
+            onRetry={onRetry}
+          />
+        )
+      ) : null}
+      {refreshing && !statsAt ? (
+        <p className="flex items-center gap-2 text-sm text-muted" role="status">
+          <LiveDot tone="accent" label={t('ui.indexers.refreshing')} />
+          {t('ui.indexers.statsPending')}
+        </p>
       ) : null}
       <IndexerHero inst={inst} />
       <SectionRule
         action={
-          <span className="text-xs text-muted">
-            {t('ui.indexers.checked', { when: formatRelative(inst.checkedAt, i18n.language) })}
+          <span className="flex items-center gap-2 text-xs text-muted" aria-live="polite">
+            {refreshing ? (
+              <>
+                <LiveDot tone="accent" label={t('ui.indexers.refreshing')} />
+                {t('ui.indexers.refreshing')}
+              </>
+            ) : (
+              [
+                t('ui.indexers.checked', { when: formatRelative(inst.checkedAt, i18n.language) }),
+                statsAt ? t('ui.indexers.statsFrom', { when: formatRelative(statsAt, i18n.language) }) : null,
+              ]
+                .filter(Boolean)
+                .join(' · ')
+            )}
           </span>
         }
       >
@@ -154,9 +201,15 @@ function ProwlarrSection({ inst, showName }: { inst: ProwlarrView; showName: boo
         {sorted.length === 0 ? (
           <EmptyState title={t('ui.indexers.noIndexers')} />
         ) : (
-          <ul className="divide-y divide-border">
+          <ul className="divide-y divide-border" aria-busy={refreshing}>
             {sorted.map((ix, i) => (
-              <IndexerItem key={ix.id} ix={ix} instanceId={inst.instanceId} index={i} />
+              <IndexerItem
+                key={ix.id}
+                ix={ix}
+                instanceId={inst.instanceId}
+                index={i}
+                refreshing={refreshing}
+              />
             ))}
           </ul>
         )}
@@ -184,6 +237,8 @@ function IndexerHero({ inst }: { inst: ProwlarrView }) {
   const success = totals.queries
     ? Math.round(((totals.queries - totals.failed) / totals.queries) * 100)
     : null;
+  // No numbers yet: show where they will appear instead of zeros.
+  const waiting = !!inst.refreshing && !inst.statsAt;
 
   return (
     <Card className="grid gap-8 lg:grid-cols-[auto_1fr_1.25fr] lg:items-center">
@@ -233,7 +288,9 @@ function IndexerHero({ inst }: { inst: ProwlarrView }) {
           ].map(([label, value]) => (
             <div key={label} className="flex flex-col gap-0.5 rounded-xl bg-surface-2 px-3 py-2.5">
               <dt className="truncate text-xs text-muted">{label}</dt>
-              <dd className="text-xl font-semibold tabular-nums">{value}</dd>
+              <dd className="text-xl font-semibold tabular-nums">
+                {waiting ? <Skeleton className="mt-1 h-6 w-16" /> : value}
+              </dd>
             </div>
           ))}
         </dl>
@@ -293,7 +350,17 @@ function Coverage({ inst }: { inst: ProwlarrView }) {
   );
 }
 
-function IndexerItem({ ix, instanceId, index }: { ix: IndexerRow; instanceId: string; index: number }) {
+function IndexerItem({
+  ix,
+  instanceId,
+  index,
+  refreshing,
+}: {
+  ix: IndexerRow;
+  instanceId: string;
+  index: number;
+  refreshing: boolean;
+}) {
   const { t, i18n } = useTranslation();
   const client = useQueryClient();
   const test = useMutation({
@@ -317,20 +384,21 @@ function IndexerItem({ ix, instanceId, index }: { ix: IndexerRow; instanceId: st
       className="flex flex-col gap-2 px-5 py-4"
     >
       <div className="flex items-center gap-4">
-        {success !== null && ix.enabled ? (
-          <ProgressRing
-            value={success / 100}
-            size={44}
-            tone={ringTone}
-            label={t('ui.indexers.successRate', { percent: success })}
-          >
-            {success}%
-          </ProgressRing>
-        ) : (
-          <span className="grid size-11 shrink-0 place-items-center">
+        <span className="relative grid size-11 shrink-0 place-items-center">
+          {success !== null && ix.enabled ? (
+            <ProgressRing
+              value={success / 100}
+              size={44}
+              tone={ringTone}
+              label={t('ui.indexers.successRate', { percent: success })}
+            >
+              {success}%
+            </ProgressRing>
+          ) : (
             <StatusDot tone={tone} label={t(`ui.indexers.state.${tone}`)} />
-          </span>
-        )}
+          )}
+          {refreshing && ix.enabled ? <ScanArc index={index} track={success === null} /> : null}
+        </span>
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-center gap-2">
             <span className="truncate font-medium">{ix.name}</span>
@@ -340,6 +408,7 @@ function IndexerItem({ ix, instanceId, index }: { ix: IndexerRow; instanceId: st
             {ix.failing ? <Badge tone="critical">{t('ui.indexers.state.critical')}</Badge> : null}
             {!ix.enabled ? <Badge tone="neutral">{t('ui.indexers.state.neutral')}</Badge> : null}
           </p>
+          {refreshing && ix.enabled && !s ? <Skeleton className="mt-1.5 h-3 w-48 max-w-full" /> : null}
           <p className="mt-0.5 text-xs text-muted">
             {[
               s && ix.enabled
@@ -387,5 +456,57 @@ function IndexerItem({ ix, instanceId, index }: { ix: IndexerRow; instanceId: st
       ) : null}
       {test.isError ? <InlineError {...errorText(t, test.error)} /> : null}
     </motion.li>
+  );
+}
+
+/** The calm note for numbers that are older than they should be, with a retry. */
+function StaleNote({ message, onRetry }: { message: string; onRetry: () => void }) {
+  const { t } = useTranslation();
+  return (
+    <div
+      role="status"
+      className="flex flex-wrap items-center gap-3 rounded-lg bg-warning-bg px-3 py-2 text-sm text-warning sm:flex-nowrap"
+    >
+      <span className="min-w-0 flex-1">{message}</span>
+      <Button variant="ghost" onClick={onRetry} className="ml-auto">
+        {t('ui.common.retry')}
+      </Button>
+    </div>
+  );
+}
+
+/**
+ * An accent arc circling an indexer's ring while its numbers are read again.
+ * Each row starts a little later, so the list ripples instead of spinning in
+ * step. Calm mode keeps the arc still.
+ */
+function ScanArc({ index, track }: { index: number; track: boolean }) {
+  const size = track ? 44 : 52;
+  const r = size / 2 - 2;
+  const c = 2 * Math.PI * r;
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      className={`scan-spin pointer-events-none absolute ${track ? 'inset-0' : '-inset-1'}`}
+      style={{ animationDelay: `${-index * 0.12}s` }}
+      aria-hidden
+    >
+      {/* Without a success ring, a quiet track gives the arc something to run on. */}
+      {track ? (
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--surface-2)" strokeWidth={3} />
+      ) : null}
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={r}
+        fill="none"
+        stroke="var(--accent)"
+        strokeWidth={track ? 3 : 2}
+        strokeLinecap="round"
+        strokeDasharray={`${c * 0.22} ${c}`}
+      />
+    </svg>
   );
 }

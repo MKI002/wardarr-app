@@ -132,6 +132,8 @@ export interface InsightsReport {
   points: string[];
   collection: {
     running: boolean;
+    /** Which app gets which indexer is still being read; older servers leave it out. */
+    sourcesPending?: boolean;
     lastRunAt: string | null;
     since: string | null;
     errors: Array<{ instanceId: string; error: string }>;
