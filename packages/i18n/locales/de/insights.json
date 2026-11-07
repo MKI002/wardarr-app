@@ -94,7 +94,8 @@
     "compare": "Indexer vergleichen",
     "time": "Im Zeitverlauf",
     "outages": "Ausfälle",
-    "who": "Wer sucht"
+    "who": "Wer sucht",
+    "priorities": "Prioritäten"
   },
   "app": {
     "mode": {
@@ -206,5 +207,95 @@
     "collect": "Einige Daten konnten nicht gelesen werden: {{list}}"
   },
   "fromIndexers": "Analyse und Verlauf",
-  "sourcesPending": "Wardarr liest, welche App welchen Indexer bekommt …"
+  "sourcesPending": "Wardarr liest, welche App welchen Indexer bekommt …",
+  "priorities": {
+    "title": "Prioritäten-Wächter",
+    "state": {
+      "off_one": "Aus. Mit den aktuellen Wertungen würde er 1 Priorität ändern.",
+      "off_other": "Aus. Mit den aktuellen Wertungen würde er {{count}} Prioritäten ändern.",
+      "settled": "Alle Prioritäten passen zu den Wertungen. Nichts zu ändern.",
+      "preview_one": "Vorschau: 1 Priorität würde sich beim nächsten Lauf {{when}} ändern. Es wird nichts geschrieben.",
+      "preview_other": "Vorschau: {{count}} Prioritäten würden sich beim nächsten Lauf {{when}} ändern. Es wird nichts geschrieben.",
+      "apply_one": "1 Priorität ändert sich beim nächsten Lauf {{when}}.",
+      "apply_other": "{{count}} Prioritäten ändern sich beim nächsten Lauf {{when}}."
+    },
+    "lastRun": {
+      "preview_one": "Letzte Vorschau {{when}}: 1 Änderung geplant.",
+      "preview_other": "Letzte Vorschau {{when}}: {{count}} Änderungen geplant.",
+      "apply_one": "Letzter Lauf {{when}}: 1 Priorität gesetzt.",
+      "apply_other": "Letzter Lauf {{when}}: {{count}} Prioritäten gesetzt.",
+      "failed_one": "1 ließ sich nicht setzen.",
+      "failed_other": "{{count}} ließen sich nicht setzen."
+    },
+    "runPreview": "Jetzt Vorschau",
+    "runApply": "Jetzt ausführen",
+    "enabled": "Täglich ausführen",
+    "enabledHelp": "Bewertet die Indexer über die letzten 30 Tage und setzt passende Prioritäten. Eine Priorität, die schon stimmt, bleibt unberührt.",
+    "mode": {
+      "label": "Was er tut",
+      "preview": "Nur Vorschau",
+      "apply": "Prioritäten setzen"
+    },
+    "noScores": "Noch kein Indexer hat eine Wertung. Wertungen erscheinen, sobald Wardarr Suchen oder Grabs gesehen hat.",
+    "indexer": "Indexer und Wertung",
+    "priority": "Priorität",
+    "rowChange": "{{name}}, Wertung {{score}}: Priorität {{from}} wird {{to}}",
+    "rowKeep": "{{name}}, Wertung {{score}}: Priorität bleibt {{value}}",
+    "reason": {
+      "close": "Die Wertung hat sich um weniger als eine Stufe bewegt, deshalb bleibt die Priorität."
+    },
+    "unscored": "Noch ohne Wertung: {{list}}.",
+    "disabled": "In Prowlarr aus: {{list}}.",
+    "tuning": {
+      "title": "Bereich und Stufen",
+      "body": "Der am besten bewertete Indexer bekommt den ersten Wert, der schwächste den zweiten, alle anderen liegen dazwischen. Kleinere Zahlen werden zuerst gefragt.",
+      "best": "Bester Indexer",
+      "worst": "Schwächster Indexer",
+      "step": "Stufe",
+      "stepHelp": "Prioritäten ändern sich nur in diesen Stufen, kleine Schwankungen ändern also nichts.",
+      "invalid": "Ganze Zahlen von 1 bis 50, der beste unter dem schwächsten, und eine Stufe von 1 bis 10.",
+      "save": "Speichern"
+    },
+    "apps": {
+      "title": "Wo Prioritäten gesetzt werden müssen",
+      "intro": "Prowlarr gibt Prioritäten nur an Apps weiter, die es vollständig synchronisiert. Alles andere wird in der App gesetzt.",
+      "none": "Kein Sonarr, Radarr oder eine andere App verbunden.",
+      "followProwlarr_one": "1 Eintrag folgt Prowlarr",
+      "followProwlarr_other": "{{count}} Einträge folgen Prowlarr",
+      "setHere_one": "1 Eintrag wird hier gesetzt",
+      "setHere_other": "{{count}} Einträge werden hier gesetzt",
+      "untouched_one": "1 Eintrag bleibt unberührt",
+      "untouched_other": "{{count}} Einträge bleiben unberührt"
+    },
+    "sync": {
+      "fullSync": "Full Sync",
+      "fullSyncBody": "{{prowlarr}} gibt jede Prioritätsänderung weiter. In der App ist nichts zu tun.",
+      "addOnly": "Nur hinzufügen und entfernen",
+      "addOnlyBody": "{{prowlarr}} legt hier nur Indexer an und entfernt sie. Prioritäten müssen in der App gesetzt werden.",
+      "disabled": "Sync aus",
+      "disabledBody": "{{prowlarr}} synchronisiert diese App nicht. Prioritäten müssen in der App gesetzt werden.",
+      "none": "Eigene Indexer",
+      "noneBody": "Diese App holt ihre Indexer nicht von Prowlarr. Prioritäten müssen in der App gesetzt werden."
+    },
+    "includeApps": "Auch in den Apps setzen",
+    "includeAppsHelp": "Für Apps, die Prowlarr nicht synchron hält, und für Indexer, die in einer App von Hand angelegt sind.",
+    "log": {
+      "title": "Was sich geändert hat",
+      "empty": "Noch nichts. Jeder Lauf listet jede Priorität, die er gesetzt hat oder setzen würde.",
+      "preview": "Vorschau",
+      "inApp": "in {{app}}",
+      "done": "Gesetzt",
+      "failed": "Fehlgeschlagen: {{reason}}",
+      "error": {
+        "unreachable": "nicht erreichbar",
+        "timeout": "keine Antwort rechtzeitig",
+        "unauthorized": "API-Schlüssel abgelehnt",
+        "notFound": "Indexer nicht gefunden",
+        "badResponse": "unerwartete Antwort",
+        "blocked": "blockiert",
+        "unsupported": "nicht unterstützt"
+      }
+    },
+    "scaleNote": "Kleinere Zahlen werden zuerst gefragt. Im hinterlegten Band von {{best}} bis {{worst}} ordnet der Wächter die Indexer ein; ein Ring zeigt den heutigen Wert."
+  }
 }

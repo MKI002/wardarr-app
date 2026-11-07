@@ -447,6 +447,13 @@ try {
   // Read 30 days of invented indexer statistics and grab history.
   await must('POST', '/api/indexer-insights/collect');
   seedIndexerStatus(ids.prowlarr);
+  // The priority watchdog in preview, with one run in its log.
+  await must('PUT', '/api/indexer-insights/priorities', {
+    enabled: true,
+    mode: 'preview',
+    includeApps: true,
+  });
+  await must('POST', '/api/indexer-insights/priorities/run');
 
   // Give the jobs (issue engine, library) a moment, then poll again.
   await sleep(3000);
@@ -523,6 +530,7 @@ try {
     if (inst.templateId) await get(`/api/trash/instances/${encodeURIComponent(inst.id)}/preview`);
 
   for (const range of ['24h', '7d', '30d', '90d']) await get(`/api/indexer-insights?range=${range}`);
+  await get('/api/indexer-insights/priorities');
   for (const days of [30, 90, 365]) await get(`/api/storage?days=${days}`);
 
   for (const days of [7, 30, 90, 365]) {

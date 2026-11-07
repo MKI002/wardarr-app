@@ -273,6 +273,8 @@ export interface IndexerInfo {
   privacy?: 'public' | 'semiPrivate' | 'private';
   /** Newznab category ids the indexer offers. */
   categories?: number[];
+  /** Prowlarr priority, 1 (first) to 50 (last); 25 is the default. */
+  priority?: number;
 }
 
 /** Query and grab statistics of one indexer (Prowlarr). */
@@ -614,6 +616,12 @@ export interface AdapterInstance {
   indexerStatsWindow?(start: string, end: string): Promise<IndexerStatsWindow>;
   // *arr apps: the indexers set up in the app itself, synced or added by hand.
   arrIndexers?(): Promise<ArrIndexerInfo[]>;
+  /**
+   * Sets the priority of one indexer (1 first to 50 last), in Prowlarr or in an
+   * *arr app. Everything else of the indexer stays as it is, and the indexer is
+   * not tested, so a site that is down right now does not block the change.
+   */
+  setIndexerPriority?(indexerId: number, priority: number): Promise<void>;
   // Seerr (capabilities `discover`, `requests`). `asUser` is the Seerr user id
   // the request is made for (X-API-User); without it the API key owner acts.
   discover?(list: 'trending' | 'movies' | 'tv', page: number, asUser?: number): Promise<DiscoverPage>;

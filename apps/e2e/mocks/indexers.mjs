@@ -18,6 +18,7 @@ export const INDEXERS = [
   {
     id: 1,
     name: 'Lantern',
+    priority: 25,
     protocol: 'torrent',
     privacy: 'public',
     enable: true,
@@ -27,6 +28,7 @@ export const INDEXERS = [
   {
     id: 2,
     name: 'Nightjar',
+    priority: 25,
     protocol: 'torrent',
     privacy: 'semiPrivate',
     enable: true,
@@ -36,6 +38,7 @@ export const INDEXERS = [
   {
     id: 3,
     name: 'Harbor Light',
+    priority: 10,
     protocol: 'usenet',
     privacy: 'private',
     enable: true,
@@ -45,6 +48,7 @@ export const INDEXERS = [
   {
     id: 4,
     name: 'Old Mill',
+    priority: 25,
     protocol: 'torrent',
     privacy: 'public',
     enable: false,
@@ -54,6 +58,7 @@ export const INDEXERS = [
   {
     id: 5,
     name: 'Songbird',
+    priority: 20,
     protocol: 'torrent',
     privacy: 'public',
     enable: true,
@@ -63,6 +68,7 @@ export const INDEXERS = [
   {
     id: 6,
     name: 'Driftwood',
+    priority: 25,
     protocol: 'usenet',
     privacy: 'private',
     enable: true,
@@ -81,7 +87,7 @@ export const prowlarrIndexers = () =>
     enable: i.enable,
     protocol: i.protocol,
     privacy: i.privacy,
-    priority: 25,
+    priority: i.priority,
     tags: [],
     indexerUrls: [site(i.name)],
     capabilities: { categories: i.categories.map((id) => ({ id, subCategories: [] })) },
@@ -266,9 +272,10 @@ const synced = (id, name, protocol = 'torrent') => ({
 /** Indexers set up in each app. `prowlarrId` says which Prowlarr indexer the entry points at. */
 const ARR_INDEXERS = {
   sonarr: [synced(1, 'Lantern'), synced(2, 'Harbor Light', 'usenet'), synced(3, 'Driftwood', 'usenet')],
+  // Add only: the entries keep the priority they were created with.
   radarr: [
-    synced(1, 'Lantern'),
-    synced(2, 'Nightjar'),
+    { ...synced(1, 'Lantern'), priority: 25 },
+    { ...synced(2, 'Nightjar'), priority: 25 },
     // Deleted in Prowlarr; the add only sync left it behind.
     { id: 3, name: 'Gaslight (Prowlarr)', prowlarrId: 9, protocol: 'torrent' },
   ],
@@ -282,6 +289,7 @@ const ARR_INDEXERS = {
     {
       id: 1,
       name: 'Harbor Light',
+      priority: 15,
       url: 'https://harborlight.example.invalid',
       protocol: 'usenet',
       impl: 'Newznab',
@@ -305,7 +313,8 @@ export const arrIndexers = (prefix) =>
     enableRss: !i.off,
     enableAutomaticSearch: !i.off,
     enableInteractiveSearch: !i.off,
-    priority: 25,
+    // Full sync copies Prowlarr's priority; everything else keeps what it was given.
+    priority: i.priority ?? INDEXERS.find((x) => x.id === i.prowlarrId)?.priority ?? 25,
     tags: [],
     fields: [
       { name: 'baseUrl', value: i.url ?? `${PROWLARR_URL}/${i.prowlarrId}/` },
