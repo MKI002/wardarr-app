@@ -15,9 +15,11 @@ import {
   Button,
   Card,
   Disclosure,
+  EYE_PATH,
   EmptyState,
   InlineError,
   NumberField,
+  SHIELD_PATH,
   Skeleton,
   StrikeMeter,
   Tabs,
@@ -25,6 +27,7 @@ import {
   Toggle,
   ViewTransition,
   spring,
+  useSvgId,
   type Tone,
 } from '../components/ui';
 import { api } from '../lib/api';
@@ -259,9 +262,14 @@ const MODE_TEXT: Record<'off' | 'dryRun' | 'armed', string> = {
   armed: 'text-critical',
 };
 
-/** The guardian's shield: an open eye in dry run, a check when armed, struck through when off. */
+/**
+ * The guardian's shield in the mode tile: an open eye in dry run, a check when
+ * armed, struck through when off. A solid shield with the sign cut out, like
+ * the logo, so it still reads at tile size.
+ */
 function ModeShield({ mode }: { mode: 'off' | 'dryRun' | 'armed' }) {
   const calm = useCalm();
+  const mask = useSvgId('mode-shield');
   return (
     <span className={`relative grid size-16 shrink-0 place-items-center rounded-2xl ${MODE_TILE[mode]}`}>
       {mode === 'armed' ? (
@@ -269,29 +277,33 @@ function ModeShield({ mode }: { mode: 'off' | 'dryRun' | 'armed' }) {
       ) : null}
       <motion.svg
         key={mode}
-        viewBox="0 0 24 24"
-        className="size-9"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        viewBox="0 0 64 64"
+        className="size-10"
         aria-hidden
         initial={calm ? false : { rotateY: 90, scale: 0.8 }}
         animate={{ rotateY: 0, scale: 1 }}
         transition={spring}
       >
-        <path d="M12 3 5 6v5c0 4.4 3 8.3 7 9.5 4-1.2 7-5.1 7-9.5V6Z" />
-        {mode === 'dryRun' ? (
-          <>
-            <path d="M8.2 12s1.4-2.6 3.8-2.6 3.8 2.6 3.8 2.6-1.4 2.6-3.8 2.6-3.8-2.6-3.8-2.6Z" />
-            <circle cx="12" cy="12" r="1" fill="currentColor" />
-          </>
-        ) : mode === 'armed' ? (
-          <path d="m9 12 2.2 2.2L15.5 10" />
-        ) : (
-          <path d="m9 9 6 6" />
-        )}
+        <mask id={mask}>
+          <path d={SHIELD_PATH} fill="#fff" />
+          {mode === 'dryRun' ? (
+            <>
+              <path d={EYE_PATH} fill="#000" />
+              <circle cx="32" cy="31" r="6.4" fill="#fff" />
+              <circle cx="34.2" cy="28.9" r="2.1" fill="#000" />
+            </>
+          ) : (
+            <path
+              d={mode === 'armed' ? 'm22.5 31.5 6.5 6.5 12.5-13' : 'm23 22 18 18'}
+              fill="none"
+              stroke="#000"
+              strokeWidth="5.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
+        </mask>
+        <path d={SHIELD_PATH} fill="currentColor" mask={`url(#${mask})`} />
       </motion.svg>
     </span>
   );
