@@ -70,7 +70,13 @@ interface PlannedDownload {
     | { type: 'none' | 'strike' | 'deferred' }
     | { type: 'remove'; blocklist: boolean; search: unknown; exhausted: boolean };
   reason: Msg;
+  /** The *arr app's own status messages. */
+  messages?: string[];
+  /** `idOnly`: the release name does not match; only the search found the title. */
+  importHint?: 'idOnly' | null;
 }
+
+const IMPORT_RULES = ['importReady', 'importReadyExpired', 'importBlocked'];
 
 interface CleanerInstance {
   instanceId: string;
@@ -488,7 +494,15 @@ function DownloadRow({
     '/downloads/remove',
   );
   const ignore = useCleanerAction<{ key: string; ignored: boolean }>(inst.instanceId, '/downloads/ignore');
-  const reviewable = d.downloadId && ['importReady', 'importReadyExpired', 'importBlocked'].includes(d.rule);
+  const reviewable = d.downloadId && IMPORT_RULES.includes(d.rule);
+  // Why the app holds the import back, in its own words or as a plain hint.
+  const appMessage = IMPORT_RULES.includes(d.rule)
+    ? d.importHint === 'idOnly'
+      ? t('ui.cleaner.idOnlyShort', { app: inst.adapterName })
+      : d.messages?.[0]
+        ? t('ui.cleaner.appMessage', { app: inst.adapterName, message: d.messages[0] })
+        : null
+    : null;
   const when = d.waitUntil ?? d.nextStrikeAt;
 
   const release = parseRelease(d.title);
@@ -533,6 +547,14 @@ function DownloadRow({
               </span>
             ) : null}
           </div>
+          {appMessage ? (
+            <span
+              className={`truncate text-xs ${d.importHint ? 'text-warning' : 'text-muted'}`}
+              title={d.messages?.join('\n')}
+            >
+              {appMessage}
+            </span>
+          ) : null}
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {showStrikes ? (
@@ -699,6 +721,27 @@ function ReviewImport({
     >
       <div className="flex flex-col gap-4">
         <p className="text-sm text-muted">{t('ui.cleaner.reviewIntro')}</p>
+        {d.importHint === 'idOnly' ? (
+          <div className="flex items-start gap-3 rounded-lg bg-warning-bg p-3 text-sm">
+            <WarningMark />
+            <span className="flex flex-col gap-1">
+              <span className="font-semibold text-warning">{t('ui.cleaner.idOnlyTitle')}</span>
+              <span>{t('ui.cleaner.idOnlyBody', { app: inst.adapterName })}</span>
+            </span>
+          </div>
+        ) : null}
+        {d.messages?.length ? (
+          <div className="flex flex-col gap-1 rounded-lg bg-surface-2 px-3 py-2 text-xs">
+            <span className="font-semibold text-muted">
+              {t('ui.cleaner.appSays', { app: inst.adapterName })}
+            </span>
+            {d.messages.map((m) => (
+              <span key={m} className="break-words">
+                {m}
+              </span>
+            ))}
+          </div>
+        ) : null}
         {preview.isPending ? <Skeleton className="h-24 rounded-lg" /> : null}
         {preview.isError ? (
           <InlineError {...errorText(t, preview.error)} onRetry={() => void preview.refetch()} />
@@ -757,6 +800,17 @@ function ReviewImport({
         </div>
       </div>
     </Dialog>
+  );
+}
+
+/** A small warning triangle; the text beside it carries the meaning. */
+function WarningMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="mt-0.5 h-5 w-5 shrink-0 text-warning" fill="none" aria-hidden>
+      <path d="M12 3.5 2.8 19.5h18.4L12 3.5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M12 10v4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="17" r="1.2" fill="currentColor" />
+    </svg>
   );
 }
 

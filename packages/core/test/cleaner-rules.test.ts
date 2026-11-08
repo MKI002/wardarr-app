@@ -58,6 +58,8 @@ describe('cleaner issue rules', () => {
       waitUntil: '2026-01-08T00:00:00.000Z',
       action: { type: 'none' as const },
       reason: { key: 'cleaner.reason.importReady' },
+      messages: [],
+      importHint: null,
     };
     const [r] = renderAll(cleanerSignals(plan({ downloads: [d] }), radarr));
     expect(r!.g.ruleId).toBe('cleaner-import-ready');
