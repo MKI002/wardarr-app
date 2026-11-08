@@ -86,14 +86,26 @@ async function paged(
 
 const TMDB_IMAGE =
   /^https:\/\/image\.tmdb\.org\/t\/p\/[a-z0-9]+(\/[A-Za-z0-9_-]{1,64}\.(?:jpg|jpeg|png|webp))$/;
+// Sonarr takes its artwork from TheTVDB, for example
+// `https://artworks.thetvdb.com/banners/v4/series/123/posters/abc.jpg`.
+const TVDB_IMAGE =
+  /^https:\/\/artworks\.thetvdb\.com(\/banners\/(?:[A-Za-z0-9_-]{1,64}\/){1,6}[A-Za-z0-9_-]{1,96}\.(?:jpg|jpeg|png|webp))$/;
 
-/** The TMDB poster path of an *arr image list, if the poster comes from TMDB. */
-export function tmdbPoster(images: unknown): string | null {
+/**
+ * The poster of an *arr image list, as a path for Wardarr's image proxy:
+ * a TMDB path such as `/abc.jpg`, or `tvdb:/banners/…` for TheTVDB artwork.
+ * Posters from other hosts are left out; the proxy fetches from fixed hosts only.
+ */
+export function arrPoster(images: unknown): string | null {
   if (!Array.isArray(images)) return null;
-  for (const image of images.map(obj)) {
-    if (image.coverType !== 'poster') continue;
+  const posters = images.map(obj).filter((image) => image.coverType === 'poster');
+  for (const image of posters) {
     const hit = TMDB_IMAGE.exec(str(image.remoteUrl) ?? '');
     if (hit) return hit[1]!;
+  }
+  for (const image of posters) {
+    const hit = TVDB_IMAGE.exec(str(image.remoteUrl) ?? '');
+    if (hit) return `tvdb:${hit[1]!}`;
   }
   return null;
 }
@@ -235,7 +247,7 @@ const series: FamilyImpl = {
           premiere: ep === 1 && season !== 0 ? (season === 1 ? 'series' : 'season') : undefined,
           finale: finale === 'series' || finale === 'season' || finale === 'midseason' ? finale : undefined,
           year: num(s.year) ?? null,
-          posterPath: tmdbPoster(s.images),
+          posterPath: arrPoster(s.images),
           tmdbId: num(s.tmdbId) || null,
           network: str(s.network) ?? null,
           overview: str(e.overview) ?? null,
@@ -335,7 +347,7 @@ const movie: FamilyImpl = {
             hasFile: m.hasFile === true,
             monitored: m.monitored !== false,
             year: num(m.year) ?? null,
-            posterPath: tmdbPoster(m.images),
+            posterPath: arrPoster(m.images),
             tmdbId: num(m.tmdbId) || null,
             network: str(m.studio) ?? null,
             overview: str(m.overview) ?? null,

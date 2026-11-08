@@ -288,6 +288,13 @@ const dayAt = (days) => `${slot(days, 0).slice(0, 10)}T00:00:00Z`;
 const tmdbImages = (poster) => [
   { coverType: 'poster', remoteUrl: `https://image.tmdb.org/t/p/original/${poster}.jpg` },
 ];
+// Sonarr takes its artwork from TheTVDB, not TMDB.
+const tvdbImages = (id, poster) => [
+  {
+    coverType: 'poster',
+    remoteUrl: `https://artworks.thetvdb.com/banners/v4/series/${id}/posters/${poster}.jpg`,
+  },
+];
 
 // Episode titles are invented, like the series.
 const EPISODES = {
@@ -328,7 +335,13 @@ function calendarEpisode(s, show, season, ep, days, hour, hasFile, extra = {}) {
     runtime: show === 'kestrel' ? 42 : 52,
     hasFile,
     monitored: true,
-    series: { ...s, network: 'Northlight', runtime: 50, tmdbId: t.tmdbId, images: tmdbImages(t.poster) },
+    series: {
+      ...s,
+      network: 'Northlight',
+      runtime: 50,
+      tmdbId: t.tmdbId,
+      images: tvdbImages(s.id, t.poster),
+    },
     ...extra,
   };
 }
