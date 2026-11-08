@@ -188,6 +188,42 @@ describe('quality API', () => {
     expect((await api('GET', '/api/quality/files?tier=nope')).statusCode).toBe(400);
   });
 
+  it('reads a report without a file list again at once and says so meanwhile', async () => {
+    const features = new FeatureStore(t.db);
+    const id = (await api('GET', '/api/quality')).json().instances[0].instanceId as string;
+    // A report stored before Wardarr kept file lists: fresh, but no files.
+    features.saveState(id, 'qualityFiles', { index: null });
+    const reads = state.reads;
+    const again = new QualityService(t.runtime, { features });
+    expect(again.list()[0]).toMatchObject({ files: false });
+    const first = again.files({ offset: 0, limit: 10 });
+    expect(first).toMatchObject({ total: 0, reading: [{ name: 'Example Series' }] });
+    expect(await again.search({ count: 5 })).toMatchObject({
+      files: 0,
+      reading: [{ name: 'Example Series' }],
+    });
+    await again.settled();
+    expect(state.reads).toBe(reads + 1);
+    expect(again.files({ offset: 0, limit: 10 })).toMatchObject({ total: 4, reading: [] });
+    expect(again.list()[0]).toMatchObject({ files: true });
+  });
+
+  it('builds missing file lists in the background job, without anyone opening the page', async () => {
+    const features = new FeatureStore(t.db);
+    const id = (await api('GET', '/api/quality')).json().instances[0].instanceId as string;
+    features.saveState(id, 'qualityFiles', { index: null });
+    const reads = state.reads;
+    const again = new QualityService(t.runtime, { features });
+    again.background();
+    await again.settled();
+    expect(state.reads).toBe(reads + 1);
+    expect(again.files({ offset: 0, limit: 10 }).total).toBe(4);
+    // Nothing left to build: the job stays quiet while the report is fresh.
+    again.background();
+    await again.settled();
+    expect(state.reads).toBe(reads + 1);
+  });
+
   it('keeps the file list over a restart', () => {
     const again = new QualityService(t.runtime, { features: new FeatureStore(t.db) });
     expect(again.files({ offset: 0, limit: 10 }).total).toBe(4);
@@ -196,7 +232,11 @@ describe('quality API', () => {
   it('searches the worst files below their upgrade target only', async () => {
     const res = await api('POST', '/api/quality/search', { count: 10 });
     expect(res.statusCode).toBe(200);
-    expect(res.json()).toMatchObject({ files: 2, instances: [{ files: 2, items: 2, error: null }] });
+    expect(res.json()).toMatchObject({
+      files: 2,
+      instances: [{ files: 2, items: 2, error: null }],
+      reading: [],
+    });
     expect(state.searched.at(-1)).toEqual([
       { titleId: 5, fileId: 4 },
       { titleId: 5, fileId: 3 },

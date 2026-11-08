@@ -216,7 +216,7 @@ function qualityFiles(url: URL): Answer {
   const files = recordedQualityFiles(url.searchParams.get('instance')).filter(
     (f) => !tier || f.tier === tier,
   );
-  return ok({ total: files.length, files: files.slice(offset, offset + limit) });
+  return ok({ total: files.length, files: files.slice(offset, offset + limit), reading: [] });
 }
 
 /** A search of the worst files: counts what the server would send, sends nothing. */
@@ -234,6 +234,7 @@ function qualitySearch(input: Record<string, Json>): Answer {
   return ok({
     files: picked.length,
     instances: [...by.values()].map((i) => ({ ...i, items: i.files, error: null })),
+    reading: [],
   });
 }
 

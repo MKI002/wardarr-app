@@ -20,9 +20,11 @@ Wardarr reads, for each Sonarr and Radarr:
 
 Sonarr lists episode files one series at a time, so a big library takes a few minutes. The read
 runs in the background, three series at a time; the page shows its progress and keeps the last
-report until the new one is ready. Reports are stored, so they survive a restart, and are read
-again when they are older than 12 hours and someone opens the page, or when you press
-**Check again**.
+report until the new one is ready. Reports and the list of every scored file are stored, so they
+survive a restart. Wardarr builds them by itself shortly after it starts and checks every 30
+minutes whether one is older than 12 hours; **Check again** reads at once. While a file list is
+built for the first time (after an update or for a new instance), the file list and the search
+show the progress instead of an empty list.
 
 ## The perfect file
 

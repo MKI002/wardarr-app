@@ -64,6 +64,8 @@ export interface QualityInstance {
   progress: { done: number; total: number } | null;
   error: string | null;
   report: QualityReport | null;
+  /** Every file is listed; false while a report from before file lists is read again. */
+  files?: boolean;
 }
 
 /** Where a profile or title comes from, when several instances are shown together. */
@@ -168,6 +170,12 @@ export function topParts(map: CountMap, max = 6): Array<{ key: string; value: nu
   return [...head, { key: 'other', value: rest }];
 }
 
+/** An instance whose file list is being built, with the progress of the read. */
+export interface Building {
+  name: string;
+  progress: { done: number; total: number } | null;
+}
+
 /** One file of the file list, worst first. */
 export interface QualityFile extends Origin {
   fileId: number;
@@ -193,6 +201,8 @@ export interface QualityFile extends Origin {
 export interface QualityFilePage {
   total: number;
   files: QualityFile[];
+  /** Instances whose file list is still being built for the first time. */
+  reading: Building[];
 }
 
 /** What a search of the worst files started, per instance. */
@@ -205,6 +215,8 @@ export interface QualitySearchResult {
     items: number;
     error: string | null;
   }>;
+  /** Instances whose file list is still being built; their files could not be searched yet. */
+  reading: Building[];
 }
 
 /** Files a search can improve: below the upgrade target. */

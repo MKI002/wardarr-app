@@ -41,6 +41,7 @@ import { errorText } from '../lib/errors';
 import { formatRelative } from '../lib/format';
 import {
   MAX_SEARCH,
+  type Building,
   SEARCHABLE,
   TIERS,
   mergeReports,
@@ -154,7 +155,14 @@ export function QualityPage() {
         </Card>
       ) : (
         <ViewTransition view={current?.instanceId ?? 'all'}>
-          <Report report={report} showOrigin={shown.length > 1} instance={current?.instanceId} />
+          <Report
+            report={report}
+            showOrigin={shown.length > 1}
+            instance={current?.instanceId}
+            reading={shown
+              .filter((i) => i.report && i.files === false)
+              .map((i) => ({ name: i.instanceName, progress: i.progress }))}
+          />
         </ViewTransition>
       )}
     </div>
@@ -266,10 +274,13 @@ function Report({
   report,
   showOrigin,
   instance,
+  reading,
 }: {
   report: MergedReport;
   showOrigin: boolean;
   instance: string | undefined;
+  /** Instances whose file list is still being built for the first time. */
+  reading: Building[];
 }) {
   const { t } = useTranslation();
   const [tier, setTier] = useState<Tier | null>(null);
@@ -297,7 +308,7 @@ function Report({
       <Contents report={report} />
 
       <SectionRule>{t('quality.titles.title')}</SectionRule>
-      <SearchWorst report={report} instance={instance} />
+      <SearchWorst report={report} instance={instance} reading={reading} />
       <Titles report={report} showOrigin={showOrigin} />
 
       <FilesDialog tier={tier} onTier={setTier} report={report} instance={instance} showOrigin={showOrigin} />
@@ -660,9 +671,12 @@ function FilesDialog({
       return last.files.length > 0 && loaded < last.total ? loaded : undefined;
     },
     enabled: tier !== null,
+    // Poll while a file list is read for the first time; it fills in by itself.
+    refetchInterval: (q) => ((q.state.data?.pages[0]?.reading.length ?? 0) > 0 ? 3_000 : false),
   });
   const files = pages.data?.pages.flatMap((p) => p.files) ?? [];
   const total = pages.data?.pages[0]?.total ?? 0;
+  const reading = pages.data?.pages[0]?.reading ?? [];
   const options = TIERS.filter((x) => report.tiers[x] > 0).map((x): [Tier, string] => [
     x,
     `${t(`quality.tier.${x}`)} · ${num(report.tiers[x])}`,
@@ -694,9 +708,14 @@ function FilesDialog({
             ))}
           </div>
         ) : files.length === 0 ? (
-          <p className="text-sm text-muted">{t('quality.files.none')}</p>
+          reading.length > 0 ? (
+            <BuildingFiles reading={reading} />
+          ) : (
+            <p className="text-sm text-muted">{t('quality.files.none')}</p>
+          )
         ) : (
           <>
+            {reading.length > 0 ? <BuildingFiles reading={reading} compact /> : null}
             <ul className="-mx-5 divide-y divide-border border-y border-border">
               {files.map((f) => (
                 <FileRow key={`${f.instanceId}:${f.fileId}`} file={f} showOrigin={showOrigin} />
@@ -718,6 +737,54 @@ function FilesDialog({
         )}
       </div>
     </Dialog>
+  );
+}
+
+/**
+ * The file list is being built (first read after an update, or a new
+ * instance): a ring with the progress and rows that shimmer where the files
+ * will be, never an empty list.
+ */
+function BuildingFiles({ reading, compact = false }: { reading: Building[]; compact?: boolean }) {
+  const { t } = useTranslation();
+  const num = useNumber();
+  const done = reading.reduce((n, r) => n + (r.progress?.done ?? 0), 0);
+  const total = reading.reduce((n, r) => n + (r.progress?.total ?? 0), 0);
+  const value = total > 0 ? done / total : 0;
+  const names = reading.map((r) => r.name).join(', ');
+  const progress =
+    total > 0 ? t('quality.files.buildingProgress', { done: num(done), total: num(total) }) : null;
+  if (compact)
+    return (
+      <div role="status" className="flex items-center gap-3 rounded-lg bg-surface-2 px-3 py-2 text-sm">
+        <ProgressRing size={28} value={value} label={t('quality.files.buildingTitle')} />
+        <span>
+          {t('quality.files.buildingShort', { names })}
+          {progress ? <span className="text-muted tabular-nums"> · {progress}</span> : null}
+        </span>
+      </div>
+    );
+  return (
+    <div role="status" className="flex flex-col gap-4">
+      <div className="flex items-center gap-4 rounded-lg bg-surface-2 p-4">
+        <ProgressRing size={52} value={value} label={t('quality.files.buildingTitle')}>
+          <span className="text-xs font-semibold tabular-nums">{Math.round(value * 100)} %</span>
+        </ProgressRing>
+        <div className="flex flex-col gap-1">
+          <span className="flex items-center gap-2 font-medium">
+            <LiveDot tone="accent" label={t('quality.files.buildingTitle')} />
+            {t('quality.files.buildingTitle')}
+          </span>
+          <span className="text-sm text-muted">{t('quality.files.building', { names })}</span>
+          {progress ? <span className="text-xs text-muted tabular-nums">{progress}</span> : null}
+        </div>
+      </div>
+      <div className="flex flex-col gap-2" aria-hidden>
+        {[0, 1, 2].map((i) => (
+          <Skeleton key={i} className="h-14 rounded-lg" />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -801,7 +868,15 @@ function FileRow({ file, showOrigin }: { file: QualityFile; showOrigin: boolean 
 }
 
 /** Asks Sonarr and Radarr to search a better release for the lowest-rated files. */
-function SearchWorst({ report, instance }: { report: MergedReport; instance: string | undefined }) {
+function SearchWorst({
+  report,
+  instance,
+  reading,
+}: {
+  report: MergedReport;
+  instance: string | undefined;
+  reading: Building[];
+}) {
   const { t } = useTranslation();
   const num = useNumber();
   const id = useId();
@@ -814,6 +889,8 @@ function SearchWorst({ report, instance }: { report: MergedReport; instance: str
     onSettled: () => setConfirm(false),
   });
   const valid = Number.isInteger(count) && count >= 1 && count <= Math.min(MAX_SEARCH, below);
+  // Files of instances still being read could not be searched yet.
+  const waiting = reading.length > 0 ? reading : (run.data?.files === 0 && run.data.reading) || [];
   if (below === 0) return null;
   const result = run.data;
   const failed = result?.instances.filter((i) => i.error) ?? [];
@@ -849,7 +926,12 @@ function SearchWorst({ report, instance }: { report: MergedReport; instance: str
               className="min-h-9 w-24 rounded-lg border border-border bg-bg px-3 text-sm tabular-nums outline-none focus:border-accent"
             />
           </div>
-          <Button type="submit" variant="primary" disabled={!valid} busy={run.isPending}>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={!valid || reading.length > 0}
+            busy={run.isPending}
+          >
             {t('quality.search.button')}
           </Button>
         </div>
@@ -860,7 +942,8 @@ function SearchWorst({ report, instance }: { report: MergedReport; instance: str
         </p>
       ) : null}
       {run.isError ? <InlineError {...errorText(t, run.error)} /> : null}
-      {result ? (
+      {waiting.length > 0 ? <BuildingFiles reading={waiting} compact /> : null}
+      {result && !(result.files === 0 && waiting.length > 0) ? (
         <div className="flex flex-col gap-2" role="status">
           {result.files === 0 ? (
             <p className="rounded-lg bg-info-bg px-3 py-2 text-sm text-info">{t('quality.search.nothing')}</p>
