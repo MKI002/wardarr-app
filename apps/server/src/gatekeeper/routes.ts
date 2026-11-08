@@ -41,6 +41,12 @@ export function registerGatekeeperRoutes(
   /** Writes the list into the services again now. */
   app.post('/api/gatekeeper/apply', async () => ({ results: await gatekeeper.apply() }));
 
+  /** Switches "Redownload Failed" on in an *arr app, so a blocked release is replaced. */
+  app.post('/api/gatekeeper/redownload', async (req) => {
+    const body = parse(z.object({ instanceId: z.string().min(1).max(64) }), req.body);
+    return { check: await gatekeeper.enableRedownload(body.instanceId) };
+  });
+
   /** Reads blocked downloads now instead of waiting for the next quarter hour. */
   app.post('/api/gatekeeper/collect', async () => {
     await gatekeeper.collect();

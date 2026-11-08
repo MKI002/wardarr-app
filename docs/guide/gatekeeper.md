@@ -44,6 +44,18 @@ A Prowlarr full sync rewrites the indexers of the *arr apps and can drop the "fa
 setting. With **Keep the list in place** on, Wardarr checks every 15 minutes and writes the list
 again when a service lost it.
 
+## Searching again after a block
+
+A blocked download is only replaced when the *arr app puts the release on its blocklist and
+searches for another one. That is Sonarr's and Radarr's own **Failed Download Handling**
+(Settings → Download Clients → Redownload Failed), and it covers both a download that SABnzbd
+aborted and one the app failed itself. The page lists every *arr app where it is off and switches
+it on with one click. Completed Download Handling must be on as well, or the app never notices
+the failure; Wardarr only points that out.
+
+qBittorrent skips the blocked file and finishes the rest. A fake that held nothing but the
+blocked file then has nothing to import and stays in the queue; the Queue Cleaner removes it.
+
 ## Blocked downloads
 
 Every 15 minutes Wardarr reads what was blocked:

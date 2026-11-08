@@ -456,8 +456,30 @@ export function createArrInstance(
       }
     : {};
 
+  type DownloadClientConfig = Record<string, unknown> & {
+    id?: number;
+    autoRedownloadFailed?: boolean;
+    enableCompletedDownloadHandling?: boolean;
+  };
+  const handlingOf = (c: DownloadClientConfig) => ({
+    redownload: c.autoRedownloadFailed === true,
+    completedHandling: c.enableCompletedDownloadHandling !== false,
+  });
+
   return {
     ...extensionBlock,
+    async failedDownloadHandling() {
+      return handlingOf(await get<DownloadClientConfig>('/config/downloadclient'));
+    },
+    async setFailedDownloadHandling(redownload: boolean) {
+      const current = await get<DownloadClientConfig>('/config/downloadclient');
+      if (current.autoRedownloadFailed !== redownload)
+        await send('PUT', `/config/downloadclient${current.id ? `/${current.id}` : ''}`, {
+          ...current,
+          autoRedownloadFailed: redownload,
+        });
+      return handlingOf(await get<DownloadClientConfig>('/config/downloadclient'));
+    },
     flavor,
     detection: () => detection.get(),
     profileSync,

@@ -287,6 +287,20 @@ async function mutate(method: string, path: string, init: RequestInit | undefine
     });
     return ok({ config });
   }
+  if (path === '/api/gatekeeper/redownload') {
+    let check: Json = null;
+    updateAll('/api/gatekeeper?', (b) => {
+      const view = obj(b);
+      const redownload = list(view.redownload).map((x) => {
+        const c = obj(x);
+        if (c.instanceId !== input.instanceId) return c;
+        check = { ...c, redownload: true };
+        return check;
+      });
+      return { ...view, redownload };
+    });
+    return check ? ok({ check }) : notFound();
+  }
   if (path === '/api/indexer-insights/priorities/run') {
     const view = obj(body('/api/indexer-insights/priorities'));
     return ok({ run: view.lastRun ?? null, view });

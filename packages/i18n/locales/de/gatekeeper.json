@@ -162,5 +162,15 @@
       "held": "In der Warteschlange angehalten"
     },
     "showAll": "Alle {{count}} zeigen"
+  },
+  "redownload": {
+    "title": "Nach einer Sperre neu suchen",
+    "help": "Ein blockierter Download wird nur ersetzt, wenn die *arr-App ihn auf die Blocklist setzt und neu sucht (Settings → Download Clients → Failed Download Handling → Redownload Failed).",
+    "off": "Redownload Failed ist aus: {{name}} behält den fehlgeschlagenen Download und sucht kein anderes Release.",
+    "noCompleted": "Completed Download Handling ist aus, deshalb merkt {{name}} blockierte Downloads gar nicht. Schalte es in {{name}} ein.",
+    "enable": "Einschalten",
+    "on": "{{names}} setzen fehlgeschlagene Downloads auf die Blocklist und suchen neu.",
+    "offLabel": "Aus",
+    "onLabel": "An"
   }
 }
