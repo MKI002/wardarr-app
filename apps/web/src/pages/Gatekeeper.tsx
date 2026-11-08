@@ -42,7 +42,7 @@ type Range = '7d' | '30d' | '90d';
 const RANGES: Range[] = ['7d', '30d', '90d'];
 const RANGE_DAYS: Record<Range, number> = { '7d': 7, '30d': 30, '90d': 90 };
 
-type Sync = 'inSync' | 'drift' | 'partial' | 'off' | 'error' | 'blocked';
+type Sync = 'inSync' | 'drift' | 'partial' | 'off' | 'error' | 'blocked' | 'own';
 
 interface Config {
   extensions: string[];
@@ -130,6 +130,7 @@ const SYNC_TONE: Record<Sync, Tone> = {
   off: 'neutral',
   error: 'critical',
   blocked: 'warning',
+  own: 'info',
 };
 
 const sameConfig = (a: Config, b: Config) => JSON.stringify(a) === JSON.stringify(b);
@@ -810,8 +811,7 @@ function Settings({ data }: { data: GatekeeperData }) {
   const set = (patch: Partial<Config>) => setDraft({ ...config, ...patch });
 
   const save = useMutation({
-    mutationFn: (body: Config) =>
-      api('/api/gatekeeper/settings', { method: 'PUT', body: JSON.stringify(body) }),
+    mutationFn: (body: Config) => api('/api/gatekeeper/settings', { method: 'PUT', body }),
     onSuccess: () => setDraft(null),
     onSettled: () => {
       void client.invalidateQueries({ queryKey: ['gatekeeper'] });

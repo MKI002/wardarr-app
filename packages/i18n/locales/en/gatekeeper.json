@@ -115,7 +115,8 @@
       "drift": "Out of date",
       "off": "Off",
       "error": "Not reachable",
-      "blocked": "Not possible"
+      "blocked": "Not possible",
+      "own": "Own list active"
     },
     "detail": {
       "downloader": "Stops the download as soon as the file shows up.",
