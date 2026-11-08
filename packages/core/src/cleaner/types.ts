@@ -154,7 +154,17 @@ export interface PlannedDownload {
   waitUntil: string | null;
   action: CleanerAction;
   reason: Msg;
+  /** What the *arr app says about the download, as it wrote it. */
+  messages: string[];
+  /** Why the *arr app holds the import back, when its message says so. */
+  importHint: ImportHint | null;
 }
+
+/**
+ * `idOnly`: the release name does not match the title, and the app found it
+ * only through the search that grabbed it. It wants a person to confirm.
+ */
+export type ImportHint = 'idOnly';
 
 export interface CleanerInput {
   config: CleanerConfig;

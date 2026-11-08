@@ -2,9 +2,19 @@
 // problems, and judge import previews.
 import type { DownloadJob, ImportPreviewFile, QueueItem, SearchTarget } from '../adapter/types.js';
 import type { Signal } from '../issues/types.js';
-import type { CleanerDownload, InfraProblem } from './types.js';
+import type { CleanerDownload, ImportHint, InfraProblem } from './types.js';
 
 const lower = (s: string) => s.toLowerCase();
+
+// Radarr and Sonarr: "Found matching movie via grab history, but release was
+// matched to movie by ID" and the older "... title mismatch, automatic import
+// is not possible".
+const ID_ONLY = [/matched to (?:movie|series|artist|author|album|book) by id/i, /title mismatch/i];
+
+/** Why the *arr app holds an import back, read from its status messages. */
+export function importHint(messages: readonly string[]): ImportHint | null {
+  return messages.some((m) => ID_ONLY.some((re) => re.test(m))) ? 'idOnly' : null;
+}
 
 /** The key of a download: shared by all records of a season pack. */
 export function downloadKey(item: Pick<QueueItem, 'downloadId' | 'id'>): string {

@@ -7,6 +7,7 @@ import {
   detectInfrastructure,
   executePlan,
   findOrphans,
+  importHint,
   planCleanerRun,
   type CleanerConfig,
   type CleanerInput,
@@ -142,6 +143,9 @@ describe('Queue Cleaner', () => {
     });
     const plan = run({ queue: [blocked], previews: { dl0001: cleanPreview }, now: T0 });
     expect(only(plan)).toMatchObject({ rule: 'importReady', strikes: 0, action: { type: 'none' } });
+    // The app's own words come along, and the "matched by ID" case is named.
+    expect(only(plan).messages).toEqual(blocked.statusMessages);
+    expect(only(plan).importHint).toBe('idOnly');
     expect(only(plan).waitUntil).toBe(hours(24 * 7).toISOString());
     // A week later it collects strikes like any other blocked import.
     expect(
@@ -150,6 +154,15 @@ describe('Queue Cleaner', () => {
       rule: 'importReadyExpired',
       strikes: 1,
     });
+  });
+
+  it('names imports the app holds back because only the search matched the title', () => {
+    expect(
+      importHint(['Found matching movie via grab history, but release was matched to movie by ID']),
+    ).toBe('idOnly');
+    expect(importHint(['Movie title mismatch, automatic import is not possible'])).toBe('idOnly');
+    expect(importHint(['No files found are eligible for import'])).toBeNull();
+    expect(importHint([])).toBeNull();
   });
 
   it('4. without waiting for the click, the same download collects strikes', () => {

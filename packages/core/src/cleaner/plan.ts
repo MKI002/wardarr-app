@@ -11,7 +11,7 @@
 // problem disappears. After the last strike the download is removed; titles
 // that are missing are blocklisted and searched again, up to attemptsPerTitle.
 import type { Msg } from '../issues/types.js';
-import { isCleanPreview, isTba } from './classify.js';
+import { importHint, isCleanPreview, isTba } from './classify.js';
 import {
   STRIKE_RULES,
   type CleanerAction,
@@ -150,6 +150,8 @@ export function planCleanerRun(input: CleanerInput): CleanerPlan {
       waitUntil: waitUntil === null ? null : iso(waitUntil),
       action,
       reason,
+      messages: d.messages,
+      importHint: importHint(d.messages),
     });
 
     // Rule 1: protected.
