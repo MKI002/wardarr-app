@@ -12,7 +12,7 @@ import {
   type TranscodeLibrary,
   type TranscodeStatus,
 } from '@wardarr/core';
-import { and, asc, eq, gte, lt } from 'drizzle-orm';
+import { and, asc, eq, gte, lt, ne } from 'drizzle-orm';
 import type { Db } from '../db/index.js';
 import { transcodeDaily, transcodeNodes } from '../db/schema.js';
 import type { InstanceRuntime } from '../instances/runtime.js';
@@ -97,6 +97,18 @@ export class TranscodingService {
     const at = new Date(now).toISOString();
     this.db.transaction((tx) => {
       for (const node of status.nodes) {
+        // Tdarr gives a node a new session id each time it starts, so the
+        // name is what stays the same: earlier sessions of a node that is
+        // connected now are forgotten.
+        tx.delete(transcodeNodes)
+          .where(
+            and(
+              eq(transcodeNodes.instanceId, row.id),
+              eq(transcodeNodes.name, node.name),
+              ne(transcodeNodes.nodeId, node.id),
+            ),
+          )
+          .run();
         tx.insert(transcodeNodes)
           .values({ instanceId: row.id, nodeId: node.id, name: node.name, firstSeenAt: at, lastSeenAt: at })
           .onConflictDoUpdate({
@@ -162,16 +174,28 @@ export class TranscodingService {
       .filter((j) => j.minutes >= STUCK_MINUTES);
   }
 
-  /** Nodes seen before that are not connected now. */
+  /**
+   * Nodes seen before that are not connected now. A node counts by its name:
+   * Tdarr gives it a new session id on every start, so an older id of a node
+   * that is connected again is not offline, and several old sessions of a
+   * node that is away count once (the latest).
+   */
   private offline(instanceId: string, status: TranscodeStatus) {
     const now = this.now();
-    const connected = new Set(status.nodes.map((n) => n.id));
-    return this.db
+    const connectedIds = new Set(status.nodes.map((n) => n.id));
+    const connectedNames = new Set(status.nodes.map((n) => n.name));
+    const latest = new Map<string, typeof transcodeNodes.$inferSelect>();
+    for (const n of this.db
       .select()
       .from(transcodeNodes)
       .where(eq(transcodeNodes.instanceId, instanceId))
-      .all()
-      .filter((n) => !connected.has(n.nodeId) && now - Date.parse(n.lastSeenAt) > OFFLINE_GRACE_MS);
+      .all()) {
+      if (connectedIds.has(n.nodeId) || connectedNames.has(n.name)) continue;
+      if (now - Date.parse(n.lastSeenAt) <= OFFLINE_GRACE_MS) continue;
+      const seen = latest.get(n.name);
+      if (!seen || n.lastSeenAt > seen.lastSeenAt) latest.set(n.name, n);
+    }
+    return [...latest.values()];
   }
 
   /** Failures added today, against the last counters of an earlier day. */
