@@ -28,6 +28,12 @@ The first matching rule decides:
 | Other blocked imports, failed and stalled downloads                                         | Collect strikes                                                                                                        |
 | Slow downloads                                                                              | Collect strikes only when switched on                                                                                  |
 
+A blocked import is a finished download the app does not import on its own:
+"Import blocked" in Sonarr and Radarr, "Import failed" in Lidarr and Readarr
+(for example when the album match is not close enough or tracks are
+missing), and "Waiting to import" with a warning in older versions. The row
+shows the app's reason.
+
 A new strike comes at the earliest after the strike interval. Strikes reset
 when the problem disappears.
 
