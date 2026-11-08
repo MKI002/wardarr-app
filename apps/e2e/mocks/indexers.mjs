@@ -23,7 +23,7 @@ export const INDEXERS = [
     privacy: 'public',
     enable: true,
     categories: [2000, 5000],
-    profile: { perHour: 34, grab: 0.09, fail: 0.012, ms: 320, importMin: 40, importOk: 0.93 },
+    profile: { perHour: 34, grab: 0.09, fail: 0.012, ms: 320, importMin: 40, importOk: 0.93, bait: 0.3 },
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ export const INDEXERS = [
     privacy: 'semiPrivate',
     enable: true,
     categories: [2000],
-    profile: { perHour: 18, grab: 0.025, fail: 0.14, ms: 2600, importMin: 95, importOk: 0.55 },
+    profile: { perHour: 18, grab: 0.025, fail: 0.14, ms: 2600, importMin: 95, importOk: 0.55, bait: 0.7 },
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ export const INDEXERS = [
     privacy: 'private',
     enable: true,
     categories: [2000, 5000],
-    profile: { perHour: 26, grab: 0.11, fail: 0.02, ms: 520, importMin: 18, importOk: 0.97 },
+    profile: { perHour: 26, grab: 0.11, fail: 0.02, ms: 520, importMin: 18, importOk: 0.97, bait: 0.6 },
   },
   {
     id: 4,
@@ -320,8 +320,22 @@ export const arrIndexers = (prefix) =>
       { name: 'baseUrl', value: i.url ?? `${PROWLARR_URL}/${i.prowlarrId}/` },
       { name: 'apiPath', value: '/api' },
       { name: 'apiKey', value: '********' },
+      // Sonarr v4 and Radarr can fail downloads with dangerous files per indexer.
+      ...(prefix === 'lidarr'
+        ? []
+        : [{ name: 'failDownloads', value: FAIL_DOWNLOADS.get(`${prefix}/${i.id}`) ?? [] }]),
     ],
   }));
+
+/** What the gatekeeper switched on per indexer (`prefix/id` -> failDownloads). */
+const FAIL_DOWNLOADS = new Map();
+
+/** PUT /indexer/{id}: keeps the failDownloads value the gatekeeper wrote. */
+export function saveArrIndexer(prefix, id, body) {
+  const field = body?.fields?.find((f) => f.name === 'failDownloads');
+  if (field && Array.isArray(field.value)) FAIL_DOWNLOADS.set(`${prefix}/${id}`, field.value);
+  return arrIndexers(prefix).find((i) => i.id === Number(id)) ?? null;
+}
 
 const GRABS_PER_DAY = { sonarr: 5, radarr: 3, 'radarr-4k': 1.5, 'sonarr-4k': 1.2, lidarr: 1.5 };
 const MEDIA_FIELD = {
@@ -336,6 +350,23 @@ const DIRECT_PROFILE = {
   Kettle: { importMin: 30, importOk: 0.85 },
   'Tunes Archive': { importMin: 50, importOk: 0.8 },
 };
+
+// Some failed downloads were stopped because of a dangerous file: usenet ones
+// by SABnzbd (it does not say which file), torrents by the *arr app itself.
+const BAIT_MESSAGES = [
+  "Caution: Found executable file with extension: '.exe'",
+  'Caution: Found potentially dangerous file with extension: .lnk',
+  "Caution: Found executable file with extension: '.exe'",
+  'Caution: Found potentially dangerous file with extension: .scr',
+  "Caution: Found executable file with extension: '.bat'",
+  'Caution: Found potentially dangerous file with extension: .zipx',
+];
+const SAB_ABORT = 'Aborted, unwanted extension detected';
+const RELEASES = ['Lanternfall', 'Kestrel.Station', 'Harbor.Nights', 'The.Long.Watch', 'Paper.Moons'];
+const releaseName = (prefix, n) =>
+  prefix.startsWith('radarr')
+    ? `${RELEASES[n % RELEASES.length]}.${1900 + (n % 30)}.${prefix.endsWith('4k') ? '2160p' : '1080p'}.WEB`
+    : `${RELEASES[n % RELEASES.length]}.S0${1 + (n % 3)}E${String(1 + (n % 12)).padStart(2, '0')}.1080p.WEB`;
 
 /** GET /history/since?date= : grabs of the last 30 days and what became of them. */
 export function arrHistory(prefix, sinceIso, now = Date.now()) {
@@ -361,11 +392,18 @@ export function arrHistory(prefix, sinceIso, now = Date.now()) {
       eventType: 'grabbed',
       downloadId,
       [field]: mediaId,
+      sourceTitle: releaseName(prefix, n),
       data: { indexer: entry.name, size: String(size) },
     });
     const done = at + prof.importMin * (0.5 + noise(prefix, n, 'd')) * 60_000;
     if (done > now) continue;
     const ok = noise(prefix, n, 'ok') < prof.importOk;
+    const bait = !ok && prefix !== 'lidarr' && noise(prefix, n, 'b') < (prof.bait ?? 0);
+    const message = bait
+      ? entry.protocol === 'usenet'
+        ? SAB_ABORT
+        : BAIT_MESSAGES[n % BAIT_MESSAGES.length]
+      : undefined;
     events.push({
       date: new Date(done).toISOString(),
       eventType: ok
@@ -375,10 +413,26 @@ export function arrHistory(prefix, sinceIso, now = Date.now()) {
         : 'downloadFailed',
       downloadId,
       [field]: mediaId,
-      data: {},
+      sourceTitle: releaseName(prefix, n),
+      data: message ? { message } : {},
     });
   }
   return events
     .filter((e) => Date.parse(e.date) >= since)
     .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+}
+
+/** SABnzbd history slots for the usenet downloads it aborted (mode=history&failed_only=1). */
+export function sabAborts(now = Date.now()) {
+  return ['sonarr', 'radarr']
+    .flatMap((prefix) => arrHistory(prefix, null, now))
+    .filter((e) => e.data?.message === SAB_ABORT)
+    .map((e) => ({
+      nzo_id: e.downloadId,
+      name: e.sourceTitle,
+      status: 'Failed',
+      fail_message: SAB_ABORT,
+      completed: Math.floor(Date.parse(e.date) / 1000),
+    }))
+    .sort((a, b) => b.completed - a.completed);
 }

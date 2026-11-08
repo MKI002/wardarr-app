@@ -74,6 +74,7 @@
     "slow": "<b>{{name}}</b> takes {{seconds}} s per answer on average.",
     "noGrabs": "<b>{{name}}</b> answered {{queries}} searches without a single grab.",
     "lowImport": "Only {{percent}} of grabs from <b>{{name}}</b> made it into the library.",
+    "blocked": "<b>{{name}}</b> sent {{count}} downloads with blocked files ({{percent}} of its grabs).",
     "best": "<b>{{name}}</b> is your strongest indexer with a score of {{score}}."
   },
   "open": "Open",
@@ -154,7 +155,7 @@
     "uptime": "Uptime",
     "imports": "Imported",
     "noData": "–",
-    "scoreHelp": "Score 0–100 from successful searches (35 %), answer time (20 %), uptime (25 %) and imported grabs (20 %). Missing parts are left out.",
+    "scoreHelp": "Score 0–100 from successful searches (35 %), answer time (20 %), uptime (25 %) and imported grabs (20 %). Once the gatekeeper is on, blocked downloads count as well (15 %). Missing parts are left out.",
     "details": "Details for {{name}}",
     "protocol": {
       "usenet": "Usenet",

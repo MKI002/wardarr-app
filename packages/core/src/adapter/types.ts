@@ -30,6 +30,7 @@ export const CAPABILITIES = [
   'storage',
   'transcoding',
   'qualityScore',
+  'extensionBlock',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -212,6 +213,54 @@ export interface HistoryEvent {
   indexer?: string;
   /** Release size in bytes, on grab events. */
   sizeBytes?: number;
+  /** Why the download failed, on failed events. */
+  message?: string;
+  /** Release name, when the app records one. */
+  sourceTitle?: string;
+}
+
+/**
+ * What a service blocks by file extension itself (capability
+ * `extensionBlock`). Download clients hold a free list; Sonarr v4 and Radarr
+ * only know fixed groups that are switched on per indexer.
+ */
+export interface ExtensionBlockStatus {
+  style: 'list' | 'groups';
+  /** Whether the service acts on the list at all. */
+  active: boolean;
+  /** Extensions the service blocks now (lowercase, no dot). */
+  extensions: string[];
+  /** Extensions the service could block at most; absent when any list works. */
+  possible?: string[];
+  /** SABnzbd: what happens to a download with an unwanted file. */
+  action?: 'off' | 'pause' | 'abort';
+  /** Groups style: indexers that fail downloads with blocked files, of all that could. */
+  indexers?: { covered: number; total: number };
+  /** Set when Wardarr must not write, for example SABnzbd in whitelist mode. */
+  blocker?: 'whitelist' | 'tooOld' | 'noIndexers';
+  /** Product version, for the page. */
+  version?: string | null;
+}
+
+export interface ExtensionBlockChange {
+  /** The complete list Wardarr wants the service to block. */
+  extensions: string[];
+  /** Entries Wardarr may take away (it added them earlier). */
+  remove: string[];
+  /** SABnzbd: pause or abort. */
+  action?: 'pause' | 'abort';
+}
+
+/** A download a service kept out because of a blocked file. */
+export interface BlockedDownload {
+  /** Download id as the *arr apps know it (SABnzbd nzo_id, torrent hash). */
+  downloadId: string;
+  name: string;
+  /** ISO time. */
+  at: string;
+  extensions: string[];
+  /** aborted: the client gave up the download; skipped: only the files were left out. */
+  outcome: 'aborted' | 'paused' | 'skipped' | 'failed' | 'held';
 }
 
 export interface TagInfo {
@@ -673,6 +722,11 @@ export interface AdapterInstance {
   qualitySearch?(files: QualitySearchFile[]): Promise<number>;
   /** Connections and folders for the stack map. Parts that fail are left out. */
   topology?(): Promise<ServiceTopology>;
+  // Gatekeeper (capability `extensionBlock`).
+  extensionBlock?(): Promise<ExtensionBlockStatus>;
+  setExtensionBlock?(change: ExtensionBlockChange): Promise<ExtensionBlockStatus>;
+  /** Downloads the service kept out since an ISO time, newest first. */
+  blockedDownloads?(since: string): Promise<BlockedDownload[]>;
   /** Deep link into the service UI. */
   webUrl?(target?: { kind: 'indexer' | 'queue' | 'settings' | 'system'; id?: string | number }): string;
 }

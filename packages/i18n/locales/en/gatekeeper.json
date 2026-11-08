@@ -1,0 +1,165 @@
+{
+  "eyebrow": "Automation · file extensions",
+  "title": "Gatekeeper",
+  "intro": "File types that never belong in a release, kept out by your download clients and *arr apps. Every blocked download counts against the indexer that sent it.",
+  "range": "Time frame",
+  "days_one": "Last day",
+  "days_other": "Last {{count}} days",
+  "check": "Check now",
+  "hero": {
+    "label": "Blocked downloads",
+    "caught_one": "1 download with a blocked file in the last {{days}} days.",
+    "caught_other": "{{count}} downloads with blocked files in the last {{days}} days.",
+    "none": "Nothing blocked in the last {{days}} days.",
+    "indexers_one": "It came from 1 indexer.",
+    "indexers_other": "They came from {{count}} indexers.",
+    "previous": "{{count}} in the {{days}} days before",
+    "daily": "Blocked downloads per day",
+    "protected": "Active in {{active}} of {{total}} services",
+    "unprotected": "Not active in any service yet",
+    "lastRun": "Last checked {{when}}"
+  },
+  "setup": {
+    "title": "Decide which files never get through",
+    "body": "Pick the file types below, choose where they are blocked and switch the gatekeeper on. Wardarr writes the list into each service and keeps it there.",
+    "step1": "Pick file types: start with the presets.",
+    "step2": "Choose where: your download client is the best place, because it stops a file before it lands on disk.",
+    "step3": "Switch it on. From then on blocked downloads show up here and lower the score of the indexer that sent them."
+  },
+  "map": {
+    "title": "Analysis map",
+    "help": "Where blocked downloads came from and what they contained. Point at an indexer or a file type to follow it.",
+    "label": "{{total}} blocked downloads: {{summary}}",
+    "hint": "Point at an indexer or a file type to see its share.",
+    "linkDetail": "{{name}} sent {{count}} downloads with {{ext}}.",
+    "indexerDetail": "{{name}}: {{count}} blocked, {{rate}} of {{grabs}} grabs.",
+    "indexerDetailNoGrabs": "{{name}}: {{count}} blocked. No grabs from this indexer in the history.",
+    "extDetail_one": "{{ext}}: 1 download.",
+    "extDetail_other": "{{ext}}: {{count}} downloads.",
+    "ofGrabs": "{{rate}} of {{grabs}} grabs",
+    "noGrabs": "no grabs known",
+    "unknownIndexer": "Indexer unknown",
+    "unknownExt": "Type unknown",
+    "other": "Other",
+    "emptyTitle": "Nothing blocked yet",
+    "emptyBody": "When a download client or *arr app keeps out a file from your list, it shows up here with the indexer that sent it.",
+    "unknownHelp": "SABnzbd only says that it found an unwanted file, not which one. Those downloads appear as \"Type unknown\"."
+  },
+  "impact": {
+    "title": "Effect on the indexers",
+    "help": "The indexer score with and without blocked downloads counted. Indexers that send none gain a little; indexers that send many lose up to 15 points.",
+    "without": "Without blocked downloads",
+    "with": "With blocked downloads",
+    "row": "{{name}}: score {{without}} becomes {{with}}, {{caught}} of {{grabs}} grabs blocked",
+    "rowSame": "{{name}}: score {{with}}, nothing blocked",
+    "caught": "{{caught}} of {{grabs}} grabs blocked",
+    "clean": "nothing blocked",
+    "notCounted": "Blocked downloads count towards the score once the gatekeeper is on.",
+    "empty": "No indexer has grabs in this time frame yet.",
+    "more_one": "1 more indexer without blocked downloads",
+    "more_other": "{{count}} more indexers without blocked downloads"
+  },
+  "list": {
+    "title": "File types to block",
+    "help": "A file with one of these extensions inside a download stops it. Entries you added by hand in a service stay there.",
+    "add": "Add",
+    "addLabel": "Add file extensions",
+    "addPlaceholder": "e.g. exe, .scr, lnk",
+    "remove": "Remove {{ext}}",
+    "count_one": "1 file type",
+    "count_other": "{{count}} file types",
+    "empty": "No file types yet. Start with a preset.",
+    "invalid": "That is not a file extension. Use letters and digits, like exe or ps1.",
+    "presetState": {
+      "all": "All included",
+      "some": "{{count}} of {{total}} included",
+      "none": "Not included"
+    },
+    "caution": "Can hit real releases",
+    "presetAdd": "Add {{name}}",
+    "presetRemove": "Remove {{name}}"
+  },
+  "presets": {
+    "executables": {
+      "name": "Programs",
+      "help": "Files that run on their own, like exe, scr and msi."
+    },
+    "scripts": {
+      "name": "Scripts and shortcuts",
+      "help": "Files that run commands when opened, like bat, ps1, vbs and lnk."
+    },
+    "archives": {
+      "name": "Unusual archives",
+      "help": "Archive formats no normal release uses, often used to hide something."
+    },
+    "images": {
+      "name": "Disc images",
+      "help": "iso, img and similar. Some real releases come as disc images, so only add these if you never want them."
+    }
+  },
+  "targets": {
+    "title": "Where it is blocked",
+    "help": "Download clients stop a file before it is downloaded; *arr apps only notice it when they import. Blocking in the download client is recommended.",
+    "allDownloaders": "All download clients",
+    "allArrs": "All *arr apps",
+    "none": "None of your services can block file extensions. SABnzbd, qBittorrent, Sonarr and Radarr can.",
+    "notSupported": "Lidarr, NZBGet, Transmission and Deluge cannot block file extensions. Block them in your download client instead.",
+    "level": {
+      "downloader": "Download client",
+      "arr": "*arr app"
+    },
+    "recommended": "recommended",
+    "sync": {
+      "inSync": "Active",
+      "partial": "Partly",
+      "drift": "Out of date",
+      "off": "Off",
+      "error": "Not reachable",
+      "blocked": "Not possible"
+    },
+    "detail": {
+      "downloader": "Stops the download as soon as the file shows up.",
+      "arr": "Marks the download as failed at import, then searches for another release.",
+      "partial_one": "Cannot block {{list}}. This app only knows fixed groups of file types.",
+      "partial_other": "Cannot block {{list}}. This app only knows fixed groups of file types.",
+      "drift": "Missing {{list}}. Save to write them again.",
+      "indexers": "On {{covered}} of {{total}} indexers.",
+      "whitelist": "SABnzbd only allows listed file types (whitelist mode). Wardarr does not change that.",
+      "tooOld": "This version cannot block file extensions. Update it to use the gatekeeper here.",
+      "noIndexers": "This app has no indexers to switch the check on for.",
+      "error": "Wardarr could not read the settings of this service.",
+      "applyFailed": "Writing the list failed {{when}}."
+    },
+    "more": "+{{count}} more"
+  },
+  "options": {
+    "sabAction": "What SABnzbd does with such a download",
+    "sabActionHelp": "Abort removes it right away so the *arr app can pick another release.",
+    "abort": "Abort (recommended)",
+    "pause": "Pause",
+    "autoRepair": "Keep the list in place",
+    "autoRepairHelp": "Checks every 15 minutes and writes the list again when a service lost it, for example after a Prowlarr sync."
+  },
+  "save": "Save and apply",
+  "enable": "Switch the gatekeeper on",
+  "discard": "Discard",
+  "apply": "Apply again",
+  "unsaved": "Changes are not saved yet.",
+  "saved": "Saved and written into the services.",
+  "recent": {
+    "title": "Recently blocked",
+    "empty": "Nothing blocked in this time frame.",
+    "unknownExt": "File type unknown",
+    "unknownIndexer": "Indexer unknown",
+    "from": "from {{name}}",
+    "seenBy": "Seen by {{names}}",
+    "outcome": {
+      "aborted": "Aborted",
+      "paused": "Paused",
+      "skipped": "File skipped",
+      "failed": "Marked as failed",
+      "held": "Held in the queue"
+    },
+    "showAll": "Show all {{count}}"
+  }
+}

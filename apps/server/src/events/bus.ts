@@ -16,7 +16,8 @@ export interface WardarrEvent {
     | 'indexers.updated'
     | 'backups.updated'
     | 'storage.updated'
-    | 'quality.updated';
+    | 'quality.updated'
+    | 'gatekeeper.updated';
   audience: Audience;
   data?: unknown;
 }

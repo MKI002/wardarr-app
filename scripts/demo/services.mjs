@@ -13,6 +13,8 @@ import {
   indexerStatus,
   prowlarrApplications,
   prowlarrIndexers,
+  sabAborts,
+  saveArrIndexer,
 } from '../../apps/e2e/mocks/indexers.mjs';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
 import { DEMO_DISKS } from './disks.mjs';
@@ -35,6 +37,15 @@ function text(res, body, status = 200, headers = {}) {
   res.writeHead(status, { 'content-type': 'text/plain', ...headers });
   res.end(body);
 }
+/** A form encoded body as a plain object. */
+function readForm(req) {
+  return new Promise((resolve) => {
+    let data = '';
+    req.on('data', (c) => (data += c));
+    req.on('end', () => resolve(Object.fromEntries(new URLSearchParams(data))));
+  });
+}
+
 function readBody(req) {
   return new Promise((resolve) => {
     let data = '';
@@ -598,6 +609,11 @@ async function arr(prefix, path, url, req, res) {
     const answer = PROFILES[prefix].handle(req.method, p, url, body);
     return answer ? json(res, answer.body, answer.status) : json(res, {}, 404);
   }
+  const indexerId = /^\/indexer\/(\d+)$/.exec(p);
+  if (req.method === 'PUT' && indexerId) {
+    const saved = saveArrIndexer(prefix, indexerId[1], await readBody(req));
+    return saved ? json(res, saved, 202) : json(res, {}, 404);
+  }
   if (req.method !== 'GET') {
     await readBody(req);
     if (p === '/command') return json(res, { id: 1, name: 'Command', status: 'queued' }, 201);
@@ -714,7 +730,28 @@ const TORRENTS = [
   added_on: Math.floor((NOW - minutesAgo * 60_000) / 1000),
 }));
 
-function qbittorrent(path, res) {
+// What the gatekeeper writes into the download clients.
+const QBIT_PREFS = { excluded_file_names_enabled: false, excluded_file_names: '' };
+const SAB_MISC = {
+  complete_dir: '/data/usenet/complete',
+  download_dir: '/data/usenet/incomplete',
+  unwanted_extensions: [],
+  action_on_unwanted_extensions: 0,
+  unwanted_extensions_mode: 0,
+};
+
+async function qbittorrent(path, req, res) {
+  if (path === '/api/v2/app/preferences') return json(res, QBIT_PREFS);
+  if (path === '/api/v2/app/setPreferences') {
+    const form = await readForm(req);
+    try {
+      Object.assign(QBIT_PREFS, JSON.parse(form.json ?? '{}'));
+    } catch {
+      return text(res, 'Bad json', 400);
+    }
+    return text(res, '');
+  }
+  if (path === '/api/v2/torrents/files') return json(res, []);
   if (path === '/api/v2/auth/login')
     return text(res, 'Ok.', 200, { 'set-cookie': 'SID=demo-session; path=/' });
   if (path === '/api/v2/app/version') return text(res, 'v5.1.2');
@@ -732,10 +769,20 @@ function sabnzbd(url, res) {
   const mode = url.searchParams.get('mode');
   if (mode === 'version') return json(res, { version: '4.5.3' });
   if (mode === 'warnings') return json(res, { warnings: [] });
-  if (mode === 'get_config')
-    return json(res, {
-      config: { misc: { complete_dir: '/data/usenet/complete', download_dir: '/data/usenet/incomplete' } },
-    });
+  if (mode === 'get_config') return json(res, { config: { misc: SAB_MISC } });
+  if (mode === 'set_config' && url.searchParams.get('section') === 'misc') {
+    const key = url.searchParams.get('keyword');
+    const value = url.searchParams.get('value') ?? '';
+    if (key === 'unwanted_extensions')
+      SAB_MISC.unwanted_extensions = value
+        .split(',')
+        .map((v) => v.trim().toLowerCase())
+        .filter(Boolean);
+    else if (key in SAB_MISC) SAB_MISC[key] = Number(value);
+    return json(res, { config: { misc: { [key]: SAB_MISC[key] } } });
+  }
+  if (mode === 'history' && url.searchParams.get('failed_only') === '1')
+    return json(res, { history: { slots: sabAborts(NOW) } });
   if (mode === 'queue')
     return json(res, {
       queue: {
@@ -1112,7 +1159,7 @@ http
     }
     // Notification channels point here while the demo data is captured.
     if (prefix === 'hook' || prefix === 'ntfy') return readBody(req).then(() => json(res, {}));
-    if (prefix === 'qbittorrent') return qbittorrent(path, res);
+    if (prefix === 'qbittorrent') return qbittorrent(path, req, res);
     if (prefix === 'sabnzbd') return sabnzbd(url, res);
     if (prefix === 'jellyfin') return jellyfin(path, url, res);
     if (prefix === 'prowlarr') return prowlarr(path, req, res);

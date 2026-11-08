@@ -14,6 +14,7 @@ const INVALIDATES: Record<string, string[][]> = {
   'backups.updated': [['backups']],
   'storage.updated': [['storage'], ['overview']],
   'quality.updated': [['quality']],
+  'gatekeeper.updated': [['gatekeeper'], ['indexerInsights']],
 };
 
 export function connectEvents(client: QueryClient): () => void {

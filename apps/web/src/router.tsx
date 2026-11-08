@@ -14,6 +14,7 @@ import { LibraryPage } from './pages/Library';
 import { RequestsPage } from './pages/Requests';
 import { QualityPage } from './pages/Quality';
 import { StoragePage } from './pages/Storage';
+import { GatekeeperPage } from './pages/Gatekeeper';
 import { TrashPage, type TrashTab } from './pages/Trash';
 import { StackMapPage } from './pages/StackMap';
 import { TdarrPage } from './pages/Tdarr';
@@ -126,6 +127,11 @@ const mapRoute = createRoute({
   path: '/map',
   component: StackMapPage,
 });
+const gatekeeperRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/gatekeeper',
+  component: GatekeeperPage,
+});
 const storageRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/storage',
@@ -187,6 +193,7 @@ const routeTree = rootRoute.addChildren([
   tdarrRoute,
   mapRoute,
   storageRoute,
+  gatekeeperRoute,
   qualityRoute,
   settingsRoute,
   settingsInstanceRoute,

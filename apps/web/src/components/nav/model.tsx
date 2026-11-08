@@ -8,7 +8,7 @@ export type GroupId = 'status' | 'media' | 'automation' | 'system';
 export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
   { id: 'status', tabs: ['overview', 'issues', 'map'] },
   { id: 'media', tabs: ['discover', 'requests', 'library', 'quality', 'calendar'] },
-  { id: 'automation', tabs: ['cleaner', 'hunting', 'trash', 'tdarr'] },
+  { id: 'automation', tabs: ['cleaner', 'hunting', 'gatekeeper', 'trash', 'tdarr'] },
   { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage'] },
 ];
 
@@ -25,6 +25,7 @@ export const TAB_PATHS: Record<string, string> = {
   hunting: '/hunting',
   trash: '/trash',
   tdarr: '/tdarr',
+  gatekeeper: '/gatekeeper',
   indexers: '/indexers',
   indexerInsights: '/indexer-insights',
   storage: '/storage',
@@ -81,6 +82,7 @@ const ICONS: Record<string, string> = {
   cleaner: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6',
   hunting: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4M11 8v6M8 11h6',
   tdarr: 'M4 9a8 8 0 0 1 14.5-3.5M20 4v4h-4M20 15a8 8 0 0 1-14.5 3.5M4 20v-4h4M10 9.5v5l4-2.5z',
+  gatekeeper: 'M7 3h7l4 4v14H7zM14 3v4h4M10 12l4 4M14 12l-4 4',
   trash: 'M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6zM8.5 12l2.5 2.5 4.5-5',
   indexers: 'M4 6h16M4 12h16M4 18h10M18 16l2 2-2 2',
   indexerInsights: 'M4 20V10M10 20V4M16 20v-7M21 20H3',

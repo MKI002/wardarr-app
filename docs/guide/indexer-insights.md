@@ -65,6 +65,10 @@ Each indexer gets a score from 0 to 100:
 | Answer time (log scale)  |   20 % |
 | Uptime                   |   25 % |
 | Grabs that were imported |   20 % |
+| Clean grabs (Gatekeeper) |   15 % |
+
+Clean grabs only count once the [Gatekeeper](gatekeeper.md) is switched on: an indexer loses
+this part as more of its grabs contain blocked files.
 
 Answer times of 400 ms or less count fully, 6 s or more count nothing. Parts
 without data are left out and the rest is weighted up. An indexer without

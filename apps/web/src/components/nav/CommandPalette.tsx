@@ -40,6 +40,8 @@ const SYNONYMS: Record<string, string> = {
   cleaner: 'queue stuck stalled warteschlange hängend',
   hunting: 'search missing upgrade suche fehlend',
   tdarr: 'transcode transcoding encode hevc x265 nodes workers umwandeln',
+  gatekeeper:
+    'gatekeeper malware virus fake exe blocklist extensions file types torwache dateiendungen sperren schutz',
   trash: 'trash guides profiles custom formats profile',
   indexers: 'prowlarr jackett indexer',
   indexerInsights: 'indexer analysis analyse insights history verlauf prowlarr',
