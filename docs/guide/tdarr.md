@@ -47,5 +47,9 @@ history of jobs per day and the space saved trend fill up while Wardarr runs.
 | Files failed      | Tdarr's error tables hold files; critical with 10 or more new ones in a day |
 | Jobs seem stuck   | a job's progress has not moved for 30 minutes                               |
 
+Wardarr knows a node by its name. Tdarr gives a node a new session id each
+time it starts, so a restarted node with the same name counts as the same node
+and is not reported as offline. Give each node its own name in Tdarr.
+
 A node you removed on purpose is forgotten after 7 days, and its issue
 resolves; mute it in the meantime if you like.

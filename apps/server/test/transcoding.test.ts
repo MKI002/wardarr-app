@@ -165,6 +165,33 @@ describe('transcoding', () => {
     expect(await openIssues()).toEqual([]);
   });
 
+  it('knows a node again after a restart gave it a new session id', async () => {
+    // Tdarr hands out a new id each time a node starts; the name stays.
+    const restarted = (id: string, name: string, progress: number | null) => ({
+      ...node(id, progress),
+      name,
+    });
+    state.status.nodes = [node('a', 0.2), restarted('b-2', 'Node B', null)];
+    tick(5);
+    await t.runtime.poll(id);
+    expect(await openIssues()).toEqual([]);
+    let inst = (await t.app.inject({ url: '/api/tdarr', headers })).json().instances[0];
+    expect(inst.offline).toEqual([]);
+
+    // Away again after two sessions: one issue, not one per old session.
+    state.status.nodes = [node('a', 0.3)];
+    tick(5);
+    await t.runtime.poll(id);
+    expect(await openIssues()).toEqual(['transcode-node-offline']);
+    inst = (await t.app.inject({ url: '/api/tdarr', headers })).json().instances[0];
+    expect(inst.offline.map((n: { id: string }) => n.id)).toEqual(['b-2']);
+
+    state.status.nodes = [node('a', 0.4), restarted('b-3', 'Node B', null)];
+    tick(1);
+    await t.runtime.poll(id);
+    expect(await openIssues()).toEqual([]);
+  });
+
   it('warns when no node is connected at all', async () => {
     const fresh = await createTestApp({ adapters: [fakeTdarr] });
     const h = await setupAdmin(fresh);
