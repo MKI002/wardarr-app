@@ -199,7 +199,8 @@ export function InsightRow({
 export interface InstanceChip {
   id: string;
   name: string;
-  adapter: string;
+  /** Product of the instance; left out for a chip that stands for all of them. */
+  adapter?: string;
   /** A count worth a look (strikes, waiting titles); replaces the status dot. */
   count?: number;
   tone: ChartTone;
@@ -242,7 +243,7 @@ export function InstanceChips({
               />
             ) : null}
             <span className="relative flex items-center gap-2">
-              <ServiceLogo adapter={i.adapter} name={i.adapter} size={16} />
+              {i.adapter ? <ServiceLogo adapter={i.adapter} name={i.adapter} size={16} /> : null}
               <span className="font-medium">{i.name}</span>
               {i.count ? (
                 <span className="rounded-full bg-warning-bg px-1.5 text-xs font-semibold text-warning tabular-nums">

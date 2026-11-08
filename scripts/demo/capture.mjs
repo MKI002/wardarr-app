@@ -455,6 +455,16 @@ try {
   });
   await must('POST', '/api/indexer-insights/priorities/run');
 
+  // Quality scores: hand-made custom formats next to the TRaSH ones, then
+  // read every file once and wait until all reads are done.
+  await fetch(`${MOCK}/__quality`, { method: 'POST' });
+  await must('POST', '/api/quality/refresh', {});
+  for (let i = 0; i < 60; i++) {
+    const q = await must('GET', '/api/quality');
+    if (!q.instances.some((x) => x.refreshing)) break;
+    await sleep(500);
+  }
+
   // Give the jobs (issue engine, library) a moment, then poll again.
   await sleep(3000);
   for (const id of Object.values(ids)) await call('POST', `/api/instances/${id}/poll`);
@@ -485,6 +495,7 @@ try {
     '/api/notifications',
     '/api/backups',
     '/api/indexers',
+    '/api/quality',
     '/api/topology',
     '/api/tdarr',
     '/api/streams/history?limit=25',

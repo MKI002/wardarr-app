@@ -16,6 +16,7 @@ import {
 } from '../../apps/e2e/mocks/indexers.mjs';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
 import { DEMO_DISKS } from './disks.mjs';
+import { episodeFiles, movieFiles, seedQualityFormats } from './quality.mjs';
 import { createTdarr } from './tdarr.mjs';
 import { DEMO_KEY, FILMS, SERIES } from './titles.mjs';
 
@@ -71,6 +72,7 @@ const radarrMovie = (f, id, hasFile) => ({
   isAvailable: true,
   tags: [],
   qualityProfileId: 1,
+  movieFileId: hasFile ? id + 5000 : 0,
   digitalRelease: `${f.year}-03-01T00:00:00Z`,
 });
 
@@ -128,15 +130,25 @@ const sonarrSeries = [
   {
     id: 11,
     title: lanternfall.title,
+    titleSlug: 'lanternfall',
     year: lanternfall.year,
     monitored: true,
     tags: [],
     qualityProfileId: 1,
   },
-  { id: 12, title: kestrel.title, year: kestrel.year, monitored: true, tags: [], qualityProfileId: 1 },
+  {
+    id: 12,
+    title: kestrel.title,
+    titleSlug: 'kestrel-station',
+    year: kestrel.year,
+    monitored: true,
+    tags: [],
+    qualityProfileId: 1,
+  },
   {
     id: 13,
     title: series('salt').title,
+    titleSlug: 'the-salt-archive',
     year: series('salt').year,
     monitored: true,
     tags: [],
@@ -591,6 +603,16 @@ async function arr(prefix, path, url, req, res) {
     ]);
   if (p === '/movie') return json(res, svc.movies ?? []);
   if (p === '/series') return json(res, sonarrSeries);
+  // Files with their custom formats, for the quality score page.
+  if (p === '/episodefile' && PROFILES[prefix]) {
+    const s = sonarrSeries.find((x) => x.id === Number(url.searchParams.get('seriesId')));
+    const seasons = SERIES.find((x) => x.title === s?.title)?.seasons ?? [];
+    return json(res, s ? episodeFiles(PROFILES[prefix], prefix.endsWith('-4k'), s.id, seasons) : []);
+  }
+  if (p === '/moviefile' && PROFILES[prefix]) {
+    const ids = url.searchParams.getAll('movieFileIds').map(Number);
+    return json(res, movieFiles(PROFILES[prefix], prefix.endsWith('-4k'), svc.movies ?? [], ids));
+  }
   if (p === '/wanted/missing') return json(res, paged(svc.wanted?.missing ?? []));
   if (p === '/wanted/cutoff') return json(res, paged(svc.wanted?.cutoff ?? []));
   if (p === '/history/since') return json(res, arrHistory(prefix, url.searchParams.get('date'), Date.now()));
@@ -1071,6 +1093,10 @@ http
     const path = `/${rest.join('/')}`;
     if (prefix === '__ready') return json(res, { ok: true });
     if (prefix === '__drift') return profileDrift(rest[0], res);
+    if (prefix === '__quality') {
+      for (const [key, store] of Object.entries(PROFILES)) seedQualityFormats(store, key.endsWith('-4k'));
+      return json(res, { ok: true });
+    }
     // Notification channels point here while the demo data is captured.
     if (prefix === 'hook' || prefix === 'ntfy') return readBody(req).then(() => json(res, {}));
     if (prefix === 'qbittorrent') return qbittorrent(path, res);

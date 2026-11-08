@@ -5,6 +5,7 @@ import type { HttpClient } from './http.js';
 import type { Signal } from '../issues/types.js';
 import type { ProfileSyncApi } from '../trash/types.js';
 import type { DiskReport } from '../storage/disks.js';
+import type { QualityScan, QualityScanProgress } from '../quality/types.js';
 
 export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests' | 'transcoder';
 
@@ -28,6 +29,7 @@ export const CAPABILITIES = [
   'calendar',
   'storage',
   'transcoding',
+  'qualityScore',
 ] as const;
 export type Capability = (typeof CAPABILITIES)[number];
 
@@ -648,6 +650,12 @@ export interface AdapterInstance {
   storage?(): Promise<DiskReport>;
   /** Custom formats, quality profiles, sizes and naming (capability `trashSync`). */
   profileSync?: ProfileSyncApi;
+  /**
+   * Every file with its custom formats, the profiles' scores and what the
+   * file contains (capability `qualityScore`). Heavy: one call per series in
+   * Sonarr, so it runs in the background.
+   */
+  qualityScan?(onProgress?: QualityScanProgress): Promise<QualityScan>;
   /** Connections and folders for the stack map. Parts that fail are left out. */
   topology?(): Promise<ServiceTopology>;
   /** Deep link into the service UI. */

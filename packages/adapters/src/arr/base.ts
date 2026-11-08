@@ -33,6 +33,7 @@ import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
 import type { HttpResponse } from '@wardarr/core';
 import { addressOf, fieldValue, folder, link, mountOf, part } from '../shared/topology.js';
 import { FAMILIES, type ArrFamily } from './families.js';
+import { readQualityScan } from './quality.js';
 
 /**
  * How Wardarr talks to one *arr product. The flavor is chosen per detected
@@ -172,6 +173,8 @@ function hostLink(kind: ServiceLink['kind'], r: ProviderResource, enabled: boole
 }
 
 const PAGE_SIZE = 250;
+/** Timeout for reads of a whole library, which a big instance answers slowly. */
+const SLOW_TIMEOUT_MS = 120_000;
 const MAX_PAGES = 40;
 
 export function queueState(r: ArrQueueRecord): QueueItemState {
@@ -227,7 +230,7 @@ export function createArrInstance(
   profile: ArrProfile,
   extra: {
     webPaths?: Partial<Record<'indexer' | 'queue' | 'settings' | 'system', string>>;
-    /** Lowest product major version with custom formats; enables `profileSync`. */
+    /** Lowest product major version with custom formats; enables `profileSync` and `qualityScan`. */
     profileSyncSince?: number;
   } = {},
 ): AdapterInstance & { flavor(): Promise<ArrFlavor>; detection(): Promise<ApiDetection> } {
@@ -250,6 +253,18 @@ export function createArrInstance(
     const f = await flavor();
     try {
       return jsonOf<T>(await ctx.http.request({ path: `${f.apiBase}${path}`, query, headers }));
+    } catch (err) {
+      return onError(err);
+    }
+  };
+
+  /** For heavy reads (every file of a library): a longer timeout than polls get. */
+  const slowGet = async <T>(path: string, query?: Record<string, string | number | boolean>) => {
+    const f = await flavor();
+    try {
+      return jsonOf<T>(
+        await ctx.http.request({ path: `${f.apiBase}${path}`, query, headers, timeoutMs: SLOW_TIMEOUT_MS }),
+      );
     } catch (err) {
       return onError(err);
     }
@@ -284,23 +299,28 @@ export function createArrInstance(
     ...extra.webPaths,
   };
 
+  const ensureCustomFormats = async () => {
+    const d = await detection.get();
+    const major = majorOf(d.productVersion);
+    if (major && major < extra.profileSyncSince!)
+      throw new AdapterError('unsupported', `${profile.product} ${d.productVersion} has no custom formats`);
+  };
   const profileSync =
+    extra.profileSyncSince === undefined ? undefined : createProfileSync(get, send, ensureCustomFormats);
+  const qualityScan =
     extra.profileSyncSince === undefined
       ? undefined
-      : createProfileSync(get, send, async () => {
-          const d = await detection.get();
-          const major = majorOf(d.productVersion);
-          if (major && major < extra.profileSyncSince!)
-            throw new AdapterError(
-              'unsupported',
-              `${profile.product} ${d.productVersion} has no custom formats`,
-            );
-        });
+      : async (onProgress?: (done: number, total: number) => void) => {
+          await ensureCustomFormats();
+          const f = await flavor();
+          return readQualityScan(slowGet, f.family, ctx.baseUrl, onProgress);
+        };
 
   return {
     flavor,
     detection: () => detection.get(),
     profileSync,
+    qualityScan,
     async testConnection() {
       let d = await detection.get();
       const status = await get<StatusResource>('/system/status');

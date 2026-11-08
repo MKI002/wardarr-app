@@ -298,6 +298,7 @@ Die Anleitungen sind auf Englisch:
 - [Entdecken und Anfragen](docs/guide/discover-and-requests.md)
 - [TRaSH Guides](docs/guide/trash-guides.md)
 - [Speicher](docs/guide/storage.md)
+- [Qualitäts-Score](docs/guide/quality-score.md)
 - [Bibliothek und Indexer](docs/guide/library.md)
 - [Stack-Map](docs/guide/stack-map.md) (englisch)
 - [Backups](docs/guide/backups.md)

@@ -39,6 +39,7 @@ export const sonarr = defineAdapter({
     'calendar',
     'trashSync',
     'storage',
+    'qualityScore',
   ],
   mediaKind: 'episode',
   create: (ctx) => createArrInstance(ctx, 'sonarr', SONARR_PROFILE, { profileSyncSince: 4 }),

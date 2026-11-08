@@ -46,6 +46,8 @@ import { registerIssueRoutes } from './issues/routes.js';
 import { IssueService } from './issues/service.js';
 import { registerOverviewRoutes } from './overview/routes.js';
 import { TrendSampler, registerTrendRoutes } from './overview/trend.js';
+import { registerQualityRoutes } from './quality/routes.js';
+import { QualityService } from './quality/service.js';
 import { registerStorageRoutes } from './storage/routes.js';
 import { StorageService } from './storage/service.js';
 import { registerTrashRoutes } from './trash/routes.js';
@@ -108,6 +110,7 @@ export interface App {
   calendar: CalendarService;
   storage: StorageService;
   transcoding: TranscodingService;
+  quality: QualityService;
 }
 
 function isFile(p: string): boolean {
@@ -193,6 +196,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const library = new LibraryService(features, runtime, bus, app.log);
   const requests = new RequestService(opts.db, runtime, users, bus);
   const indexers = new IndexerService(runtime, { features, bus });
+  const quality = new QualityService(runtime, { features, bus });
   const trend = new TrendSampler(runtime);
   const topology = new TopologyService(runtime);
   const transcoding = new TranscodingService(opts.db, runtime);
@@ -276,6 +280,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   }
   registerCalendarRoutes(app, { calendar, publicUrl: opts.publicUrl });
   registerStorageRoutes(app, { storage });
+  registerQualityRoutes(app, { quality });
   registerTranscodingRoutes(app, { transcoding });
   registerImageRoutes(app, { fetch: opts.imageFetch });
 
@@ -331,5 +336,6 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     calendar,
     storage,
     transcoding,
+    quality,
   };
 }

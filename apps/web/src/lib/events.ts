@@ -13,6 +13,7 @@ const INVALIDATES: Record<string, string[][]> = {
   'indexers.updated': [['indexers'], ['indexerInsights']],
   'backups.updated': [['backups']],
   'storage.updated': [['storage'], ['overview']],
+  'quality.updated': [['quality']],
 };
 
 export function connectEvents(client: QueryClient): () => void {
