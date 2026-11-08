@@ -625,14 +625,16 @@ function Profiles({ report, showOrigin }: { report: MergedReport; showOrigin: bo
                     {t('quality.profiles.files', { count: p.files, formatted: num(p.files) })}
                   </span>
                 </div>
-                <ProgressRing
-                  size={52}
-                  stroke={5}
-                  value={pct / 100}
-                  label={t('quality.profiles.average', { percent: pct })}
-                >
-                  <span className="text-xs">{pct} %</span>
-                </ProgressRing>
+                {p.files > 0 ? (
+                  <ProgressRing
+                    size={52}
+                    stroke={5}
+                    value={pct / 100}
+                    label={t('quality.profiles.average', { percent: pct })}
+                  >
+                    <span className="text-xs">{pct} %</span>
+                  </ProgressRing>
+                ) : null}
               </div>
               <dl className="grid grid-cols-2 gap-3 text-sm">
                 <div className="rounded-lg bg-surface-2 px-3 py-2">
