@@ -159,14 +159,18 @@ function Step({
       role="radio"
       aria-checked={active}
       onClick={() => onPick(status)}
-      className={`relative flex items-center gap-2 text-left transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-        compact ? 'min-h-9 rounded-full px-3 text-sm' : 'min-h-16 rounded-xl px-4 py-2.5'
-      } ${active ? 'text-text' : 'text-muted hover:text-text'} ${compact ? 'border border-border' : 'bg-surface-2'}`}
+      className={`relative flex items-center gap-2 border text-left transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+        compact
+          ? 'min-h-9 rounded-full border-border px-3 text-sm'
+          : 'rounded-xl border-transparent bg-surface-2 px-4 py-3'
+      } ${active ? 'text-text' : 'text-muted hover:text-text'}`}
     >
       {active ? (
+        // A real border, not a box-shadow ring: browsers snap borders to whole
+        // device pixels, so the outline stays visible on every side at any zoom.
         <motion.span
           layoutId="request-step"
-          className={`absolute inset-0 bg-surface ring-1 ring-accent ${compact ? 'rounded-full' : 'rounded-xl'}`}
+          className={`absolute -inset-px border border-accent bg-surface ${compact ? 'rounded-full' : 'rounded-xl'}`}
           transition={spring}
           aria-hidden
         />
@@ -180,13 +184,13 @@ function Step({
           <path d="M1 1l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ) : null}
-      <span className="relative flex min-w-0 flex-col">
-        <span className="flex items-center gap-1.5 text-xs">
+      <span className={`relative flex min-w-0 flex-col ${compact ? '' : 'gap-1.5'}`}>
+        <span className="flex items-center gap-1.5 text-xs leading-4">
           {status !== 'all' ? <StepDot tone={tone} /> : null}
           <span className="truncate">{t(`ui.requests.filters.${status}`)}</span>
         </span>
         {compact ? null : (
-          <span className="text-2xl font-semibold text-text tabular-nums">{count.data ?? '–'}</span>
+          <span className="text-2xl leading-8 font-semibold text-text tabular-nums">{count.data ?? '–'}</span>
         )}
       </span>
       {compact ? (
