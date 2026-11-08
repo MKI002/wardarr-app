@@ -1,6 +1,12 @@
 // Queue Cleaner and Hunting through the API, with a fake *arr adapter.
 // All titles are invented.
-import { defineAdapter, type ImportPreviewFile, type QueueItem, type WantedItem } from '@wardarr/core';
+import {
+  defineAdapter,
+  type ImportPreviewFile,
+  type QueueItem,
+  type WantedItem,
+  type WantedOptions,
+} from '@wardarr/core';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { FAKE_KEY, createTestApp, setupAdmin } from './helpers.js';
@@ -33,7 +39,18 @@ const fakeArr = defineAdapter({
       search: async (...args: unknown[]) => void calls.push({ op: 'search', args }),
       importPreview: async () => fake.preview,
       importFiles: async (...args: unknown[]) => void calls.push({ op: 'import', args }),
-      wanted: async (list: string) => (list === 'missing' ? fake.wanted : []),
+      // Serves the list in pages of 250 like the *arr APIs.
+      wanted: async (list: string, opts: WantedOptions) => {
+        const items = list === 'missing' ? fake.wanted : [];
+        const out: WantedItem[] = [];
+        let page = 0;
+        do {
+          opts.onRequest?.();
+          out.push(...items.slice(page * 250, (page + 1) * 250));
+          page++;
+        } while (page * 250 < items.length && out.length < opts.max);
+        return out.slice(0, opts.max);
+      },
       historySince: async () => [],
     };
   },
@@ -229,6 +246,50 @@ describe('Hunting API', () => {
       .json()
       .instances.find((i: { instanceId: string }) => i.instanceId === id);
     expect(inst.exclusions.map((e: { key: string }) => e.key)).toEqual(['movie:1']);
+  });
+
+  it('reads the whole wanted list, not only its first page', async () => {
+    const DAY = 86_400_000;
+    // Newest first, like Sonarr: the oldest titles sit on the last page.
+    fake.wanted = Array.from({ length: 600 }, (_, i) => {
+      const n = 600 - i;
+      return {
+        key: `movie:${1000 + n}`,
+        title: `Example Movie ${1000 + n}`,
+        mediaKind: 'movie' as const,
+        mediaId: 1000 + n,
+        monitored: true,
+        tags: [],
+        releaseDate: new Date(Date.UTC(2000, 0, 1) + n * DAY).toISOString(),
+      };
+    });
+    const read = async () =>
+      (await api('GET', '/api/hunting'))
+        .json()
+        .instances.find((i: { instanceId: string }) => i.instanceId === id);
+    const before = (await read()).budget.left;
+
+    await api('POST', `/api/hunting/${id}/run`);
+    let inst = await read();
+    expect(calls.filter((c) => c.op === 'search').map((c) => c.args[0])).toEqual([
+      { kind: 'movies', ids: [1600] },
+      { kind: 'movies', ids: [1599] },
+    ]);
+    // Every other title waits its turn, the last page included.
+    expect(inst.lists.missing.waiting).toBe(598);
+    // Three pages, the empty upgrade list and two searches.
+    expect(inst.budget.left).toBe(before - 6);
+
+    // The next run reuses the long list instead of reading three pages again.
+    calls.length = 0;
+    await api('POST', `/api/hunting/${id}/run`);
+    inst = await read();
+    expect(calls.filter((c) => c.op === 'search').map((c) => c.args[0])).toEqual([
+      { kind: 'movies', ids: [1598] },
+      { kind: 'movies', ids: [1597] },
+    ]);
+    expect(inst.lists.missing.waiting).toBe(596);
+    expect(inst.budget.left).toBe(before - 9);
   });
 
   it('pauses while the queue is full', async () => {

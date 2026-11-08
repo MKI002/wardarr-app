@@ -140,6 +140,12 @@ export type SearchTarget =
   | { kind: 'albums'; ids: number[] }
   | { kind: 'books'; ids: number[] };
 
+export interface WantedOptions {
+  monitoredOnly: boolean;
+  max: number;
+  onRequest?: () => void;
+}
+
 /** A title on the wanted list (missing or below cutoff). */
 export interface WantedItem {
   /** Stable key, for example `episode:12`. */
@@ -602,7 +608,11 @@ export interface AdapterInstance {
   importPreview?(downloadId: string): Promise<ImportPreviewFile[]>;
   importFiles?(downloadId: string, files: ImportPreviewFile[]): Promise<void>;
   // Wanted lists and searches (capabilities `wanted`, `search`, `history`).
-  wanted?(list: 'missing' | 'cutoff', opts: { monitoredOnly: boolean; max: number }): Promise<WantedItem[]>;
+  /**
+   * Reads up to `max` titles of a wanted list. `onRequest` runs before every
+   * API call, so callers can count paged reads against a budget.
+   */
+  wanted?(list: 'missing' | 'cutoff', opts: WantedOptions): Promise<WantedItem[]>;
   search?(target: SearchTarget): Promise<void>;
   historySince?(since: string): Promise<HistoryEvent[]>;
   /** Releases between two ISO times, monitored titles only (capability `calendar`). */

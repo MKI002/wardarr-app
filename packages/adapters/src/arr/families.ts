@@ -9,6 +9,7 @@ import type {
   QueueItem,
   SearchTarget,
   WantedItem,
+  WantedOptions,
 } from '@wardarr/core';
 
 export type ArrFamily = 'series' | 'movie' | 'music' | 'book';
@@ -28,11 +29,7 @@ export interface FamilyImpl {
     r: Rec,
     tags: Map<number, string>,
   ): Pick<QueueItem, 'inLibrary' | 'tags' | 'searchTarget' | 'titleKey' | 'parentId' | 'seasonNumber'>;
-  wanted(
-    list: 'missing' | 'cutoff',
-    opts: { monitoredOnly: boolean; max: number },
-    get: Getter,
-  ): Promise<WantedItem[]>;
+  wanted(list: 'missing' | 'cutoff', opts: WantedOptions, get: Getter): Promise<WantedItem[]>;
   searchCommand(target: SearchTarget): Rec;
   previewFile(file: Rec): ImportPreviewFile;
   importFile(raw: Rec, downloadId: string): Rec;
@@ -67,6 +64,9 @@ function historyType(eventType: unknown): HistoryEvent['type'] {
   return 'other';
 }
 
+/** The largest page the *arr APIs serve. */
+export const PAGE_SIZE = 250;
+
 async function paged(
   get: Getter,
   path: string,
@@ -74,8 +74,10 @@ async function paged(
   max: number,
 ): Promise<Rec[]> {
   const out: Rec[] = [];
-  for (let page = 1; page <= 20 && out.length < max; page++) {
-    const res = await get<Paged<Rec>>(path, { page, pageSize: Math.min(250, max), ...query });
+  const pageSize = Math.min(PAGE_SIZE, max);
+  const pages = Math.ceil(max / pageSize);
+  for (let page = 1; page <= pages && out.length < max; page++) {
+    const res = await get<Paged<Rec>>(path, { page, pageSize, ...query });
     out.push(...res.records);
     if (out.length >= res.totalRecords || res.records.length === 0) break;
   }
@@ -272,11 +274,12 @@ const movie: FamilyImpl = {
       return records.map(toItem);
     }
     // The movie list includes availability, which the missing list lacks.
+    // One call returns the whole library, so `max` saves no calls here and
+    // every missing movie is kept.
     const movies = await get<Rec[]>('/movie');
     return movies
       .filter((m) => m.hasFile === false && m.isAvailable !== false)
       .filter((m) => !opts.monitoredOnly || m.monitored !== false)
-      .slice(0, opts.max)
       .map(toItem);
   },
   searchCommand(target) {

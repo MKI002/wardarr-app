@@ -23,6 +23,7 @@ import {
   type HuntList,
   type HuntPause,
   type Msg,
+  type WantedItem,
 } from '@wardarr/core';
 import { and, desc, eq, gte, inArray } from 'drizzle-orm';
 import type { Db } from '../db/index.js';
@@ -36,7 +37,10 @@ import type { CleanerService } from '../cleaner/service.js';
 const FEATURE = 'hunting';
 const TICK_MS = 5 * 60_000;
 const RESULTS_MS = 15 * 60_000;
-const WANTED_MAX = 250;
+/** Titles per page of a wanted list; every page is one API call. */
+const WANTED_PAGE = 250;
+/** A wanted list that took several pages is read again after this long. */
+const WANTED_CACHE_MS = 3 * 3_600_000;
 const RESULT_WINDOW_DAYS = 7;
 const LISTS: HuntList[] = ['missing', 'cutoff'];
 /** Health checks that mean searches cannot work right now. */
@@ -50,9 +54,17 @@ interface StoredState {
 
 const EMPTY_STATE: StoredState = { lastRun: { missing: null, cutoff: null }, calls: [] };
 
+interface CachedWanted {
+  items: WantedItem[];
+  at: number;
+  monitoredOnly: boolean;
+}
+
 interface Live {
   pause: HuntPause | null;
   candidates: Record<HuntList, HuntCandidate[]>;
+  /** Long wanted lists, kept so each run does not read every page again. */
+  wanted: Partial<Record<HuntList, CachedWanted>>;
   error: string | null;
 }
 
@@ -112,7 +124,7 @@ export class HuntingService {
   private liveFor(instanceId: string): Live {
     let l = this.live.get(instanceId);
     if (!l) {
-      l = { pause: null, candidates: { missing: [], cutoff: [] }, error: null };
+      l = { pause: null, candidates: { missing: [], cutoff: [] }, wanted: {}, error: null };
       this.live.set(instanceId, l);
     }
     return l;
@@ -137,11 +149,16 @@ export class HuntingService {
 
   /** Spends one API call from the budget, or throws when none is left. */
   private spend(instanceId: string, config: HuntingConfig): void {
+    if (this.budget(instanceId, config) <= 0) throw new HttpError(429, 'budget');
+    this.record(instanceId, 1);
+  }
+
+  /** Records API calls that were already made. */
+  private record(instanceId: string, count: number): void {
     const now = this.now();
     const st = this.state(instanceId);
     const calls = pruneCalls(st.calls, now);
-    if (budgetLeft(calls, config.apiCallsPerHour, now) <= 0) throw new HttpError(429, 'budget');
-    calls.push(now.toISOString());
+    for (let i = 0; i < count; i++) calls.push(now.toISOString());
     this.features.saveState(instanceId, FEATURE, { ...st, calls });
   }
 
@@ -228,11 +245,7 @@ export class HuntingService {
     config: HuntingConfig,
     live: Live,
   ): Promise<void> {
-    const { entry } = this.known(instanceId);
-    this.spend(instanceId, config);
-    const wanted = await entry.gate.run(() =>
-      entry.adapter.wanted!(list, { monitoredOnly: config.monitoredOnly, max: WANTED_MAX }),
-    );
+    const wanted = await this.readWanted(instanceId, list, config, live);
     const candidates = selectCandidates({
       list,
       wanted,
@@ -251,6 +264,41 @@ export class HuntingService {
       ...st,
       lastRun: { ...st.lastRun, [list]: this.now().toISOString() },
     });
+  }
+
+  /**
+   * Reads the whole wanted list, page by page, so every title gets its turn.
+   * The pages a run may read are limited by the API budget, keeping enough
+   * for the run's searches. A list that took several pages is kept for a few
+   * hours instead of being read again on every run.
+   */
+  private async readWanted(
+    instanceId: string,
+    list: HuntList,
+    config: HuntingConfig,
+    live: Live,
+  ): Promise<WantedItem[]> {
+    const now = this.now().getTime();
+    const cached = live.wanted[list];
+    if (cached && cached.monitoredOnly === config.monitoredOnly && now - cached.at < WANTED_CACHE_MS)
+      return cached.items;
+    const { entry } = this.known(instanceId);
+    const pages = Math.max(1, this.budget(instanceId, config) - rateFor(config, list).count);
+    let requests = 0;
+    try {
+      const items = await entry.gate.run(() =>
+        entry.adapter.wanted!(list, {
+          monitoredOnly: config.monitoredOnly,
+          max: pages * WANTED_PAGE,
+          onRequest: () => void requests++,
+        }),
+      );
+      if (requests > 1) live.wanted[list] = { items, at: now, monitoredOnly: config.monitoredOnly };
+      else delete live.wanted[list];
+      return items;
+    } finally {
+      this.record(instanceId, Math.max(1, requests));
+    }
   }
 
   private async search(instanceId: string, c: HuntCandidate, manual: boolean): Promise<void> {
