@@ -385,7 +385,11 @@ export function createArrInstance(
 
     async wanted(list, opts) {
       const f = await flavor();
-      return FAMILIES[f.family].wanted(list, opts, get);
+      const counted = <T>(path: string, query?: Record<string, string | number | boolean>) => {
+        opts.onRequest?.();
+        return get<T>(path, query);
+      };
+      return FAMILIES[f.family].wanted(list, opts, counted);
     },
 
     async search(target) {
