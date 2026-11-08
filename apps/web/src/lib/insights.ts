@@ -69,6 +69,7 @@ export type InsightKind =
   | 'slow'
   | 'noGrabs'
   | 'lowImport'
+  | 'blocked'
   | 'best';
 
 export interface Insight {

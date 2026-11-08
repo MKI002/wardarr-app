@@ -74,7 +74,8 @@
     "map": "Map",
     "calendar": "Calendar",
     "storage": "Storage",
-    "tdarr": "Tdarr"
+    "tdarr": "Tdarr",
+    "gatekeeper": "Gatekeeper"
   },
   "errors": {
     "serverUnreachable": "Wardarr's server does not answer.",

@@ -415,6 +415,7 @@ const INSIGHT_ICON: Record<string, string> = {
   slow: 'indexerSearch:x',
   noGrabs: 'indexerSearch:x',
   lowImport: 'downloadsFailed:x',
+  blocked: 'downloadsFailed:x',
   missing: 'apiCompat:x',
   orphan: 'apiCompat:x',
   duplicate: 'alert:x',

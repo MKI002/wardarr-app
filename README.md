@@ -290,6 +290,8 @@ Found a vulnerability? Please read [SECURITY.md](SECURITY.md).
   what the page counts.
 - [Library and indexers](docs/guide/library.md): what is counted and how often.
 - [Indexer insights](docs/guide/indexer-insights.md): sources, the score and what is stored.
+- [Gatekeeper](docs/guide/gatekeeper.md): blocking dangerous file types and how blocked downloads
+  count against an indexer.
 - [Stack map](docs/guide/stack-map.md): how Wardarr draws your stack from what the services report.
 - [Backups](docs/guide/backups.md): smart retention, restoring and moving to a new server.
 - [Calendar](docs/guide/calendar.md): what the calendar shows and how the iCal link stays private.

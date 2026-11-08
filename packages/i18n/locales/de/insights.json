@@ -74,6 +74,7 @@
     "slow": "<b>{{name}}</b> braucht im Schnitt {{seconds}} s pro Antwort.",
     "noGrabs": "<b>{{name}}</b> hat {{queries}} Suchen beantwortet, ohne dass einmal gegrabbt wurde.",
     "lowImport": "Nur {{percent}} der Grabs von <b>{{name}}</b> sind in der Bibliothek angekommen.",
+    "blocked": "<b>{{name}}</b> lieferte {{count}} Downloads mit gesperrten Dateien ({{percent}} seiner Grabs).",
     "best": "<b>{{name}}</b> ist dein stärkster Indexer mit einer Wertung von {{score}}."
   },
   "open": "Öffnen",
@@ -154,7 +155,7 @@
     "uptime": "Verfügbar",
     "imports": "Importiert",
     "noData": "–",
-    "scoreHelp": "Wertung 0–100 aus erfolgreichen Suchen (35 %), Antwortzeit (20 %), Verfügbarkeit (25 %) und importierten Grabs (20 %). Fehlende Teile werden ausgelassen.",
+    "scoreHelp": "Wertung 0–100 aus erfolgreichen Suchen (35 %), Antwortzeit (20 %), Verfügbarkeit (25 %) und importierten Grabs (20 %). Sobald die Torwache an ist, zählen auch blockierte Downloads (15 %). Fehlende Teile werden ausgelassen.",
     "details": "Details zu {{name}}",
     "protocol": {
       "usenet": "Usenet",

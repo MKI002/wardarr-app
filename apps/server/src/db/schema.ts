@@ -541,3 +541,33 @@ export const transcodeDaily = sqliteTable(
   },
   (t) => [uniqueIndex('transcode_daily_instance_day').on(t.instanceId, t.day)],
 );
+
+/** Gatekeeper: the wanted block list, targets and what Wardarr wrote where. */
+export const gatekeeperSettings = sqliteTable('gatekeeper_settings', {
+  id: integer('id').primaryKey(),
+  config: text('config', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  state: text('state', { mode: 'json' }).$type<Record<string, unknown>>().notNull().default({}),
+  updatedAt: text('updated_at').notNull().default(now),
+});
+
+/**
+ * Downloads kept out because of a blocked file, from whichever service saw
+ * it first. One row per download; the indexer comes from the *arr grab
+ * history when the report is built.
+ */
+export const gatekeeperCatches = sqliteTable(
+  'gatekeeper_catches',
+  {
+    /** Lowercase download id (SABnzbd nzo_id, torrent hash). */
+    downloadId: text('download_id').primaryKey(),
+    name: text('name').notNull(),
+    at: text('at').notNull(),
+    extensions: text('extensions', { mode: 'json' }).$type<string[]>().notNull().default([]),
+    /** Services that reported it, by instance id. */
+    seenBy: text('seen_by', { mode: 'json' }).$type<string[]>().notNull().default([]),
+    outcome: text('outcome').notNull(),
+    /** executable | dangerous | userDefined | unwanted | list */
+    reason: text('reason').notNull(),
+  },
+  (t) => [index('gatekeeper_catches_at').on(t.at)],
+);

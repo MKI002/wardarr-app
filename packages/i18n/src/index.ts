@@ -5,6 +5,7 @@ import enBackups from '../locales/en/backups.json' with { type: 'json' };
 import enCalendar from '../locales/en/calendar.json' with { type: 'json' };
 import enCleaner from '../locales/en/cleaner.json' with { type: 'json' };
 import enCommon from '../locales/en/common.json' with { type: 'json' };
+import enGatekeeper from '../locales/en/gatekeeper.json' with { type: 'json' };
 import enHunting from '../locales/en/hunting.json' with { type: 'json' };
 import enInsights from '../locales/en/insights.json' with { type: 'json' };
 import enIssues from '../locales/en/issues.json' with { type: 'json' };
@@ -17,6 +18,7 @@ import deBackups from '../locales/de/backups.json' with { type: 'json' };
 import deCalendar from '../locales/de/calendar.json' with { type: 'json' };
 import deCleaner from '../locales/de/cleaner.json' with { type: 'json' };
 import deCommon from '../locales/de/common.json' with { type: 'json' };
+import deGatekeeper from '../locales/de/gatekeeper.json' with { type: 'json' };
 import deHunting from '../locales/de/hunting.json' with { type: 'json' };
 import deInsights from '../locales/de/insights.json' with { type: 'json' };
 import deIssues from '../locales/de/issues.json' with { type: 'json' };
@@ -44,6 +46,7 @@ export const resources = {
       backups: enBackups,
       calendar: enCalendar,
       quality: enQuality,
+      gatekeeper: enGatekeeper,
     },
   },
   de: {
@@ -60,6 +63,7 @@ export const resources = {
       backups: deBackups,
       calendar: deCalendar,
       quality: deQuality,
+      gatekeeper: deGatekeeper,
     },
   },
 } as const;

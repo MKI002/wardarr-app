@@ -180,6 +180,31 @@ test('the storage page shows each disk once, with the apps that use it, and sett
   await settled(page);
 });
 
+// Before it is switched on the gatekeeper explains itself, suggests the
+// download clients and lets the list be edited without writing anything.
+test('the gatekeeper page offers presets and suggests the download clients', async () => {
+  await page.goto('/');
+  const nav = page.getByRole('navigation', { name: 'Main navigation' }).first();
+  await nav.getByRole('link', { name: 'Gatekeeper', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Gatekeeper', level: 1 })).toBeVisible();
+  await expect(page.getByText('Decide which files never get through')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Switch the gatekeeper on' })).toBeVisible();
+
+  const images = page.getByRole('button', { name: 'Add Disc images' });
+  await expect(images).toHaveAttribute('aria-pressed', 'false');
+  await images.click();
+  await expect(page.getByRole('button', { name: 'Remove Disc images' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(page.getByRole('button', { name: 'Remove .iso' })).toBeVisible();
+
+  await page.getByLabel('Add file extensions').fill('.XYZ, ?!');
+  await page.getByRole('button', { name: 'Add', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Remove .xyz' })).toBeVisible();
+  await settled(page);
+});
+
 // ------------------------------------------------------------- navigation
 
 const sidebar = () => page.getByRole('navigation', { name: 'Main navigation' }).first();

@@ -139,6 +139,8 @@ const historyBase = (r: Rec, mediaField: string): HistoryEvent => {
     downloadId: str(r.downloadId) ?? null,
     ...(indexer ? { indexer } : {}),
     ...(type === 'grabbed' && Number.isFinite(size) && size > 0 ? { sizeBytes: size } : {}),
+    ...(type === 'failed' && str(data.message) ? { message: str(data.message)!.slice(0, 500) } : {}),
+    ...(str(r.sourceTitle) ? { sourceTitle: str(r.sourceTitle)!.slice(0, 300) } : {}),
   };
 };
 

@@ -1,0 +1,165 @@
+{
+  "eyebrow": "Automatik · Dateiendungen",
+  "title": "Torwache",
+  "intro": "Dateitypen, die in keinem Release etwas zu suchen haben, halten deine Download-Clients und *arr-Apps draußen. Jeder blockierte Download zählt gegen den Indexer, der ihn geliefert hat.",
+  "range": "Zeitraum",
+  "days_one": "Letzter Tag",
+  "days_other": "Letzte {{count}} Tage",
+  "check": "Jetzt prüfen",
+  "hero": {
+    "label": "Blockierte Downloads",
+    "caught_one": "1 Download mit gesperrter Datei in den letzten {{days}} Tagen.",
+    "caught_other": "{{count}} Downloads mit gesperrten Dateien in den letzten {{days}} Tagen.",
+    "none": "Nichts blockiert in den letzten {{days}} Tagen.",
+    "indexers_one": "Er kam von 1 Indexer.",
+    "indexers_other": "Sie kamen von {{count}} Indexern.",
+    "previous": "{{count}} in den {{days}} Tagen davor",
+    "daily": "Blockierte Downloads pro Tag",
+    "protected": "Aktiv in {{active}} von {{total}} Diensten",
+    "unprotected": "Noch in keinem Dienst aktiv",
+    "lastRun": "Zuletzt geprüft {{when}}"
+  },
+  "setup": {
+    "title": "Leg fest, welche Dateien nie durchkommen",
+    "body": "Wähle unten die Dateitypen, bestimme, wo sie gesperrt werden, und schalte die Torwache ein. Wardarr trägt die Liste in jeden Dienst ein und hält sie dort aktuell.",
+    "step1": "Dateitypen wählen: am besten mit den Vorlagen anfangen.",
+    "step2": "Ort wählen: Der Download-Client ist die beste Stelle, weil er eine Datei stoppt, bevor sie auf der Platte landet.",
+    "step3": "Einschalten. Ab dann erscheinen blockierte Downloads hier und senken die Wertung des Indexers, der sie geliefert hat."
+  },
+  "map": {
+    "title": "Analyse-Karte",
+    "help": "Woher blockierte Downloads kamen und was in ihnen steckte. Zeig auf einen Indexer oder Dateityp, um ihm zu folgen.",
+    "label": "{{total}} blockierte Downloads: {{summary}}",
+    "hint": "Zeig auf einen Indexer oder Dateityp, um seinen Anteil zu sehen.",
+    "linkDetail": "{{name}} lieferte {{count}} Downloads mit {{ext}}.",
+    "indexerDetail": "{{name}}: {{count}} blockiert, {{rate}} von {{grabs}} Grabs.",
+    "indexerDetailNoGrabs": "{{name}}: {{count}} blockiert. Keine Grabs dieses Indexers im Verlauf.",
+    "extDetail_one": "{{ext}}: 1 Download.",
+    "extDetail_other": "{{ext}}: {{count}} Downloads.",
+    "ofGrabs": "{{rate}} von {{grabs}} Grabs",
+    "noGrabs": "keine Grabs bekannt",
+    "unknownIndexer": "Indexer unbekannt",
+    "unknownExt": "Typ unbekannt",
+    "other": "Andere",
+    "emptyTitle": "Noch nichts blockiert",
+    "emptyBody": "Sobald ein Download-Client oder eine *arr-App eine Datei von deiner Liste aufhält, erscheint sie hier mit dem Indexer, der sie geliefert hat.",
+    "unknownHelp": "SABnzbd meldet nur, dass es eine unerwünschte Datei gefunden hat, nicht welche. Solche Downloads stehen unter „Typ unbekannt“."
+  },
+  "impact": {
+    "title": "Wirkung auf die Indexer",
+    "help": "Die Indexer-Wertung mit und ohne blockierte Downloads. Saubere Indexer gewinnen etwas, Indexer, die viele davon liefern, verlieren bis zu 15 Punkte.",
+    "without": "Ohne blockierte Downloads",
+    "with": "Mit blockierten Downloads",
+    "row": "{{name}}: Wertung {{without}} wird {{with}}, {{caught}} von {{grabs}} Grabs blockiert",
+    "rowSame": "{{name}}: Wertung {{with}}, nichts blockiert",
+    "caught": "{{caught}} von {{grabs}} Grabs blockiert",
+    "clean": "nichts blockiert",
+    "notCounted": "Blockierte Downloads zählen für die Wertung, sobald die Torwache eingeschaltet ist.",
+    "empty": "In diesem Zeitraum hat noch kein Indexer Grabs.",
+    "more_one": "1 weiterer Indexer ohne blockierte Downloads",
+    "more_other": "{{count}} weitere Indexer ohne blockierte Downloads"
+  },
+  "list": {
+    "title": "Gesperrte Dateitypen",
+    "help": "Steckt eine Datei mit einer dieser Endungen in einem Download, wird er gestoppt. Was du in einem Dienst von Hand eingetragen hast, bleibt dort.",
+    "add": "Hinzufügen",
+    "addLabel": "Dateiendungen hinzufügen",
+    "addPlaceholder": "z. B. exe, .scr, lnk",
+    "remove": "{{ext}} entfernen",
+    "count_one": "1 Dateityp",
+    "count_other": "{{count}} Dateitypen",
+    "empty": "Noch keine Dateitypen. Fang mit einer Vorlage an.",
+    "invalid": "Das ist keine Dateiendung. Nutze Buchstaben und Ziffern, etwa exe oder ps1.",
+    "presetState": {
+      "all": "Alle drin",
+      "some": "{{count}} von {{total}} drin",
+      "none": "Nicht drin"
+    },
+    "caution": "Kann echte Releases treffen",
+    "presetAdd": "{{name}} hinzufügen",
+    "presetRemove": "{{name}} entfernen"
+  },
+  "presets": {
+    "executables": {
+      "name": "Programme",
+      "help": "Dateien, die sich selbst ausführen, etwa exe, scr und msi."
+    },
+    "scripts": {
+      "name": "Skripte und Verknüpfungen",
+      "help": "Dateien, die beim Öffnen Befehle ausführen, etwa bat, ps1, vbs und lnk."
+    },
+    "archives": {
+      "name": "Ungewöhnliche Archive",
+      "help": "Archivformate, die kein normales Release nutzt und die oft etwas verstecken sollen."
+    },
+    "images": {
+      "name": "Disk-Images",
+      "help": "iso, img und ähnliche. Manche echten Releases kommen als Image, nimm sie also nur dazu, wenn du sie nie willst."
+    }
+  },
+  "targets": {
+    "title": "Wo gesperrt wird",
+    "help": "Download-Clients stoppen eine Datei, bevor sie heruntergeladen ist; *arr-Apps merken es erst beim Import. Empfohlen ist der Download-Client.",
+    "allDownloaders": "Alle Download-Clients",
+    "allArrs": "Alle *arr-Apps",
+    "none": "Keiner deiner Dienste kann Dateiendungen sperren. SABnzbd, qBittorrent, Sonarr und Radarr können es.",
+    "notSupported": "Lidarr, NZBGet, Transmission und Deluge können keine Dateiendungen sperren. Sperr sie dort im Download-Client.",
+    "level": {
+      "downloader": "Download-Client",
+      "arr": "*arr-App"
+    },
+    "recommended": "empfohlen",
+    "sync": {
+      "inSync": "Aktiv",
+      "partial": "Teilweise",
+      "drift": "Veraltet",
+      "off": "Aus",
+      "error": "Nicht erreichbar",
+      "blocked": "Nicht möglich"
+    },
+    "detail": {
+      "downloader": "Stoppt den Download, sobald die Datei auftaucht.",
+      "arr": "Markiert den Download beim Import als fehlgeschlagen und sucht ein anderes Release.",
+      "partial_one": "Kann {{list}} nicht sperren. Diese App kennt nur feste Gruppen von Dateitypen.",
+      "partial_other": "Kann {{list}} nicht sperren. Diese App kennt nur feste Gruppen von Dateitypen.",
+      "drift": "Es fehlen {{list}}. Speichere, um sie wieder einzutragen.",
+      "indexers": "Auf {{covered}} von {{total}} Indexern.",
+      "whitelist": "SABnzbd lässt nur gelistete Dateitypen zu (Whitelist-Modus). Wardarr ändert das nicht.",
+      "tooOld": "Diese Version kann keine Dateiendungen sperren. Aktualisiere sie, um die Torwache hier zu nutzen.",
+      "noIndexers": "Diese App hat keine Indexer, für die sich die Prüfung einschalten lässt.",
+      "error": "Wardarr konnte die Einstellungen dieses Dienstes nicht lesen.",
+      "applyFailed": "Das Eintragen der Liste ist {{when}} fehlgeschlagen."
+    },
+    "more": "+{{count}} weitere"
+  },
+  "options": {
+    "sabAction": "Was SABnzbd mit so einem Download macht",
+    "sabActionHelp": "Abbrechen entfernt ihn sofort, damit die *arr-App ein anderes Release nehmen kann.",
+    "abort": "Abbrechen (empfohlen)",
+    "pause": "Pausieren",
+    "autoRepair": "Liste aktuell halten",
+    "autoRepairHelp": "Prüft alle 15 Minuten und trägt die Liste wieder ein, wenn ein Dienst sie verloren hat, etwa nach einem Prowlarr-Sync."
+  },
+  "save": "Speichern und übertragen",
+  "enable": "Torwache einschalten",
+  "discard": "Verwerfen",
+  "apply": "Erneut übertragen",
+  "unsaved": "Änderungen sind noch nicht gespeichert.",
+  "saved": "Gespeichert und in die Dienste übertragen.",
+  "recent": {
+    "title": "Zuletzt blockiert",
+    "empty": "In diesem Zeitraum wurde nichts blockiert.",
+    "unknownExt": "Dateityp unbekannt",
+    "unknownIndexer": "Indexer unbekannt",
+    "from": "von {{name}}",
+    "seenBy": "Gesehen von {{names}}",
+    "outcome": {
+      "aborted": "Abgebrochen",
+      "paused": "Pausiert",
+      "skipped": "Datei übersprungen",
+      "failed": "Als fehlgeschlagen markiert",
+      "held": "In der Warteschlange angehalten"
+    },
+    "showAll": "Alle {{count}} zeigen"
+  }
+}

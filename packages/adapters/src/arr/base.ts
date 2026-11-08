@@ -2,7 +2,13 @@
 // Whisparr). They share the same API shape with different paths and names.
 import {
   AdapterError,
+  ARR_EXTENSION_GROUPS,
+  arrGroupExtensions,
+  arrGroupsFor,
+  uniqueExtensions,
   type AdapterContext,
+  type ArrExtensionGroup,
+  type ExtensionBlockStatus,
   type ArrCustomFormat,
   type ArrLanguage,
   type ArrNaming,
@@ -114,6 +120,43 @@ interface IndexerResource {
   priority?: number;
   tags?: number[];
   fields?: Array<{ name?: string; value?: unknown }>;
+}
+
+/** Values of the per indexer `failDownloads` option (Sonarr v4+, Radarr v5+). */
+const FAIL_VALUE: Record<ArrExtensionGroup | 'user', number> = { executables: 0, dangerous: 1, user: 2 };
+
+const failValues = (r: IndexerResource): number[] | null => {
+  const field = r.fields?.find((f) => f.name === 'failDownloads');
+  if (!field) return null;
+  return Array.isArray(field.value) ? field.value.filter((v): v is number => typeof v === 'number') : [];
+};
+
+/**
+ * What an *arr app blocks: the fixed groups that every indexer with the
+ * option fails downloads for, plus the user list where the app has one.
+ */
+export function arrBlockStatus(
+  indexers: IndexerResource[],
+  userList: string[] | null,
+  version: string | null,
+): ExtensionBlockStatus {
+  const eligible = indexers.map(failValues).filter((v): v is number[] => v !== null);
+  const groups = (Object.keys(ARR_EXTENSION_GROUPS) as ArrExtensionGroup[]).filter(
+    (g) => eligible.length > 0 && eligible.every((v) => v.includes(FAIL_VALUE[g])),
+  );
+  const userOn =
+    userList !== null && eligible.length > 0 && eligible.every((v) => v.includes(FAIL_VALUE.user));
+  const extensions = uniqueExtensions([...arrGroupExtensions(groups), ...(userOn ? userList : [])]);
+  const covered = eligible.filter((v) => v.length > 0).length;
+  return {
+    style: userList === null ? 'groups' : 'list',
+    active: extensions.length > 0,
+    extensions,
+    ...(userList === null ? { possible: arrGroupExtensions(['executables', 'dangerous']) } : {}),
+    indexers: { covered, total: eligible.length },
+    version,
+    ...(eligible.length === 0 ? { blocker: 'noIndexers' as const } : {}),
+  };
 }
 
 /** Normalizes an *arr indexer; the API key field is never read. */
@@ -258,6 +301,8 @@ export function createArrInstance(
     webPaths?: Partial<Record<'indexer' | 'queue' | 'settings' | 'system', string>>;
     /** Lowest product major version with custom formats; enables `profileSync` and `qualityScan`. */
     profileSyncSince?: number;
+    /** The app can fail downloads with blocked files per indexer (Sonarr, Radarr). */
+    extensionBlock?: boolean;
   } = {},
 ): AdapterInstance & { flavor(): Promise<ArrFlavor>; detection(): Promise<ApiDetection> } {
   const headers = { 'X-Api-Key': ctx.credentials.apiKey };
@@ -357,7 +402,62 @@ export function createArrInstance(
           );
         };
 
+  type MediaManagement = Record<string, unknown> & { id?: number; userRejectedExtensions?: string };
+  const readBlock = async () => {
+    const [d, indexers, mm] = await Promise.all([
+      detection.get(),
+      get<IndexerResource[]>('/indexer'),
+      get<MediaManagement>('/config/mediamanagement').catch(() => ({}) as MediaManagement),
+    ]);
+    // Sonarr v5 has a free list next to the groups; older versions do not know the key.
+    const userList =
+      typeof mm.userRejectedExtensions === 'string'
+        ? uniqueExtensions(mm.userRejectedExtensions.split(/[\s,]+/))
+        : null;
+    return { status: arrBlockStatus(indexers, userList, d.productVersion ?? null), indexers, mm, userList };
+  };
+  const extensionBlock = extra.extensionBlock
+    ? {
+        async extensionBlock() {
+          return (await readBlock()).status;
+        },
+        async setExtensionBlock(change: { extensions: string[]; remove: string[] }) {
+          const { indexers, mm, userList } = await readBlock();
+          const builtIn = new Set(arrGroupExtensions(['executables', 'dangerous']));
+          const extraWanted = change.extensions.filter((e) => !builtIn.has(e));
+          const want = new Set(arrGroupsFor(change.extensions).map((g) => FAIL_VALUE[g]));
+          if (userList !== null && extraWanted.length) want.add(FAIL_VALUE.user);
+          // A group goes off only when Wardarr dropped its extensions and wants none of them.
+          const dropGroups = (Object.keys(ARR_EXTENSION_GROUPS) as ArrExtensionGroup[]).filter(
+            (g) =>
+              !arrGroupsFor(change.extensions).includes(g) &&
+              ARR_EXTENSION_GROUPS[g].some((e) => change.remove.includes(e)),
+          );
+          const drop = new Set(dropGroups.map((g) => FAIL_VALUE[g]));
+          for (const ix of indexers) {
+            const current = failValues(ix);
+            if (current === null) continue;
+            const next = [...new Set([...current.filter((v) => !drop.has(v)), ...want])].sort();
+            if (next.length === current.length && next.every((v) => current.includes(v))) continue;
+            const fields = ix.fields!.map((f) => (f.name === 'failDownloads' ? { ...f, value: next } : f));
+            await send('PUT', `/indexer/${ix.id}`, { ...ix, fields }, { forceSave: true });
+          }
+          if (userList !== null) {
+            const remove = new Set(change.remove);
+            const nextList = uniqueExtensions([...userList.filter((e) => !remove.has(e)), ...extraWanted]);
+            if (nextList.join(',') !== userList.join(','))
+              await send('PUT', `/config/mediamanagement${mm.id ? `/${mm.id}` : ''}`, {
+                ...mm,
+                userRejectedExtensions: nextList.join(', '),
+              });
+          }
+          return (await readBlock()).status;
+        },
+      }
+    : {};
+
   return {
+    ...extensionBlock,
     flavor,
     detection: () => detection.get(),
     profileSync,

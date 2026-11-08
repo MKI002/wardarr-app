@@ -49,6 +49,8 @@ import { TrendSampler, registerTrendRoutes } from './overview/trend.js';
 import { registerQualityRoutes } from './quality/routes.js';
 import { QualityService } from './quality/service.js';
 import { registerStorageRoutes } from './storage/routes.js';
+import { registerGatekeeperRoutes } from './gatekeeper/routes.js';
+import { GatekeeperService } from './gatekeeper/service.js';
 import { StorageService } from './storage/service.js';
 import { registerTrashRoutes } from './trash/routes.js';
 import { TrashService } from './trash/service.js';
@@ -105,6 +107,7 @@ export interface App {
   topology: TopologyService;
   indexerInsights: IndexerInsightsService;
   indexerPriorities: PriorityWatchdog;
+  gatekeeper: GatekeeperService;
   notifications: NotificationService;
   trash: TrashService;
   calendar: CalendarService;
@@ -202,6 +205,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   const transcoding = new TranscodingService(opts.db, runtime);
   const indexerInsights = new IndexerInsightsService(opts.db, features, runtime, bus, app.log);
   const indexerPriorities = new PriorityWatchdog(opts.db, runtime, indexerInsights, bus, app.log);
+  const gatekeeper = new GatekeeperService(opts.db, runtime, indexerInsights, bus, app.log);
   const notifications = new NotificationService(opts.db, opts.box, issues, app.log, {
     publicUrl: opts.publicUrl,
     ...opts.notificationOptions,
@@ -272,6 +276,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
   registerIndexerRoutes(app, { indexers });
   registerTopologyRoutes(app, { topology });
   registerIndexerInsightRoutes(app, { insights: indexerInsights, priorities: indexerPriorities });
+  registerGatekeeperRoutes(app, { gatekeeper });
   registerNotificationRoutes(app, { notifications });
   registerTrashRoutes(app, { trash });
   if (opts.backups) {
@@ -331,6 +336,7 @@ export async function buildApp(opts: AppOptions): Promise<App> {
     topology,
     indexerInsights,
     indexerPriorities,
+    gatekeeper,
     notifications,
     trash,
     calendar,

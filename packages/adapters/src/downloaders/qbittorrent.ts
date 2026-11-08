@@ -1,6 +1,17 @@
 // qBittorrent WebUI API v2. Uses cookie login; supports the 5.x endpoint
 // names and the 4.x ones, selected from the reported API version.
-import { AdapterError, defineAdapter, type DownloadJob } from '@wardarr/core';
+import {
+  AdapterError,
+  defineAdapter,
+  extensionOf,
+  extensionPattern,
+  patternExtension,
+  uniqueExtensions,
+  wildcardToRegExp,
+  type BlockedDownload,
+  type DownloadJob,
+  type ExtensionBlockStatus,
+} from '@wardarr/core';
 import { z } from 'zod';
 import { passwordField, usernameField } from '../shared/fields.js';
 import { ensureOk } from '../shared/http.js';
@@ -20,6 +31,47 @@ interface Torrent {
   category?: string;
   added_on?: number;
 }
+
+interface Preferences {
+  excluded_file_names_enabled?: boolean;
+  excluded_file_names?: string;
+}
+
+/** The excluded names list as qBittorrent keeps it: one wildcard pattern per line. */
+export function excludedPatterns(prefs: Preferences): string[] {
+  return (prefs.excluded_file_names ?? '')
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
+}
+
+export function qbitBlockStatus(prefs: Preferences, version: string | null): ExtensionBlockStatus {
+  // The option arrived in qBittorrent 4.6; older versions leave the keys out.
+  if (prefs.excluded_file_names_enabled === undefined)
+    return { style: 'list', active: false, extensions: [], blocker: 'tooOld', version };
+  const extensions = uniqueExtensions(
+    excludedPatterns(prefs)
+      .map(patternExtension)
+      .filter((e): e is string => !!e),
+  );
+  return {
+    style: 'list',
+    active: prefs.excluded_file_names_enabled === true && extensions.length > 0,
+    extensions,
+    version,
+  };
+}
+
+/** Keeps patterns that are not plain `*.ext` and rebuilds the extension ones. */
+export function nextExcludedPatterns(current: string[], remove: string[], wanted: string[]): string[] {
+  const drop = new Set(remove);
+  const other = current.filter((p) => patternExtension(p) === null);
+  const keep = current.map(patternExtension).filter((e): e is string => !!e && !drop.has(e));
+  return [...other, ...uniqueExtensions([...keep, ...wanted]).map(extensionPattern)];
+}
+
+/** At most this many new torrents get their file list read per run. */
+const FILE_READS_PER_RUN = 40;
 
 export function torrentState(state: string): DownloadJob['state'] {
   switch (state) {
@@ -68,7 +120,7 @@ export const qbittorrent = defineAdapter({
     username: z.string().max(256).optional(),
     password: z.string().max(1024).optional(),
   }),
-  capabilities: ['health', 'downloads'],
+  capabilities: ['health', 'downloads', 'extensionBlock'],
   create(ctx) {
     let sid: string | null = null;
     const port = portWatch();
@@ -181,6 +233,64 @@ export const qbittorrent = defineAdapter({
           links: [],
           folders: [folder(dir, 'downloads', { free: main.server_state?.free_space_on_disk })],
         };
+      },
+      async extensionBlock() {
+        const [version, prefs] = await Promise.all([
+          get('/api/v2/app/version'),
+          get('/api/v2/app/preferences'),
+        ]);
+        return qbitBlockStatus(JSON.parse(prefs) as Preferences, version.trim());
+      },
+      async setExtensionBlock(change) {
+        const prefs = JSON.parse(await get('/api/v2/app/preferences')) as Preferences;
+        if (prefs.excluded_file_names_enabled === undefined)
+          throw new AdapterError('unsupported', 'qBittorrent is too old for excluded file names');
+        const patterns = nextExcludedPatterns(excludedPatterns(prefs), change.remove, change.extensions);
+        await post('/api/v2/app/setPreferences', {
+          json: JSON.stringify({
+            excluded_file_names_enabled: true,
+            excluded_file_names: patterns.join('\n'),
+          }),
+        });
+        const [version, after] = await Promise.all([
+          get('/api/v2/app/version'),
+          get('/api/v2/app/preferences'),
+        ]);
+        return qbitBlockStatus(JSON.parse(after) as Preferences, version.trim());
+      },
+      async blockedDownloads(since) {
+        const prefs = JSON.parse(await get('/api/v2/app/preferences')) as Preferences;
+        const patterns = prefs.excluded_file_names_enabled
+          ? excludedPatterns(prefs).map(wildcardToRegExp)
+          : [];
+        if (patterns.length === 0) return [];
+        const from = Math.floor(Date.parse(since) / 1000);
+        const list = (
+          JSON.parse(await get('/api/v2/torrents/info', { sort: 'added_on', reverse: 'true' })) as Torrent[]
+        )
+          .filter((t) => (t.added_on ?? 0) >= from)
+          .slice(0, FILE_READS_PER_RUN);
+        const out: BlockedDownload[] = [];
+        for (const t of list) {
+          const files = JSON.parse(await get('/api/v2/torrents/files', { hash: t.hash })) as Array<{
+            name: string;
+            priority: number;
+          }>;
+          const hits = files.filter((f) => {
+            if (f.priority !== 0) return false;
+            const base = f.name.split(/[\\/]/).pop() ?? f.name;
+            return patterns.some((re) => re.test(base) || re.test(f.name));
+          });
+          if (hits.length === 0) continue;
+          out.push({
+            downloadId: t.hash,
+            name: t.name,
+            at: new Date((t.added_on ?? 0) * 1000).toISOString(),
+            extensions: uniqueExtensions(hits.map((f) => extensionOf(f.name) ?? '')),
+            outcome: 'skipped',
+          });
+        }
+        return out;
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

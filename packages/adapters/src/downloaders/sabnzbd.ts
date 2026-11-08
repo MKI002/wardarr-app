@@ -1,4 +1,12 @@
-import { AdapterError, defineAdapter, type DownloadJob, type Signal } from '@wardarr/core';
+import {
+  AdapterError,
+  defineAdapter,
+  uniqueExtensions,
+  type BlockedDownload,
+  type DownloadJob,
+  type ExtensionBlockStatus,
+  type Signal,
+} from '@wardarr/core';
 import { z } from 'zod';
 import { folder, part } from '../shared/topology.js';
 import { jsonOf } from '../shared/http.js';
@@ -18,6 +26,46 @@ interface QueueSlot {
 interface QueueResponse {
   queue?: { slots?: QueueSlot[]; kbpersec?: string; paused?: boolean; pause_int?: string };
   error?: string;
+}
+
+interface MiscConfig {
+  complete_dir?: string;
+  download_dir?: string;
+  unwanted_extensions?: string[] | string;
+  action_on_unwanted_extensions?: number | string;
+  unwanted_extensions_mode?: number | string;
+}
+
+interface HistorySlot {
+  nzo_id?: string;
+  name?: string;
+  status?: string;
+  fail_message?: string;
+  completed?: number;
+}
+
+/** SABnzbd's list comes as an array or as "exe, com" depending on the version. */
+export function sabList(v: unknown): string[] {
+  if (Array.isArray(v)) return uniqueExtensions(v.map(String));
+  if (typeof v === 'string') return uniqueExtensions(v.split(/[\s,]+/));
+  return [];
+}
+
+const SAB_ACTION = { 0: 'off', 1: 'pause', 2: 'abort' } as const;
+
+export function sabBlockStatus(misc: MiscConfig, version: string | null): ExtensionBlockStatus {
+  const action = SAB_ACTION[Number(misc.action_on_unwanted_extensions ?? 0) as 0 | 1 | 2] ?? 'off';
+  const extensions = sabList(misc.unwanted_extensions);
+  // Mode 1 turns the list into the files that are allowed.
+  const whitelist = Number(misc.unwanted_extensions_mode ?? 0) === 1;
+  return {
+    style: 'list',
+    active: action !== 'off' && extensions.length > 0 && !whitelist,
+    extensions: whitelist ? [] : extensions,
+    action,
+    version,
+    ...(whitelist ? { blocker: 'whitelist' as const } : {}),
+  };
 }
 
 function parseTimeLeft(s: string | undefined): number | null {
@@ -65,7 +113,7 @@ export const sabnzbd = defineAdapter({
     },
   ],
   credentials: z.object({ apiKey: z.string().trim().min(1).max(256) }),
-  capabilities: ['health', 'downloads'],
+  capabilities: ['health', 'downloads', 'extensionBlock'],
   create(ctx) {
     const call = async <T>(mode: string, extra: Record<string, string> = {}) => {
       const res = jsonOf<T & { error?: string; status?: boolean }>(
@@ -143,7 +191,7 @@ export const sabnzbd = defineAdapter({
           part(() => call<{ queue?: Record<string, unknown> }>('queue', { limit: '1' }), {}),
           part(
             () =>
-              call<{ config?: { misc?: { complete_dir?: string; download_dir?: string } } }>('get_config', {
+              call<{ config?: { misc?: MiscConfig } }>('get_config', {
                 section: 'misc',
               }),
             {},
@@ -166,6 +214,54 @@ export const sabnzbd = defineAdapter({
             folder(misc.download_dir, 'downloads', { free: gb(q.diskspace1), total: gb(q.diskspacetotal1) }),
           );
         return { links: [], folders };
+      },
+      async extensionBlock() {
+        const [v, config] = await Promise.all([
+          call<{ version?: string }>('version'),
+          call<{ config?: { misc?: MiscConfig } }>('get_config', { section: 'misc' }),
+        ]);
+        return sabBlockStatus(config.config?.misc ?? {}, v.version ?? null);
+      },
+      async setExtensionBlock(change) {
+        const read = async () =>
+          (await call<{ config?: { misc?: MiscConfig } }>('get_config', { section: 'misc' })).config?.misc ??
+          {};
+        const misc = await read();
+        if (Number(misc.unwanted_extensions_mode ?? 0) === 1)
+          throw new AdapterError('unsupported', 'SABnzbd uses the list as a whitelist');
+        const remove = new Set(change.remove);
+        const next = uniqueExtensions([
+          ...sabList(misc.unwanted_extensions).filter((e) => !remove.has(e)),
+          ...change.extensions,
+        ]);
+        await call('set_config', { section: 'misc', keyword: 'unwanted_extensions', value: next.join(',') });
+        const action = change.action === 'pause' ? '1' : '2';
+        if (String(misc.action_on_unwanted_extensions ?? '0') !== action)
+          await call('set_config', {
+            section: 'misc',
+            keyword: 'action_on_unwanted_extensions',
+            value: action,
+          });
+        const v = await call<{ version?: string }>('version');
+        return sabBlockStatus(await read(), v.version ?? null);
+      },
+      async blockedDownloads(since) {
+        const res = await call<{ history?: { slots?: HistorySlot[] } }>('history', {
+          failed_only: '1',
+          limit: '200',
+        });
+        const from = Date.parse(since);
+        return (res.history?.slots ?? [])
+          .filter((h) => h.nzo_id && /unwanted extension/i.test(h.fail_message ?? ''))
+          .map((h): BlockedDownload => ({
+            downloadId: h.nzo_id!,
+            name: h.name ?? h.nzo_id!,
+            at: new Date((h.completed ?? 0) * 1000).toISOString(),
+            // SABnzbd does not say which file it found.
+            extensions: [],
+            outcome: 'aborted',
+          }))
+          .filter((b) => Date.parse(b.at) >= from);
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

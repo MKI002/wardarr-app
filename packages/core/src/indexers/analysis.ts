@@ -64,9 +64,20 @@ export interface ScoreInput {
   uptime: number | null;
   /** Imported grabs / finished grabs, 0..1. */
   importRate: number | null;
+  /**
+   * 0..1 from the gatekeeper's blocked downloads (`cleanScore`). Null when
+   * the gatekeeper does not watch, so scores stay as they were without it.
+   */
+  cleanScore?: number | null;
 }
 
-export const SCORE_WEIGHTS = { successRate: 0.35, response: 0.2, uptime: 0.25, importRate: 0.2 } as const;
+export const SCORE_WEIGHTS = {
+  successRate: 0.35,
+  response: 0.2,
+  uptime: 0.25,
+  importRate: 0.2,
+  clean: 0.15,
+} as const;
 
 /**
  * A 0-100 score that combines reliability, speed, availability and whether
@@ -81,6 +92,8 @@ export function indexerScore(input: ScoreInput): number | null {
   if (input.uptime !== null) parts.push([input.uptime, SCORE_WEIGHTS.uptime]);
   if (input.importRate !== null) parts.push([input.importRate, SCORE_WEIGHTS.importRate]);
   if (parts.length === 0) return null;
+  if (input.cleanScore !== null && input.cleanScore !== undefined)
+    parts.push([input.cleanScore, SCORE_WEIGHTS.clean]);
   const weight = parts.reduce((s, [, w]) => s + w, 0);
   const value = parts.reduce((s, [v, w]) => s + Math.max(0, Math.min(1, v)) * w, 0) / weight;
   return Math.round(value * 100);

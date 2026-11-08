@@ -455,6 +455,14 @@ try {
   });
   await must('POST', '/api/indexer-insights/priorities/run');
 
+  // The gatekeeper on in both download clients and the full-HD *arr apps,
+  // then one read of what they blocked.
+  await must('PUT', '/api/gatekeeper/settings', {
+    targets: Object.fromEntries(['sabnzbd', 'qbittorrent', 'sonarr', 'radarr'].map((k) => [ids[k], true])),
+  });
+  await must('POST', '/api/gatekeeper/collect');
+  await must('POST', '/api/indexer-insights/collect');
+
   // Quality scores: hand-made custom formats next to the TRaSH ones, then
   // read every file once and wait until all reads are done.
   await fetch(`${MOCK}/__quality`, { method: 'POST' });
@@ -552,6 +560,7 @@ try {
   for (const range of ['24h', '7d', '30d', '90d']) await get(`/api/indexer-insights?range=${range}`);
   await get('/api/indexer-insights/priorities');
   for (const days of [30, 90, 365]) await get(`/api/storage?days=${days}`);
+  for (const range of ['7d', '30d', '90d']) await get(`/api/gatekeeper?range=${range}`);
 
   for (const days of [7, 30, 90, 365]) {
     await get(`/api/library?days=${days}`);

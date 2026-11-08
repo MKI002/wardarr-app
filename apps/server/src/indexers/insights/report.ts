@@ -2,6 +2,7 @@
 // outages, app traffic, a weekday x hour heatmap and "worth a look" notes.
 import {
   agentProduct,
+  cleanScore,
   downtimeIntervals,
   indexerScore,
   median,
@@ -15,7 +16,14 @@ import {
 } from '@wardarr/core';
 import { and, gte, lt, sql } from 'drizzle-orm';
 import type { Db } from '../../db/index.js';
-import { indexerGrabs, indexerSourceDaily, indexerStatBuckets, indexerStatusLog } from '../../db/schema.js';
+import {
+  gatekeeperCatches,
+  gatekeeperSettings,
+  indexerGrabs,
+  indexerSourceDaily,
+  indexerStatBuckets,
+  indexerStatusLog,
+} from '../../db/schema.js';
 import type { SourcesSnapshot } from './service.js';
 
 export const RANGES = ['24h', '7d', '30d', '90d'] as const;
@@ -63,7 +71,13 @@ export interface TrackerMetrics {
   importRate: number | null;
   medianImportMinutes: number | null;
   grabbedBytes: number;
+  /** Grabs the gatekeeper saw blocked because of a file. */
+  caught: number;
+  /** 0..1 part of the score from blocked grabs; null while the gatekeeper does not watch. */
+  cleanScore: number | null;
   score: number | null;
+  /** The score without the gatekeeper part, to show what blocked grabs cost. */
+  scoreWithoutClean: number | null;
 }
 
 export interface TrackerRow {
@@ -101,6 +115,7 @@ export interface Insight {
     | 'slow'
     | 'noGrabs'
     | 'lowImport'
+    | 'blocked'
     | 'best';
   tone: 'critical' | 'warning' | 'info' | 'ok';
   /** Values for the sentence. */
@@ -267,7 +282,10 @@ export function buildReport(db: Db, ctx: BuildContext): InsightsReport {
     importRate: null,
     medianImportMinutes: null,
     grabbedBytes: 0,
+    caught: 0,
+    cleanScore: null,
     score: null,
+    scoreWithoutClean: null,
   });
   for (const t of analysis.trackers) {
     const status = t.prowlarr ? ctx.currentStatus(t.prowlarr.instanceId, t.prowlarr.indexerId) : null;
@@ -467,6 +485,18 @@ export function buildReport(db: Db, ctx: BuildContext): InsightsReport {
   let arrGrabs = 0;
   let imported = 0;
   let failedDownloads = 0;
+  // The gatekeeper's catches count once it is set up; until then scores stay as they were.
+  const watching = !!db.select({ id: gatekeeperSettings.id }).from(gatekeeperSettings).get();
+  const caughtIds = watching
+    ? new Set(
+        db
+          .select({ id: gatekeeperCatches.downloadId })
+          .from(gatekeeperCatches)
+          .where(gte(gatekeeperCatches.at, iso(from - DAY)))
+          .all()
+          .map((c) => c.id),
+      )
+    : new Set<string>();
   for (const g of grabs) {
     const key =
       nameToKey.get(`${g.instanceId}\u0000${g.indexer.trim().toLowerCase()}`) ??
@@ -476,6 +506,7 @@ export function buildReport(db: Db, ctx: BuildContext): InsightsReport {
     const m = row.metrics;
     m.arrGrabs++;
     m.grabbedBytes += g.sizeBytes ?? 0;
+    if (caughtIds.has(g.downloadId.toLowerCase())) m.caught++;
     const a = appGrabs.get(g.instanceId) ?? { total: 0, imported: 0, failed: 0 };
     a.total++;
     arrGrabs++;
@@ -504,15 +535,16 @@ export function buildReport(db: Db, ctx: BuildContext): InsightsReport {
     const mins = median(importMinutes.get(row.key) ?? []);
     m.medianImportMinutes = mins === null ? null : Math.round(mins);
     // Availability alone says nothing about an indexer nobody used.
-    m.score =
-      m.successRate === null && m.importRate === null
-        ? null
-        : indexerScore({
-            successRate: m.successRate,
-            averageResponseMs: m.averageResponseMs,
-            uptime: m.uptime,
-            importRate: m.importRate,
-          });
+    m.cleanScore = watching ? cleanScore(m.caught, m.arrGrabs) : null;
+    const scoreInput = {
+      successRate: m.successRate,
+      averageResponseMs: m.averageResponseMs,
+      uptime: m.uptime,
+      importRate: m.importRate,
+    };
+    const scored = m.successRate !== null || m.importRate !== null;
+    m.score = scored ? indexerScore({ ...scoreInput, cleanScore: m.cleanScore }) : null;
+    m.scoreWithoutClean = scored ? indexerScore(scoreInput) : null;
     const steps = stepResponses.get(row.key);
     if (steps) row.series.responseMs = steps.map((s) => roundOrNull(weightedAverage(s)));
     if (m.averageResponseMs !== null) m.averageResponseMs = Math.round(m.averageResponseMs);
@@ -703,6 +735,16 @@ export function buildInsights(report: InsightsReport, ctx: Pick<BuildContext, 'p
         tone: 'info',
         params: { name: t.name, queries: m.queries - m.rssQueries },
         url: purl,
+        trackerKey: t.key,
+      });
+    }
+    if (m.caught >= 2) {
+      const percent = m.arrGrabs > 0 ? Math.round((m.caught / m.arrGrabs) * 100) : 0;
+      out.push({
+        kind: 'blocked',
+        tone: percent >= 10 ? 'critical' : 'warning',
+        params: { name: t.name, count: m.caught, percent },
+        url: null,
         trackerKey: t.key,
       });
     }

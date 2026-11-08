@@ -271,6 +271,21 @@ async function mutate(method: string, path: string, init: RequestInit | undefine
     answers.set(path, ok(next));
     return ok(next);
   }
+  // The gatekeeper: settings change in memory; writing into the services needs a real server.
+  if (path === '/api/gatekeeper/settings') {
+    let config: Json = null;
+    updateAll('/api/gatekeeper?', (b) => {
+      const view = obj(b);
+      config = { ...obj(view.config), ...input };
+      const targets = list(view.targets).map((x) => {
+        const t = obj(x);
+        const enabled = obj(obj(config).targets)[String(t.instanceId)] === true;
+        return { ...t, enabled };
+      });
+      return { ...view, configured: true, config, targets };
+    });
+    return ok({ config });
+  }
   if (path === '/api/indexer-insights/priorities/run') {
     const view = obj(body('/api/indexer-insights/priorities'));
     return ok({ run: view.lastRun ?? null, view });
