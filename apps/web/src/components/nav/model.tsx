@@ -7,7 +7,7 @@ export type GroupId = 'status' | 'media' | 'automation' | 'system';
 /** Sections in the order they appear; Settings sits apart at the bottom. */
 export const GROUPS: Array<{ id: GroupId; tabs: string[] }> = [
   { id: 'status', tabs: ['overview', 'issues', 'map'] },
-  { id: 'media', tabs: ['discover', 'requests', 'library', 'calendar'] },
+  { id: 'media', tabs: ['discover', 'requests', 'library', 'quality', 'calendar'] },
   { id: 'automation', tabs: ['cleaner', 'hunting', 'trash', 'tdarr'] },
   { id: 'system', tabs: ['indexers', 'indexerInsights', 'storage'] },
 ];
@@ -19,6 +19,7 @@ export const TAB_PATHS: Record<string, string> = {
   discover: '/discover',
   requests: '/requests',
   library: '/library',
+  quality: '/quality',
   calendar: '/calendar',
   cleaner: '/cleaner',
   hunting: '/hunting',
@@ -75,6 +76,7 @@ const ICONS: Record<string, string> = {
   discover: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm3.5 5.5-2 5-5 2 2-5z',
   requests: 'M8 4h8l1 3H7zM5 7h14v13H5zM9 12h6M9 16h4',
   library: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2 15.5-3.5 1z',
+  quality: 'M7 4h10l4 5-9 11L3 9zM3 9h18M10 4 8.5 9 12 20l3.5-11L14 4',
   calendar: 'M4 6.5h16V20H4zM4 10.5h16M8.5 3.5v5M15.5 3.5v5M8 14.5h3v3H8z',
   cleaner: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6',
   hunting: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4M11 8v6M8 11h6',

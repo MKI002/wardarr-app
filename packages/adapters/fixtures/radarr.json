@@ -144,41 +144,6 @@
       "json": []
     },
     {
-      "path": "/api/v3/movie",
-      "headers": {
-        "X-Api-Key": "00000000000000000000000000000001"
-      },
-      "json": [
-        {
-          "id": 31,
-          "title": "Missing Movie",
-          "year": 2024,
-          "monitored": true,
-          "hasFile": false,
-          "isAvailable": true,
-          "tags": []
-        },
-        {
-          "id": 32,
-          "title": "Future Movie",
-          "year": 2027,
-          "monitored": true,
-          "hasFile": false,
-          "isAvailable": false,
-          "tags": []
-        },
-        {
-          "id": 33,
-          "title": "Owned Movie",
-          "year": 2021,
-          "monitored": true,
-          "hasFile": true,
-          "isAvailable": true,
-          "tags": []
-        }
-      ]
-    },
-    {
       "method": "POST",
       "path": "/api/v3/command",
       "headers": {
@@ -262,6 +227,175 @@
           "accessible": true,
           "freeSpace": 1288490188800,
           "unmappedFolders": []
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/movie",
+      "headers": {
+        "X-Api-Key": "00000000000000000000000000000001"
+      },
+      "json": [
+        {
+          "id": 31,
+          "title": "Missing Movie",
+          "year": 2024,
+          "monitored": true,
+          "hasFile": false,
+          "isAvailable": true,
+          "tags": []
+        },
+        {
+          "id": 32,
+          "title": "Future Movie",
+          "year": 2027,
+          "monitored": true,
+          "hasFile": false,
+          "isAvailable": false,
+          "tags": []
+        },
+        {
+          "id": 33,
+          "title": "Owned Movie",
+          "year": 2021,
+          "monitored": true,
+          "hasFile": true,
+          "isAvailable": true,
+          "tags": []
+        },
+        {
+          "id": 34,
+          "title": "Example Film",
+          "year": 1927,
+          "titleSlug": "example-film-1927",
+          "tmdbId": 900033,
+          "qualityProfileId": 1,
+          "monitored": true,
+          "hasFile": true,
+          "isAvailable": true,
+          "tags": [],
+          "movieFile": {
+            "id": 401
+          }
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/customformat",
+      "json": [
+        {
+          "id": 1,
+          "name": "Language: German",
+          "specifications": [
+            {
+              "implementation": "LanguageSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "HDR: Dolby Vision",
+          "specifications": [
+            {
+              "implementation": "ReleaseTitleSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": "\\bDV\\b"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Reject: LQ Groups",
+          "specifications": [
+            {
+              "implementation": "ReleaseGroupSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": "^BADGROUP$"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/qualityprofile",
+      "json": [
+        {
+          "id": 1,
+          "name": "Example HD",
+          "upgradeAllowed": true,
+          "cutoff": 7,
+          "cutoffFormatScore": 1000,
+          "minFormatScore": 0,
+          "items": [],
+          "formatItems": [
+            {
+              "format": 1,
+              "name": "Language: German",
+              "score": 1000
+            },
+            {
+              "format": 2,
+              "name": "HDR: Dolby Vision",
+              "score": 500
+            },
+            {
+              "format": 3,
+              "name": "Reject: LQ Groups",
+              "score": -10000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/moviefile?movieFileIds=401",
+      "json": [
+        {
+          "id": 401,
+          "movieId": 34,
+          "size": 8000000000,
+          "customFormats": [
+            {
+              "id": 1,
+              "name": "Language: German"
+            },
+            {
+              "id": 2,
+              "name": "HDR: Dolby Vision"
+            }
+          ],
+          "customFormatScore": 1500,
+          "quality": {
+            "quality": {
+              "id": 7,
+              "name": "Bluray-2160p",
+              "source": "bluray",
+              "resolution": 2160
+            }
+          },
+          "mediaInfo": {
+            "videoCodec": "HEVC",
+            "audioCodec": "TrueHD Atmos",
+            "audioChannels": 5.1,
+            "videoDynamicRangeType": "DV HDR10",
+            "audioLanguages": "ger/eng",
+            "subtitles": "ger/eng",
+            "resolution": "1920x1080"
+          }
         }
       ]
     },
@@ -353,6 +487,12 @@
     "storage": {
       "mounts": ["/", "/media"],
       "rootFolders": ["/media/movies"]
+    },
+    "quality": {
+      "titles": 1,
+      "files": 1,
+      "perfect": 1500,
+      "webUrl": "/movie/example-film-1927"
     }
   }
 }

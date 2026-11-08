@@ -4,7 +4,13 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { CAPABILITIES } from '@wardarr/core';
-import { AdapterError, groupDisks, type AdapterDefinition, type AdapterInstance } from '@wardarr/core';
+import {
+  AdapterError,
+  buildQualityReport,
+  groupDisks,
+  type AdapterDefinition,
+  type AdapterInstance,
+} from '@wardarr/core';
 import { resources } from '@wardarr/i18n';
 import { describe, expect, it } from 'vitest';
 import { ADAPTERS } from '../src/index.js';
@@ -39,6 +45,8 @@ interface Fixture {
     calendar?: { start: string; end: string; entries: Array<Record<string, unknown>> };
     /** Mount paths Wardarr keeps after grouping, and the root folders on them. */
     storage?: { mounts: string[]; rootFolders: string[] };
+    /** Titles with files, files, the perfect score of the first profile and a title link. */
+    quality?: { titles: number; files: number; perfect: number; webUrl: string };
   };
 }
 
@@ -92,6 +100,7 @@ const METHOD_FOR: Partial<Record<(typeof CAPABILITIES)[number], keyof AdapterIns
   calendar: 'calendar',
   storage: 'storage',
   transcoding: 'transcoding',
+  qualityScore: 'qualityScan',
 };
 
 describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDef) => {
@@ -300,6 +309,24 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
       const paths = disks.flatMap((d) => d.members.map((m) => m.path)).sort();
       expect(paths).toEqual(fx.expect.storage?.mounts);
       expect(disks.find((d) => d.media)?.members[0]?.rootFolders).toEqual(fx.expect.storage?.rootFolders);
+    });
+  }
+
+  if (def.capabilities.includes('qualityScore')) {
+    it('reads every file with its custom formats and media info', async () => {
+      const { adapter } = instantiate(def, fx);
+      const progress: Array<[number, number]> = [];
+      const scan = await adapter.qualityScan!((done, total) => progress.push([done, total]));
+      const want = fx.expect.quality!;
+      expect(scan.titles).toHaveLength(want.titles);
+      expect(scan.files).toHaveLength(want.files);
+      expect(scan.titles[0]?.webUrl).toBe(`${fx.baseUrl}${want.webUrl}`);
+      expect(scan.files[0]?.formatIds.length).toBeGreaterThan(0);
+      expect(scan.files[0]?.media.audioLanguages).toContain('ger');
+      expect(progress.at(-1)?.[0]).toBe(progress.at(-1)?.[1]);
+      const report = buildQualityReport(scan);
+      expect(report.profiles[0]?.perfect).toBe(want.perfect);
+      expect(report.files).toBe(want.files);
     });
   }
 

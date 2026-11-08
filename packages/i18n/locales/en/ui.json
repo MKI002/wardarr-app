@@ -67,6 +67,7 @@
     "discover": "Discover",
     "requests": "Requests",
     "library": "Library",
+    "quality": "Quality score",
     "indexers": "Indexers",
     "indexerInsights": "Indexer insights",
     "trash": "TRaSH Guides",

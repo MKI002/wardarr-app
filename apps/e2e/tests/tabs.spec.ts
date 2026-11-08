@@ -52,6 +52,7 @@ test('rapid switching between main tabs always ends on a visible page', async ()
     ['Issues', 'Settings', 'Issues', 'Settings'],
     ['Overview', 'Settings', 'Overview'],
     ['Settings', 'Library', 'Settings', 'Library', 'Settings'],
+    ['Quality score', 'Overview', 'Quality score'],
   ];
   for (const [i, path] of rounds.entries()) {
     for (const name of path) {

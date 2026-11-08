@@ -15,6 +15,7 @@ const TABS: Array<{ id: string; needs: Capability | Capability[] | null; role: '
   { id: 'cleaner', needs: 'queueActions', role: 'admin' },
   { id: 'hunting', needs: 'search', role: 'admin' },
   { id: 'library', needs: 'library', role: 'user' },
+  { id: 'quality', needs: 'qualityScore', role: 'admin' },
   { id: 'indexers', needs: 'indexers', role: 'admin' },
   // Works with Prowlarr, and with *arr apps alone (their own indexers and grabs).
   { id: 'indexerInsights', needs: ['indexers', 'search'], role: 'admin' },

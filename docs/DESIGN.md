@@ -66,12 +66,12 @@ on content (see _Motion_).
 Pages live in a sidebar on screens from 1024 px, grouped into four sections
 by the question a person opens Wardarr with:
 
-| Section    | Question                     | Pages                                       |
-| ---------- | ---------------------------- | ------------------------------------------- |
-| Status     | Is everything fine?          | Overview, Issues, Map                       |
-| Media      | What is there to watch?      | Discover, Requests, Library, Calendar       |
-| Automation | What does Wardarr do for me? | Queue Cleaner, Hunting, TRaSH Guides, Tdarr |
-| System     | How is the stack underneath? | Indexers, Indexer insights, Storage         |
+| Section    | Question                     | Pages                                                |
+| ---------- | ---------------------------- | ---------------------------------------------------- |
+| Status     | Is everything fine?          | Overview, Issues, Map                                |
+| Media      | What is there to watch?      | Discover, Requests, Library, Quality score, Calendar |
+| Automation | What does Wardarr do for me? | Queue Cleaner, Hunting, TRaSH Guides, Tdarr          |
+| System     | How is the stack underneath? | Indexers, Indexer insights, Storage                  |
 
 Settings (with backups) and the account menu sit apart at the bottom. The sidebar folds to an
 icon rail and every section folds on its own; both are remembered per browser.

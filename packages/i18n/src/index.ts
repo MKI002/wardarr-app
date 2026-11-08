@@ -9,6 +9,7 @@ import enHunting from '../locales/en/hunting.json' with { type: 'json' };
 import enInsights from '../locales/en/insights.json' with { type: 'json' };
 import enIssues from '../locales/en/issues.json' with { type: 'json' };
 import enNotifications from '../locales/en/notifications.json' with { type: 'json' };
+import enQuality from '../locales/en/quality.json' with { type: 'json' };
 import enTrash from '../locales/en/trash.json' with { type: 'json' };
 import enUi from '../locales/en/ui.json' with { type: 'json' };
 import deAdapters from '../locales/de/adapters.json' with { type: 'json' };
@@ -20,6 +21,7 @@ import deHunting from '../locales/de/hunting.json' with { type: 'json' };
 import deInsights from '../locales/de/insights.json' with { type: 'json' };
 import deIssues from '../locales/de/issues.json' with { type: 'json' };
 import deNotifications from '../locales/de/notifications.json' with { type: 'json' };
+import deQuality from '../locales/de/quality.json' with { type: 'json' };
 import deTrash from '../locales/de/trash.json' with { type: 'json' };
 import deUi from '../locales/de/ui.json' with { type: 'json' };
 
@@ -41,6 +43,7 @@ export const resources = {
       insights: enInsights,
       backups: enBackups,
       calendar: enCalendar,
+      quality: enQuality,
     },
   },
   de: {
@@ -56,6 +59,7 @@ export const resources = {
       insights: deInsights,
       backups: deBackups,
       calendar: deCalendar,
+      quality: deQuality,
     },
   },
 } as const;

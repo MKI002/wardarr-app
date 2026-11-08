@@ -395,6 +395,178 @@
       ]
     },
     {
+      "path": "/api/v3/customformat",
+      "json": [
+        {
+          "id": 1,
+          "name": "Language: German",
+          "specifications": [
+            {
+              "implementation": "LanguageSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "HDR: Dolby Vision",
+          "specifications": [
+            {
+              "implementation": "ReleaseTitleSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": "\\bDV\\b"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Reject: LQ Groups",
+          "specifications": [
+            {
+              "implementation": "ReleaseGroupSpecification",
+              "fields": [
+                {
+                  "name": "value",
+                  "value": "^BADGROUP$"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/qualityprofile",
+      "json": [
+        {
+          "id": 1,
+          "name": "Example HD",
+          "upgradeAllowed": true,
+          "cutoff": 7,
+          "cutoffFormatScore": 1000,
+          "minFormatScore": 0,
+          "items": [],
+          "formatItems": [
+            {
+              "format": 1,
+              "name": "Language: German",
+              "score": 1000
+            },
+            {
+              "format": 2,
+              "name": "HDR: Dolby Vision",
+              "score": 500
+            },
+            {
+              "format": 3,
+              "name": "Reject: LQ Groups",
+              "score": -10000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/series",
+      "json": [
+        {
+          "id": 21,
+          "title": "Example Show",
+          "year": 2021,
+          "titleSlug": "example-show",
+          "qualityProfileId": 1,
+          "statistics": {
+            "episodeFileCount": 2
+          }
+        },
+        {
+          "id": 22,
+          "title": "Empty Show",
+          "year": 2022,
+          "titleSlug": "empty-show",
+          "qualityProfileId": 1,
+          "statistics": {
+            "episodeFileCount": 0
+          }
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/episodefile",
+      "query": {
+        "seriesId": "21"
+      },
+      "json": [
+        {
+          "id": 301,
+          "seriesId": 21,
+          "size": 1500000000,
+          "customFormats": [
+            {
+              "id": 1,
+              "name": "Language: German"
+            }
+          ],
+          "customFormatScore": 1000,
+          "quality": {
+            "quality": {
+              "id": 3,
+              "name": "WEBDL-1080p",
+              "source": "web",
+              "resolution": 1080
+            }
+          },
+          "mediaInfo": {
+            "videoCodec": "x265",
+            "audioCodec": "EAC3",
+            "audioChannels": 5.1,
+            "videoDynamicRangeType": "",
+            "audioLanguages": "ger/eng",
+            "subtitles": "ger",
+            "resolution": "1920x1080"
+          }
+        },
+        {
+          "id": 302,
+          "seriesId": 21,
+          "size": 1400000000,
+          "customFormats": [
+            {
+              "id": 3,
+              "name": "Reject: LQ Groups"
+            }
+          ],
+          "customFormatScore": -10000,
+          "quality": {
+            "quality": {
+              "id": 3,
+              "name": "WEBDL-1080p",
+              "source": "web",
+              "resolution": 1080
+            }
+          },
+          "mediaInfo": {
+            "videoCodec": "h264",
+            "audioCodec": "AAC",
+            "audioChannels": 5.1,
+            "videoDynamicRangeType": "",
+            "audioLanguages": "eng",
+            "subtitles": "",
+            "resolution": "1920x1080"
+          }
+        }
+      ]
+    },
+    {
       "path": "*",
       "status": 401,
       "json": {
@@ -528,6 +700,12 @@
     "storage": {
       "mounts": ["/", "/media"],
       "rootFolders": ["/media/tv"]
+    },
+    "quality": {
+      "titles": 1,
+      "files": 2,
+      "perfect": 1500,
+      "webUrl": "/series/example-show"
     }
   }
 }

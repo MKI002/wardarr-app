@@ -15,7 +15,8 @@ export interface WardarrEvent {
     | 'trash.updated'
     | 'indexers.updated'
     | 'backups.updated'
-    | 'storage.updated';
+    | 'storage.updated'
+    | 'quality.updated';
   audience: Audience;
   data?: unknown;
 }

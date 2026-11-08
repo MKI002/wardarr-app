@@ -34,6 +34,8 @@ const SYNONYMS: Record<string, string> = {
   discover: 'tmdb trending popular entdecken',
   requests: 'seerr overseerr jellyseerr anfragen wünsche',
   library: 'plex jellyfin emby streams bibliothek',
+  quality:
+    'quality score custom formats perfect file codec audio hdr language subtitles qualität punkte sprache untertitel',
   calendar: 'ical upcoming releases kalender termine',
   cleaner: 'queue stuck stalled warteschlange hängend',
   hunting: 'search missing upgrade suche fehlend',

@@ -35,6 +35,7 @@ const PAGES = [
   ['discover', '/discover'],
   ['requests', '/requests'],
   ['library', '/library'],
+  ['quality', '/quality'],
   ['calendar', '/calendar'],
   ['cleaner', '/cleaner'],
   ['hunting', '/hunting'],
