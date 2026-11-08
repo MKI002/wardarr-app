@@ -71,7 +71,7 @@
             "title": "Unknown Writer - Book Two",
             "status": "completed",
             "trackedDownloadStatus": "warning",
-            "trackedDownloadState": "importBlocked",
+            "trackedDownloadState": "importFailed",
             "statusMessages": [
               {
                 "title": "Unknown Writer - Book Two",
@@ -89,7 +89,7 @@
             "title": "Example Author - Book Three",
             "status": "failed",
             "trackedDownloadStatus": "error",
-            "trackedDownloadState": "failed",
+            "trackedDownloadState": "downloadFailed",
             "statusMessages": [],
             "errorMessage": "Download failed",
             "downloadId": "FIXTURE0003",
@@ -103,7 +103,7 @@
             "title": "Example Author - Book Three",
             "status": "failed",
             "trackedDownloadStatus": "error",
-            "trackedDownloadState": "failed",
+            "trackedDownloadState": "downloadFailed",
             "statusMessages": [],
             "errorMessage": "Download failed",
             "downloadId": "FIXTURE0003",

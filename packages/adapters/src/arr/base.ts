@@ -177,19 +177,46 @@ const PAGE_SIZE = 250;
 const SLOW_TIMEOUT_MS = 120_000;
 const MAX_PAGES = 40;
 
+// Tracked download states differ per product. Sonarr v4 and Radarr v5 use
+// `importBlocked` and `failed`; Lidarr and Readarr use `importFailed` and
+// `downloadFailed`. Older Sonarr and Radarr have no blocked state and keep a
+// stuck import as `importPending` with a warning.
 export function queueState(r: ArrQueueRecord): QueueItemState {
   const tracked = (r.trackedDownloadState ?? '').toLowerCase();
   const status = (r.status ?? '').toLowerCase();
-  if (tracked === 'failed' || tracked === 'failedpending' || status === 'failed') return 'failed';
-  if (tracked === 'importblocked') return 'importBlocked';
+  const warned = (r.trackedDownloadStatus ?? '').toLowerCase() === 'warning';
+  if (
+    tracked === 'failed' ||
+    tracked === 'failedpending' ||
+    tracked === 'downloadfailed' ||
+    tracked === 'downloadfailedpending' ||
+    status === 'failed'
+  )
+    return 'failed';
+  if (tracked === 'importblocked' || tracked === 'importfailed') return 'importBlocked';
+  if (tracked === 'importpending' && warned && status === 'completed') return 'importBlocked';
   if (tracked === 'importpending' || tracked === 'importing') return 'importPending';
   if (status === 'paused') return 'paused';
   if (status === 'queued' || status === 'delay') return 'queued';
   if (status === 'completed') return 'completed';
-  if (status === 'downloading')
-    return (r.trackedDownloadStatus ?? '').toLowerCase() === 'warning' ? 'warning' : 'downloading';
-  if (status === 'warning' || (r.trackedDownloadStatus ?? '').toLowerCase() === 'warning') return 'warning';
+  if (status === 'downloading') return warned ? 'warning' : 'downloading';
+  if (status === 'warning' || warned) return 'warning';
   return 'unknown';
+}
+
+/**
+ * The texts of an *arr status message list. A message with reasons is titled
+ * with a file or release name, so only its reasons count; a message without
+ * reasons is a headline. Reasons come first, because they say what is wrong
+ * ("Album match is not close enough"), while headlines repeat for every
+ * failed import ("One or more tracks expected in this release were not
+ * imported"). Duplicates across files are dropped.
+ */
+export function statusMessageTexts(list: ArrQueueRecord['statusMessages']): string[] {
+  const items = list ?? [];
+  const reasons = items.flatMap((m) => m.messages ?? []);
+  const headlines = items.filter((m) => !m.messages?.length).map((m) => m.title);
+  return [...new Set([...reasons, ...headlines].filter((x): x is string => !!x?.trim()))];
 }
 
 export function normalizeQueueRecord(
@@ -210,9 +237,7 @@ export function normalizeQueueRecord(
     state: queueState(r),
     trackedState: r.trackedDownloadState,
     trackedStatus: r.trackedDownloadStatus,
-    statusMessages: (r.statusMessages ?? []).flatMap((m) =>
-      [m.title, ...(m.messages ?? [])].filter((x): x is string => !!x),
-    ),
+    statusMessages: statusMessageTexts(r.statusMessages),
     errorMessage: r.errorMessage || undefined,
     sizeBytes: r.size,
     sizeLeftBytes: r.sizeleft,

@@ -71,7 +71,7 @@
             "title": "Unknown Band - Album Two",
             "status": "completed",
             "trackedDownloadStatus": "warning",
-            "trackedDownloadState": "importBlocked",
+            "trackedDownloadState": "importFailed",
             "statusMessages": [
               {
                 "title": "Unknown Band - Album Two",
@@ -89,7 +89,7 @@
             "title": "Example Duo - Album Three",
             "status": "failed",
             "trackedDownloadStatus": "error",
-            "trackedDownloadState": "failed",
+            "trackedDownloadState": "downloadFailed",
             "statusMessages": [],
             "errorMessage": "Download failed",
             "downloadId": "FIXTURE0003",
@@ -103,7 +103,7 @@
             "title": "Example Duo - Album Three",
             "status": "failed",
             "trackedDownloadStatus": "error",
-            "trackedDownloadState": "failed",
+            "trackedDownloadState": "downloadFailed",
             "statusMessages": [],
             "errorMessage": "Download failed",
             "downloadId": "FIXTURE0003",
