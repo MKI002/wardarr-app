@@ -68,6 +68,8 @@ interface HuntInstance {
   adapterName: string;
   config: HuntingConfig;
   pause: { kind: string; reason: Msg } | null;
+  /** Hunting still runs, but something needs a look, such as failing indexers. */
+  notice: Msg | null;
   error: string | null;
   budget: { left: number; limit: number };
   lists: Record<
@@ -156,6 +158,7 @@ function useHuntingAction<T>(instanceId: string, path: string, method: 'POST' | 
 function huntTone(i: HuntInstance): ChartTone {
   if (i.error) return 'critical';
   if (i.pause) return i.pause.kind === 'off' ? 'neutral' : 'warning';
+  if (i.notice) return 'warning';
   return 'ok';
 }
 
@@ -240,6 +243,11 @@ function InstanceView({ inst }: { inst: HuntInstance }) {
             className={`rounded-lg px-3 py-2 text-sm ${inst.pause.kind === 'off' ? 'bg-surface-2 text-muted' : 'bg-warning-bg text-warning'}`}
           >
             {tm(t, inst.pause.reason)}
+          </div>
+        ) : null}
+        {inst.notice ? (
+          <div role="status" className="rounded-lg bg-warning-bg px-3 py-2 text-sm text-warning">
+            {tm(t, inst.notice)}
           </div>
         ) : null}
         {inst.error ? (

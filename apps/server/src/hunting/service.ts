@@ -5,6 +5,8 @@ import {
   AdapterError,
   DEFAULT_HUNTING_CONFIG,
   budgetLeft,
+  indexerHealth,
+  indexerNotice,
   isDue,
   isOpen,
   nextRunAt,
@@ -22,6 +24,7 @@ import {
   type HuntingConfig,
   type HuntList,
   type HuntPause,
+  type IndexerHealth,
   type Msg,
   type WantedItem,
 } from '@wardarr/core';
@@ -43,8 +46,6 @@ const WANTED_PAGE = 250;
 const WANTED_CACHE_MS = 3 * 3_600_000;
 const RESULT_WINDOW_DAYS = 7;
 const LISTS: HuntList[] = ['missing', 'cutoff'];
-/** Health checks that mean searches cannot work right now. */
-const INDEXER_CHECKS = new Set(['IndexerStatusCheck', 'IndexerLongTermStatusCheck', 'IndexerSearchCheck']);
 
 interface StoredState {
   lastRun: Record<HuntList, string | null>;
@@ -166,23 +167,16 @@ export class HuntingService {
     return budgetLeft(this.state(instanceId).calls, config.apiCallsPerHour, this.now());
   }
 
-  private indexerProblem(instanceId: string): string | null {
+  private indexers(instanceId: string): IndexerHealth {
     const snap = this.runtime.snapshots().find((s) => s.row.id === instanceId)?.snapshot;
-    const hit = snap?.signals.find(
-      (s) =>
-        s.kind === 'health' &&
-        s.source &&
-        INDEXER_CHECKS.has(s.source) &&
-        (s.level === 'error' || s.level === 'warning'),
-    );
-    return hit ? hit.message : null;
+    return indexerHealth(snap?.signals ?? []);
   }
 
   private currentPause(instanceId: string, config: HuntingConfig): HuntPause | null {
     const snap = this.runtime.snapshots().find((s) => s.row.id === instanceId)?.snapshot;
     return pauseReason({
       config,
-      indexerProblem: this.indexerProblem(instanceId),
+      indexerProblem: this.indexers(instanceId).blocking,
       queueSize: snap?.queue?.length ?? 0,
       budget: this.budget(instanceId, config),
       callsNeeded: 2,
@@ -443,6 +437,7 @@ export class HuntingService {
         adapterName: def.name,
         config,
         pause: pause as { kind: string; reason: Msg } | null,
+        notice: pause ? null : indexerNotice(this.indexers(row.id)),
         error: live.error,
         budget: { left: budgetLeft(st.calls, config.apiCallsPerHour, now), limit: config.apiCallsPerHour },
         lists,

@@ -8,6 +8,9 @@
     "seasonPack_other": "{{count}} episodes of this season are missing: one season search",
     "manual": "Searched by hand"
   },
+  "notice": {
+    "indexer": "Some indexers are failing, Hunting keeps searching with the others: {{name}}"
+  },
   "pause": {
     "off": "Hunting is off",
     "indexer": "Paused: {{name}}",
