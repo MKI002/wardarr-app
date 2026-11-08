@@ -318,7 +318,7 @@
             "images": [
               {
                 "coverType": "poster",
-                "remoteUrl": "https://image.tmdb.org/t/p/original/exampleposter1.jpg"
+                "remoteUrl": "https://artworks.thetvdb.com/banners/v4/series/9007/posters/exampleposter1.jpg"
               }
             ]
           }
@@ -683,7 +683,7 @@
           "runtimeMinutes": 45,
           "hasFile": false,
           "premiere": "season",
-          "posterPath": "/exampleposter1.jpg",
+          "posterPath": "tvdb:/banners/v4/series/9007/posters/exampleposter1.jpg",
           "tmdbId": 9007,
           "network": "Example Network"
         },

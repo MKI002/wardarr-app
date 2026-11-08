@@ -195,7 +195,7 @@ export interface CalendarEntry {
   premiere?: 'series' | 'season';
   finale?: 'series' | 'season' | 'midseason';
   year: number | null;
-  /** TMDB poster path such as `/abc.jpg`, when the service has one. */
+  /** Poster for the image proxy: a TMDB path such as `/abc.jpg`, or `tvdb:/banners/…`. */
   posterPath: string | null;
   /** TMDB id of the movie or series, used to merge duplicates across instances. */
   tmdbId: number | null;

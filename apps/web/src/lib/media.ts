@@ -79,8 +79,19 @@ export function setDemoPosters(posters: Record<string, string>): void {
   demoPosters = posters;
 }
 
-/** Poster URL through Wardarr's own proxy, so TMDB never sees the viewer. */
+const TVDB_PATH = /^banners\/(?:[A-Za-z0-9_-]{1,64}\/){1,6}[A-Za-z0-9_-]{1,96}\.(?:jpg|jpeg|png|webp)$/;
+
+/**
+ * Poster URL through Wardarr's own proxy, so TMDB and TheTVDB never see the
+ * viewer. `path` is a TMDB path (`/abc.jpg`) or TheTVDB artwork (`tvdb:/banners/…`),
+ * which has a single size.
+ */
 export function posterUrl(path: string | null, size: 'w185' | 'w342' | 'w500' = 'w342'): string | null {
+  if (path?.startsWith('tvdb:')) {
+    const tvdb = path.slice('tvdb:/'.length);
+    if (demoPosters) return demoPosters[(tvdb.split('/').pop() ?? '').replace(/\.\w+$/, '')] ?? null;
+    return path.startsWith('tvdb:/') && TVDB_PATH.test(tvdb) ? `/api/images/tvdb/${tvdb}` : null;
+  }
   const file = path?.replace(/^\//, '');
   if (demoPosters) return (file && demoPosters[file.replace(/\.\w+$/, '')]) || null;
   return file && /^[A-Za-z0-9_-]+\.(jpg|jpeg|png|webp)$/.test(file)

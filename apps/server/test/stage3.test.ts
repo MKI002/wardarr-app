@@ -361,11 +361,23 @@ describe('posters', () => {
     expect(images).toEqual(['https://image.tmdb.org/t/p/w342/p1.jpg']);
   });
 
+  it('proxies TheTVDB artwork for Sonarr series', async () => {
+    images.length = 0;
+    const url = '/api/images/tvdb/banners/v4/series/9007/posters/abc123.jpg';
+    expect((await call(viewer, 'GET', url)).statusCode).toBe(200);
+    await call(viewer, 'GET', url);
+    expect(images).toEqual(['https://artworks.thetvdb.com/banners/v4/series/9007/posters/abc123.jpg']);
+  });
+
   it('rejects other sizes and paths', async () => {
     for (const url of [
       '/api/images/tmdb/w9999/p1.jpg',
       '/api/images/tmdb/w342/..%2Fx.jpg',
       '/api/images/tmdb/w342/p1.svg',
+      '/api/images/tvdb/banners/../secret.jpg',
+      '/api/images/tvdb/banners/%2E%2E/secret.jpg',
+      '/api/images/tvdb/other/posters/1.jpg',
+      '/api/images/tvdb/banners/posters/1.svg',
     ]) {
       expect((await call(viewer, 'GET', url)).statusCode, url).toBe(404);
     }
