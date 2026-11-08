@@ -237,7 +237,7 @@
       "apply": "Set priorities"
     },
     "noScores": "No indexer has a score yet. Scores appear once Wardarr has seen searches or grabs.",
-    "indexer": "Indexer and score",
+    "indexer": "Indexer and score (30 days)",
     "priority": "Priority",
     "rowChange": "{{name}}, score {{score}}: priority {{from}} becomes {{to}}",
     "rowKeep": "{{name}}, score {{score}}: priority stays {{value}}",
@@ -248,7 +248,7 @@
     "disabled": "Off in Prowlarr: {{list}}.",
     "tuning": {
       "title": "Range and steps",
-      "body": "The best scored indexer gets the first value, the weakest the second, the rest in between. Lower numbers are tried first.",
+      "body": "The best scored indexer gets the first value. The others move towards the second value by how far they are behind it; 30 score points or more span the whole range. Lower numbers are tried first.",
       "best": "Best indexer",
       "worst": "Weakest indexer",
       "step": "Step",

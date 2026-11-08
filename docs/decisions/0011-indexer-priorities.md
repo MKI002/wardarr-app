@@ -11,6 +11,12 @@ would put every indexer at the same priority when all of them work well.
 The range (default 10 to 40) leaves room above and below for indexers people
 want to pin by hand.
 
+The spread uses at least 30 score points. With only good indexers, say 85 to
+98, a full spread put an indexer 10 points behind the best one at 35 of 50,
+which made small differences in the import rate look like a weak indexer.
+With the minimum spread it lands at 20, and a weak indexer still ends up at
+the last value.
+
 Values are rounded to a step (default 5) and a value that is already on a
 step stays while the unrounded target is less than one step away. Without
 this, an indexer whose score sits near a boundary would change every day,

@@ -107,8 +107,12 @@ Prowlarr and the apps try indexers with a lower priority number first (1 to
 indexers that work best are asked first. It is off until you turn it on.
 
 - **Once a day** it scores every indexer over the last 30 days. The best
-  scored indexer gets the first value of the range (default 10), the weakest
-  the last (default 40), the rest in between, in steps of 5.
+  scored indexer gets the first value of the range (default 10). The others
+  move towards the last value (default 40) by how far they are behind it, in
+  steps of 5. A gap of 30 score points, or the gap to the weakest indexer if
+  that is larger, spans the whole range, so indexers that all work well stay
+  close together. These are 30-day scores; the comparison table shows the
+  range chosen at the top of the page, so its numbers can differ.
 - **Nothing changes without a reason.** A priority that already matches is
   not written. A priority that sits on a step stays while the score moves less
   than one step, so an indexer near a boundary does not flip every day.

@@ -22,6 +22,13 @@ export interface PriorityConfig {
   includeApps: boolean;
 }
 
+/**
+ * Score points that span the whole priority range at least. When every
+ * indexer works well (scores of 85 to 98, say), a few points apart should not
+ * put them at opposite ends of the range.
+ */
+export const MIN_SCORE_SPREAD = 30;
+
 export const DEFAULT_PRIORITY_CONFIG: PriorityConfig = { best: 10, worst: 40, step: 5, includeApps: false };
 
 export type PriorityTarget = 'prowlarr' | 'app';
@@ -74,8 +81,10 @@ export function normalizePriorityConfig(input: Partial<PriorityConfig>): Priorit
 }
 
 /**
- * Target priority per site key. The best score gets `best`, the weakest
- * `worst`, the rest in between by score, rounded to `step`. The raw
+ * Target priority per site key. The best score gets `best`, the rest move
+ * towards `worst` by how far they are behind it, rounded to `step`. A gap of
+ * `MIN_SCORE_SPREAD` points or the gap to the weakest score, whichever is
+ * larger, spans the whole range, so close scores stay close. The raw
  * (unrounded) value comes along for the hysteresis.
  */
 export function targetPriorities(
@@ -88,8 +97,9 @@ export function targetPriorities(
   const top = Math.max(...scored.map(([, s]) => s));
   const low = Math.min(...scored.map(([, s]) => s));
   const span = config.worst - config.best;
+  const spread = Math.max(top - low, MIN_SCORE_SPREAD);
   for (const [key, score] of scored) {
-    const share = top === low ? 0 : (top - score) / (top - low);
+    const share = (top - score) / spread;
     const raw = config.best + share * span;
     const stepped = config.best + Math.round((raw - config.best) / config.step) * config.step;
     out.set(key, { value: clamp(stepped, config.best, config.worst), raw });

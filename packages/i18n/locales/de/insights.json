@@ -237,7 +237,7 @@
       "apply": "Prioritäten setzen"
     },
     "noScores": "Noch kein Indexer hat eine Wertung. Wertungen erscheinen, sobald Wardarr Suchen oder Grabs gesehen hat.",
-    "indexer": "Indexer und Wertung",
+    "indexer": "Indexer und Wertung (30 Tage)",
     "priority": "Priorität",
     "rowChange": "{{name}}, Wertung {{score}}: Priorität {{from}} wird {{to}}",
     "rowKeep": "{{name}}, Wertung {{score}}: Priorität bleibt {{value}}",
@@ -248,7 +248,7 @@
     "disabled": "In Prowlarr aus: {{list}}.",
     "tuning": {
       "title": "Bereich und Stufen",
-      "body": "Der am besten bewertete Indexer bekommt den ersten Wert, der schwächste den zweiten, alle anderen liegen dazwischen. Kleinere Zahlen werden zuerst gefragt.",
+      "body": "Der am besten bewertete Indexer bekommt den ersten Wert. Die anderen rücken je nach Abstand Richtung zweiten Wert; 30 Wertungspunkte oder mehr füllen den ganzen Bereich. Kleinere Zahlen werden zuerst gefragt.",
       "best": "Bester Indexer",
       "worst": "Schwächster Indexer",
       "step": "Stufe",
