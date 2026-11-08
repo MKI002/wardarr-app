@@ -181,8 +181,8 @@ test('the storage page shows each disk once, with the apps that use it, and sett
 });
 
 // Before it is switched on the gatekeeper explains itself, suggests the
-// download clients and lets the list be edited without writing anything.
-test('the gatekeeper page offers presets and suggests the download clients', async () => {
+// download clients and lets the list be edited; switching it on saves.
+test('the gatekeeper page offers presets, suggests the download clients and switches on', async () => {
   await page.goto('/');
   const nav = page.getByRole('navigation', { name: 'Main navigation' }).first();
   await nav.getByRole('link', { name: 'Gatekeeper', exact: true }).click();
@@ -202,6 +202,12 @@ test('the gatekeeper page offers presets and suggests the download clients', asy
   await page.getByLabel('Add file extensions').fill('.XYZ, ?!');
   await page.getByRole('button', { name: 'Add', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Remove .xyz' })).toBeVisible();
+
+  // Switching it on saves the list; the page then shows what was blocked.
+  await page.getByRole('button', { name: 'Switch the gatekeeper on' }).click();
+  await expect(page.getByText('Decide which files never get through')).toHaveCount(0);
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.getByText('Blocked downloads', { exact: true })).toBeVisible();
   await settled(page);
 });
 

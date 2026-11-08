@@ -73,7 +73,8 @@ export interface GatekeeperTarget {
   enabled: boolean;
   status: ExtensionBlockStatus | null;
   error: string | null;
-  sync: TargetSync | 'error' | 'blocked';
+  /** `own`: Wardarr does not manage it, but the service blocks with a list of its own. */
+  sync: TargetSync | 'error' | 'blocked' | 'own';
   /** Wanted extensions the service could hold but does not. */
   missing: string[];
   /** Wanted extensions the service cannot block at all. */
@@ -257,6 +258,8 @@ export class GatekeeperService {
           unreachable = cmp.unreachable;
           // SABnzbd blocks nothing while its action is off, even with a full list.
           if (sync === 'inSync' && status.action === 'off') sync = 'drift';
+          // A service Wardarr does not write to is never out of date, at most busy with its own list.
+          if (!enabled && sync !== 'blocked') sync = status.active && status.action !== 'off' ? 'own' : 'off';
         }
         return {
           instanceId: row.id,

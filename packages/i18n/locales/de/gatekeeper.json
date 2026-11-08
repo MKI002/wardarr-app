@@ -115,7 +115,8 @@
       "drift": "Veraltet",
       "off": "Aus",
       "error": "Nicht erreichbar",
-      "blocked": "Nicht möglich"
+      "blocked": "Nicht möglich",
+      "own": "Eigene Liste aktiv"
     },
     "detail": {
       "downloader": "Stoppt den Download, sobald die Datei auftaucht.",
