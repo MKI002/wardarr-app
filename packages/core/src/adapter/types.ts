@@ -5,7 +5,7 @@ import type { HttpClient } from './http.js';
 import type { Signal } from '../issues/types.js';
 import type { ProfileSyncApi } from '../trash/types.js';
 import type { DiskReport } from '../storage/disks.js';
-import type { QualityScan, QualityScanProgress } from '../quality/types.js';
+import type { QualityScan, QualityScanProgress, QualitySearchFile } from '../quality/types.js';
 
 export type AdapterCategory = 'arr' | 'indexer' | 'downloader' | 'mediaServer' | 'requests' | 'transcoder';
 
@@ -666,6 +666,11 @@ export interface AdapterInstance {
    * Sonarr, so it runs in the background.
    */
   qualityScan?(onProgress?: QualityScanProgress): Promise<QualityScan>;
+  /**
+   * Searches a better release for these files (capability `qualityScore`).
+   * Returns how many episodes or movies the search covers.
+   */
+  qualitySearch?(files: QualitySearchFile[]): Promise<number>;
   /** Connections and folders for the stack map. Parts that fail are left out. */
   topology?(): Promise<ServiceTopology>;
   /** Deep link into the service UI. */

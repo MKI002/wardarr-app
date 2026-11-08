@@ -1,8 +1,9 @@
 # Quality score
 
 The Quality score page shows how close every file in Sonarr and Radarr comes to the best file
-its quality profile allows, and which custom formats are missing on the way. It is read-only:
-Wardarr never changes files, profiles or custom formats here.
+its quality profile allows, and which custom formats are missing on the way. Wardarr never
+changes files, profiles or custom formats here; the one action on the page asks Sonarr and
+Radarr to search for better releases (see [Searching the worst files](#searching-the-worst-files)).
 
 It needs Sonarr 4 or later (Sonarr 3 has no custom formats) or Radarr, with custom formats that
 have scores in the quality profiles.
@@ -49,15 +50,30 @@ them under **The perfect file**, so you can check the recipe.
 
 - **Library score**: the average share of the perfect score over all files, and how many files
   are perfect, have reached the profile's _upgrade until_ score (the app stops upgrading them),
-  are still below it, or carry a penalty.
+  are still below it, or carry a penalty. Click a state in the bar or its legend to list its
+  files, worst first, with the file name, what each file misses and a link into the app.
 - **Distance to perfect**: files per tenth of the perfect score.
 - **Where the points go**: the missing points per kind of custom format, the formats missing
   most often and the penalties in your library.
-- **Furthest from perfect**: series and movies with the lowest average share, what they miss and
-  a link into Sonarr or Radarr.
 - **Quality profiles**: perfect score, upgrade target and the state of the files per profile.
 - **What your files contain**: resolution, source, video codec, HDR, audio codec, channels,
   audio languages and subtitles, from the apps' media info.
+- **Furthest from perfect**, at the bottom: series and movies with the lowest average share, what
+  they miss and a link into Sonarr or Radarr, with the search for better releases above them.
 
 With more than one instance, **All** folds them into one view; the chips above the page pick a
 single instance.
+
+## Searching the worst files
+
+**Search for better releases** takes a number and asks Sonarr and Radarr to search for the
+lowest-rated files, worst first: the lowest share of perfect, then the lowest score. With
+**All** picked the worst files of every instance count together; a single instance searches
+only its own. A confirmation shows the number before anything is sent.
+
+Only files below their profile's upgrade target count, because Sonarr and Radarr would not
+replace the others, and only in profiles with upgrades on. Radarr gets one `MoviesSearch` with
+the movies; Sonarr gets one `EpisodeSearch` with the episodes of those files (Wardarr looks them
+up with `/episode?seriesId=…` per series). At most 500 files go out in one search. Every search
+uses API calls at your indexers, so start with a small number. The list is the one of the last
+check; press **Check again** after the downloads to see the new scores.

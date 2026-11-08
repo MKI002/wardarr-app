@@ -9,6 +9,7 @@ import {
   type ArrQualityDefinition,
   type ArrQualityProfile,
   type ProfileSyncApi,
+  type QualitySearchFile,
   type AdapterInstance,
   type ArrIndexerInfo,
   type DiskReport,
@@ -33,7 +34,7 @@ import { arrLevel, ensureOk, jsonOf, toEntries } from '../shared/http.js';
 import type { HttpResponse } from '@wardarr/core';
 import { addressOf, fieldValue, folder, link, mountOf, part } from '../shared/topology.js';
 import { FAMILIES, type ArrFamily } from './families.js';
-import { readQualityScan } from './quality.js';
+import { readQualityScan, searchQualityFiles } from './quality.js';
 
 /**
  * How Wardarr talks to one *arr product. The flavor is chosen per detected
@@ -340,12 +341,28 @@ export function createArrInstance(
           const f = await flavor();
           return readQualityScan(slowGet, f.family, ctx.baseUrl, onProgress);
         };
+  const qualitySearch =
+    extra.profileSyncSince === undefined
+      ? undefined
+      : async (files: QualitySearchFile[]) => {
+          await ensureCustomFormats();
+          const f = await flavor();
+          return searchQualityFiles(
+            get,
+            async (target) => {
+              await send('POST', '/command', FAMILIES[f.family].searchCommand(target));
+            },
+            f.family,
+            files,
+          );
+        };
 
   return {
     flavor,
     detection: () => detection.get(),
     profileSync,
     qualityScan,
+    qualitySearch,
     async testConnection() {
       let d = await detection.get();
       const status = await get<StatusResource>('/system/status');

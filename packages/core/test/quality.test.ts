@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  analyzeQuality,
   audioGroup,
   bestCompatible,
   buildQualityReport,
@@ -189,5 +190,23 @@ describe('buildQualityReport', () => {
     expect(report.contents.video).toEqual({ HEVC: 5 });
     expect(report.contents.audioLanguages).toEqual({ de: 5, en: 5 });
     expect(report.contents.resolution).toEqual({ '1080p': 5 });
+  });
+});
+
+describe('analyzeQuality', () => {
+  const { index } = analyzeQuality(scan());
+
+  it('keeps every scored file, worst first', () => {
+    expect(index.files.map((f) => f.id)).toEqual([3, 2, 1, 4]);
+    expect(index.files.map((f) => f.tier)).toEqual(['penalised', 'target', 'perfect', 'perfect']);
+    expect(index.titles.map((t) => t.title).sort()).toEqual(['Kestrel Station', 'Lanternfall']);
+  });
+
+  it('names what each file misses and the penalties it carries', () => {
+    const worst = index.files[0]!;
+    const name = (id: number) => index.formats.find((f) => f.id === id)?.name;
+    expect(worst.penalties.map(name)).toEqual(['Reject: LQ Groups']);
+    expect(worst.missing.map(name)).toEqual(['Language: German', 'HDR: Dolby Vision', 'Codec: AV1']);
+    expect(index.profiles.find((p) => p.name === 'HD')).toMatchObject({ perfect: 1650, target: 1000 });
   });
 });

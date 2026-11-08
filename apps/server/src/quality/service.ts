@@ -5,13 +5,27 @@
 // the page never waits for it: a request answers at once with the last
 // report Wardarr stored, and an old report starts a read in the background.
 // While it runs, `quality.updated` events carry the progress to the page.
-import { AdapterError, buildQualityReport, type QualityReport } from '@wardarr/core';
+import {
+  AdapterError,
+  analyzeQuality,
+  compareFileRows,
+  type QualityFileIndex,
+  type QualityFileRow,
+  type QualityReport,
+  type QualityTier,
+} from '@wardarr/core';
 import type { EventBus } from '../events/bus.js';
 import type { FeatureStore } from '../features/store.js';
 import { HttpError } from '../http/validate.js';
 import type { InstanceRuntime } from '../instances/runtime.js';
 
 const FEATURE = 'qualityScore';
+/** Every scored file, stored apart so the page's report stays small. */
+const FILES = 'qualityFiles';
+/** Files below their upgrade target are the ones a search can improve. */
+const SEARCHABLE: QualityTier[] = ['upgrading', 'penalised'];
+/** Most files one search sends. */
+export const MAX_SEARCH = 500;
 /** A report this old is read again when someone opens the page. */
 const TTL_MS = 12 * 3600_000;
 /** After a failed read, wait this long before trying again on its own. */
@@ -33,12 +47,48 @@ interface Details extends Stored {
 
 const EMPTY: Stored = { at: null, report: null };
 
+interface StoredFiles {
+  index: QualityFileIndex | null;
+}
+
+/** One file as the file list shows it. */
+export interface QualityFileView {
+  instanceId: string;
+  instanceName: string;
+  adapter: string;
+  adapterName: string;
+  fileId: number;
+  titleId: number;
+  title: string;
+  year: number | null;
+  name: string | null;
+  season: number | null;
+  quality: string | null;
+  sizeBytes: number;
+  profile: string;
+  score: number;
+  perfect: number;
+  target: number | null;
+  percent: number;
+  tier: QualityTier;
+  missing: Array<{ name: string; category: string }>;
+  penalties: string[];
+  webUrl: string | null;
+}
+
+interface Scoped {
+  instanceId: string;
+  index: QualityFileIndex;
+  row: QualityFileRow;
+}
+
 function kindOf(err: unknown): string {
   return err instanceof AdapterError ? err.kind : 'badResponse';
 }
 
 export class QualityService {
   private readonly details = new Map<string, Details>();
+  private readonly indexes = new Map<string, QualityFileIndex | null>();
   private readonly inflight = new Map<string, Promise<void>>();
   private readonly now: () => number;
 
@@ -49,6 +99,7 @@ export class QualityService {
     this.now = opts.now ?? (() => Date.now());
     runtime.onReload(() => {
       for (const id of this.details.keys()) if (!this.inflight.has(id)) this.details.delete(id);
+      this.indexes.clear();
     });
   }
 
@@ -105,11 +156,12 @@ export class QualityService {
       }
     };
     let report: QualityReport | null = null;
+    let index: QualityFileIndex | null = null;
     let error: string | null = null;
     try {
       if (!entry?.adapter.qualityScan) throw new AdapterError('unsupported', 'no quality scan');
       const scan = await entry.gate.run(() => entry.adapter.qualityScan!(progress), { trip: false });
-      report = buildQualityReport(scan);
+      ({ report, index } = analyzeQuality(scan));
     } catch (err) {
       error = kindOf(err);
     }
@@ -122,8 +174,10 @@ export class QualityService {
     };
     this.details.set(instanceId, next);
     if (report) {
+      this.indexes.set(instanceId, index);
       try {
         this.opts.features?.saveState(instanceId, FEATURE, { at: next.at, report } satisfies Stored);
+        this.opts.features?.saveState(instanceId, FILES, { index } satisfies StoredFiles);
       } catch {
         // The instance was removed while reading.
       }
@@ -154,4 +208,120 @@ export class QualityService {
       };
     });
   }
+
+  private index(instanceId: string): QualityFileIndex | null {
+    if (this.indexes.has(instanceId)) return this.indexes.get(instanceId) ?? null;
+    const stored = this.opts.features?.state<StoredFiles>(instanceId, FILES, { index: null }) ?? {
+      index: null,
+    };
+    this.indexes.set(instanceId, stored.index);
+    return stored.index;
+  }
+
+  /** Scored files of one instance or all, worst first. */
+  private rows(
+    instanceId: string | undefined,
+    keep: (row: QualityFileRow, index: QualityFileIndex) => boolean,
+  ) {
+    const ids = this.eligible().map((e) => e.row.id);
+    if (instanceId && !ids.includes(instanceId)) throw new HttpError(404, 'notFound');
+    const out: Scoped[] = [];
+    for (const id of instanceId ? [instanceId] : ids) {
+      const index = this.index(id);
+      if (!index) continue;
+      for (const row of index.files) if (keep(row, index)) out.push({ instanceId: id, index, row });
+    }
+    // Each index is sorted already; only several instances need a merge.
+    if (!instanceId && ids.length > 1) out.sort((a, b) => compareFileRows(a.row, b.row));
+    return out;
+  }
+
+  /** A page of files, worst first, optionally of one state. */
+  files(q: { instance?: string; tier?: QualityTier; offset: number; limit: number }) {
+    const rows = this.rows(q.instance, (row) => !q.tier || row.tier === q.tier);
+    const names = new Map(this.eligible().map(({ row, def }) => [row.id, { row, def }]));
+    const files = rows
+      .slice(q.offset, q.offset + q.limit)
+      .map(({ instanceId, index, row }): QualityFileView => {
+        const l = lookup(index);
+        const title = l.titles.get(row.titleId);
+        const profile = title ? l.profiles.get(title.profileId) : undefined;
+        const inst = names.get(instanceId)!;
+        return {
+          instanceId,
+          instanceName: inst.row.name,
+          adapter: inst.def.id,
+          adapterName: inst.def.name,
+          fileId: row.id,
+          titleId: row.titleId,
+          title: title?.title ?? `#${row.titleId}`,
+          year: title?.year ?? null,
+          name: row.name,
+          season: row.season,
+          quality: row.quality,
+          sizeBytes: row.sizeBytes,
+          profile: profile?.name ?? '',
+          score: row.score,
+          perfect: profile?.perfect ?? 0,
+          target: profile?.target ?? null,
+          percent: row.percent,
+          tier: row.tier,
+          missing: row.missing.map((id) => l.formats.get(id) ?? { name: `#${id}`, category: 'other' }),
+          penalties: row.penalties.map((id) => l.formats.get(id)?.name ?? `#${id}`),
+          webUrl: title?.webUrl ?? null,
+        };
+      });
+    return { total: rows.length, files };
+  }
+
+  /**
+   * Asks Sonarr and Radarr to search a better release for the `count` worst
+   * files below their upgrade target. Files at or above the target are left
+   * out: the apps would not replace them anyway.
+   */
+  async search(q: { instance?: string; tier?: QualityTier; count: number }) {
+    const rows = this.rows(q.instance, (row, index) => {
+      if (!SEARCHABLE.includes(row.tier) || (q.tier && row.tier !== q.tier)) return false;
+      const l = lookup(index);
+      const title = l.titles.get(row.titleId);
+      const profile = title && l.profiles.get(title.profileId);
+      return !!profile && profile.target !== null;
+    }).slice(0, q.count);
+    const byInstance = new Map<string, Scoped[]>();
+    for (const r of rows) byInstance.set(r.instanceId, [...(byInstance.get(r.instanceId) ?? []), r]);
+    const names = new Map(this.eligible().map(({ row }) => [row.id, row.name]));
+    const results = await Promise.all(
+      [...byInstance].map(async ([instanceId, picked]) => {
+        const entry = this.runtime.adapter(instanceId);
+        const base = { instanceId, instanceName: names.get(instanceId) ?? instanceId, files: picked.length };
+        try {
+          if (!entry?.adapter.qualitySearch) throw new AdapterError('unsupported', 'no quality search');
+          const items = await entry.gate.run(() =>
+            entry.adapter.qualitySearch!(picked.map((p) => ({ titleId: p.row.titleId, fileId: p.row.id }))),
+          );
+          return { ...base, items, error: null };
+        } catch (err) {
+          return { ...base, items: 0, error: kindOf(err) };
+        }
+      }),
+    );
+    return { files: rows.length, instances: results };
+  }
+}
+
+const lookups = new WeakMap<QualityFileIndex, ReturnType<typeof makeLookup>>();
+
+function makeLookup(index: QualityFileIndex) {
+  return {
+    titles: new Map(index.titles.map((t) => [t.id, t])),
+    profiles: new Map(index.profiles.map((p) => [p.id, p])),
+    formats: new Map(index.formats.map((f) => [f.id, { name: f.name, category: f.category as string }])),
+  };
+}
+
+/** Titles, profiles and formats of an index by id, built once per index. */
+function lookup(index: QualityFileIndex) {
+  let l = lookups.get(index);
+  if (!l) lookups.set(index, (l = makeLookup(index)));
+  return l;
 }

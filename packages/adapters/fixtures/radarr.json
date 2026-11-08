@@ -395,7 +395,8 @@
             "audioLanguages": "ger/eng",
             "subtitles": "ger/eng",
             "resolution": "1920x1080"
-          }
+          },
+          "relativePath": "Example Film (2020) Bluray-2160p.mkv"
         }
       ]
     },
@@ -492,7 +493,20 @@
       "titles": 1,
       "files": 1,
       "perfect": 1500,
-      "webUrl": "/movie/example-film-1927"
+      "webUrl": "/movie/example-film-1927",
+      "search": {
+        "files": [
+          {
+            "titleId": 34,
+            "fileId": 401
+          }
+        ],
+        "body": {
+          "name": "MoviesSearch",
+          "movieIds": [34]
+        },
+        "count": 1
+      }
     }
   }
 }

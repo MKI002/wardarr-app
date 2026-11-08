@@ -505,6 +505,15 @@ try {
   ])
     await get(p);
 
+  // Every scored file once; the demo cuts states and pages out of it.
+  const qualityFiles = [];
+  for (let offset = 0; ; offset += 100) {
+    const r = await call('GET', `/api/quality/files?offset=${offset}&limit=100`);
+    qualityFiles.push(...(r.data?.files ?? []));
+    if (!r.data?.files?.length || qualityFiles.length >= r.data.total) break;
+  }
+  fixtures['/api/quality/files'] = { status: 200, body: { total: qualityFiles.length, files: qualityFiles } };
+
   for (const id of Object.values(ids)) {
     await get(`/api/instances/${id}`);
     await get(`/api/instances/${id}/settings`);

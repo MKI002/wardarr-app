@@ -23,6 +23,8 @@ import type {
   FormatCategory,
   FormatReport,
   ProfileReport,
+  QualityFileIndex,
+  QualityFileRow,
   QualityReport,
   QualityScan,
   QualityScanProfile,
@@ -94,7 +96,20 @@ function bump(map: CountMap, key: string, by = 1): void {
   map[key] = (map[key] ?? 0) + by;
 }
 
+/** Worst first: lowest share of perfect, then lowest score. */
+export function compareFileRows(a: QualityFileRow, b: QualityFileRow): number {
+  return a.percent - b.percent || a.score - b.score || a.titleId - b.titleId || a.id - b.id;
+}
+
 export function buildQualityReport(scan: QualityScan, opts: { maxTitles?: number } = {}): QualityReport {
+  return analyzeQuality(scan, opts).report;
+}
+
+/** The report, and every scored file worst first for lists and searches. */
+export function analyzeQuality(
+  scan: QualityScan,
+  opts: { maxTitles?: number } = {},
+): { report: QualityReport; index: QualityFileIndex } {
   const maxTitles = opts.maxTitles ?? 60;
 
   // Kinds of formats, judged by their best score in any profile.
@@ -158,6 +173,7 @@ export function buildQualityReport(scan: QualityScan, opts: { maxTitles?: number
   const categoryAcc = new Map<FormatCategory, CategoryReport>();
   const formatAcc = new Map<string, FormatReport>();
   const titleAcc = new Map<number, TitleAcc>();
+  const rows: QualityFileRow[] = [];
   const histogram = new Array<number>(11).fill(0);
   const tiers = emptyTiers();
   const contents: QualityReport['contents'] = {
@@ -252,8 +268,23 @@ export function buildQualityReport(scan: QualityScan, opts: { maxTitles?: number
     t.percentSum += percent;
 
     const has = new Set(ids);
+    const row: QualityFileRow = {
+      id: file.id,
+      titleId: title.id,
+      name: file.name ?? null,
+      season: file.season ?? null,
+      quality: file.quality,
+      sizeBytes: file.sizeBytes,
+      score,
+      percent,
+      tier,
+      missing: [],
+      penalties,
+    };
+    rows.push(row);
     for (const r of plan.recipe) {
       if (has.has(r.id)) continue;
+      row.missing.push(r.id);
       const key = `${r.category}:${r.name}`;
       const f = formatAcc.get(key) ?? {
         name: r.name,
@@ -322,7 +353,7 @@ export function buildQualityReport(scan: QualityScan, opts: { maxTitles?: number
     .sort((a, b) => a.percent - b.percent || b.files - a.files || a.title.localeCompare(b.title))
     .slice(0, maxTitles);
 
-  return {
+  const report: QualityReport = {
     files,
     unscored,
     sizeBytes,
@@ -338,4 +369,19 @@ export function buildQualityReport(scan: QualityScan, opts: { maxTitles?: number
     titles: titleReports,
     contents,
   };
+
+  const usedTitles = new Set(rows.map((r) => r.titleId));
+  const usedFormats = new Set(rows.flatMap((r) => [...r.missing, ...r.penalties]));
+  const index: QualityFileIndex = {
+    titles: scan.titles.filter((t) => usedTitles.has(t.id)),
+    profiles: [...plans.values()].map((p) => ({
+      id: p.profile.id,
+      name: p.profile.name,
+      perfect: p.perfect,
+      target: p.target,
+    })),
+    formats: [...usedFormats].map((id) => ({ id, name: nameOf(id), category: categoryOf(id) })),
+    files: rows.sort(compareFileRows),
+  };
+  return { report, index };
 }

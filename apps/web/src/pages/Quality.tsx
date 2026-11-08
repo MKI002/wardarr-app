@@ -2,11 +2,12 @@
 // file its quality profile allows. The hero answers "how good is my library?";
 // below it: how far files are from perfect, which kinds of custom formats
 // cost the most points, every profile's perfect file, the titles furthest
-// away and what the files contain. Read-only.
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+// away and what the files contain. Clicking a state lists its files; the one
+// action asks Sonarr and Radarr to search the lowest-rated files again.
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   BarRow,
@@ -19,11 +20,13 @@ import {
   type Segment,
 } from '../components/charts';
 import { InstanceChips, Odometer, PageHeader, SectionRule } from '../components/dash';
+import { ConfirmDialog, Dialog } from '../components/Dialog';
 import { ServiceLogo } from '../components/ServiceLogo';
 import {
   Badge,
   Button,
   Card,
+  Choice,
   Disclosure,
   EmptyState,
   InlineError,
@@ -37,12 +40,17 @@ import { api } from '../lib/api';
 import { errorText } from '../lib/errors';
 import { formatRelative } from '../lib/format';
 import {
+  MAX_SEARCH,
+  SEARCHABLE,
   TIERS,
   mergeReports,
   topParts,
   type CountMap,
   type MergedReport,
+  type QualityFile,
+  type QualityFilePage,
   type QualityInstance,
+  type QualitySearchResult,
   type Tier,
 } from '../lib/quality';
 
@@ -146,7 +154,7 @@ export function QualityPage() {
         </Card>
       ) : (
         <ViewTransition view={current?.instanceId ?? 'all'}>
-          <Report report={report} showOrigin={shown.length > 1} />
+          <Report report={report} showOrigin={shown.length > 1} instance={current?.instanceId} />
         </ViewTransition>
       )}
     </div>
@@ -254,12 +262,21 @@ function FirstScan({ instances }: { instances: QualityInstance[] }) {
   );
 }
 
-function Report({ report, showOrigin }: { report: MergedReport; showOrigin: boolean }) {
+function Report({
+  report,
+  showOrigin,
+  instance,
+}: {
+  report: MergedReport;
+  showOrigin: boolean;
+  instance: string | undefined;
+}) {
   const { t } = useTranslation();
+  const [tier, setTier] = useState<Tier | null>(null);
   return (
     <div className="flex flex-col gap-6">
       <div className="grid gap-4 lg:grid-cols-5">
-        <Hero report={report} />
+        <Hero report={report} onTier={setTier} />
         <motion.div
           className="lg:col-span-2"
           initial={{ opacity: 0, y: 10 }}
@@ -273,19 +290,22 @@ function Report({ report, showOrigin }: { report: MergedReport; showOrigin: bool
       <SectionRule>{t('quality.points.title')}</SectionRule>
       <Points report={report} />
 
-      <SectionRule>{t('quality.titles.title')}</SectionRule>
-      <Titles report={report} showOrigin={showOrigin} />
-
       <SectionRule>{t('quality.profiles.title')}</SectionRule>
       <Profiles report={report} showOrigin={showOrigin} />
 
       <SectionRule>{t('quality.contents.title')}</SectionRule>
       <Contents report={report} />
+
+      <SectionRule>{t('quality.titles.title')}</SectionRule>
+      <SearchWorst report={report} instance={instance} />
+      <Titles report={report} showOrigin={showOrigin} />
+
+      <FilesDialog tier={tier} onTier={setTier} report={report} instance={instance} showOrigin={showOrigin} />
     </div>
   );
 }
 
-function Hero({ report }: { report: MergedReport }) {
+function Hero({ report, onTier }: { report: MergedReport; onTier: (tier: Tier) => void }) {
   const { t } = useTranslation();
   const num = useNumber();
   const percent = Math.round((report.percentSum / report.files) * 100);
@@ -325,7 +345,16 @@ function Hero({ report }: { report: MergedReport }) {
             })}
           </p>
         </div>
-        <SegmentBar tall segments={segments} label={t('quality.hero.tiers')} format={num} />
+        <div className="flex flex-col gap-2">
+          <SegmentBar
+            tall
+            segments={segments}
+            label={t('quality.hero.tiers')}
+            format={num}
+            onSelect={(key) => onTier(key as Tier)}
+          />
+          <p className="text-xs text-muted">{t('quality.hero.tiersHint')}</p>
+        </div>
       </Card>
     </motion.div>
   );
@@ -593,6 +622,277 @@ function Titles({ report, showOrigin }: { report: MergedReport; showOrigin: bool
           </Button>
         </div>
       ) : null}
+    </Card>
+  );
+}
+
+/** Files per page of the file list. */
+const FILE_PAGE = 50;
+
+function filesPath(instance: string | undefined, tier: Tier, offset: number): string {
+  const q = new URLSearchParams({ tier, offset: String(offset), limit: String(FILE_PAGE) });
+  if (instance) q.set('instance', instance);
+  return `/api/quality/files?${q.toString()}`;
+}
+
+/** The files of one state, worst first, in pages. Opens from the hero bar. */
+function FilesDialog({
+  tier,
+  onTier,
+  report,
+  instance,
+  showOrigin,
+}: {
+  tier: Tier | null;
+  onTier: (tier: Tier | null) => void;
+  report: MergedReport;
+  instance: string | undefined;
+  showOrigin: boolean;
+}) {
+  const { t } = useTranslation();
+  const num = useNumber();
+  const pages = useInfiniteQuery({
+    queryKey: ['quality', 'files', instance ?? 'all', tier],
+    queryFn: ({ pageParam }) => api<QualityFilePage>(filesPath(instance, tier!, pageParam)),
+    initialPageParam: 0,
+    getNextPageParam: (last, all) => {
+      const loaded = all.reduce((n, p) => n + p.files.length, 0);
+      return last.files.length > 0 && loaded < last.total ? loaded : undefined;
+    },
+    enabled: tier !== null,
+  });
+  const files = pages.data?.pages.flatMap((p) => p.files) ?? [];
+  const total = pages.data?.pages[0]?.total ?? 0;
+  const options = TIERS.filter((x) => report.tiers[x] > 0).map((x): [Tier, string] => [
+    x,
+    `${t(`quality.tier.${x}`)} · ${num(report.tiers[x])}`,
+  ]);
+  return (
+    <Dialog
+      open={tier !== null}
+      onOpenChange={(open) => (open ? undefined : onTier(null))}
+      title={t('quality.files.title')}
+      description={t('quality.files.intro')}
+      wide
+    >
+      <div className="flex flex-col gap-4">
+        {tier ? (
+          <Choice
+            label={t('quality.hero.tiers')}
+            hideLabel
+            value={tier}
+            options={options}
+            onChange={onTier}
+          />
+        ) : null}
+        {pages.isError ? (
+          <InlineError {...errorText(t, pages.error)} onRetry={() => void pages.refetch()} />
+        ) : pages.isPending ? (
+          <div className="flex flex-col gap-2" aria-busy>
+            {[0, 1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-16 rounded-lg" />
+            ))}
+          </div>
+        ) : files.length === 0 ? (
+          <p className="text-sm text-muted">{t('quality.files.none')}</p>
+        ) : (
+          <>
+            <ul className="-mx-5 divide-y divide-border border-y border-border">
+              {files.map((f) => (
+                <FileRow key={`${f.instanceId}:${f.fileId}`} file={f} showOrigin={showOrigin} />
+              ))}
+            </ul>
+            <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
+              <span>{t('quality.files.shown', { shown: num(files.length), total: num(total) })}</span>
+              {pages.hasNextPage ? (
+                <Button
+                  variant="ghost"
+                  busy={pages.isFetchingNextPage}
+                  onClick={() => void pages.fetchNextPage()}
+                >
+                  {t('quality.titles.more', { count: Math.min(FILE_PAGE, total - files.length) })}
+                </Button>
+              ) : null}
+            </div>
+          </>
+        )}
+      </div>
+    </Dialog>
+  );
+}
+
+function FileRow({ file, showOrigin }: { file: QualityFile; showOrigin: boolean }) {
+  const { t } = useTranslation();
+  const num = useNumber();
+  const pct = Math.round(file.percent * 100);
+  const missing = file.missing.slice(0, 5);
+  return (
+    <li className="flex flex-col gap-2 px-5 py-3 sm:flex-row sm:items-center sm:gap-4">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <div className="flex flex-wrap items-baseline gap-x-2">
+          <span className="font-medium">{file.title}</span>
+          {file.season !== null ? (
+            <span className="text-sm text-muted">{t('quality.files.season', { season: file.season })}</span>
+          ) : file.year ? (
+            <span className="text-sm text-muted">{file.year}</span>
+          ) : null}
+        </div>
+        {file.name ? (
+          <span className="truncate text-xs text-muted" title={file.name}>
+            {file.name}
+          </span>
+        ) : null}
+        <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
+          {showOrigin ? (
+            <>
+              <ServiceLogo adapter={file.adapter} name={file.adapterName} size={14} />
+              {file.instanceName} ·
+            </>
+          ) : null}{' '}
+          {[file.profile, file.quality].filter(Boolean).join(' · ')}
+        </span>
+        {missing.length > 0 || file.penalties.length > 0 ? (
+          <ul className="flex flex-wrap gap-1.5" aria-label={t('quality.titles.missing')}>
+            {file.penalties.map((p) => (
+              <li key={`p:${p}`}>
+                <Badge tone="critical">{p}</Badge>
+              </li>
+            ))}
+            {missing.map((m) => (
+              <li key={`${m.category}:${m.name}`}>
+                <Badge tone="neutral">
+                  <span className="text-muted">−</span>
+                  {m.name}
+                </Badge>
+              </li>
+            ))}
+            {file.missing.length > missing.length ? (
+              <li className="self-center text-xs text-muted">
+                {t('quality.files.moreMissing', { count: file.missing.length - missing.length })}
+              </li>
+            ) : null}
+          </ul>
+        ) : null}
+      </div>
+      <div className="flex w-full shrink-0 flex-col gap-1.5 sm:w-44">
+        <div className="flex items-baseline justify-between text-xs text-muted tabular-nums">
+          <span>{t('quality.titles.score', { score: num(file.score), perfect: num(file.perfect) })}</span>
+          <span className="text-sm font-semibold text-text">{pct} %</span>
+        </div>
+        <ScoreMeter
+          percent={file.percent}
+          target={file.target}
+          perfect={file.perfect}
+          label={t('quality.titles.meter', { percent: pct })}
+        />
+      </div>
+      {file.webUrl ? (
+        <a
+          href={file.webUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="shrink-0 self-start rounded-lg px-3 py-1.5 text-sm font-medium text-accent hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:self-center"
+        >
+          {t('quality.titles.open', { app: file.adapterName })} ↗
+        </a>
+      ) : null}
+    </li>
+  );
+}
+
+/** Asks Sonarr and Radarr to search a better release for the lowest-rated files. */
+function SearchWorst({ report, instance }: { report: MergedReport; instance: string | undefined }) {
+  const { t } = useTranslation();
+  const num = useNumber();
+  const id = useId();
+  const below = SEARCHABLE.reduce((n, x) => n + report.tiers[x], 0);
+  const [count, setCount] = useState(25);
+  const [confirm, setConfirm] = useState(false);
+  const run = useMutation({
+    mutationFn: (n: number) =>
+      api<QualitySearchResult>('/api/quality/search', { method: 'POST', body: { instance, count: n } }),
+    onSettled: () => setConfirm(false),
+  });
+  const valid = Number.isInteger(count) && count >= 1 && count <= Math.min(MAX_SEARCH, below);
+  if (below === 0) return null;
+  const result = run.data;
+  const failed = result?.instances.filter((i) => i.error) ?? [];
+  const started = result?.instances.filter((i) => !i.error) ?? [];
+  return (
+    <Card as="div" className="flex flex-col gap-3">
+      <form
+        className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (valid) setConfirm(true);
+        }}
+      >
+        <div className="flex max-w-prose flex-col gap-1">
+          <SectionTitle>{t('quality.search.title')}</SectionTitle>
+          <p className="text-sm text-muted">
+            {t('quality.search.body', { count: below, formatted: num(below) })}
+          </p>
+        </div>
+        <div className="flex shrink-0 items-end gap-2">
+          <div className="flex flex-col gap-1">
+            <label htmlFor={id} className="text-xs font-medium text-muted">
+              {t('quality.search.count')}
+            </label>
+            <input
+              id={id}
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={Math.min(MAX_SEARCH, below)}
+              value={Number.isFinite(count) ? count : ''}
+              onChange={(e) => setCount(e.target.value === '' ? NaN : Number(e.target.value))}
+              className="min-h-9 w-24 rounded-lg border border-border bg-bg px-3 text-sm tabular-nums outline-none focus:border-accent"
+            />
+          </div>
+          <Button type="submit" variant="primary" disabled={!valid} busy={run.isPending}>
+            {t('quality.search.button')}
+          </Button>
+        </div>
+      </form>
+      {!valid && Number.isFinite(count) ? (
+        <p className="text-xs text-warning">
+          {t('quality.search.range', { max: num(Math.min(MAX_SEARCH, below)) })}
+        </p>
+      ) : null}
+      {run.isError ? <InlineError {...errorText(t, run.error)} /> : null}
+      {result ? (
+        <div className="flex flex-col gap-2" role="status">
+          {result.files === 0 ? (
+            <p className="rounded-lg bg-info-bg px-3 py-2 text-sm text-info">{t('quality.search.nothing')}</p>
+          ) : null}
+          {started.length > 0 ? (
+            <p className="rounded-lg bg-ok-bg px-3 py-2 text-sm text-ok">
+              {t('quality.search.started', {
+                parts: started
+                  .map((i) => t('quality.search.part', { name: i.instanceName, count: i.items }))
+                  .join(', '),
+              })}
+            </p>
+          ) : null}
+          {failed.map((i) => (
+            <p key={i.instanceId} className="rounded-lg bg-warning-bg px-3 py-2 text-sm text-warning">
+              {t('quality.failed', {
+                name: i.instanceName,
+                reason: t(`quality.error.${i.error}`, { defaultValue: i.error ?? '' }),
+              })}
+            </p>
+          ))}
+        </div>
+      ) : null}
+      <ConfirmDialog
+        open={confirm}
+        onOpenChange={setConfirm}
+        title={t('quality.search.confirmTitle', { count, formatted: num(count) })}
+        body={t('quality.search.confirmBody', { count, formatted: num(count) })}
+        confirmLabel={t('quality.search.button')}
+        busy={run.isPending}
+        onConfirm={() => run.mutate(count)}
+      />
     </Card>
   );
 }

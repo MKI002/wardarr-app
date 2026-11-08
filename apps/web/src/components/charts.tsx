@@ -519,32 +519,40 @@ export function SegmentBar({
   tall = false,
   legend = tall,
   format = (n) => String(n),
+  onSelect,
 }: {
   segments: Segment[];
   label: string;
   tall?: boolean;
   legend?: boolean;
   format?: (n: number) => string;
+  /** Makes every part (and its legend entry) a button, for example to list its items. */
+  onSelect?: (key: string) => void;
 }) {
   const calm = useCalm();
   const total = segments.reduce((s, x) => s + Math.max(0, x.value), 0);
   const parts = segments.filter((s) => s.value > 0);
   const summary = parts.map((s) => `${s.label} ${format(s.value)}`).join(', ');
+  const Part = onSelect ? motion.button : motion.div;
   return (
     <div className="flex flex-col gap-2">
       <div
-        className={`flex w-full gap-0.5 overflow-hidden ${tall ? 'h-7 rounded-md' : 'h-2 rounded-full'} bg-surface-2`}
-        role="img"
+        className={`flex w-full gap-0.5 ${onSelect ? '' : 'overflow-hidden'} ${tall ? 'h-7 rounded-md' : 'h-2 rounded-full'} bg-surface-2`}
+        role={onSelect ? 'group' : 'img'}
         aria-label={`${label}: ${summary}`}
       >
         {total > 0
           ? parts.map((s, i) => {
               const share = s.value / total;
+              const text = `${s.label}: ${format(s.value)} (${Math.round(share * 100)} %)`;
               return (
-                <motion.div
+                <Part
                   key={s.key}
-                  title={`${s.label}: ${format(s.value)} (${Math.round(share * 100)} %)`}
-                  className={`flex h-full min-w-1 items-center overflow-hidden ${tall ? 'rounded-[4px] px-2' : ''}`}
+                  title={text}
+                  {...(onSelect
+                    ? { type: 'button' as const, 'aria-label': text, onClick: () => onSelect(s.key) }
+                    : {})}
+                  className={`flex h-full min-w-1 items-center overflow-hidden ${tall ? 'rounded-[4px] px-2' : ''} ${onSelect ? 'cursor-pointer transition-[filter] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface focus-visible:outline-none' : ''}`}
                   style={{ flexGrow: share, flexBasis: 0, background: tint(s.tone, (s.shade ?? 1) * 100) }}
                   initial={calm ? false : { scaleX: 0, originX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -557,24 +565,41 @@ export function SegmentBar({
                       {Math.round(share * 100)} %
                     </span>
                   ) : null}
-                </motion.div>
+                </Part>
               );
             })
           : null}
       </div>
       {legend ? (
         <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-          {parts.map((s) => (
-            <li key={s.key} className="flex items-center gap-1.5">
-              <span
-                className="size-2.5 rounded-sm"
-                style={{ background: tint(s.tone, (s.shade ?? 1) * 100) }}
-                aria-hidden
-              />
-              {s.label}
-              <span className="text-text tabular-nums">{format(s.value)}</span>
-            </li>
-          ))}
+          {parts.map((s) => {
+            const body = (
+              <>
+                <span
+                  className="size-2.5 rounded-sm"
+                  style={{ background: tint(s.tone, (s.shade ?? 1) * 100) }}
+                  aria-hidden
+                />
+                {s.label}
+                <span className="text-text tabular-nums">{format(s.value)}</span>
+              </>
+            );
+            return (
+              <li key={s.key} className="flex items-center gap-1.5">
+                {onSelect ? (
+                  <button
+                    type="button"
+                    onClick={() => onSelect(s.key)}
+                    className="-mx-1 flex items-center gap-1.5 rounded px-1 hover:text-text focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                  >
+                    {body}
+                  </button>
+                ) : (
+                  body
+                )}
+              </li>
+            );
+          })}
         </ul>
       ) : null}
     </div>

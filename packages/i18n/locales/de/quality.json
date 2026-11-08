@@ -32,7 +32,8 @@
     "sentence": "Deine Bibliothek erreicht {{percent}} % der perfekten Punktzahl. {{perfect}} von {{files}} Dateien sind perfekt.",
     "sentenceAllPerfect": "Alle {{files}} Dateien sind perfekt. Es gibt nichts mehr zu verbessern.",
     "gap": "Im Schnitt hat eine Datei {{score}} von {{perfect}} Punkten, es fehlen {{gap}}.",
-    "tiers": "Dateien nach Zustand"
+    "tiers": "Dateien nach Zustand",
+    "tiersHint": "Klick auf einen Zustand zeigt seine Dateien."
   },
   "tier": {
     "perfect": "Perfekt",
@@ -82,6 +83,29 @@
     "average": "Im Schnitt {{percent}} % von perfekt",
     "recipe": "Die perfekte Datei",
     "noFiles": "Keine Datei nutzt dieses Profil."
+  },
+  "files": {
+    "title": "Dateien nach Zustand",
+    "intro": "Die schlechtesten zuerst, mit dem, was jeder Datei fehlt.",
+    "none": "Keine Dateien in diesem Zustand.",
+    "shown": "{{shown}} von {{total}} Dateien",
+    "season": "Staffel {{season}}",
+    "moreMissing": "+{{count}} weitere"
+  },
+  "search": {
+    "title": "Bessere Releases suchen",
+    "body_one": "Wardarr bittet Sonarr und Radarr, für die am schlechtesten bewerteten Dateien ein besseres Release zu suchen. Es zählen nur Dateien unter ihrem Upgrade-Ziel, denn die anderen würden die Apps nicht ersetzen. Gerade ist das 1 Datei.",
+    "body_other": "Wardarr bittet Sonarr und Radarr, für die am schlechtesten bewerteten Dateien ein besseres Release zu suchen. Es zählen nur Dateien unter ihrem Upgrade-Ziel, denn die anderen würden die Apps nicht ersetzen. Gerade sind das {{formatted}} Dateien.",
+    "count": "Dateien",
+    "button": "Suchen",
+    "range": "Gib eine Zahl von 1 bis {{max}} ein.",
+    "nothing": "Keine Datei liegt unter ihrem Upgrade-Ziel, es gibt also nichts zu suchen.",
+    "started": "Suche gestartet: {{parts}}. Sonarr und Radarr laden ein besseres Release, sobald sie eins finden.",
+    "part": "{{count}} in {{name}}",
+    "confirmTitle_one": "1 Datei suchen?",
+    "confirmTitle_other": "{{formatted}} Dateien suchen?",
+    "confirmBody_one": "Sonarr oder Radarr sucht ein besseres Release für die am schlechtesten bewertete Datei unter ihrem Upgrade-Ziel. Jede Suche kostet API-Aufrufe bei deinen Indexern.",
+    "confirmBody_other": "Sonarr und Radarr suchen ein besseres Release für die {{formatted}} am schlechtesten bewerteten Dateien unter ihrem Upgrade-Ziel. Jede Suche kostet API-Aufrufe bei deinen Indexern."
   },
   "titles": {
     "title": "Am weitesten von perfekt entfernt",
