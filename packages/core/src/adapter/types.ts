@@ -242,6 +242,17 @@ export interface ExtensionBlockStatus {
   version?: string | null;
 }
 
+/**
+ * Settings → Download Clients → Failed Download Handling of an *arr app.
+ * With `redownload` on, a failed download (also one a download client
+ * aborted for a blocked file) goes on the blocklist and the app searches again.
+ */
+export interface FailedDownloadHandling {
+  redownload: boolean;
+  /** Completed Download Handling; without it the app never sees the failure. */
+  completedHandling: boolean;
+}
+
 export interface ExtensionBlockChange {
   /** The complete list Wardarr wants the service to block. */
   extensions: string[];
@@ -727,6 +738,9 @@ export interface AdapterInstance {
   setExtensionBlock?(change: ExtensionBlockChange): Promise<ExtensionBlockStatus>;
   /** Downloads the service kept out since an ISO time, newest first. */
   blockedDownloads?(since: string): Promise<BlockedDownload[]>;
+  /** Whether an *arr app blocklists a failed download and searches again. */
+  failedDownloadHandling?(): Promise<FailedDownloadHandling>;
+  setFailedDownloadHandling?(redownload: boolean): Promise<FailedDownloadHandling>;
   /** Deep link into the service UI. */
   webUrl?(target?: { kind: 'indexer' | 'queue' | 'settings' | 'system'; id?: string | number }): string;
 }

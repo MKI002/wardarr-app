@@ -162,5 +162,15 @@
       "held": "Held in the queue"
     },
     "showAll": "Show all {{count}}"
+  },
+  "redownload": {
+    "title": "Search again after a block",
+    "help": "A blocked download is only replaced when the *arr app puts it on its blocklist and searches again (Settings → Download Clients → Failed Download Handling → Redownload Failed).",
+    "off": "Redownload Failed is off: {{name}} keeps the failed download and does not search for another release.",
+    "noCompleted": "Completed Download Handling is off, so {{name}} never notices a blocked download. Switch it on in {{name}}.",
+    "enable": "Switch on",
+    "on": "{{names}} blocklist a failed download and search again.",
+    "offLabel": "Off",
+    "onLabel": "On"
   }
 }

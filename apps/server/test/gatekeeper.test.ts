@@ -76,6 +76,7 @@ const fakeSab = defineAdapter({
 
 // An *arr app with fixed groups only, and history with one dangerous file.
 const arrGroups = { on: [] as string[] };
+const handling = { redownload: false, completedHandling: true };
 const history: HistoryEvent[] = [
   ...Array.from({ length: 10 }, (_, i) => ({
     at: ago(10 + i),
@@ -132,6 +133,11 @@ const fakeArr = defineAdapter({
       testConnection: async () => ({ version: '4.0.0' }),
       arrIndexers: async () => [],
       historySince: async (since: string) => history.filter((e) => e.at >= since),
+      failedDownloadHandling: async () => ({ ...handling }),
+      setFailedDownloadHandling: async (redownload: boolean) => {
+        handling.redownload = redownload;
+        return { ...handling };
+      },
       extensionBlock: async () => status(),
       setExtensionBlock: async (change: ExtensionBlockChange) => {
         arrGroups.on = uniqueExtensions([
@@ -248,6 +254,29 @@ describe('gatekeeper', () => {
     expect(notes).toEqual([
       expect.objectContaining({ params: expect.objectContaining({ name: 'Lantern', count: 2 }) }),
     ]);
+  });
+
+  it('shows apps that do not search again and switches Redownload Failed on', async () => {
+    const before = await view();
+    expect(before.redownload).toEqual([
+      expect.objectContaining({ name: 'Sonarr', redownload: false, completedHandling: true }),
+    ]);
+    const res = await t.app.inject({
+      method: 'POST',
+      url: '/api/gatekeeper/redownload',
+      headers: admin,
+      payload: { instanceId: arrId },
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.json().check).toMatchObject({ redownload: true });
+    expect(handling.redownload).toBe(true);
+    const missing = await t.app.inject({
+      method: 'POST',
+      url: '/api/gatekeeper/redownload',
+      headers: admin,
+      payload: { instanceId: sabId },
+    });
+    expect(missing.statusCode).toBe(404);
   });
 
   it('rejects bad settings', async () => {

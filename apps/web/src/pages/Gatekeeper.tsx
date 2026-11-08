@@ -102,6 +102,15 @@ interface Impact {
   scoreWithout: number | null;
 }
 
+interface RedownloadCheck {
+  instanceId: string;
+  name: string;
+  adapter: string;
+  redownload: boolean | null;
+  completedHandling: boolean | null;
+  error: string | null;
+}
+
 interface GatekeeperData {
   configured: boolean;
   config: Config;
@@ -112,6 +121,7 @@ interface GatekeeperData {
   flow: Flow;
   impact: Impact[];
   recent: Catch[];
+  redownload: RedownloadCheck[];
   lastRun: string | null;
 }
 
@@ -839,7 +849,7 @@ function Settings({ data }: { data: GatekeeperData }) {
       </SectionRule>
       <div className="grid gap-4 lg:grid-cols-2">
         <ListEditor extensions={config.extensions} onChange={(extensions) => set({ extensions })} />
-        <TargetsCard targets={data.targets} config={config} onChange={set} />
+        <TargetsCard targets={data.targets} checks={data.redownload} config={config} onChange={set} />
       </div>
       {save.isError ? <InlineError {...errorText(t, save.error)} /> : null}
       {apply.isError ? <InlineError {...errorText(t, apply.error)} /> : null}
@@ -1016,10 +1026,12 @@ function shortList(t: (k: string, o?: Record<string, unknown>) => string, list: 
 
 function TargetsCard({
   targets,
+  checks,
   config,
   onChange,
 }: {
   targets: Target[];
+  checks: RedownloadCheck[];
   config: Config;
   onChange: (patch: Partial<Config>) => void;
 }) {
@@ -1067,6 +1079,7 @@ function TargetsCard({
         </>
       )}
       <p className="text-xs text-muted">{t('gatekeeper.targets.notSupported')}</p>
+      <RedownloadBox checks={checks} />
       <div className="flex flex-col gap-4 rounded-lg bg-surface-2 p-3">
         {hasSab ? (
           <div className="flex flex-col gap-1">
@@ -1090,6 +1103,67 @@ function TargetsCard({
         />
       </div>
     </Card>
+  );
+}
+
+/**
+ * A blocked download is only replaced when the *arr app blocklists the
+ * failed download and searches again (Failed Download Handling).
+ */
+function RedownloadBox({ checks }: { checks: RedownloadCheck[] }) {
+  const { t } = useTranslation();
+  const client = useQueryClient();
+  const enable = useMutation({
+    mutationFn: (instanceId: string) =>
+      api('/api/gatekeeper/redownload', { method: 'POST', body: { instanceId } }),
+    onSettled: () => client.invalidateQueries({ queryKey: ['gatekeeper'] }),
+  });
+  const read = checks.filter((c) => c.redownload !== null);
+  if (!read.length) return null;
+  const off = read.filter((c) => !c.redownload || c.completedHandling === false);
+  const fine = read.filter((c) => !off.includes(c));
+  return (
+    <div className="flex flex-col gap-3 rounded-lg border border-border p-3">
+      <div className="flex flex-col gap-0.5">
+        <span className="text-sm font-medium">{t('gatekeeper.redownload.title')}</span>
+        <span className="text-xs text-muted">{t('gatekeeper.redownload.help')}</span>
+      </div>
+      {off.length ? (
+        <ul className="flex flex-col gap-2">
+          {off.map((c) => (
+            <li key={c.instanceId} className="flex items-center gap-3">
+              <ServiceLogo adapter={c.adapter} name={c.name} size={22} />
+              <div className="flex min-w-0 flex-1 flex-col">
+                <span className="flex items-center gap-2 text-sm">
+                  <StatusDot tone="warning" label={t('gatekeeper.redownload.offLabel')} />
+                  <span className="truncate">{c.name}</span>
+                </span>
+                <span className="text-xs text-muted">
+                  {c.completedHandling === false
+                    ? t('gatekeeper.redownload.noCompleted', { name: c.name })
+                    : t('gatekeeper.redownload.off', { name: c.name })}
+                </span>
+              </div>
+              {c.completedHandling !== false ? (
+                <Button
+                  onClick={() => enable.mutate(c.instanceId)}
+                  busy={enable.isPending && enable.variables === c.instanceId}
+                >
+                  {t('gatekeeper.redownload.enable')}
+                </Button>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {fine.length ? (
+        <p className="flex items-center gap-2 text-xs text-muted">
+          <StatusDot tone="ok" label={t('gatekeeper.redownload.onLabel')} />
+          {t('gatekeeper.redownload.on', { names: fine.map((c) => c.name).join(', ') })}
+        </p>
+      ) : null}
+      {enable.isError ? <InlineError {...errorText(t, enable.error)} /> : null}
+    </div>
   );
 }
 

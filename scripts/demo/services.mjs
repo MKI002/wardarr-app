@@ -609,6 +609,17 @@ async function arr(prefix, path, url, req, res) {
     const answer = PROFILES[prefix].handle(req.method, p, url, body);
     return answer ? json(res, answer.body, answer.status) : json(res, {}, 404);
   }
+  // Failed Download Handling; Radarr 4K does not search again, so the gatekeeper warns.
+  if (p === '/config/downloadclient' || p === '/config/downloadclient/1') {
+    const config = (DL_CONFIG[prefix] ??= {
+      id: 1,
+      enableCompletedDownloadHandling: true,
+      autoRedownloadFailed: prefix !== 'radarr-4k',
+      autoRedownloadFailedFromInteractiveSearch: true,
+    });
+    if (req.method === 'PUT') Object.assign(config, await readBody(req), { id: 1 });
+    return json(res, config);
+  }
   const indexerId = /^\/indexer\/(\d+)$/.exec(p);
   if (req.method === 'PUT' && indexerId) {
     const saved = saveArrIndexer(prefix, indexerId[1], await readBody(req));
@@ -729,6 +740,8 @@ const TORRENTS = [
   tags: '',
   added_on: Math.floor((NOW - minutesAgo * 60_000) / 1000),
 }));
+
+const DL_CONFIG = {};
 
 // What the gatekeeper writes into the download clients.
 const QBIT_PREFS = { excluded_file_names_enabled: false, excluded_file_names: '' };

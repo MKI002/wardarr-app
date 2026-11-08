@@ -25,6 +25,7 @@ import { gatekeeperCatches, gatekeeperSettings, indexerGrabs } from '../db/schem
 import type { EventBus } from '../events/bus.js';
 import type { InstanceRuntime } from '../instances/runtime.js';
 import type { IndexerInsightsService } from '../indexers/insights/service.js';
+import { HttpError } from '../http/validate.js';
 
 const JOB = 'gatekeeper';
 const COLLECT_MS = 15 * 60_000;
@@ -103,6 +104,17 @@ export interface IndexerImpact {
   scoreWithout: number | null;
 }
 
+/** Whether an *arr app searches again after a download was blocked. */
+export interface RedownloadCheck {
+  instanceId: string;
+  name: string;
+  adapter: string;
+  /** Failed Download Handling → Redownload Failed; null when it could not be read. */
+  redownload: boolean | null;
+  completedHandling: boolean | null;
+  error: string | null;
+}
+
 export interface GatekeeperView {
   configured: boolean;
   config: GatekeeperConfig;
@@ -114,6 +126,7 @@ export interface GatekeeperView {
   flow: Flow;
   impact: IndexerImpact[];
   recent: GatekeeperCatch[];
+  redownload: RedownloadCheck[];
   lastRun: string | null;
 }
 
@@ -139,6 +152,7 @@ export class GatekeeperService {
     { at: number; status: ExtensionBlockStatus | null; error: string | null }
   >();
   private collecting: Promise<void> | null = null;
+  private redownloadCache = new Map<string, { at: number; check: RedownloadCheck }>();
 
   constructor(
     private readonly db: Db,
@@ -150,6 +164,7 @@ export class GatekeeperService {
   ) {
     runtime.onReload(() => {
       this.statusCache.clear();
+      this.redownloadCache.clear();
       this.reschedule();
     });
     runtime.onPolled((row, snapshot, fresh) => {
@@ -205,6 +220,51 @@ export class GatekeeperService {
     if (!before) this.reschedule();
     await this.apply();
     this.publish();
+  }
+
+  // ------------------------------------------------------------ redownload
+
+  /**
+   * Every *arr app and whether it blocklists a failed download and searches
+   * again. A download that a client aborted for a blocked file is only
+   * replaced when this is on.
+   */
+  async redownload(force = false): Promise<RedownloadCheck[]> {
+    const rows = this.runtime.snapshots().filter(({ row }) => {
+      const a = this.runtime.adapter(row.id)?.adapter;
+      return row.enabled && !!a?.failedDownloadHandling;
+    });
+    const checks = await Promise.all(
+      rows.map(async ({ row, def }): Promise<RedownloadCheck> => {
+        const cached = this.redownloadCache.get(row.id);
+        if (!force && cached && this.now().getTime() - cached.at < STATUS_TTL_MS) return cached.check;
+        const entry = this.runtime.adapter(row.id)!;
+        const base = { instanceId: row.id, name: row.name, adapter: def.id };
+        let check: RedownloadCheck;
+        try {
+          const h = await entry.gate.run(() => entry.adapter.failedDownloadHandling!());
+          check = { ...base, redownload: h.redownload, completedHandling: h.completedHandling, error: null };
+        } catch (err) {
+          check = { ...base, redownload: null, completedHandling: null, error: kindOf(err) };
+        }
+        this.redownloadCache.set(row.id, { at: this.now().getTime(), check });
+        return check;
+      }),
+    );
+    return checks.sort((a, b) => a.adapter.localeCompare(b.adapter) || a.name.localeCompare(b.name));
+  }
+
+  /** Switches Redownload Failed on in one *arr app. */
+  async enableRedownload(instanceId: string): Promise<RedownloadCheck> {
+    const entry = this.runtime.adapter(instanceId);
+    const set = entry?.adapter.setFailedDownloadHandling?.bind(entry.adapter);
+    if (!entry || !set) throw new HttpError(404, 'notFound');
+    await entry.gate.run(() => set(true));
+    this.redownloadCache.delete(instanceId);
+    const check = (await this.redownload()).find((c) => c.instanceId === instanceId);
+    this.publish();
+    if (!check) throw new HttpError(404, 'notFound');
+    return check;
   }
 
   // --------------------------------------------------------------- targets
@@ -600,6 +660,7 @@ export class GatekeeperService {
       flow,
       impact,
       recent: catches.slice(0, 50),
+      redownload: await this.redownload(refresh),
       lastRun: this.state().lastRun,
     };
   }

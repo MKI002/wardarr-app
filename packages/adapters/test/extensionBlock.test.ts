@@ -227,4 +227,25 @@ describe('*arr apps', () => {
       { name: 'failDownloads', value: [0, 1] },
     ]);
   });
+
+  it('reads Failed Download Handling and switches Redownload Failed on', async () => {
+    const H = { 'X-Api-Key': 'k' };
+    const config = {
+      id: 1,
+      enableCompletedDownloadHandling: true,
+      autoRedownloadFailed: false,
+      autoRedownloadFailedFromInteractiveSearch: true,
+    };
+    const { adapter, http } = make(sonarr, { apiKey: 'k' }, [
+      { path: '/api', headers: H, json: { current: 'v3', deprecated: [] } },
+      { path: '/api/v3/system/status', headers: H, json: { appName: 'Sonarr', version: '4.0.15.2941' } },
+      { path: '/api/v3/config/downloadclient', headers: H, json: config },
+      { method: 'PUT', path: '/api/v3/config/downloadclient/1', headers: H, json: {} },
+    ]);
+    expect(await adapter.failedDownloadHandling!()).toEqual({ redownload: false, completedHandling: true });
+    await adapter.setFailedDownloadHandling!(true);
+    const put = http.calls.find((c) => c.method === 'PUT');
+    expect(put?.path).toBe('/api/v3/config/downloadclient/1');
+    expect(put?.json).toEqual({ ...config, autoRedownloadFailed: true });
+  });
 });
