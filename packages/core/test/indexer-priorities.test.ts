@@ -17,17 +17,31 @@ describe('target priorities', () => {
     const t = targetPriorities(
       new Map([
         ['a', 95],
-        ['b', 90],
-        ['c', 86],
+        ['b', 70],
+        ['c', 55],
         ['d', null],
       ]),
       cfg,
     );
     expect(t.get('a')!.value).toBe(10);
     expect(t.get('c')!.value).toBe(40);
-    // (95 - 90) / 9 of the way: 10 + 16.7, rounded to the step.
-    expect(t.get('b')!.value).toBe(25);
+    // 25 of 40 points behind: 10 + 18.75, rounded to the step.
+    expect(t.get('b')!.value).toBe(30);
     expect(t.has('d')).toBe(false);
+  });
+
+  it('keeps close scores close', () => {
+    // All good indexers: 13 points apart are not spread over the whole range.
+    const t = targetPriorities(
+      new Map([
+        ['a', 98],
+        ['b', 88],
+        ['c', 85],
+      ]),
+      cfg,
+    );
+    // 10 of at least 30 points behind: 10 + 10.
+    expect([t.get('a')!.value, t.get('b')!.value, t.get('c')!.value]).toEqual([10, 20, 25]);
   });
 
   it('gives every indexer the best priority when all scores are equal', () => {
