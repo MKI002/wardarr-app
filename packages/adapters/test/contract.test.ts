@@ -46,7 +46,17 @@ interface Fixture {
     /** Mount paths Wardarr keeps after grouping, and the root folders on them. */
     storage?: { mounts: string[]; rootFolders: string[] };
     /** Titles with files, files, the perfect score of the first profile and a title link. */
-    quality?: { titles: number; files: number; perfect: number; webUrl: string };
+    quality?: {
+      titles: number;
+      files: number;
+      perfect: number;
+      webUrl: string;
+      search: {
+        files: Array<{ titleId: number; fileId: number }>;
+        body: Record<string, unknown>;
+        count: number;
+      };
+    };
   };
 }
 
@@ -327,6 +337,15 @@ describe.each(ADAPTERS.map((d) => [d.id, d] as const))('%s adapter', (_id, rawDe
       const report = buildQualityReport(scan);
       expect(report.profiles[0]?.perfect).toBe(want.perfect);
       expect(report.files).toBe(want.files);
+      expect(scan.files[0]?.name).toMatch(/\.mkv$/);
+    });
+
+    it('searches a better release for the worst files', async () => {
+      const { adapter, http } = instantiate(def, fx);
+      const want = fx.expect.quality!.search;
+      expect(await adapter.qualitySearch!(want.files)).toBe(want.count);
+      const call = http.calls.find((c) => c.method === 'POST' && c.path.endsWith('/command'));
+      expect(call?.json).toEqual(want.body);
     });
   }
 

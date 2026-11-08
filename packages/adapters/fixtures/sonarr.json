@@ -533,7 +533,9 @@
             "audioLanguages": "ger/eng",
             "subtitles": "ger",
             "resolution": "1920x1080"
-          }
+          },
+          "seasonNumber": 1,
+          "relativePath": "Season 01/Example Show - S01E01 - Episode 1.mkv"
         },
         {
           "id": 302,
@@ -562,7 +564,41 @@
             "audioLanguages": "eng",
             "subtitles": "",
             "resolution": "1920x1080"
-          }
+          },
+          "seasonNumber": 1,
+          "relativePath": "Season 01/Example Show - S01E02 - Episode 2.mkv"
+        }
+      ]
+    },
+    {
+      "path": "/api/v3/episode",
+      "query": {
+        "seriesId": "21"
+      },
+      "json": [
+        {
+          "id": 2101,
+          "seriesId": 21,
+          "seasonNumber": 1,
+          "episodeNumber": 1,
+          "episodeFileId": 301,
+          "hasFile": true
+        },
+        {
+          "id": 2102,
+          "seriesId": 21,
+          "seasonNumber": 1,
+          "episodeNumber": 2,
+          "episodeFileId": 302,
+          "hasFile": true
+        },
+        {
+          "id": 2103,
+          "seriesId": 21,
+          "seasonNumber": 1,
+          "episodeNumber": 3,
+          "episodeFileId": 0,
+          "hasFile": false
         }
       ]
     },
@@ -705,7 +741,20 @@
       "titles": 1,
       "files": 2,
       "perfect": 1500,
-      "webUrl": "/series/example-show"
+      "webUrl": "/series/example-show",
+      "search": {
+        "files": [
+          {
+            "titleId": 21,
+            "fileId": 302
+          }
+        ],
+        "body": {
+          "name": "EpisodeSearch",
+          "episodeIds": [2102]
+        },
+        "count": 1
+      }
     }
   }
 }

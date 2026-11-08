@@ -4,7 +4,7 @@ import type { Db } from '../db/index.js';
 import { featureSettings } from '../db/schema.js';
 
 export type Feature =
-  'cleaner' | 'hunting' | 'library' | 'indexerInsights' | 'indexerOverview' | 'qualityScore';
+  'cleaner' | 'hunting' | 'library' | 'indexerInsights' | 'indexerOverview' | 'qualityScore' | 'qualityFiles';
 
 export class FeatureStore {
   constructor(private readonly db: Db) {}

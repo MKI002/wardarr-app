@@ -102,6 +102,8 @@ function get(path: string, url: URL): Answer {
 
   // The calendar is recorded once; every range is cut out of that recording.
   if (path === '/api/calendar') return calendarRange(url);
+  // Every scored file is recorded once; states and pages are cut out of it.
+  if (path === '/api/quality/files') return qualityFiles(url);
 
   // Search runs over everything Discover knows.
   if (path === '/api/discover/search') {
@@ -200,12 +202,48 @@ function backupMutation(method: string, path: string, input: Record<string, Json
   return { status: 409, body: { error: 'demo' } };
 }
 
+/** Recorded quality files, worst first, of one instance or all. */
+function recordedQualityFiles(instance: string | null): Array<Record<string, Json>> {
+  return list(obj(data.fixtures['/api/quality/files']?.body).files)
+    .map(obj)
+    .filter((f) => !instance || f.instanceId === instance);
+}
+
+function qualityFiles(url: URL): Answer {
+  const tier = url.searchParams.get('tier');
+  const offset = Number(url.searchParams.get('offset') ?? 0) || 0;
+  const limit = Number(url.searchParams.get('limit') ?? 50) || 50;
+  const files = recordedQualityFiles(url.searchParams.get('instance')).filter(
+    (f) => !tier || f.tier === tier,
+  );
+  return ok({ total: files.length, files: files.slice(offset, offset + limit) });
+}
+
+/** A search of the worst files: counts what the server would send, sends nothing. */
+function qualitySearch(input: Record<string, Json>): Answer {
+  const picked = recordedQualityFiles(typeof input.instance === 'string' ? input.instance : null)
+    .filter((f) => (f.tier === 'upgrading' || f.tier === 'penalised') && f.target !== null)
+    .slice(0, Number(input.count) || 0);
+  const by = new Map<string, { instanceId: string; instanceName: string; files: number }>();
+  for (const f of picked) {
+    const id = String(f.instanceId);
+    const entry = by.get(id) ?? { instanceId: id, instanceName: String(f.instanceName), files: 0 };
+    entry.files++;
+    by.set(id, entry);
+  }
+  return ok({
+    files: picked.length,
+    instances: [...by.values()].map((i) => ({ ...i, items: i.files, error: null })),
+  });
+}
+
 async function mutate(method: string, path: string, init: RequestInit | undefined): Promise<Answer> {
   const recorded = recordedMutations[`${method} ${path}`];
   if (recorded) return recorded;
   const input = obj(typeof init?.body === 'string' ? (JSON.parse(init.body) as Json) : null);
 
   if (path === '/api/auth/logout') return ok(null, 204);
+  if (path === '/api/quality/search') return qualitySearch(input);
   // A made-up link: the demo has no server that could answer it.
   if (path === '/api/calendar/feed') {
     if (method === 'DELETE') {

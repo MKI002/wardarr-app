@@ -32,7 +32,8 @@
     "sentence": "Your library reaches {{percent}} % of the perfect score. {{perfect}} of {{files}} files are perfect.",
     "sentenceAllPerfect": "Every one of your {{files}} files is perfect. Nothing left to upgrade.",
     "gap": "On average a file has {{score}} of {{perfect}} points and misses {{gap}}.",
-    "tiers": "Files by state"
+    "tiers": "Files by state",
+    "tiersHint": "Click a state to list its files."
   },
   "tier": {
     "perfect": "Perfect",
@@ -82,6 +83,29 @@
     "average": "Average {{percent}} % of perfect",
     "recipe": "The perfect file",
     "noFiles": "No files use this profile."
+  },
+  "files": {
+    "title": "Files by state",
+    "intro": "Worst first, with what each file is missing.",
+    "none": "No files in this state.",
+    "shown": "{{shown}} of {{total}} files",
+    "season": "Season {{season}}",
+    "moreMissing": "+{{count}} more"
+  },
+  "search": {
+    "title": "Search for better releases",
+    "body_one": "Wardarr asks Sonarr and Radarr to search for a better release of the lowest-rated files. Only files below their upgrade target count, because the apps would not replace the others. Right now that is 1 file.",
+    "body_other": "Wardarr asks Sonarr and Radarr to search for a better release of the lowest-rated files. Only files below their upgrade target count, because the apps would not replace the others. Right now that is {{formatted}} files.",
+    "count": "Files",
+    "button": "Search",
+    "range": "Enter a number from 1 to {{max}}.",
+    "nothing": "No file is below its upgrade target, so there is nothing to search.",
+    "started": "Search started: {{parts}}. Sonarr and Radarr grab a better release when they find one.",
+    "part": "{{count}} in {{name}}",
+    "confirmTitle_one": "Search 1 file?",
+    "confirmTitle_other": "Search {{formatted}} files?",
+    "confirmBody_one": "Sonarr or Radarr searches for a better release of the lowest-rated file below its upgrade target. Every search uses API calls at your indexers.",
+    "confirmBody_other": "Sonarr and Radarr search for a better release of the {{formatted}} lowest-rated files below their upgrade target. Every search uses API calls at your indexers."
   },
   "titles": {
     "title": "Furthest from perfect",

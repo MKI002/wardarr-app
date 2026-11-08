@@ -68,6 +68,10 @@ export interface QualityScanFile {
   resolution: number | null;
   sizeBytes: number;
   media: QualityScanMedia;
+  /** File name without folders, for lists of files. */
+  name?: string | null;
+  /** Season of an episode file. */
+  season?: number | null;
 }
 
 export interface QualityScan {
@@ -172,4 +176,38 @@ export interface QualityReport {
     audioLanguages: CountMap;
     subtitles: CountMap;
   };
+}
+
+// --------------------------------------------------------------- file list
+
+/** One scored file, kept so the page can list files and search the worst. */
+export interface QualityFileRow {
+  id: number;
+  titleId: number;
+  name: string | null;
+  season: number | null;
+  quality: string | null;
+  sizeBytes: number;
+  score: number;
+  /** Share of perfect, 0 to 1. */
+  percent: number;
+  tier: QualityTier;
+  /** Formats of the perfect file this file lacks (ids). */
+  missing: number[];
+  /** Formats with a negative score this file carries (ids). */
+  penalties: number[];
+}
+
+/** Every scored file of one instance, worst first, with what the rows point to. */
+export interface QualityFileIndex {
+  titles: QualityScanTitle[];
+  profiles: Array<{ id: number; name: string; perfect: number; target: number | null }>;
+  formats: Array<{ id: number; name: string; category: FormatCategory }>;
+  files: QualityFileRow[];
+}
+
+/** A file to search a better release for. */
+export interface QualitySearchFile {
+  titleId: number;
+  fileId: number;
 }

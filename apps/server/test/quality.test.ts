@@ -3,9 +3,11 @@
 import { AdapterError, defineAdapter, type QualityScan } from '@wardarr/core';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { z } from 'zod';
+import { FeatureStore } from '../src/features/store.js';
+import { QualityService } from '../src/quality/service.js';
 import { FAKE_KEY, createTestApp, setupAdmin } from './helpers.js';
 
-const state = { fail: false, reads: 0 };
+const state = { fail: false, reads: 0, searched: [] as Array<{ titleId: number; fileId: number }[]> };
 
 const media = {
   videoCodec: 'x265',
@@ -21,6 +23,7 @@ function scan(): QualityScan {
     formats: [
       { id: 1, name: 'Language: German', specs: ['LanguageSpecification'] },
       { id: 2, name: 'Audio: Atmos', specs: [] },
+      { id: 3, name: 'Reject: LQ Groups', specs: [] },
     ],
     profiles: [
       {
@@ -32,6 +35,7 @@ function scan(): QualityScan {
         scores: [
           { format: 1, score: 1000 },
           { format: 2, score: 300 },
+          { format: 3, score: -10000 },
         ],
       },
     ],
@@ -57,6 +61,30 @@ function scan(): QualityScan {
         sizeBytes: 1,
         media,
       },
+      {
+        id: 3,
+        titleId: 5,
+        formatIds: [2],
+        reportedScore: 300,
+        quality: 'WEBDL-1080p',
+        resolution: 1080,
+        sizeBytes: 1,
+        media,
+        name: 'Example Show - S01E03.mkv',
+        season: 1,
+      },
+      {
+        id: 4,
+        titleId: 5,
+        formatIds: [1, 3],
+        reportedScore: -9000,
+        quality: 'WEBDL-1080p',
+        resolution: 1080,
+        sizeBytes: 1,
+        media,
+        name: 'Example Show - S01E04.mkv',
+        season: 1,
+      },
     ],
   };
 }
@@ -79,6 +107,10 @@ const fakeSonarr = defineAdapter({
         if (state.fail) throw new AdapterError('timeout', 'slow');
         onProgress?.(1, 1);
         return scan();
+      },
+      async qualitySearch(files) {
+        state.searched.push(files);
+        return files.length;
       },
     };
   },
@@ -114,9 +146,9 @@ describe('quality API', () => {
     await t.quality.settled();
     const done = (await api('GET', '/api/quality')).json().instances[0];
     expect(done.refreshing).toBe(false);
-    expect(done.report.files).toBe(2);
+    expect(done.report.files).toBe(4);
     expect(done.report.profiles[0].perfect).toBe(1300);
-    expect(done.report.tiers).toEqual({ perfect: 1, target: 1, upgrading: 0, penalised: 0 });
+    expect(done.report.tiers).toEqual({ perfect: 1, target: 1, upgrading: 1, penalised: 1 });
   });
 
   it('does not read again while the report is fresh', async () => {
@@ -132,8 +164,48 @@ describe('quality API', () => {
     await t.quality.settled();
     const inst = (await api('GET', '/api/quality')).json().instances[0];
     expect(inst.error).toBe('timeout');
-    expect(inst.report.files).toBe(2);
+    expect(inst.report.files).toBe(4);
     state.fail = false;
+  });
+
+  it('lists files worst first, by state and in pages', async () => {
+    const all = (await api('GET', '/api/quality/files')).json();
+    expect(all.total).toBe(4);
+    expect(all.files.map((f: { fileId: number }) => f.fileId)).toEqual([4, 3, 2, 1]);
+    expect(all.files[0]).toMatchObject({
+      title: 'Example Show',
+      name: 'Example Show - S01E04.mkv',
+      tier: 'penalised',
+      penalties: ['Reject: LQ Groups'],
+      missing: [{ name: 'Audio: Atmos', category: 'audio' }],
+      perfect: 1300,
+      target: 500,
+    });
+    const below = (await api('GET', '/api/quality/files?tier=upgrading')).json();
+    expect(below.files.map((f: { fileId: number }) => f.fileId)).toEqual([3]);
+    const page = (await api('GET', '/api/quality/files?offset=1&limit=2')).json();
+    expect(page.files.map((f: { fileId: number }) => f.fileId)).toEqual([3, 2]);
+    expect((await api('GET', '/api/quality/files?tier=nope')).statusCode).toBe(400);
+  });
+
+  it('keeps the file list over a restart', () => {
+    const again = new QualityService(t.runtime, { features: new FeatureStore(t.db) });
+    expect(again.files({ offset: 0, limit: 10 }).total).toBe(4);
+  });
+
+  it('searches the worst files below their upgrade target only', async () => {
+    const res = await api('POST', '/api/quality/search', { count: 10 });
+    expect(res.statusCode).toBe(200);
+    expect(res.json()).toMatchObject({ files: 2, instances: [{ files: 2, items: 2, error: null }] });
+    expect(state.searched.at(-1)).toEqual([
+      { titleId: 5, fileId: 4 },
+      { titleId: 5, fileId: 3 },
+    ]);
+    const one = (await api('POST', '/api/quality/search', { count: 1 })).json();
+    expect(one.files).toBe(1);
+    expect(state.searched.at(-1)).toEqual([{ titleId: 5, fileId: 4 }]);
+    expect((await api('POST', '/api/quality/search', { count: 0 })).statusCode).toBe(400);
+    expect((await api('POST', '/api/quality/search', { count: 1, instance: 'nope' })).statusCode).toBe(404);
   });
 
   it('refuses an unknown instance', async () => {

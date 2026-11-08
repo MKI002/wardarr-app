@@ -167,3 +167,47 @@ export function topParts(map: CountMap, max = 6): Array<{ key: string; value: nu
   const rest = sorted.slice(max - 1).reduce((s, p) => s + p.value, 0);
   return [...head, { key: 'other', value: rest }];
 }
+
+/** One file of the file list, worst first. */
+export interface QualityFile extends Origin {
+  fileId: number;
+  titleId: number;
+  title: string;
+  year: number | null;
+  /** File name without folders. */
+  name: string | null;
+  season: number | null;
+  quality: string | null;
+  sizeBytes: number;
+  profile: string;
+  score: number;
+  perfect: number;
+  target: number | null;
+  percent: number;
+  tier: Tier;
+  missing: Array<{ name: string; category: FormatCategory }>;
+  penalties: string[];
+  webUrl: string | null;
+}
+
+export interface QualityFilePage {
+  total: number;
+  files: QualityFile[];
+}
+
+/** What a search of the worst files started, per instance. */
+export interface QualitySearchResult {
+  files: number;
+  instances: Array<{
+    instanceId: string;
+    instanceName: string;
+    files: number;
+    items: number;
+    error: string | null;
+  }>;
+}
+
+/** Files a search can improve: below the upgrade target. */
+export const SEARCHABLE: Tier[] = ['upgrading', 'penalised'];
+/** Most files one search sends (the server's limit). */
+export const MAX_SEARCH = 500;

@@ -11,6 +11,8 @@ import {
   type QualityScanFile,
   type QualityScanProgress,
   type QualityScanTitle,
+  type QualitySearchFile,
+  type SearchTarget,
 } from '@wardarr/core';
 import type { ArrFamily } from './families.js';
 
@@ -73,6 +75,8 @@ export function qualityFile(r: Rec, titleId: number): QualityScanFile {
       audioLanguages: split(media.audioLanguages),
       subtitles: split(media.subtitles),
     },
+    name: str(r.relativePath)?.split(/[\\/]/).pop() ?? str(r.path)?.split(/[\\/]/).pop() ?? null,
+    season: num(r.seasonNumber),
   };
 }
 
@@ -162,4 +166,40 @@ export async function readQualityScan(
     onProgress?.(done, ids.length);
   });
   return scan;
+}
+
+/**
+ * Searches a better release for the given files. Sonarr searches episodes,
+ * so the episodes of each file are looked up first (one call per series);
+ * Radarr searches the movies. Returns how many episodes or movies were sent.
+ */
+export async function searchQualityFiles(
+  get: Get,
+  search: (target: SearchTarget) => Promise<void>,
+  family: ArrFamily,
+  files: QualitySearchFile[],
+): Promise<number> {
+  if (family === 'movie') {
+    const ids = [...new Set(files.map((f) => f.titleId))];
+    if (ids.length > 0) await search({ kind: 'movies', ids });
+    return ids.length;
+  }
+  if (family !== 'series') throw new AdapterError('unsupported', 'quality scores need Sonarr or Radarr');
+  const bySeries = new Map<number, Set<number>>();
+  for (const f of files) {
+    const set = bySeries.get(f.titleId) ?? new Set<number>();
+    set.add(f.fileId);
+    bySeries.set(f.titleId, set);
+  }
+  const episodeIds: number[] = [];
+  await pool([...bySeries], PARALLEL, async ([seriesId, fileIds]) => {
+    for (const e of list(await get<unknown>('/episode', { seriesId }))) {
+      const id = num(e.id);
+      const fileId = num(e.episodeFileId);
+      if (id !== null && fileId !== null && fileIds.has(fileId)) episodeIds.push(id);
+    }
+  });
+  episodeIds.sort((a, b) => a - b);
+  if (episodeIds.length > 0) await search({ kind: 'episodes', ids: episodeIds });
+  return episodeIds.length;
 }
