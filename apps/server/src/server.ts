@@ -35,7 +35,7 @@ async function boot(config: Config, webDir: string, requestRestart: () => void):
     beforeMigrate: (live) => void backups.createBeforeMigration(live),
   });
   backups.attach(sqlite);
-  const { app, runtime, sessions, history, storage } = await buildApp({
+  const { app, runtime, sessions, history, storage, quality } = await buildApp({
     db,
     box: createSecretBox(key),
     trustProxy: config.trustProxy,
@@ -56,6 +56,9 @@ async function boot(config: Config, webDir: string, requestRestart: () => void):
   scheduler.schedule('streams:prune', 24 * 3600_000, async () => history.prune(), 120_000);
   scheduler.schedule('storage:prune', 24 * 3600_000, async () => storage.prune(), 180_000);
   scheduler.schedule('backups:auto', BackupService.TICK_MS, () => backups.tick(), 90_000);
+  // Quality scores and file lists are built at start (once the apps answer)
+  // and kept fresh, so the page never waits for a first read.
+  scheduler.schedule('quality:refresh', 30 * 60_000, async () => quality.background(), 30_000);
 
   try {
     await app.listen({ port: config.port, host: config.host });

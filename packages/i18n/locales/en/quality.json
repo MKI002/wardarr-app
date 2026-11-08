@@ -88,6 +88,10 @@
     "title": "Files by state",
     "intro": "Worst first, with what each file is missing.",
     "none": "No files in this state.",
+    "buildingTitle": "Building the file list",
+    "building": "Wardarr reads every file of {{names}} once and stores it. A big library takes a few minutes; the list fills in by itself.",
+    "buildingShort": "Building the file list of {{names}}; the search works once it is done",
+    "buildingProgress": "{{done}} of {{total}} read",
     "shown": "{{shown}} of {{total}} files",
     "season": "Season {{season}}",
     "moreMissing": "+{{count}} more"

@@ -88,6 +88,10 @@
     "title": "Dateien nach Zustand",
     "intro": "Die schlechtesten zuerst, mit dem, was jeder Datei fehlt.",
     "none": "Keine Dateien in diesem Zustand.",
+    "buildingTitle": "Dateiliste wird aufgebaut",
+    "building": "Wardarr liest jede Datei von {{names}} einmal und speichert sie. Eine große Bibliothek dauert ein paar Minuten; die Liste füllt sich von selbst.",
+    "buildingShort": "Die Dateiliste von {{names}} wird aufgebaut; die Suche geht, sobald sie fertig ist",
+    "buildingProgress": "{{done}} von {{total}} gelesen",
     "shown": "{{shown}} von {{total}} Dateien",
     "season": "Staffel {{season}}",
     "moreMissing": "+{{count}} weitere"

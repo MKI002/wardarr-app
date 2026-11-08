@@ -188,10 +188,8 @@ export class QualityService {
   /** Every Sonarr and Radarr with its last report. Old reports start a background read. */
   list(force = false) {
     return this.eligible().map(({ row, def, snapshot }) => {
+      this.kick(row.id, force);
       const d = this.known(row.id);
-      const due = force || this.now() - d.triedAt >= (d.error ? RETRY_MS : TTL_MS);
-      const stale = !d.at || this.now() - Date.parse(d.at) >= TTL_MS;
-      if (due && (force || stale || d.error) && !this.inflight.has(row.id)) void this.refresh(row.id);
       return {
         instanceId: row.id,
         instanceName: row.name,
@@ -205,8 +203,41 @@ export class QualityService {
         progress: d.progress,
         error: d.error,
         report: d.report,
+        /** Every file is listed (false for a report made before file lists existed). */
+        files: this.index(row.id) !== null,
       };
     });
+  }
+
+  /** Starts a read when the report is missing, old, failed or has no file list. */
+  private kick(instanceId: string, force = false): void {
+    const d = this.known(instanceId);
+    const due = force || this.now() - d.triedAt >= (d.error ? RETRY_MS : TTL_MS);
+    const stale = !d.at || this.now() - Date.parse(d.at) >= TTL_MS;
+    if (due && (force || stale || d.error) && !this.inflight.has(instanceId)) void this.refresh(instanceId);
+    else this.ensureFiles(instanceId);
+  }
+
+  /**
+   * Background job (at start and then regularly): builds the report and the
+   * file list of every Sonarr and Radarr without anyone opening the page.
+   */
+  background(): void {
+    const before = this.inflight.size;
+    for (const { row } of this.eligible()) this.kick(row.id);
+    if (this.inflight.size > before) this.publish();
+  }
+
+  /**
+   * Reports made before Wardarr kept the file list have none: read the
+   * library once more so the list fills in, without waiting for the report
+   * to grow old. After a failure it waits like any other retry.
+   */
+  private ensureFiles(instanceId: string): void {
+    const d = this.known(instanceId);
+    if (!d.report || this.index(instanceId) || this.inflight.has(instanceId)) return;
+    if (d.triedAt && this.now() - d.triedAt < RETRY_MS) return;
+    void this.refresh(instanceId);
   }
 
   private index(instanceId: string): QualityFileIndex | null {
@@ -236,9 +267,25 @@ export class QualityService {
     return out;
   }
 
+  /**
+   * Instances whose file list is still being built for the first time, with
+   * the progress of the read; starts the read where none runs.
+   */
+  private reading(instanceId: string | undefined) {
+    return this.eligible()
+      .filter(({ row }) => !instanceId || row.id === instanceId)
+      .filter(({ row }) => {
+        if (this.index(row.id)) return false;
+        this.kick(row.id);
+        return this.inflight.has(row.id) || !!this.known(row.id).report;
+      })
+      .map(({ row }) => ({ name: row.name, progress: this.known(row.id).progress }));
+  }
+
   /** A page of files, worst first, optionally of one state. */
   files(q: { instance?: string; tier?: QualityTier; offset: number; limit: number }) {
     const rows = this.rows(q.instance, (row) => !q.tier || row.tier === q.tier);
+    const reading = this.reading(q.instance);
     const names = new Map(this.eligible().map(({ row, def }) => [row.id, { row, def }]));
     const files = rows
       .slice(q.offset, q.offset + q.limit)
@@ -271,7 +318,7 @@ export class QualityService {
           webUrl: title?.webUrl ?? null,
         };
       });
-    return { total: rows.length, files };
+    return { total: rows.length, files, reading };
   }
 
   /**
@@ -305,7 +352,7 @@ export class QualityService {
         }
       }),
     );
-    return { files: rows.length, instances: results };
+    return { files: rows.length, instances: results, reading: this.reading(q.instance) };
   }
 }
 
