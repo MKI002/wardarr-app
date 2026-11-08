@@ -1,10 +1,13 @@
 // Hunting tests. All titles are invented.
 import { describe, expect, it } from 'vitest';
 import type { HistoryEvent, WantedItem } from '../src/adapter/types.js';
+import type { Signal } from '../src/issues/types.js';
 import {
   DEFAULT_HUNTING_CONFIG,
   PACES,
   budgetLeft,
+  indexerHealth,
+  indexerNotice,
   isDue,
   pauseReason,
   resolveResult,
@@ -191,6 +194,60 @@ describe('Hunting limits', () => {
     expect(p).toEqual({
       kind: 'indexer',
       reason: { key: 'hunting.pause.indexer', params: { name: 'Example Indexer' } },
+    });
+  });
+
+  it('keeps searching while only some indexers fail', () => {
+    const sig = (source: string, level: 'warning' | 'error', message: string): Signal => ({
+      origin: 'service',
+      instance: { id: 'radarr', name: 'Radarr', adapter: 'radarr' },
+      kind: 'health',
+      source,
+      level,
+      message,
+    });
+    const some = indexerHealth([
+      sig(
+        'IndexerStatusCheck',
+        'warning',
+        'Indexers unavailable due to failures: Example Indexer (Prowlarr)',
+      ),
+    ]);
+    expect(some).toEqual({
+      blocking: null,
+      degraded: 'Indexers unavailable due to failures: Example Indexer (Prowlarr)',
+    });
+    expect(indexerNotice(some)).toEqual({
+      key: 'hunting.notice.indexer',
+      params: { name: 'Indexers unavailable due to failures: Example Indexer (Prowlarr)' },
+    });
+
+    const all = indexerHealth([
+      sig('IndexerStatusCheck', 'error', 'All indexers are unavailable due to failures'),
+    ]);
+    expect(all.blocking).toBe('All indexers are unavailable due to failures');
+    expect(indexerNotice(all)).toBeNull();
+    // An "all indexers" text without the error level still blocks.
+    expect(
+      indexerHealth([
+        sig(
+          'IndexerLongTermStatusCheck',
+          'warning',
+          'All indexers are unavailable due to failures for more than 6 hours',
+        ),
+      ]).blocking,
+    ).not.toBeNull();
+    // The search check only fires when no indexer can search.
+    expect(
+      indexerHealth([
+        sig('IndexerSearchCheck', 'warning', 'No indexers available with Automatic Search enabled'),
+      ]).blocking,
+    ).not.toBeNull();
+    expect(
+      indexerHealth([sig('IndexerRssCheck', 'warning', 'No indexers available with RSS sync enabled')]),
+    ).toEqual({
+      blocking: null,
+      degraded: null,
     });
   });
 

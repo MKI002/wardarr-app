@@ -1,5 +1,6 @@
 // When Hunting runs, how many API calls it may make, and why it pauses.
 import type { HistoryEvent } from '../adapter/types.js';
+import type { Msg, Signal } from '../issues/types.js';
 import type {
   HuntCandidate,
   HuntingConfig,
@@ -38,9 +39,49 @@ export function isDue(rate: HuntRate, lastRunAt: string | null, now: Date): bool
   return next !== null && next.getTime() <= now.getTime();
 }
 
+/** Health checks that report indexers the *arr cannot use right now. */
+const INDEXER_STATUS_CHECKS = new Set(['IndexerStatusCheck', 'IndexerLongTermStatusCheck']);
+/** Health check that only fires when no indexer can run an automatic search. */
+const INDEXER_SEARCH_CHECK = 'IndexerSearchCheck';
+
+export interface IndexerHealth {
+  /** Why no search can work at all, or null. */
+  blocking: string | null;
+  /** Some indexers fail but others still search, or null. */
+  degraded: string | null;
+}
+
+/**
+ * Reads the *arr health checks about indexers. The status checks report a
+ * warning while some indexers fail and an error once all of them fail, so
+ * only the error (and the search check, which means no indexer can search)
+ * stops Hunting. A warning keeps it running on the healthy indexers.
+ */
+export function indexerHealth(signals: readonly Signal[]): IndexerHealth {
+  let blocking: string | null = null;
+  let degraded: string | null = null;
+  for (const s of signals) {
+    if (s.kind !== 'health' || !s.source) continue;
+    if (s.level !== 'error' && s.level !== 'warning') continue;
+    // The "all indexers" text names no indexer after a colon, in every language.
+    const allDown =
+      s.source === INDEXER_SEARCH_CHECK ||
+      (INDEXER_STATUS_CHECKS.has(s.source) && (s.level === 'error' || !s.message.includes(':')));
+    if (allDown) blocking ??= s.message;
+    else if (INDEXER_STATUS_CHECKS.has(s.source)) degraded ??= s.message;
+  }
+  return { blocking, degraded };
+}
+
+/** A note shown while Hunting keeps searching with some indexers down. */
+export function indexerNotice(health: IndexerHealth): Msg | null {
+  if (health.blocking || !health.degraded) return null;
+  return { key: 'hunting.notice.indexer', params: { name: health.degraded } };
+}
+
 export interface PauseInput {
   config: HuntingConfig;
-  /** Name of a failing indexer or search problem, or null. */
+  /** Why no indexer can search right now, or null. Some failing indexers do not pause Hunting. */
   indexerProblem: string | null;
   queueSize: number;
   budget: number;

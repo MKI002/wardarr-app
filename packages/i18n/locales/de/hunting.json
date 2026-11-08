@@ -8,6 +8,9 @@
     "seasonPack_other": "{{count}} Folgen dieser Staffel fehlen: eine Staffelsuche",
     "manual": "Von Hand gesucht"
   },
+  "notice": {
+    "indexer": "Einige Indexer fallen aus, Hunting sucht mit den anderen weiter: {{name}}"
+  },
   "pause": {
     "off": "Hunting ist aus",
     "indexer": "Pausiert: {{name}}",
