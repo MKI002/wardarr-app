@@ -19,7 +19,7 @@ beforeAll(async () => {
 afterAll(async () => t.close());
 
 function concrete(url: string): string {
-  return url.replace(/:([a-zA-Z]+)/g, 'x').replace('*', 'anything');
+  return url.replace(/:([a-zA-Z]+)/g, 'x').replace(/\*/g, 'anything');
 }
 
 describe('route security', () => {
