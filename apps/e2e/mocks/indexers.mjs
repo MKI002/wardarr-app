@@ -436,3 +436,21 @@ export function sabAborts(now = Date.now()) {
     }))
     .sort((a, b) => b.completed - a.completed);
 }
+
+// Invented file names SABnzbd reports in its warnings for the aborted jobs.
+const BAIT_FILES = ['Setup.exe', 'Sample/Play.Now.lnk', 'codec_install.exe', 'readme.scr', 'Subs/opener.bat'];
+
+/**
+ * SABnzbd warnings (mode=warnings) for its newest aborts. SABnzbd only keeps
+ * the last 20 in memory, so older aborts have no file name.
+ */
+export function sabWarnings(now = Date.now(), keep = 6) {
+  return sabAborts(now)
+    .slice(0, keep)
+    .map((s, n) => ({
+      type: 'WARNING',
+      text: `In "${s.name}" unwanted extension in RAR file. Unwanted file is ${BAIT_FILES[n % BAIT_FILES.length]} `,
+      time: s.completed,
+      origin: 'assembler.py587',
+    }));
+}

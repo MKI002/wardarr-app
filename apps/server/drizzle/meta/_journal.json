@@ -78,6 +78,13 @@
       "when": 1794156869239,
       "tag": "0010_gatekeeper",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1794511247486,
+      "tag": "0011_gatekeeper_files",
+      "breakpoints": true
     }
   ]
 }

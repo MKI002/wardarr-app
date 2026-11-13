@@ -8,11 +8,13 @@ import {
   EXTENSION_PRESETS,
   buildFlow,
   compareList,
+  extensionOf,
   normalizeIndexerName,
   parseBlockMessage,
   planList,
   uniqueExtensions,
   type BlockedDownload,
+  type BlockedFileHint,
   type BlockReason,
   type ExtensionBlockStatus,
   type Flow,
@@ -29,6 +31,12 @@ import { HttpError } from '../http/validate.js';
 
 const JOB = 'gatekeeper';
 const COLLECT_MS = 15 * 60_000;
+// SABnzbd keeps only its last 20 warnings in memory, so the file names are read often.
+const FILES_JOB = 'gatekeeper-files';
+const FILES_MS = 2 * 60_000;
+const HINT_DAYS = 14;
+const MAX_HINTS = 300;
+const MAX_FILES = 20;
 const STATUS_TTL_MS = 5 * 60_000;
 const BACKFILL_DAYS = 30;
 const KEEP_DAYS = 400;
@@ -61,9 +69,16 @@ interface GatekeeperState {
   cursors: Record<string, string>;
   applied: Record<string, { at: string; error: string | null }>;
   lastRun: string | null;
+  /** Blocked file names a client reported, by normalized download name, until the download is recorded. */
+  hints: Record<string, { files: string[]; at: string }>;
 }
 
-const EMPTY_STATE: GatekeeperState = { managed: {}, cursors: {}, applied: {}, lastRun: null };
+const EMPTY_STATE: GatekeeperState = { managed: {}, cursors: {}, applied: {}, lastRun: null, hints: {} };
+
+/** Download names compared loosely: clients and *arr apps differ in dots, spaces and case. */
+const nameKey = (name: string) => name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+const mergeFiles = (...lists: Array<readonly string[] | undefined>) =>
+  [...new Set(lists.flatMap((l) => l ?? []).filter(Boolean))].slice(0, MAX_FILES);
 
 export interface GatekeeperTarget {
   instanceId: string;
@@ -88,6 +103,8 @@ export interface GatekeeperCatch {
   name: string;
   at: string;
   extensions: string[];
+  /** The blocked files by name; empty when the client did not say. */
+  files: string[];
   outcome: string;
   reason: string;
   seenBy: Array<{ instanceId: string; name: string; adapter: string }>;
@@ -397,8 +414,82 @@ export class GatekeeperService {
     const scheduler = this.runtime.schedulerRef;
     if (!scheduler) return;
     scheduler.cancel(JOB);
+    scheduler.cancel(FILES_JOB);
     if (!this.configured()) return;
     scheduler.schedule(JOB, COLLECT_MS, () => this.collect(), 20_000);
+    if (this.fileSources().length) scheduler.schedule(FILES_JOB, FILES_MS, () => this.collectFiles(), 15_000);
+  }
+
+  private fileSources() {
+    return this.runtime.snapshots().filter(({ row }) => {
+      const a = this.runtime.adapter(row.id)?.adapter;
+      return row.enabled && !!a?.blockedFiles;
+    });
+  }
+
+  /**
+   * Reads the file names clients report apart from their history, keeps them
+   * until the download they belong to is recorded, and fills them into
+   * downloads that are already recorded.
+   */
+  async collectFiles(): Promise<void> {
+    if (!this.configured()) return;
+    const found: BlockedFileHint[] = [];
+    for (const { row } of this.fileSources()) {
+      const entry = this.runtime.adapter(row.id);
+      const read = entry?.adapter.blockedFiles?.bind(entry.adapter);
+      if (!entry || !read) continue;
+      try {
+        found.push(...(await entry.gate.run(read)));
+      } catch (err) {
+        this.log.debug({ instance: row.id, err }, 'gatekeeper could not read blocked file names');
+      }
+    }
+    const now = this.now().getTime();
+    const state = this.state();
+    const hints = { ...state.hints };
+    let changed = false;
+    for (const h of found) {
+      const key = nameKey(h.name);
+      if (!key) continue;
+      const before = hints[key];
+      const files = mergeFiles(before?.files, [h.file]);
+      if (before && before.files.join('\n') === files.join('\n')) continue;
+      hints[key] = { files, at: before && before.at > h.at ? before.at : h.at };
+      changed = true;
+    }
+    const keep = Object.entries(hints)
+      .filter(([, h]) => Date.parse(h.at) >= now - HINT_DAYS * DAY)
+      .sort((a, b) => b[1].at.localeCompare(a[1].at))
+      .slice(0, MAX_HINTS);
+    if (keep.length !== Object.keys(hints).length) changed = true;
+    if (!changed) return;
+    this.patchState((s) => {
+      s.hints = Object.fromEntries(keep);
+    });
+
+    // Fill in downloads recorded before their file names were read.
+    const known = new Map(keep);
+    const rows = this.db
+      .select()
+      .from(gatekeeperCatches)
+      .where(gte(gatekeeperCatches.at, iso(now - (HINT_DAYS + 1) * DAY)))
+      .all();
+    let filled = false;
+    for (const r of rows) {
+      const hint = known.get(nameKey(r.name));
+      if (!hint) continue;
+      const files = mergeFiles(r.files, hint.files);
+      if (files.join('\n') === r.files.join('\n')) continue;
+      const extensions = uniqueExtensions([...r.extensions, ...files.map((f) => extensionOf(f) ?? '')]);
+      this.db
+        .update(gatekeeperCatches)
+        .set({ files, extensions })
+        .where(eq(gatekeeperCatches.downloadId, r.downloadId))
+        .run();
+      filled = true;
+    }
+    if (filled) this.publish();
   }
 
   collect(): Promise<void> {
@@ -412,6 +503,7 @@ export class GatekeeperService {
 
   private async runCollect(): Promise<void> {
     if (!this.configured()) return;
+    await this.collectFiles();
     const now = this.now().getTime();
     for (const { row } of this.runtime.snapshots()) {
       if (!row.enabled) continue;
@@ -502,7 +594,22 @@ export class GatekeeperService {
       .from(gatekeeperCatches)
       .where(eq(gatekeeperCatches.downloadId, id))
       .get();
-    const extensions = uniqueExtensions([...(existing?.extensions ?? []), ...b.extensions]);
+    const name = (existing?.name && existing.name !== existing.downloadId ? existing.name : b.name).slice(
+      0,
+      300,
+    );
+    const hints = this.state().hints;
+    const files = mergeFiles(
+      existing?.files,
+      b.files,
+      hints[nameKey(name)]?.files,
+      name === b.name ? undefined : hints[nameKey(b.name)]?.files,
+    );
+    const extensions = uniqueExtensions([
+      ...(existing?.extensions ?? []),
+      ...b.extensions,
+      ...files.map((f) => extensionOf(f) ?? ''),
+    ]);
     const seenBy = [...new Set([...(existing?.seenBy ?? []), instanceId])];
     const outcome =
       existing && (OUTCOME_RANK[existing.outcome] ?? 0) >= (OUTCOME_RANK[b.outcome] ?? 0)
@@ -512,9 +619,10 @@ export class GatekeeperService {
     const keepReason = existing && existing.reason !== 'unwanted' && existing.reason !== 'list';
     const values = {
       downloadId: id,
-      name: (existing?.name && existing.name !== existing.downloadId ? existing.name : b.name).slice(0, 300),
+      name,
       at,
       extensions,
+      files,
       seenBy,
       outcome,
       reason: keepReason ? existing.reason : reason,
@@ -523,6 +631,7 @@ export class GatekeeperService {
       existing &&
       existing.outcome === values.outcome &&
       existing.extensions.join() === extensions.join() &&
+      existing.files.join('\n') === files.join('\n') &&
       existing.seenBy.join() === seenBy.join() &&
       existing.at === at &&
       existing.reason === values.reason
@@ -589,6 +698,7 @@ export class GatekeeperService {
         name: r.name,
         at: r.at,
         extensions: r.extensions,
+        files: r.files,
         outcome: r.outcome,
         reason: r.reason,
         seenBy: r.seenBy.map((id) => ({

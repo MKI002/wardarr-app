@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest';
 import { arrBlockStatus } from '../src/arr/base.js';
 import { nextExcludedPatterns, qbitBlockStatus, qbittorrent } from '../src/downloaders/qbittorrent.js';
-import { sabBlockStatus, sabList, sabnzbd } from '../src/downloaders/sabnzbd.js';
+import { sabBlockStatus, sabBlockedFiles, sabList, sabnzbd } from '../src/downloaders/sabnzbd.js';
 import { sonarr } from '../src/arr/sonarr.js';
 import { createFixtureHttp, type FixtureRoute } from './fixtureHttp.js';
 
@@ -96,6 +96,49 @@ describe('SABnzbd', () => {
     ]);
     const list = (await adapter.blockedDownloads!('2026-01-01T00:00:00Z')) as Array<{ downloadId: string }>;
     expect(list.map((b) => b.downloadId)).toEqual(['SABnzbd_nzo_x1']);
+  });
+
+  it('reads the blocked file names from the warnings list', async () => {
+    const { adapter } = make(sabnzbd, { apiKey: 'k' }, [
+      {
+        path: '/api',
+        query: { mode: 'warnings' },
+        json: {
+          warnings: [
+            {
+              type: 'WARNING',
+              text: 'In "Invented.S01E01" unwanted extension in RAR file. Unwanted file is Sample/My Clip.exe ',
+              time: 1767268800,
+              origin: 'assembler.py587',
+            },
+            { type: 'WARNING', text: 'Server news.example.test will be ignored for 10 minutes', time: 1 },
+          ],
+        },
+      },
+    ]);
+    expect(await adapter.blockedFiles!()).toEqual([
+      { name: 'Invented.S01E01', file: 'Sample/My Clip.exe', at: '2026-01-01T12:00:00.000Z' },
+    ]);
+    // Older versions send strings; other languages are found by the source line.
+    expect(
+      sabBlockedFiles([
+        '2026-01-01 12:00:00\nWARNING\nIn "Invented.S01E02" unwanted extension in RAR file. Unwanted file is x.scr ',
+        {
+          text: 'Unerwünschter Typ "Invented.S01E03" in RAR Datei. Unerwünschte Datei ist setup.bat ',
+          time: 1767268800,
+          origin: 'assembler.py587',
+        },
+        {
+          text: 'Ongewenste extensie ontdekt in "Invented.S01E04". Het ongewenste bestand is "a b.lnk" ',
+          origin: 'assembler.py590',
+        },
+        { text: 'Unpacking failed in "Invented.S01E05"', origin: 'postproc.py400' },
+      ]).map((h) => [h.name, h.file]),
+    ).toEqual([
+      ['Invented.S01E02', 'x.scr'],
+      ['Invented.S01E03', 'setup.bat'],
+      ['Invented.S01E04', 'a b.lnk'],
+    ]);
   });
 });
 

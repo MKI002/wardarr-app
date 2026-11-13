@@ -3,6 +3,7 @@ import {
   defineAdapter,
   uniqueExtensions,
   type BlockedDownload,
+  type BlockedFileHint,
   type DownloadJob,
   type ExtensionBlockStatus,
   type Signal,
@@ -42,6 +43,42 @@ interface HistorySlot {
   status?: string;
   fail_message?: string;
   completed?: number;
+}
+
+type SabWarning = { text?: string; type?: string; time?: number; origin?: string } | string;
+
+const BLOCK_WARNING = /^In "(.+)" unwanted extension in RAR file\. Unwanted file is (.+?)\s*$/s;
+
+/**
+ * SABnzbd names the file it blocked only in a warning ("In "<job>" unwanted
+ * extension in RAR file. Unwanted file is <file>"), never in the history. The
+ * warnings list keeps the last 20 entries in memory. Newer versions send
+ * objects with the source line in `origin`, which also finds the translated
+ * wording; older ones send "time\nLEVEL\ntext" strings.
+ */
+export function sabBlockedFiles(warnings: SabWarning[] | undefined): BlockedFileHint[] {
+  const out: BlockedFileHint[] = [];
+  for (const w of warnings ?? []) {
+    const parts = typeof w === 'string' ? w.split('\n') : null;
+    const text = (typeof w === 'string' ? parts!.slice(2).join('\n') || w : (w.text ?? '')).trim();
+    const time = typeof w === 'string' ? Date.parse(parts![0] ?? '') : (w.time ?? 0) * 1000;
+    const at = Number.isFinite(time) && time > 0 ? new Date(time).toISOString() : new Date().toISOString();
+    let name: string | undefined;
+    let file: string | undefined;
+    const english = BLOCK_WARNING.exec(text);
+    if (english) [, name, file] = english;
+    else if (typeof w !== 'string' && /^assembler\.py/.test(w.origin ?? '')) {
+      // Translated wording: the job comes first in quotes, the file last.
+      const quoted = [...text.matchAll(/"([^"]+)"/g)].map((m) => m[1]!);
+      name = quoted[0];
+      const rest = name ? text.slice(text.indexOf(`"${name}"`) + name.length + 2) : '';
+      file = quoted.length > 1 ? quoted[quoted.length - 1] : rest.trim().split(/\s+/).pop();
+    }
+    file = file?.trim().replace(/^"|"$/g, '');
+    if (!name || !file || !/\.[^./\\]+$/.test(file)) continue;
+    out.push({ name, file: file.slice(0, 300), at });
+  }
+  return out;
 }
 
 /** SABnzbd's list comes as an array or as "exe, com" depending on the version. */
@@ -262,6 +299,10 @@ export const sabnzbd = defineAdapter({
             outcome: 'aborted',
           }))
           .filter((b) => Date.parse(b.at) >= from);
+      },
+      async blockedFiles() {
+        const res = await call<{ warnings?: SabWarning[] }>('warnings');
+        return sabBlockedFiles(res.warnings);
       },
       webUrl: () => `${ctx.baseUrl}/`,
     };

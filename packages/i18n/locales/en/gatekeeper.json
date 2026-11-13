@@ -43,7 +43,7 @@
     "other": "Other",
     "emptyTitle": "Nothing blocked yet",
     "emptyBody": "When a download client or *arr app keeps out a file from your list, it shows up here with the indexer that sent it.",
-    "unknownHelp": "SABnzbd only says that it found an unwanted file, not which one. Those downloads appear as \"Type unknown\"."
+    "unknownHelp": "SABnzbd names the blocked file only in its short warnings list, which it clears on restart. Downloads whose warning was gone before Wardarr read it appear as \"Type unknown\"."
   },
   "impact": {
     "title": "Effect on the indexers",
@@ -150,7 +150,10 @@
   "recent": {
     "title": "Recently blocked",
     "empty": "Nothing blocked in this time frame.",
-    "unknownExt": "File type unknown",
+    "unnamed": "File not named",
+    "unnamedHelp": "SABnzbd names the blocked file only in its warnings list, which keeps 20 entries and is cleared on restart. This warning was gone before Wardarr could read it.",
+    "moreFiles": "+{{count}} more",
+    "files": "Blocked files: {{names}}",
     "unknownIndexer": "Indexer unknown",
     "from": "from {{name}}",
     "seenBy": "Seen by {{names}}",

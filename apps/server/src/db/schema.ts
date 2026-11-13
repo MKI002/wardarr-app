@@ -563,6 +563,8 @@ export const gatekeeperCatches = sqliteTable(
     name: text('name').notNull(),
     at: text('at').notNull(),
     extensions: text('extensions', { mode: 'json' }).$type<string[]>().notNull().default([]),
+    /** The blocked files by name, when the client said which ones. */
+    files: text('files', { mode: 'json' }).$type<string[]>().notNull().default([]),
     /** Services that reported it, by instance id. */
     seenBy: text('seen_by', { mode: 'json' }).$type<string[]>().notNull().default([]),
     outcome: text('outcome').notNull(),
