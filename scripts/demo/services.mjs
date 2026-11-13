@@ -14,6 +14,7 @@ import {
   prowlarrApplications,
   prowlarrIndexers,
   sabAborts,
+  sabWarnings,
   saveArrIndexer,
 } from '../../apps/e2e/mocks/indexers.mjs';
 import { createProfileStore } from '../../apps/e2e/mocks/profiles.mjs';
@@ -781,7 +782,7 @@ async function qbittorrent(path, req, res) {
 function sabnzbd(url, res) {
   const mode = url.searchParams.get('mode');
   if (mode === 'version') return json(res, { version: '4.5.3' });
-  if (mode === 'warnings') return json(res, { warnings: [] });
+  if (mode === 'warnings') return json(res, { warnings: sabWarnings(NOW) });
   if (mode === 'get_config') return json(res, { config: { misc: SAB_MISC } });
   if (mode === 'set_config' && url.searchParams.get('section') === 'misc') {
     const key = url.searchParams.get('keyword');

@@ -6,6 +6,7 @@ import {
   defineAdapter,
   uniqueExtensions,
   type BlockedDownload,
+  type BlockedFileHint,
   type ExtensionBlockChange,
   type HistoryEvent,
 } from '@wardarr/core';
@@ -43,6 +44,9 @@ const blocked: BlockedDownload[] = [
   },
 ];
 
+// SABnzbd names a blocked file only in its warnings list.
+const sabHints: BlockedFileHint[] = [{ name: 'Invented.Show.S01E01', file: 'Sample/clip.exe', at: ago(5) }];
+
 const fakeSab = defineAdapter({
   ...base,
   id: 'gksab',
@@ -70,6 +74,7 @@ const fakeSab = defineAdapter({
         return status();
       },
       blockedDownloads: async (since: string) => blocked.filter((b) => b.at >= since),
+      blockedFiles: async () => [...sabHints],
     };
   },
 });
@@ -236,6 +241,10 @@ describe('gatekeeper', () => {
     ]);
     const exe = v.recent.find((c: { name: string }) => c.name === 'Invented.Show.S02E01');
     expect(exe).toMatchObject({ extensions: ['exe'], reason: 'executable', indexer: { name: 'Nightjar' } });
+    const named = v.recent.find((c: { name: string }) => c.name === 'Invented.Show.S01E01');
+    expect(named).toMatchObject({ files: ['Sample/clip.exe'], extensions: ['exe'] });
+    const unnamed = v.recent.find((c: { name: string }) => c.name === 'Invented.Show.S01E02');
+    expect(unnamed).toMatchObject({ files: [], extensions: [] });
 
     const lantern = v.impact.find((i: { name: string }) => i.name === 'Lantern');
     expect(lantern).toMatchObject({ grabs: 10, caught: 2 });
@@ -254,6 +263,15 @@ describe('gatekeeper', () => {
     expect(notes).toEqual([
       expect.objectContaining({ params: expect.objectContaining({ name: 'Lantern', count: 2 }) }),
     ]);
+  });
+
+  it('fills in a file name that is read after the download was recorded', async () => {
+    sabHints.push({ name: 'Invented Show S01E02', file: 'opener.LNK', at: ago(1) });
+    await t.app.inject({ method: 'POST', url: '/api/gatekeeper/collect', headers: admin });
+    const v = await view();
+    const filled = v.recent.find((c: { name: string }) => c.name === 'Invented.Show.S01E02');
+    expect(filled).toMatchObject({ files: ['opener.LNK'], extensions: ['lnk'] });
+    expect(v.flow.extensions.map((e: { ext: string }) => e.ext).sort()).toEqual(['exe', 'lnk']);
   });
 
   it('shows apps that do not search again and switches Redownload Failed on', async () => {

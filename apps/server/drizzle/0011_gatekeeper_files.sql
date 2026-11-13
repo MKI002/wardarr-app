@@ -1,0 +1,1 @@
+ALTER TABLE `gatekeeper_catches` ADD `files` text DEFAULT '[]' NOT NULL;

@@ -60,9 +60,12 @@ blocked file then has nothing to import and stays in the queue; the Queue Cleane
 
 Every 15 minutes Wardarr reads what was blocked:
 
-- SABnzbd: failed jobs in the history with "unwanted extension". SABnzbd does not say which file
-  it found, so these show up as **type unknown**.
-- qBittorrent: files of new torrents that were skipped because of a pattern on the list.
+- SABnzbd: failed jobs in the history with "unwanted extension". The history does not say which
+  file it found; SABnzbd names it only in its warnings list, which holds the last 20 warnings and
+  is cleared on restart. Wardarr reads that list every two minutes and shows the file name (for
+  example `sample.exe`) next to the download. A block whose warning was gone before Wardarr read
+  it shows up as **file not named** and counts as **type unknown** on the map.
+- qBittorrent: files of new torrents that were skipped because of a pattern on the list, by name.
 - Sonarr and Radarr: failed downloads whose message names an executable or dangerous file, and
   queue items that are held for the same reason.
 

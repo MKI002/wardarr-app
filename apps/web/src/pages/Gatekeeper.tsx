@@ -71,6 +71,8 @@ interface Catch {
   name: string;
   at: string;
   extensions: string[];
+  /** Blocked files by name; empty when the client did not say. */
+  files?: string[];
   outcome: 'aborted' | 'paused' | 'skipped' | 'failed' | 'held';
   reason: string;
   seenBy: Array<{ instanceId: string; name: string; adapter: string }>;
@@ -1225,6 +1227,60 @@ function TargetRow({
 // ------------------------------------------------------------ recent catches
 
 const RECENT_ROWS = 8;
+const FILE_CHIPS = 2;
+
+/** `Sample/clip.EXE` -> ['clip', '.EXE'], so the extension stays visible when the name is cut. */
+function splitFile(path: string): [string, string] {
+  const base = path.split(/[\\/]/).pop() || path;
+  const dot = base.lastIndexOf('.');
+  return dot > 0 ? [base.slice(0, dot), base.slice(dot)] : [base, ''];
+}
+
+/** The blocked files by name, else their extensions, else a note that the client did not say. */
+function BlockedFiles({ c }: { c: Catch }) {
+  const { t } = useTranslation();
+  const files = c.files ?? [];
+  const chip = 'rounded-full bg-surface-2 px-2 py-0.5 text-xs';
+  if (files.length) {
+    const rest = files.length - FILE_CHIPS;
+    return (
+      <>
+        {files.slice(0, FILE_CHIPS).map((f) => {
+          const [stem, ext] = splitFile(f);
+          return (
+            <span key={f} title={f} className={`${chip} flex max-w-[16rem] font-mono`}>
+              <span className="truncate">{stem}</span>
+              <span className="shrink-0 text-warning">{ext}</span>
+            </span>
+          );
+        })}
+        {rest > 0 ? (
+          <span
+            className={`${chip} text-muted`}
+            title={t('gatekeeper.recent.files', { names: files.join(', ') })}
+          >
+            {t('gatekeeper.recent.moreFiles', { count: rest })}
+          </span>
+        ) : null}
+      </>
+    );
+  }
+  if (c.extensions.length)
+    return (
+      <>
+        {c.extensions.map((e) => (
+          <span key={e} className={`${chip} font-mono`}>
+            .{e}
+          </span>
+        ))}
+      </>
+    );
+  return (
+    <span className={`${chip} text-muted`} title={t('gatekeeper.recent.unnamedHelp')}>
+      {t('gatekeeper.recent.unnamed')}
+    </span>
+  );
+}
 
 function RecentList({ recent }: { recent: Catch[] }) {
   const { t, i18n } = useTranslation();
@@ -1260,17 +1316,7 @@ function RecentList({ recent }: { recent: Catch[] }) {
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
-              {c.extensions.length ? (
-                c.extensions.map((e) => (
-                  <span key={e} className="rounded-full bg-surface-2 px-2 py-0.5 font-mono text-xs">
-                    .{e}
-                  </span>
-                ))
-              ) : (
-                <span className="rounded-full bg-surface-2 px-2 py-0.5 text-xs text-muted">
-                  {t('gatekeeper.recent.unknownExt')}
-                </span>
-              )}
+              <BlockedFiles c={c} />
               <Badge tone="warning">{t(`gatekeeper.recent.outcome.${c.outcome}`)}</Badge>
               <span
                 className="flex items-center gap-1"

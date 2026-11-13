@@ -43,7 +43,7 @@
     "other": "Andere",
     "emptyTitle": "Noch nichts blockiert",
     "emptyBody": "Sobald ein Download-Client oder eine *arr-App eine Datei von deiner Liste aufhält, erscheint sie hier mit dem Indexer, der sie geliefert hat.",
-    "unknownHelp": "SABnzbd meldet nur, dass es eine unerwünschte Datei gefunden hat, nicht welche. Solche Downloads stehen unter „Typ unbekannt“."
+    "unknownHelp": "SABnzbd nennt die blockierte Datei nur in seiner kurzen Warnungsliste, die beim Neustart geleert wird. Downloads, deren Warnung schon weg war, bevor Wardarr sie lesen konnte, stehen unter „Typ unbekannt“."
   },
   "impact": {
     "title": "Wirkung auf die Indexer",
@@ -150,7 +150,10 @@
   "recent": {
     "title": "Zuletzt blockiert",
     "empty": "In diesem Zeitraum wurde nichts blockiert.",
-    "unknownExt": "Dateityp unbekannt",
+    "unnamed": "Datei nicht genannt",
+    "unnamedHelp": "SABnzbd nennt die blockierte Datei nur in seiner Warnungsliste, die 20 Einträge hält und beim Neustart geleert wird. Diese Warnung war weg, bevor Wardarr sie lesen konnte.",
+    "moreFiles": "+{{count}} weitere",
+    "files": "Blockierte Dateien: {{names}}",
     "unknownIndexer": "Indexer unbekannt",
     "from": "von {{name}}",
     "seenBy": "Gesehen von {{names}}",

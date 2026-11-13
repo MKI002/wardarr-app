@@ -287,6 +287,7 @@ export const qbittorrent = defineAdapter({
             name: t.name,
             at: new Date((t.added_on ?? 0) * 1000).toISOString(),
             extensions: uniqueExtensions(hits.map((f) => extensionOf(f.name) ?? '')),
+            files: hits.map((f) => f.name),
             outcome: 'skipped',
           });
         }

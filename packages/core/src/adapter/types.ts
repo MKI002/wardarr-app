@@ -270,8 +270,19 @@ export interface BlockedDownload {
   /** ISO time. */
   at: string;
   extensions: string[];
+  /** The blocked files themselves, as the client names them (path inside the download). */
+  files?: string[];
   /** aborted: the client gave up the download; skipped: only the files were left out. */
   outcome: 'aborted' | 'paused' | 'skipped' | 'failed' | 'held';
+}
+
+/** A client named the file it blocked in a download, before or after it ended. */
+export interface BlockedFileHint {
+  /** Download name as the client shows it in its history. */
+  name: string;
+  file: string;
+  /** ISO time the client reported it. */
+  at: string;
 }
 
 export interface TagInfo {
@@ -738,6 +749,11 @@ export interface AdapterInstance {
   setExtensionBlock?(change: ExtensionBlockChange): Promise<ExtensionBlockStatus>;
   /** Downloads the service kept out since an ISO time, newest first. */
   blockedDownloads?(since: string): Promise<BlockedDownload[]>;
+  /**
+   * File names the client reported for blocked downloads, for clients that keep
+   * them apart from the download (SABnzbd only names them in its short warnings list).
+   */
+  blockedFiles?(): Promise<BlockedFileHint[]>;
   /** Whether an *arr app blocklists a failed download and searches again. */
   failedDownloadHandling?(): Promise<FailedDownloadHandling>;
   setFailedDownloadHandling?(redownload: boolean): Promise<FailedDownloadHandling>;
